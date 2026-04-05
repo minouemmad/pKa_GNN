@@ -1,0 +1,2736 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+Job started: Sat Apr  4 19:38:23 CDT 2026
+Host: argon-itf-bx51-13.hpc
+PDB: /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/1A2P_fixed.pdb
+=== Step 1: Coarse Minimize (RMS=0.8) ===
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6989  April 2026 
+        Git Revision  37ed053f2c49c028f09d7b01ee85b011fa436c89 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2026
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Sat Apr 04 19:38:24 CDT 2026
+ Process ID 68807 on argon-itf-bx51-13.hpc.
+
+ Command line arguments:
+ [Minimize, -e, 0.8, /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/1A2P_fixed.pdb]
+
+ Starting up the command line interface.
+
+ Executing internal command: ffx.algorithms.commands.Minimize
+
+ Initializing 1 topologies...
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (data/fixed_pdbs/1A2P.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 1A2P_fixed.pdb
+
+ Assigning atom types for 3 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Amino acid chain C
+ Renumbering PDB file due to built atoms (5187 vs 2634)
+ Total number of atoms: 5187
+
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+
+ Density:                                 0.251 (g/cc)
+
+ Unit Cell
+  A-axis length:                         58.970
+  B-axis length:                         51.070
+  C-axis length:                         81.580
+  Alpha:                                 90.000
+  Beta:                                  90.000
+  Gamma:                                 90.000
+  Space group
+   Number:                                    1
+   Symbol:                                   P1
+   Number of Symmetry Operators:              1
+  Lattice Vectors
+   A:                58.970,    0.000,    0.000
+   B:                 0.000,   51.070,    0.000
+   C:                 0.000,    0.000,   81.580
+  Reciprocal Lattice Vectors
+   A*:                0.017,   -0.000,   -0.000
+   B*:                0.000,    0.020,   -0.000
+   C*:                0.000,    0.000,    0.012
+
+ Bonded Terms
+  Bonds:                                   5250
+  Angles:                                  9417
+  Stretch-Bends:                           8385
+  Out-of-Plane Bends:                      3402
+  Torsions:                               13848
+  Pi-Orbital Torsions:                      675
+  Torsion-Torsions:                          30
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Switch Start:                         10.800 (A)
+   Cut-Off:                              12.000 (A)
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+   Particle-mesh Ewald
+    Ewald Coefficient:                    0.545
+    Particle Cut-Off:                     7.000 (A)
+    B-Spline Order:                           5
+    Mesh Density:                         1.200
+    Mesh Dimensions:              ( 72, 64, 98)
+    Grid Method:                        SPATIAL
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:        12.0000 (A)
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    1.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 12.000
+
+ Opened 1A2P_fixed.pdb in 2.035 sec.
+
+ System Resources
+  Total CPU time:          24.26 (sec)
+  System load average:     12.14
+  Open file handles:         146 of  81920 allowed
+  System memory:           93336 MB free out of  94320 MB
+  System swap space:        2053 MB free out of   2053 MB
+  JVM memory:               3957 MB free out of   4096 MB
+
+ Minimizing energy of Single Topology  [1A2P_fixed.pdb] 
+ Setting lambda to 0.000.
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException: SCF convergence failure: (   0.19575 >    0.19376)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (   0.22965 >    0.21365)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (   1.21337 >    1.01426)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (   3.51525 >    2.81609)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  10.53212 >    8.37744)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  31.79843 >   25.23354)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  96.31693 >   76.35904)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: ( 231.53424 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1148.20379 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (5694.40543 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (28241.95043 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (140073.06490 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (694744.81319 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3445914.27704 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (17091898.31060 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (84777647.89106 >  100.00000)
+
+
+Apr 04, 2026 7:38:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (420510170.47719 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2085810260.74688 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (10346072351.91498 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (51318984022.30581 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (254555184592.72812 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1262661183710.99340 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (6263144104523.90300 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (31066937123984.83000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (154100749495103.25000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (764383318470700.20000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3791557780157071.50000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (18807198228361716.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (93288993735843740.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (462739478011590500.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2295316087296899800.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (11385398362134727000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (56474673438180700000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (280129589810743840000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1389517428942607700000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (6892372938236926000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (34187968786210510000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (169581157276333170000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (841165909557789200000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (4172395930986280300000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (20696130435980215000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (102657950992702070000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (509208728387038900000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2525799688425388000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (12528578522623757000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (62144762188703310000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (308252855184728120000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1529007235429217500000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (7584235968015012000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (37619585365998143000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (186601895817348930000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (925588575692063000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (4591132356209029400000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (22773067885803580000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (112959607551183630000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (560305288002418900000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2779240855513666500000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (13785660296791466000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (68379967092830090000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (339179921118109300000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1682407977324686800000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (8345117265927245000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (41393629978373416000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (205321548310508980000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1018440119960315000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (5051686867585741500000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (25057474861834763000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (124290559814161700000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (616508327981321600000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3058015736994972400000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (15168423715367466000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (75238678136623030000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (373200170296856800000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1851153714311988500000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (9182123021952874000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (45545314775389610000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (225914593784919440000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1120585103163036800000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (5558343515664018000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (27570580102250167000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (136756005687809280000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (678339169397887300000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3364707901696664000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (16689672969378413000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (82784355601460200000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (410628138211724000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2036803478180459600000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (10102981066707128000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (50112946660958864000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (248570926910495400000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1232964903477530600000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (6115769221229882000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (30335520816744737000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (150470656174678250000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (746366549927916350000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3702137232390673400000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (18363389809683115000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (91086326558392530000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (451807584036543300000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2241061840662907000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (11116143901084918000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (55138440065830860000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (273498397576281030000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1356610247309564000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (6729075431945503000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (33377645425799400000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (165560219570562930000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (821213892305364500000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (4073395495134125000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (20204907533816845000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (100220635738185420000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (497115651606729700000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2465799263977746000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (12230888249233837000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (60667804104296540000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (300925195672601650000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1492652888577264000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (7403875347494921000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (36724794085584655000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (182162777330769860000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (903566055886087600000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (4481879487180651000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (22231073814218902000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (110270845773196820000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (546966804248144500000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2713071457795519000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (13457410326920877000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (66751611660367090000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (331102161778461460000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1642336995632227700000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (8146340055368632000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (40407575530905930000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (200430149845219280000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (994176076789436700000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (4931324310226622000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (24460415002978917000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (121328848768422790000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (601816834528773800000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2985139195248423000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (14806923794209926000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (73445483684690180000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (364305182112258400000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1807030997088092700000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (8963257132951348000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (44459657032871296000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (220529331350656800000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1093872269902299600000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (5425838526231074000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (26913310180386370000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (133495728082285100000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (662167131753659400000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3284489447617375000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (16291764435102942000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (80810607719202340000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (400837757239756300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1988240307932203300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (9862093701150570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (48918076830980946000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (242644038142379760000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1203565901298764200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (5969942181595415000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (29612179611469160000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (146882692408347340000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (728569311947839200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3613858334898896300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (17925503926997640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (88914301891826380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (441033798094346700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2187621191354578200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (10851065149392610000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (53823584872230265000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (266976398009101570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1324259564928609400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (6568608342141065000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (32581690697803040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (161612097012490500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (801630281887781000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3976256237404925400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (19723074366692982000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (97830632439176470000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (485260688310942400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2406995945274725700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (11939210448681897000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (59221016308568010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (293748802528117250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1457056368853131000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (7227308651621703000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (35848983924072720000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (177818564320812550000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (882017796734323000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (4374995359448846000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (21700904976526330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (107641091725465880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (533922647006178100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2648369580875103800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (13136474873362209000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (65159701780402710000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (323205942000440420000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1603170028219480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (7952063391594075000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (39443921149721400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (195650215424753000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (970466568214347500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (4813720025616774600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (23877072372833083000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (118435343571161700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (587464425604752550000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (2913948158890415600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (14453800949493410000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (71693918523515250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (355617042960766100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1763935963430848000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (8749496529048834000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (43399358649207160000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (215270024382973800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (1067784982079136700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (5296440000011833000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (26271465832861764000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (130312042995159360000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (646375373856359100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (3206158957550212600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (15903228490430573000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (78883386558860910000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (391278329347401700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00000 >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  SCF convergence failure: (  Infinity >  100.00000)
+
+
+Apr 04, 2026 7:38:51 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:39:02 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:39:11 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:39:21 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:39:43 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:40:04 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:40:23 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:40:44 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:41:03 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:41:22 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:41:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:41:58 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:42:17 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:42:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:42:55 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:43:13 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:43:31 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:43:49 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:44:09 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:44:28 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:44:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:45:05 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:45:23 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:45:44 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:46:02 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:46:20 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:46:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:46:57 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:47:15 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:47:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:47:52 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:48:11 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:48:29 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:48:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:49:06 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:49:24 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:49:43 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:50:00 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:50:19 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:50:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:50:55 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:51:13 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:51:33 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:51:53 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:52:12 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:52:31 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:52:51 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:53:11 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:53:29 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:53:48 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:54:07 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:54:27 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:54:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:55:07 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:55:25 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:55:44 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:56:03 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:56:24 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:56:43 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:57:03 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:57:22 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:57:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:58:00 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:58:19 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:58:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:58:55 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:59:13 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:59:32 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 7:59:48 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:00:07 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:00:24 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:00:42 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:01:01 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:01:20 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:01:39 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:01:59 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:02:18 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:02:36 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:02:55 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:03:13 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:03:31 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:03:50 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:04:08 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:04:27 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:04:46 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:05:05 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:05:24 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:05:42 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:06:01 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:06:19 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:06:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:06:58 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:07:18 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:07:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:07:56 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:08:15 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:08:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:08:52 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:09:11 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:09:31 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:09:52 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:10:10 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:10:28 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:10:49 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:11:09 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:11:28 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:11:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:12:06 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:12:25 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:12:42 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:13:02 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:13:19 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:13:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:13:55 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:14:13 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:14:30 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:14:49 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:15:07 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:15:26 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:15:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:16:06 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:16:26 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:16:45 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:17:03 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:17:22 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:17:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:17:58 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:18:16 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:18:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:18:54 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:19:12 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:19:30 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:19:49 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:20:09 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:20:29 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:20:49 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:21:07 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:21:28 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:21:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:22:06 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:22:26 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:22:44 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:23:03 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:23:22 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:23:40 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:23:58 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:24:16 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:24:35 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:24:53 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:25:11 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:25:30 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:25:48 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:26:07 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:26:26 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:26:44 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:27:03 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:27:23 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:27:42 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:28:00 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:28:18 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:28:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:28:58 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:29:18 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:29:37 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:29:56 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:30:15 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:30:32 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:30:52 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:31:10 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:31:28 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:31:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:32:06 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:32:26 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:32:45 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:33:04 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:33:22 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:33:41 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:33:59 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:34:18 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:34:38 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:34:57 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:35:15 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:35:34 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:35:53 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:36:12 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:36:31 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:36:51 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:37:09 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:37:27 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:37:47 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:38:07 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:38:26 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:38:43 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:39:03 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:39:23 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
+Apr 04, 2026 8:39:43 PM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException:  Maximum SCF iterations reached: (1000)
+
+
