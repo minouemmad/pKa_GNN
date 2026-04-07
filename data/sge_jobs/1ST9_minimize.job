@@ -67,29 +67,13 @@ else
     pdb_s4_in="${BASE}/1ST9_fixed_min_2.pdb"
 fi
 
-# ── Step 4a: Final — no polarization ──────────────────────────────────────────
-echo "=== Step 4a: Final Minimize polarization=NONE (RMS=1.0) ==="
-${FFX} Minimize -e 1.0 "${pdb_s4_in}" ${PROPS} -Dpolarization=NONE
+# ── Step 4: Tight final minimization + write induced dipoles ──────────────────
+echo "=== Step 4: Final Minimize (RMS=0.1, saveInduced) ==="
+${FFX} Minimize -e 0.1 "${pdb_s4_in}" ${PROPS} --saveInduced
 if [ ! -f "${pdb_s4_in}_2" ]; then
-    echo "ERROR: Step 4a output not found: ${pdb_s4_in}_2"; exit 1
+    echo "ERROR: Step 4 output not found: ${pdb_s4_in}_2"; exit 1
 fi
-mv "${pdb_s4_in}_2" "${BASE}/1ST9_s4a.pdb"
-
-# ── Step 4b: Final — direct polarization ──────────────────────────────────────
-echo "=== Step 4b: Final Minimize polarization=DIRECT (RMS=0.5) ==="
-${FFX} Minimize -e 0.5 "${BASE}/1ST9_s4a.pdb" ${PROPS} -Dpolarization=DIRECT
-if [ ! -f "${BASE}/1ST9_s4a.pdb_2" ]; then
-    echo "ERROR: Step 4b output not found: ${BASE}/1ST9_s4a.pdb_2"; exit 1
-fi
-mv "${BASE}/1ST9_s4a.pdb_2" "${BASE}/1ST9_s4b.pdb"
-
-# ── Step 4c: Final — mutual polarization, tight convergence, save dipoles ─────
-echo "=== Step 4c: Final Minimize polarization=MUTUAL (RMS=0.1, saveInduced) ==="
-${FFX} Minimize -e 0.1 "${BASE}/1ST9_s4b.pdb" ${PROPS} -Dpolarization=MUTUAL --saveInduced
-if [ ! -f "${BASE}/1ST9_s4b.pdb_2" ]; then
-    echo "ERROR: Step 4c output not found: ${BASE}/1ST9_s4b.pdb_2"; exit 1
-fi
-mv "${BASE}/1ST9_s4b.pdb_2" "${BASE}/1ST9_final.pdb"
+mv "${pdb_s4_in}_2" "${BASE}/1ST9_final.pdb"
 
 echo "=== Done: $(date) ==="
 echo "Final structure: ${BASE}/1ST9_final.pdb"
