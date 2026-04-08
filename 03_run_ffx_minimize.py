@@ -165,7 +165,7 @@ def main():
     os.makedirs(JOBS_DIR, exist_ok=True)
     os.makedirs(MIN_DIR,  exist_ok=True)
 
-    pdbs = sorted(Path(PDB_DIR).glob("*.pdb"))
+    pdbs = sorted(Path(PDB_DIR).glob("*_fixed.pdb"))
 
     mode = "DRY RUN" if DRY_RUN else "SUBMITTING to SGE"
     print(f"Processing {len(pdbs)} fixed PDBs  [{mode}]")
@@ -179,6 +179,13 @@ def main():
         for fixed_path in pdbs:
             pdb_id      = fixed_path.stem.replace("_fixed", "")
             script_path = os.path.join(JOBS_DIR, f"{pdb_id}_minimize.job")
+
+            # ── Skip if final outputs already exist (uind or pdb_2) ───────────
+            uind_path = fixed_path.parent / f"{fixed_path.stem}_min_2.uind"
+            pdb2_path = fixed_path.parent / f"{fixed_path.stem}_min_2.pdb_2"
+            if (uind_path.exists() or pdb2_path.exists()) and not FORCE:
+                print(f"  [done] {pdb_id:6s}  final output already exists")
+                continue
 
             # ── Skip if the job script already exists (unless --force) ────────
             if os.path.exists(script_path) and not FORCE:
