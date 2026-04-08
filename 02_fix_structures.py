@@ -191,8 +191,23 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
         # Do NOT call addMissingHydrogens — FFX handles this via AMOEBA biotypes
         # fixer.addMissingHydrogens(ADD_H_PH)
 
-        with open(fixed_path, "w") as f:
-            PDBFile.writeFile(fixer.topology, fixer.positions, f)
+        # Write PDBFixer output to a temp file, then strip any H atoms it added
+        # via missingTerminals (e.g. N-terminal H named 'H' instead of H1/H2/H3)
+        # and duplicate geminal H atoms placed at 0 A distance.  FFX rebuilds
+        # all H positions itself via AMOEBA biotypes.
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode="w", suffix="_pdbfixer.pdb",
+                                        delete=False) as tmp:
+            tmp_fixed_path = tmp.name
+            PDBFile.writeFile(fixer.topology, fixer.positions, tmp)
+
+        n_heavy_final = strip_hydrogens(tmp_fixed_path, fixed_path)
+        os.remove(tmp_fixed_path)
+
+        if n_heavy_final == 0:
+            log["status"] = "FAILED"
+            log["notes"] = "Post-PDBFixer H-strip produced 0 heavy atoms"
+            return log
 
         log["status"] = "ok"
 
@@ -226,7 +241,10 @@ def main():
             pdb_id = raw_path.stem.upper()
             fixed_path = os.path.join(FIXED_DIR, f"{pdb_id}_fixed.pdb")
 
-            if os.path.exists(fixed_path):
+            # Also skip if already processed and moved into per-protein subdir
+            # by 05_organize_ffx_output.py  (renamed to {PDB}_input.pdb)
+            organized_path = os.path.join(FIXED_DIR, pdb_id, f"{pdb_id}_input.pdb")
+            if os.path.exists(fixed_path) or os.path.exists(organized_path):
                 print(f"  [skip] {pdb_id} already fixed")
                 continue
 
