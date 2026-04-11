@@ -173,6 +173,8 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
         numeric_feats = nf.drop(columns=cols_to_drop)
         # Drop any non-numeric columns that may have crept in (e.g. index col)
         numeric_feats = numeric_feats.select_dtypes(include=[np.number])
+        # Fill NaN (e.g. Perm_* columns absent when no .uperm file exists) with 0
+        numeric_feats = numeric_feats.fillna(0.0)
         feat_tensor   = torch.tensor(numeric_feats.values, dtype=torch.float)
         feat_tensor   = torch.cat([feat_tensor, atom_label_oh], dim=1)
 

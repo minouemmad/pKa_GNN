@@ -74,6 +74,8 @@ def make_job_script(pdb_id: str, pdb: str, prop_path: str) -> str:
     step1_renamed    = os.path.join(work_dir, f"{base}_min.pdb")
     step3_output_raw = os.path.join(work_dir, f"{base}_min.pdb_2")
     step3_renamed    = os.path.join(work_dir, f"{base}_min_2.pdb")
+    step4_uind       = os.path.join(work_dir, f"{base}_min_2.uind")
+    step5_uperm      = os.path.join(work_dir, f"{base}_min_2.uperm")
 
     script = f"""\
 #!/bin/bash
@@ -137,6 +139,19 @@ echo "=== Step 4: Final Minimize (RMS={RMS_FINAL}, GPU, saveInduced) ==="
     "${{pdb_s4_in}}" \\
     -Dkey={prop_path} \\
     --saveInduced
+
+if [ ! -f "{step4_uind}" ]; then
+    echo "WARNING: Step 4 .uind not found: {step4_uind}"
+fi
+
+echo "=== Step 5: Save Permanent Multipoles ==="
+{FFX_CMD} SavePermanentMoments \\
+    "${{pdb_s4_in}}" \\
+    -Dkey={prop_path}
+
+if [ ! -f "{step5_uperm}" ]; then
+    echo "WARNING: Step 5 .uperm not found: {step5_uperm}"
+fi
 
 echo "=== Done: $(date) ==="
 """

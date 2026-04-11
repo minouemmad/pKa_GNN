@@ -191,6 +191,38 @@ def parse_uind(path: str) -> dict[int, tuple[float, float, float]]:
     return dipoles
 
 
+def parse_uperm(
+    path: str,
+) -> dict[int, tuple[float, float, float, float, float, float, float, float, float, float]]:
+    """Parse an FFX .uperm permanent-multipole file.
+
+    File format (written by SavePermanentMoments.groovy)::
+
+        <nAtoms>  <assemblyName>
+        <serial> <name>  <charge>  <dipX> <dipY> <dipZ>  <qXX> <qXY> <qYY> <qXZ> <qYZ> <qZZ>
+
+    Returns {serial: (charge, dipX, dipY, dipZ, qXX, qXY, qYY, qXZ, qYZ, qZZ)}.
+    """
+    perms: dict[
+        int,
+        tuple[float, float, float, float, float, float, float, float, float, float],
+    ] = {}
+    with open(path) as fh:
+        for line in fh:
+            parts = line.split()
+            if not parts or not parts[0].lstrip("-").isdigit():
+                continue
+            if len(parts) < 12:   # serial + name + 10 multipole components
+                continue
+            try:
+                serial = int(parts[0])
+                components = tuple(float(parts[i]) for i in range(2, 12))
+                perms[serial] = components  # type: ignore[assignment]
+            except (ValueError, IndexError):
+                continue
+    return perms
+
+
 # ════════════════════════════════════════════════════════════════════════════
 # Atom classification and labelling
 # ════════════════════════════════════════════════════════════════════════════
@@ -497,27 +529,94 @@ def build_edge_features(res_df: pd.DataFrame) -> pd.DataFrame:
 # Locate completed FFX jobs
 # ════════════════════════════════════════════════════════════════════════════
 
-def find_completed_jobs(pdb_dir: str) -> list[tuple[str, str, str]]:
-    """Return a list of (pdb_id, pdb_path, uind_path) for every protein that
-    has a *_final.uind file in its per-protein subdirectory, indicating step 4
-    of 03_run_ffx_minimize.py succeeded and 05_organize_ffx_output.py has run.
+def find_completed_jobs(pdb_dir: str) -> list[tuple[str, str, str, str | None]]:
+    """Return a list of (pdb_id, pdb_path, uind_path, uperm_path) for every
+    protein that has at least one .uind file in its per-protein subdirectory.
 
-    Expected layout (after running 05_organize_ffx_output.py):
+    uperm_path is None when the .uperm file does not exist (Step 5 not yet run).
+
+    Preferred layout (after running 04_organize_ffx_output.py):
         {pdb_dir}/{PDB}/{PDB}_final.pdb   – final minimized geometry
         {pdb_dir}/{PDB}/{PDB}_final.uind  – AMOEBA induced dipoles
+        {pdb_dir}/{PDB}/{PDB}_final.uperm – AMOEBA permanent multipoles (optional)
+
+    Fallback: if the preferred names are absent the function searches for any
+    .uind in the folder, then resolves the companion .pdb by replacing the
+    .uind suffix.  Intermediate files (s1a/s1b, rotamer, coarse, input) are
+    excluded when choosing a PDB fallback.
     """
+    # Suffixes that mark intermediate / partial FFX stages – never use as the
+    # main geometry for feature generation.
+    _SKIP_SUFFIXES = ("_s1a", "_s1b", "_rotamer", "_coarse", "_input")
+
     d = Path(pdb_dir)
-    jobs: list[tuple[str, str, str]] = []
+    jobs: list[tuple[str, str, str, str | None]] = []
 
-    for uind in sorted(d.glob("*/*_final.uind")):
-        pdb_id   = uind.parent.name          # subdirectory name == PDB ID
-        pdb_path = uind.parent / f"{pdb_id}_final.pdb"
-
-        if not pdb_path.exists():
-            log.warning(f"  {pdb_id}: _final.uind found but _final.pdb missing – skipping")
+    for folder in sorted(d.iterdir()):
+        if not folder.is_dir():
             continue
 
-        jobs.append((pdb_id, str(pdb_path), str(uind)))
+        pdb_id = folder.name
+
+        # ── 1. Pick the best .uind file ──────────────────────────────────
+        preferred_uind = folder / f"{pdb_id}_final.uind"
+        if preferred_uind.exists():
+            uind = preferred_uind
+        else:
+            candidates = sorted(folder.glob("*.uind"))
+            if not candidates:
+                continue          # no minimisation output yet
+            # Prefer names with "final" in them, otherwise take the last one
+            # (alphabetically last tends to be the most advanced step).
+            final_candidates = [u for u in candidates if "final" in u.stem]
+            uind = final_candidates[-1] if final_candidates else candidates[-1]
+            log.info(
+                f"  {pdb_id}: preferred _final.uind absent; "
+                f"using {uind.name} as fallback"
+            )
+
+        # ── 2. Pick the best .pdb file ───────────────────────────────────
+        preferred_pdb = folder / f"{pdb_id}_final.pdb"
+        if preferred_pdb.exists():
+            pdb_path = preferred_pdb
+        else:
+            # Try the sibling pdb of the chosen uind first
+            sibling_pdb = uind.with_suffix(".pdb")
+            if sibling_pdb.exists():
+                pdb_path = sibling_pdb
+            else:
+                # Search all pdbs, excluding known intermediate files
+                all_pdbs = [
+                    p for p in sorted(folder.glob("*.pdb"))
+                    if not any(p.stem.endswith(s) for s in _SKIP_SUFFIXES)
+                ]
+                if not all_pdbs:
+                    log.warning(
+                        f"  {pdb_id}: .uind found ({uind.name}) but no "
+                        f"usable .pdb in folder – skipping"
+                    )
+                    continue
+                # Prefer names with "final" in them
+                final_pdbs = [p for p in all_pdbs if "final" in p.stem]
+                pdb_path = final_pdbs[-1] if final_pdbs else all_pdbs[-1]
+            log.info(
+                f"  {pdb_id}: preferred _final.pdb absent; "
+                f"using {pdb_path.name} as fallback"
+            )
+
+        # ── 3. uperm (optional) ──────────────────────────────────────────
+        uperm_path = folder / f"{pdb_id}_final.uperm"
+        if not uperm_path.exists():
+            # Try sibling uperm next to the chosen uind
+            sibling_uperm = uind.with_suffix(".uperm")
+            uperm_path = sibling_uperm if sibling_uperm.exists() else uperm_path
+
+        jobs.append((
+            pdb_id,
+            str(pdb_path),
+            str(uind),
+            str(uperm_path) if uperm_path.exists() else None,
+        ))
 
     return jobs
 
@@ -556,7 +655,7 @@ def main() -> None:
     # ── Per-protein processing  (collect raw data for global normalisation) ──
     all_frames: list[pd.DataFrame] = []
 
-    for pdb_id, pdb_path, uind_path in jobs:
+    for pdb_id, pdb_path, uind_path, uperm_path in jobs:
         log.info(f"Processing {pdb_id}  ({Path(pdb_path).name})")
 
         # 1. Parse PDB
@@ -572,6 +671,25 @@ def main() -> None:
         df["Dipole_Z"] = df["serial"].map(lambda s: dipoles.get(s, (np.nan,)*3)[2])
         n_matched = df["serial"].isin(dipoles).sum()
         log.info(f"  Matched {n_matched}/{len(df)} atoms to dipole entries")
+
+        # 2b. Add permanent multipoles (by serial number) — optional
+        PERM_COLS = [
+            "Perm_Charge",
+            "Perm_DipX", "Perm_DipY", "Perm_DipZ",
+            "Perm_QuadXX", "Perm_QuadXY", "Perm_QuadYY",
+            "Perm_QuadXZ", "Perm_QuadYZ", "Perm_QuadZZ",
+        ]
+        if uperm_path is not None:
+            perms = parse_uperm(uperm_path)
+            for idx, col in enumerate(PERM_COLS):
+                nan10 = (np.nan,) * 10
+                df[col] = df["serial"].map(lambda s, i=idx: perms.get(s, nan10)[i])
+            n_perm = df["serial"].isin(perms).sum()
+            log.info(f"  Matched {n_perm}/{len(df)} atoms to permanent multipole entries")
+        else:
+            log.info(f"  No .uperm file for {pdb_id} — permanent multipole features will be NaN")
+            for col in PERM_COLS:
+                df[col] = np.nan
 
         # 3. Backbone / sidechain classification and atom_label
         df["bb_sc"]      = df["name"].apply(classify_backbone_sidechain)
@@ -634,6 +752,12 @@ def main() -> None:
         residue_ohe_cols.append(col)
 
     # ── Generate per-residue outputs ─────────────────────────────────────────
+    PERM_COLS = [
+        "Perm_Charge",
+        "Perm_DipX", "Perm_DipY", "Perm_DipZ",
+        "Perm_QuadXX", "Perm_QuadXY", "Perm_QuadYY",
+        "Perm_QuadXZ", "Perm_QuadYZ", "Perm_QuadZZ",
+    ]
     base_feature_cols = residue_ohe_cols + [
         "atom_label",
         "recalculated_x",
@@ -642,6 +766,7 @@ def main() -> None:
         "Dipole_X",
         "Dipole_Y",
         "Dipole_Z",
+    ] + PERM_COLS + [
         "Number of H-Bonds as donor",
         "Number of H-Bonds as acceptor",
         "SASA_Value",
