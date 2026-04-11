@@ -10,66 +10,70 @@
 #$ -S /bin/bash
 #$ -l ngpus=1
 
-# ── Environment ───────────────────────────────────────────────────────────────
 echo "Job started: $(date)"
 echo "Host: $(hostname)"
-echo "PDB: /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed.pdb"
 
-# ── Step 1: Coarse minimization with GK implicit solvent ──────────────────────
-# FFX outputs: /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed.pdb_2
-echo "=== Step 1: Coarse Minimize (RMS=0.8) ==="
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize \
-    -e 0.8 \
-    /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed.pdb \
-    -Dkey=data/fixed_pdbs/4XLL.properties
+BASE=/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs
+FFX=/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc
+PROPS="-Dkey=data/fixed_pdbs/4XLL.properties"
+PDB_IN="${BASE}/4XLL_fixed.pdb"
 
-if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed.pdb_2" ]; then
-    echo "ERROR: Step 1 output not found: /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed.pdb_2"
-    exit 1
+# ── Step 1a: No polarization — relax idealized H atoms, zero SCF cost ─────────
+echo "=== Step 1a: Minimize polarization=NONE (RMS=2.0) ==="
+${FFX} Minimize -e 2.0 "${PDB_IN}" ${PROPS} -Dpolarization=NONE
+if [ ! -f "${PDB_IN}_2" ]; then
+    echo "ERROR: Step 1a output not found: ${PDB_IN}_2"; exit 1
 fi
+mv "${PDB_IN}_2" "${BASE}/4XLL_s1a.pdb"
 
-# Rename for ManyBody input
-echo "=== Renaming /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed.pdb_2 to /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb ==="
-mv "/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed.pdb_2" "/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb"
+# ── Step 1b: Direct polarization — still no SCF iterations ────────────────────
+echo "=== Step 1b: Minimize polarization=DIRECT (RMS=1.0) ==="
+${FFX} Minimize -e 1.0 "${BASE}/4XLL_s1a.pdb" ${PROPS} -Dpolarization=DIRECT
+if [ ! -f "${BASE}/4XLL_s1a.pdb_2" ]; then
+    echo "ERROR: Step 1b output not found: ${BASE}/4XLL_s1a.pdb_2"; exit 1
+fi
+mv "${BASE}/4XLL_s1a.pdb_2" "${BASE}/4XLL_s1b.pdb"
+
+# ── Step 1c: Mutual polarization — geometry now conditioned for SCF ────────────
+echo "=== Step 1c: Minimize polarization=MUTUAL (RMS=0.8) ==="
+${FFX} Minimize -e 0.8 "${BASE}/4XLL_s1b.pdb" ${PROPS} -Dpolarization=MUTUAL
+if [ ! -f "${BASE}/4XLL_s1b.pdb_2" ]; then
+    echo "ERROR: Step 1c output not found: ${BASE}/4XLL_s1b.pdb_2"; exit 1
+fi
+mv "${BASE}/4XLL_s1b.pdb_2" "${BASE}/4XLL_fixed_min.pdb"
 
 # ── Step 2: Start Parallel Java scheduler (background) ────────────────────────
 echo "=== Step 2: Starting Scheduler ==="
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 5 -m 22G > scheduler_4XLL.log &
+${FFX} Scheduler -p 5 -m 22G > scheduler_4XLL.log &
 SCHEDULER_PID=$!
 sleep 30s
 
 # ── Step 3: Many-body rotamer optimization ────────────────────────────────────
-# Input: /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb
-# FFX outputs: /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb_2
 echo "=== Step 3: ManyBody Rotamer Optimization ==="
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody \
+${FFX} ManyBody \
     -Dpj.nn=4 \
     -Dpj.nt=5 \
     -DnumCudaDevices=1 \
-    /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb \
-    -Dkey=data/fixed_pdbs/4XLL.properties
+    "${BASE}/4XLL_fixed_min.pdb" \
+    ${PROPS}
 
-# Shut down scheduler
 kill $SCHEDULER_PID 2>/dev/null || true
 
-if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb_2" ]; then
-    echo "ERROR: Step 3 output not found: /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb_2"
-    echo "Falling back to Step 1 output for final minimize."
-    pdb_s4_in="/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb"
+if [ ! -f "${BASE}/4XLL_fixed_min.pdb_2" ]; then
+    echo "WARNING: Step 3 output not found, falling back to Step 1c output."
+    pdb_s4_in="${BASE}/4XLL_fixed_min.pdb"
 else
-    # Rename for final minimize
-    echo "=== Renaming /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb_2 to /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min_2.pdb ==="
-    mv "/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min.pdb_2" "/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min_2.pdb"
-    pdb_s4_in="/Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs/4XLL_fixed_min_2.pdb"
+    mv "${BASE}/4XLL_fixed_min.pdb_2" "${BASE}/4XLL_fixed_min_2.pdb"
+    pdb_s4_in="${BASE}/4XLL_fixed_min_2.pdb"
 fi
 
-# ── Step 4: Tight final minimization on GPU + write induced dipoles ────────────
-# --saveInduced writes <basename>.uind alongside the output PDB.
-echo "=== Step 4: Final Minimize (RMS=0.1, GPU, saveInduced) ==="
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize \
-    -e 0.1 \
-    "${pdb_s4_in}" \
-    -Dkey=data/fixed_pdbs/4XLL.properties \
-    --saveInduced
+# ── Step 4: Tight final minimization + write induced dipoles ──────────────────
+echo "=== Step 4: Final Minimize (RMS=0.1, saveInduced) ==="
+${FFX} Minimize -e 0.1 "${pdb_s4_in}" ${PROPS} --saveInduced
+if [ ! -f "${pdb_s4_in}_2" ]; then
+    echo "ERROR: Step 4 output not found: ${pdb_s4_in}_2"; exit 1
+fi
+mv "${pdb_s4_in}_2" "${BASE}/4XLL_final.pdb"
 
 echo "=== Done: $(date) ==="
+echo "Final structure: ${BASE}/4XLL_final.pdb"
