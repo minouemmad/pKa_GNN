@@ -6,34 +6,37 @@
 # patches .properties, and resubmits.
 #
 # Usage:
-#   ./fix_scf_failures.sh            # patch + submit
-#   ./fix_scf_failures.sh --dry-run  # patch only, print qsub commands
+#   ./fix_scf_failures.sh                   # scan logs, patch + submit all
+#   ./fix_scf_failures.sh --dry-run         # scan logs, patch only
+#   ./fix_scf_failures.sh --pdb 1CDC        # patch + submit a specific PDB
+#   ./fix_scf_failures.sh --pdb 1CDC --dry-run
 
 BASE_DIR="$(pwd)"
 SGE_DIR="${BASE_DIR}/data/sge_jobs"
 PDB_DIR="${BASE_DIR}/data/fixed_pdbs"
 FFX=/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc
-DRY_RUN=${1:-}
 
-echo "Scanning for SCF-failed min logs in: ${BASE_DIR}"
-echo ""
+# ── Argument parsing ──────────────────────────────────────────────────────────
+DRY_RUN=""
+TARGET_PDB=""
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dry-run) DRY_RUN="--dry-run"; shift ;;
+        --pdb)     TARGET_PDB="${2^^}"; shift 2 ;;
+        *) echo "Unknown option: $1"; exit 1 ;;
+    esac
+done
+# ─────────────────────────────────────────────────────────────────────────────
 
 found=0
 resubmit_list=()
 
-for logfile in min_*.*.log; do
-    [ -f "${logfile}" ] || continue
-
-    # Check for either failure pattern
-    if ! grep -qE "Maximum SCF iterations reached|SCF convergence failure" "${logfile}"; then
-        continue
-    fi
-
-    # Extract PDB name and job ID: min_2CI2.5801238.log → 2CI2, 5801238
-    pdb=$(echo "${logfile}" | sed 's/^min_//; s/\.[0-9]*\.log$//')
-    job_id=$(echo "${logfile}" | grep -oE '\.[0-9]+\.log$' | grep -oE '[0-9]+')
-
-    echo "=== SCF failure: ${logfile}  →  PDB: ${pdb}  JOB_ID: ${job_id} ==="
+# ── process_one: patch job file + properties for a single PDB ─────────────────
+# Args: $1=pdb_id  $2=logfile (empty if invoked via --pdb)  $3=job_id (may be empty)
+process_one() {
+    local pdb="$1"
+    local logfile="$2"
+    local job_id="$3"
 
     # ── Cancel the running job if it is still in the queue ────────────────────
     if [ -n "${job_id}" ]; then
@@ -46,8 +49,10 @@ for logfile in min_*.*.log; do
     fi
 
     # ── Delete the failed log file ─────────────────────────────────────────────
-    echo "  Removing:  ${logfile}"
-    rm -f "${logfile}"
+    if [ -n "${logfile}" ] && [ -f "${logfile}" ]; then
+        echo "  Removing:  ${logfile}"
+        rm -f "${logfile}"
+    fi
 
     job_file="${SGE_DIR}/${pdb}_minimize.job"
     props_file="${PDB_DIR}/${pdb}.properties"
@@ -169,7 +174,29 @@ JOBEOF
     echo ""
     resubmit_list+=("${job_file}")
     found=$((found + 1))
-done
+} # end process_one
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+if [ -n "${TARGET_PDB}" ]; then
+    # Direct --pdb mode: no log scanning needed
+    echo "=== Direct mode: PDB: ${TARGET_PDB} ==="
+    process_one "${TARGET_PDB}" "" ""
+else
+    # Log-scan mode
+    echo "Scanning for SCF-failed min logs in: ${BASE_DIR}"
+    echo ""
+    for logfile in min_*.*.log; do
+        [ -f "${logfile}" ] || continue
+        if ! grep -qE "Maximum SCF iterations reached|SCF convergence failure" "${logfile}"; then
+            continue
+        fi
+        # Extract PDB name and job ID: min_2CI2.5801238.log → 2CI2, 5801238
+        pdb=$(echo "${logfile}" | sed 's/^min_//; s/\.[0-9]*\.log$//')
+        job_id=$(echo "${logfile}" | grep -oE '\.[0-9]+\.log$' | grep -oE '[0-9]+')
+        echo "=== SCF failure: ${logfile}  →  PDB: ${pdb}  JOB_ID: ${job_id} ==="
+        process_one "${pdb}" "${logfile}" "${job_id}"
+    done
+fi
 
 if [ "${found}" -eq 0 ]; then
     echo "No SCF-failed log files found."
