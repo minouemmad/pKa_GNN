@@ -224,14 +224,31 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Fix PDB structures for FFX/AMOEBA.")
+    parser.add_argument(
+        "--file", "-f",
+        metavar="PDB_PATH",
+        help="Fix a single PDB file instead of the entire raw directory.",
+    )
+    args = parser.parse_args()
+
     os.makedirs(FIXED_DIR, exist_ok=True)
-    raw_pdbs = sorted(Path(RAW_DIR).glob("*.pdb"))
 
-    if not raw_pdbs:
-        raise SystemExit(f"No PDB files found in {RAW_DIR}.")
-
-    raw_pdbs = [p for p in raw_pdbs if p.stem.upper() not in EXCLUDE]
-    print(f"Fixing {len(raw_pdbs)} structures  (hard-excluded: {sorted(EXCLUDE)})")
+    if args.file:
+        single = Path(args.file)
+        if not single.exists():
+            raise SystemExit(f"File not found: {single}")
+        if single.suffix.lower() != ".pdb":
+            raise SystemExit(f"Expected a .pdb file, got: {single}")
+        raw_pdbs = [single]
+        print(f"Single-file mode: {single}")
+    else:
+        raw_pdbs = sorted(Path(RAW_DIR).glob("*.pdb"))
+        if not raw_pdbs:
+            raise SystemExit(f"No PDB files found in {RAW_DIR}.")
+        raw_pdbs = [p for p in raw_pdbs if p.stem.upper() not in EXCLUDE]
+        print(f"Fixing {len(raw_pdbs)} structures  (hard-excluded: {sorted(EXCLUDE)})")
 
     with open(LOG_PATH, "w", newline="") as logf:
         writer = csv.DictWriter(logf, fieldnames=LOG_FIELDS)
@@ -239,12 +256,13 @@ def main():
 
         for raw_path in raw_pdbs:
             pdb_id = raw_path.stem.upper()
+            # Strip any _fixed suffix if re-passing an already-named file
+            if pdb_id.endswith("_FIXED"):
+                pdb_id = pdb_id[:-6]
             fixed_path = os.path.join(FIXED_DIR, f"{pdb_id}_fixed.pdb")
 
-            # Also skip if already processed and moved into per-protein subdir
-            # by 05_organize_ffx_output.py  (renamed to {PDB}_input.pdb)
             organized_path = os.path.join(FIXED_DIR, pdb_id, f"{pdb_id}_input.pdb")
-            if os.path.exists(fixed_path) or os.path.exists(organized_path):
+            if not args.file and (os.path.exists(fixed_path) or os.path.exists(organized_path)):
                 print(f"  [skip] {pdb_id} already fixed")
                 continue
 
