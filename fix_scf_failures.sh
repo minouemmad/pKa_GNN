@@ -55,7 +55,7 @@ process_one() {
     fi
 
     job_file="${SGE_DIR}/${pdb}_minimize.job"
-    props_file="${PDB_DIR}/${pdb}.properties"
+    props_file="${PDB_DIR}/${pdb}/${pdb}.properties"
 
     mkdir -p "${SGE_DIR}"
 
@@ -83,8 +83,8 @@ echo "Host: $(hostname)"
 
 BASE=BASEPATH
 FFX=FFXPATH
-PROPS="-Dkey=data/fixed_pdbs/PDBNAME.properties"
-PDB_IN="${BASE}/PDBNAME_fixed.pdb"
+PROPS="-Dkey=data/fixed_pdbs/PDBNAME/PDBNAME.properties"
+PDB_IN="${BASE}/PDBNAME/PDBNAME_input.pdb"
 
 # ── Step 1a: No polarization — relax idealized H atoms, zero SCF cost ─────────
 echo "=== Step 1a: Minimize polarization=NONE (RMS=2.0) ==="
@@ -92,23 +92,23 @@ ${FFX} Minimize -e 2.0 "${PDB_IN}" ${PROPS} -Dpolarization=NONE
 if [ ! -f "${PDB_IN}_2" ]; then
     echo "ERROR: Step 1a output not found: ${PDB_IN}_2"; exit 1
 fi
-mv "${PDB_IN}_2" "${BASE}/PDBNAME_s1a.pdb"
+mv "${PDB_IN}_2" "${BASE}/PDBNAME/PDBNAME_s1a.pdb"
 
 # ── Step 1b: Direct polarization — still no SCF iterations ────────────────────
 echo "=== Step 1b: Minimize polarization=DIRECT (RMS=1.0) ==="
-${FFX} Minimize -e 1.0 "${BASE}/PDBNAME_s1a.pdb" ${PROPS} -Dpolarization=DIRECT
-if [ ! -f "${BASE}/PDBNAME_s1a.pdb_2" ]; then
-    echo "ERROR: Step 1b output not found: ${BASE}/PDBNAME_s1a.pdb_2"; exit 1
+${FFX} Minimize -e 1.0 "${BASE}/PDBNAME/PDBNAME_s1a.pdb" ${PROPS} -Dpolarization=DIRECT
+if [ ! -f "${BASE}/PDBNAME/PDBNAME_s1a.pdb_2" ]; then
+    echo "ERROR: Step 1b output not found: ${BASE}/PDBNAME/PDBNAME_s1a.pdb_2"; exit 1
 fi
-mv "${BASE}/PDBNAME_s1a.pdb_2" "${BASE}/PDBNAME_s1b.pdb"
+mv "${BASE}/PDBNAME/PDBNAME_s1a.pdb_2" "${BASE}/PDBNAME/PDBNAME_s1b.pdb"
 
 # ── Step 1c: Mutual polarization — geometry now conditioned for SCF ────────────
 echo "=== Step 1c: Minimize polarization=MUTUAL (RMS=0.8) ==="
-${FFX} Minimize -e 0.8 "${BASE}/PDBNAME_s1b.pdb" ${PROPS} -Dpolarization=MUTUAL
-if [ ! -f "${BASE}/PDBNAME_s1b.pdb_2" ]; then
-    echo "ERROR: Step 1c output not found: ${BASE}/PDBNAME_s1b.pdb_2"; exit 1
+${FFX} Minimize -e 0.8 "${BASE}/PDBNAME/PDBNAME_s1b.pdb" ${PROPS} -Dpolarization=MUTUAL
+if [ ! -f "${BASE}/PDBNAME/PDBNAME_s1b.pdb_2" ]; then
+    echo "ERROR: Step 1c output not found: ${BASE}/PDBNAME/PDBNAME_s1b.pdb_2"; exit 1
 fi
-mv "${BASE}/PDBNAME_s1b.pdb_2" "${BASE}/PDBNAME_fixed_min.pdb"
+mv "${BASE}/PDBNAME/PDBNAME_s1b.pdb_2" "${BASE}/PDBNAME/PDBNAME_coarse.pdb"
 
 # ── Step 2: Start Parallel Java scheduler (background) ────────────────────────
 echo "=== Step 2: Starting Scheduler ==="
@@ -122,17 +122,17 @@ ${FFX} ManyBody \
     -Dpj.nn=4 \
     -Dpj.nt=5 \
     -DnumCudaDevices=1 \
-    "${BASE}/PDBNAME_fixed_min.pdb" \
+    "${BASE}/PDBNAME/PDBNAME_coarse.pdb" \
     ${PROPS}
 
 kill $SCHEDULER_PID 2>/dev/null || true
 
-if [ ! -f "${BASE}/PDBNAME_fixed_min.pdb_2" ]; then
+if [ ! -f "${BASE}/PDBNAME/PDBNAME_coarse.pdb_2" ]; then
     echo "WARNING: Step 3 output not found, falling back to Step 1c output."
-    pdb_s4_in="${BASE}/PDBNAME_fixed_min.pdb"
+    pdb_s4_in="${BASE}/PDBNAME/PDBNAME_coarse.pdb"
 else
-    mv "${BASE}/PDBNAME_fixed_min.pdb_2" "${BASE}/PDBNAME_fixed_min_2.pdb"
-    pdb_s4_in="${BASE}/PDBNAME_fixed_min_2.pdb"
+    mv "${BASE}/PDBNAME/PDBNAME_coarse.pdb_2" "${BASE}/PDBNAME/PDBNAME_rotamer.pdb"
+    pdb_s4_in="${BASE}/PDBNAME/PDBNAME_rotamer.pdb"
 fi
 
 # ── Step 4: Tight final minimization + write induced dipoles ──────────────────
@@ -141,10 +141,10 @@ ${FFX} Minimize -e 0.1 "${pdb_s4_in}" ${PROPS} --saveInduced
 if [ ! -f "${pdb_s4_in}_2" ]; then
     echo "ERROR: Step 4 output not found: ${pdb_s4_in}_2"; exit 1
 fi
-mv "${pdb_s4_in}_2" "${BASE}/PDBNAME_final.pdb"
+mv "${pdb_s4_in}_2" "${BASE}/PDBNAME/PDBNAME_final.pdb"
 
 echo "=== Done: $(date) ==="
-echo "Final structure: ${BASE}/PDBNAME_final.pdb"
+echo "Final structure: ${BASE}/PDBNAME/PDBNAME_final.pdb"
 JOBEOF
 
     chmod +x "${job_file}"
