@@ -3,25 +3,12 @@
 #$ -cwd
 #$ -N train_paper
 #$ -j y
-#$ -q UI
-#$ -pe smp 4
+#$ -q UI,MS
+#$ -pe smp 10
 #$ -o $JOB_NAME.$JOB_ID.log
 #$ -l h_rt=48:00:00
 #$ -S /bin/bash
 
-# ---------------------------------------------------------------------------
-# train_paper.job
-#
-# Runs 11_train_paper.py for all 5 radius datasets (7-11 A) using
-# paper-exact hyperparameters (hidden=48, heads=4, lr=0.01, dropout=0.5,
-# batch=32, loss=MSE, 10-fold CV, max 500 epochs with patience 20).
-#
-# Reads  : Graph_pKa/Features_Paper/Datasets/data_list_{0-4}.pkl
-# Writes : Graph_pKa/Results/Training_Paper/
-#
-# Submit from the pKa_GNN project root:
-#   qsub data/sge_jobs/train_paper.job
-# ---------------------------------------------------------------------------
 
 echo "Job started : $(date)"
 echo "Host        : $(hostname)"
