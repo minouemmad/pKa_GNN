@@ -1,5 +1,5 @@
 """
-08_create_datasets_paper.py
+09_create_datasets_paper.py
 
 Paper-exact dataset builder — mirrors the original create_data.py from
 Graph_pKa/Net/create_data.py as closely as possible, adapted for FFX output.
@@ -11,21 +11,21 @@ Key settings matching the paper:
   • input_dim = 26 after one-hot encoding atom_label
 
 Outputs (inside Graph_pKa/Features_Paper/Datasets/):
-    data_list_0.pkl   ← radius 7 Å
-    data_list_1.pkl   ← radius 8 Å
-    data_list_2.pkl   ← radius 9 Å
-    data_list_3.pkl   ← radius 10 Å
-    data_list_4.pkl   ← radius 11 Å
+    data_list_0.pkl   <- radius 7 A
+    data_list_1.pkl   <- radius 8 A
+    data_list_2.pkl   <- radius 9 A
+    data_list_3.pkl   <- radius 10 A
+    data_list_4.pkl   <- radius 11 A
 
 Optional: pass --feat-dir to point at PKAD_Data for direct paper comparison:
-    python 08_create_datasets_paper.py \\
+    python 09_create_datasets_paper.py \\
         --feat-dir Graph_pKa/PKAD_Data \\
         --adj-subdir Adj_Matrix/With_Self_Loop \\
         --node-subdir 4_Residues_W_Local_Frame \\
         --out-dir Graph_pKa/PKAD_Data/Subsets_Paper
 
 Run:
-    python 08_create_datasets_paper.py
+    python 09_create_datasets_paper.py
 """
 
 from __future__ import annotations

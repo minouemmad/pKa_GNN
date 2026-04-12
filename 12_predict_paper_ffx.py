@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-09_predict_paper_ffx.py
+12_predict_paper_ffx.py
 
 Prediction and evaluation script for the paper-exact FFX + PKAD-R pipeline.
 
 This is a direct analogue of Graph_pKa/Predict.py adapted for:
-  • Chain-aware filenames  ({PDB}_{chain}_{resseq}.{ResName})
-  • Paper-exact feature layout  (4-class OHE, 9-class atom labels, 26 features)
-  • Models trained by 08_train_paper.py  (or 09_grid_search_paper_ffx.py)
+  * Chain-aware filenames  ({PDB}_{chain}_{resseq}.{ResName})
+  * Paper-exact feature layout  (4-class OHE, 9-class atom labels, 26 features)
+  * Models trained by 11_train_paper.py  (or 10_grid_search_paper_ffx.py)
 
 Two operating modes:
 
@@ -15,7 +15,7 @@ Two operating modes:
       Loads the pre-built pickled datasets from Features_Paper/Datasets/,
       runs every saved fold model, averages predictions across all folds,
       and reports MAE / RMSE overall and per residue type.
-      Use this mode to evaluate models trained by 08_train_paper.py.
+      Use this mode to evaluate models trained by 11_train_paper.py.
 
   predict mode  (--predict-mode)
       Builds fresh PyG Data objects directly from the Features_Paper CSV
@@ -24,15 +24,15 @@ Two operating modes:
 
 Outputs to:
     Graph_pKa/Results/Predictions_Paper_FFX/
-        predictions_dataset_{idx}_per_fold.csv    ← raw fold-by-fold points
-        predictions_dataset_{idx}_averaged.csv    ← fold-averaged predictions
-        summary_metrics.csv                       ← per-dataset MAE / RMSE
+        predictions_dataset_{idx}_per_fold.csv    <- raw fold-by-fold points
+        predictions_dataset_{idx}_averaged.csv    <- fold-averaged predictions
+        summary_metrics.csv                       <- per-dataset MAE / RMSE
 
 Usage:
-    python 09_predict_paper_ffx.py
-    python 09_predict_paper_ffx.py --dataset 0       # only radius 7 Å
-    python 09_predict_paper_ffx.py --model-dir Graph_pKa/Results/Training_Paper/models
-    python 09_predict_paper_ffx.py --predict-mode \\
+    python 12_predict_paper_ffx.py
+    python 12_predict_paper_ffx.py --dataset 0       # only radius 7 A
+    python 12_predict_paper_ffx.py --model-dir Graph_pKa/Results/Training_Paper/models
+    python 12_predict_paper_ffx.py --predict-mode \\
         --adj-dir  Graph_pKa/Features_Paper/Adjacency_Matrices/With_Self_Loop \\
         --node-dir Graph_pKa/Features_Paper/Node_Feature_Vectors
 """
