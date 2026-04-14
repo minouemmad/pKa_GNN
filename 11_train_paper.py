@@ -212,7 +212,9 @@ def train_dataset(
 
         model     = GATModelPaper(input_dim, args.hidden, args.heads, args.dropout)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
-        loss_fn   = torch.nn.MSELoss()  # paper-exact loss function
+        _loss_map = {"MSE": torch.nn.MSELoss(), "L1": torch.nn.L1Loss(),
+                     "SmoothL1": torch.nn.SmoothL1Loss(beta=0.5)}
+        loss_fn   = _loss_map[args.loss]
         model_path = model_dir / f"fold_{fold}.pth"
 
         fold_preds = train_one_fold(
@@ -278,6 +280,9 @@ def main() -> None:
                         help="Maximum epochs per fold (paper: 500)")
     parser.add_argument("--folds",    type=int,   default=10,
                         help="K-fold CV splits (paper: 10)")
+    parser.add_argument("--loss",     type=str,   default="MSE",
+                        choices=["MSE", "L1", "SmoothL1"],
+                        help="Loss function: MSE, L1, or SmoothL1 (default: MSE)")
     parser.add_argument("--dataset",  type=str,   default="all",
                         help="PKL index to train on: 0-4 or 'all'")
     parser.add_argument("--seed",     type=int,   default=42)

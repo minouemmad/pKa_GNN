@@ -9,34 +9,6 @@
 #$ -l h_rt=168:00:00
 #$ -S /bin/bash
 
-# ---------------------------------------------------------------------------
-# grid_search_paper.job
-#
-# Runs 10_grid_search_paper_ffx.py across all 5 radius datasets.
-# The script uses joblib to parallelise over hyperparameter combinations,
-# capped at min(60, ncore-1) workers.  Request 60 slots so the scheduler
-# provides a whole node — avoids contention with other jobs.
-#
-# Grid (per dataset):
-#   heads 4/6/8  x  hidden 16/32/48/64  x  batch 16/24/32/40
-#   x  lr 5 values  x  dropout 4 values  x  loss 3 functions
-#   = 2880 combinations x 5 datasets = 14 400 total CV runs
-#
-# Wall-time estimate: ~168 h (1 week) is a safe ceiling; typical ~24-48 h
-# on 60 cores depending on node speed.
-#
-# Reads  : Graph_pKa/Features_Paper/Datasets/data_list_{0-4}.pkl
-# Writes : Graph_pKa/Results/Grid_Search_Paper_FFX/
-#
-# Submit from the pKa_GNN project root:
-#   qsub data/sge_jobs/grid_search_paper.job
-#
-# After completion, the best hyperparameters are printed at the end of the
-# log and saved to:
-#   Graph_pKa/Results/Grid_Search_Paper_FFX/best_result.csv
-#   Graph_pKa/Results/Grid_Search_Paper_FFX/grid_search_results.csv
-# ---------------------------------------------------------------------------
-
 echo "Job started  : $(date)"
 echo "Host         : $(hostname)"
 echo "Working dir  : $PWD"
