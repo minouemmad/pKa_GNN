@@ -30,11 +30,11 @@ Outputs to:
         best_result.csv              ← single best row by MAE
         all_best_predictions/        ← per-fold held-out predictions
 
-Run:
-    python 09_grid_search_paper_ffx.py
-    python 09_grid_search_paper_ffx.py --dataset 0           # only radius 7 Å
-    python 09_grid_search_paper_ffx.py --single-core         # disable parallelism
-    python 09_grid_search_paper_ffx.py \\
+Run (from pKa_GNN/ as CWD):
+    python tinker_pipeline/04_grid_search.py
+    python tinker_pipeline/04_grid_search.py --dataset 0           # only radius 7 Å
+    python tinker_pipeline/04_grid_search.py --single-core         # disable parallelism
+    python tinker_pipeline/04_grid_search.py \\
         --dataset-dir Graph_pKa/Features_Paper/Datasets \\
         --results-dir Graph_pKa/Results/Grid_Search_Paper_FFX
 """

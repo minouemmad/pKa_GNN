@@ -1,0 +1,229 @@
+"""
+01_run_tinker_minimize.py  (tinker_pipeline)
+
+Generate and optionally submit SGE job scripts that reproduce the paper's
+Tinker AMOEBA energy-minimisation pipeline (Song et al., J. Chem. Inf. Model.
+2026) on the same PKAD-R dataset used by the FFX pipeline.
+
+The two pipelines share the same input PDBs (data/fixed_pdbs/) but are
+otherwise completely independent:
+
+    FFX pipeline   — ffx_pipeline/03_run_ffx_minimize.py
+                     rotamer opt + titr-ManyBody + AMOEBA GK minimize
+    Tinker pipeline — THIS SCRIPT
+                     PDBFixer → pdbxyz.x → xyzedit.x → minimize.x (amoebabio18)
+
+Jobs generated
+──────────────
+1. tinker_prep.job (one-time, all proteins)
+   Runs tinker_prep_all.py — handles steps 1-11 of Tinker_EM.py:
+     PDBFixer, water removal, pdb→xyz, center-of-mass, waterbox sizing,
+     solvation, charge analysis, neutralisation.
+   Output: Graph_pKa/Data/6_Neutralized_System/{PDB_ID}.xyz
+
+2. {PDB_ID}_tinker_min.job (one per protein, holds on tinker_prep)
+   Runs tinker_minimize_one.py — creates Tinker key file and calls
+   minimize.x with RMS gradient 1.0 kcal/mol/Å.
+   Output: Graph_pKa/Data/7_Energy_Minimization_Systems/{PDB_ID}/{PDB_ID}.xyz_2
+
+Flags
+─────
+  --dry    Generate all scripts but do not submit to SGE.
+  --force  Regenerate scripts and resubmit even if outputs exist.
+
+Run (from pKa_GNN/ as CWD):
+    python tinker_pipeline/01_run_tinker_minimize.py
+    python tinker_pipeline/01_run_tinker_minimize.py --dry
+    python tinker_pipeline/01_run_tinker_minimize.py --force
+"""
+
+from __future__ import annotations
+
+import csv
+import os
+import stat
+import subprocess
+import sys
+from pathlib import Path
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
+PDB_DIR      = "data/fixed_pdbs"
+JOBS_DIR     = "data/sge_jobs_tinker"
+LOG_PATH     = "data/tinker_minimize_log.csv"
+MIN_DIR      = "Graph_pKa/Data/7_Energy_Minimization_Systems"
+NEUTRAL_DIR  = "Graph_pKa/Data/6_Neutralized_System"
+
+# Absolute path to THIS script's directory (tinker_pipeline/)
+# Used inside job scripts so the helpers can be found regardless of SGE CWD.
+PIPELINE_DIR = str(Path(__file__).parent.resolve())
+
+# ── SGE resource settings ─────────────────────────────────────────────────────
+WALLTIME     = "10000:00:00"
+MEM          = "22G"
+N_CPUS       = 20
+
+# ── Flags ─────────────────────────────────────────────────────────────────────
+DRY_RUN = "--dry"   in sys.argv
+FORCE   = "--force" in sys.argv
+
+LOG_FIELDS = ["pdb_id", "job_type", "job_script", "job_id", "status", "notes"]
+
+
+# ── Script generators ─────────────────────────────────────────────────────────
+
+def make_prep_script(pka_gnn_abs: str) -> str:
+    """Generate the one-time preprocessing job bash script."""
+    return f"""\
+#!/bin/bash
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N tinker_prep            # Job name
+#$ -j y                      # Merge stderr into stdout
+#$ -q MS,UI                  # Queue (no GPU needed)
+#$ -pe smp {N_CPUS}          # Threads
+#$ -o $JOB_NAME.$JOB_ID.log  # Output log
+#$ -l h_rt={WALLTIME}        # Wall time
+#$ -S /bin/bash
+
+echo "=== tinker_prep started: $(date) ==="
+cd "{pka_gnn_abs}"
+
+python tinker_pipeline/tinker_prep_all.py
+
+echo "=== tinker_prep done: $(date) ==="
+"""
+
+
+def make_minimize_script(pdb_id: str, pka_gnn_abs: str) -> str:
+    """Generate a per-protein minimize job bash script."""
+    job_name = f"{pdb_id}_tinker_min"
+    return f"""\
+#!/bin/bash
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N {job_name}             # Job name
+#$ -j y                      # Merge stderr into stdout
+#$ -q MS,UI                  # Queue (no GPU needed for minimize.x)
+#$ -pe smp {N_CPUS}          # Threads
+#$ -o $JOB_NAME.$JOB_ID.log  # Output log
+#$ -l h_rt={WALLTIME}        # Wall time
+#$ -S /bin/bash
+#$ -hold_jid tinker_prep     # Wait for preprocessing to finish
+
+echo "=== {pdb_id} tinker_min started: $(date) ==="
+cd "{pka_gnn_abs}"
+
+python tinker_pipeline/tinker_minimize_one.py --pdb-id {pdb_id}
+
+echo "=== {pdb_id} tinker_min done: $(date) ==="
+"""
+
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+
+def _write_script(path: str, text: str) -> None:
+    with open(path, "w") as fh:
+        fh.write(text)
+    os.chmod(path, os.stat(path).st_mode | stat.S_IEXEC)
+
+
+def _submit(script_path: str) -> tuple:
+    try:
+        result = subprocess.run(
+            ["qsub", script_path],
+            capture_output=True, text=True, timeout=30
+        )
+        if result.returncode == 0:
+            tokens = result.stdout.split()
+            job_id = next((t for t in tokens if t.isdigit()), "unknown")
+            return int(job_id) if job_id.isdigit() else job_id, ""
+        return -1, result.stderr.strip()
+    except FileNotFoundError:
+        return -1, "qsub not found — are you on a submit node?"
+    except subprocess.TimeoutExpired:
+        return -1, "qsub timed out"
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+def main() -> None:
+    os.makedirs(JOBS_DIR, exist_ok=True)
+
+    pdbs = sorted(Path(PDB_DIR).glob("*/*_input.pdb"))
+    pka_gnn_abs = str(Path(".").resolve())
+
+    mode = "DRY RUN" if DRY_RUN else "SUBMITTING to SGE"
+    force_tag = "  [--force]" if FORCE else ""
+    print(f"Tinker pipeline — {len(pdbs)} proteins  [{mode}{force_tag}]")
+
+    log_exists = Path(LOG_PATH).exists() and Path(LOG_PATH).stat().st_size > 0
+
+    with open(LOG_PATH, "a", newline="") as logf:
+        writer = csv.DictWriter(logf, fieldnames=LOG_FIELDS)
+        if not log_exists:
+            writer.writeheader()
+
+        # ── 1. Prep job (one-time, all proteins) ─────────────────────────────
+        prep_script = os.path.join(JOBS_DIR, "tinker_prep.job")
+        _write_script(prep_script, make_prep_script(pka_gnn_abs))
+
+        neutral_dir_exists = Path(NEUTRAL_DIR).is_dir() and any(
+            Path(NEUTRAL_DIR).glob("*.xyz")
+        )
+
+        if neutral_dir_exists and not FORCE:
+            print(f"  [done] prep   — neutralized XYZ already present, skipping submit")
+        elif DRY_RUN:
+            print(f"  [dry]  prep   → {prep_script}")
+            writer.writerow({"pdb_id": "ALL", "job_type": "prep",
+                             "job_script": prep_script, "job_id": "dry-run",
+                             "status": "generated", "notes": ""})
+            logf.flush()
+        else:
+            job_id, err = _submit(prep_script)
+            status = "submitted" if job_id != -1 else "submit_failed"
+            print(f"  [{'✓' if job_id != -1 else '✗'}] prep   job_id={job_id}"
+                  + (f"  {err[:80]}" if err else ""))
+            writer.writerow({"pdb_id": "ALL", "job_type": "prep",
+                             "job_script": prep_script, "job_id": job_id,
+                             "status": status, "notes": err[:120] if err else ""})
+            logf.flush()
+
+        # ── 2. Per-protein minimize jobs ──────────────────────────────────────
+        for pdb_path in pdbs:
+            pdb_id    = pdb_path.parent.name
+            min_out   = Path(MIN_DIR) / pdb_id / f"{pdb_id}.xyz_2"
+            t_script  = os.path.join(JOBS_DIR, f"{pdb_id}_tinker_min.job")
+
+            _write_script(t_script, make_minimize_script(pdb_id, pka_gnn_abs))
+
+            if min_out.exists() and not FORCE:
+                print(f"  [done] {pdb_id:6s}  minimized output exists — script updated, skipping")
+                continue
+
+            if DRY_RUN:
+                print(f"  [dry]  {pdb_id:6s} → {t_script}")
+                writer.writerow({"pdb_id": pdb_id, "job_type": "minimize",
+                                 "job_script": t_script, "job_id": "dry-run",
+                                 "status": "generated", "notes": ""})
+                logf.flush()
+            else:
+                job_id, err = _submit(t_script)
+                status = "submitted" if job_id != -1 else "submit_failed"
+                note   = err[:120] if err else ""
+                print(f"  [{'✓' if job_id != -1 else '✗'}] {pdb_id:6s}  job_id={job_id}"
+                      + (f"  {note}" if note else ""))
+                writer.writerow({"pdb_id": pdb_id, "job_type": "minimize",
+                                 "job_script": t_script, "job_id": job_id,
+                                 "status": status, "notes": note})
+                logf.flush()
+
+    print(f"\nJob scripts → {JOBS_DIR}/")
+    print(f"Log         → {LOG_PATH}")
+    print(f"\nWorkflow order:")
+    print(f"  1. tinker_prep.job  — preprocesses ALL proteins (pdbxyz, solvate, neutralise)")
+    print(f"  2. {{PDB_ID}}_tinker_min.job  — minimize.x for each protein (auto-holds on prep)")
+
+
+if __name__ == "__main__":
+    main()

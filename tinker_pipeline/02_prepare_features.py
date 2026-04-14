@@ -16,8 +16,8 @@ Outputs (inside Graph_pKa/Features_Paper/):
     Node_Feature_Vectors/{radius}/{PDB}_{chain}_{resid}.{ResName}.csv
     Adjacency_Matrices/With_Self_Loop/{PDB}_{chain}_{resid}.{ResName}_adjacency.csv
 
-Run:
-    python 08_prepare_features_paper.py
+Run (from pKa_GNN/ as CWD):
+    python tinker_pipeline/02_prepare_features.py
 """
 
 from __future__ import annotations

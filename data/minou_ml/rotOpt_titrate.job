@@ -1,0 +1,25 @@
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N fileName_rotamer       # Job Name
+#$ -j y                      # Combine stderr and stdout
+#$ -q MS,COE-GPU,UI-GPU      # Queue
+#$ -pe smp 20              # Request 16 tasks/node, 16 total
+#$ -o $JOB_NAME.$JOB_ID.log  # Name of output file
+#$ -l h_rt=10000:00:00       # Run Time
+#$ -S /bin/bash              # Shell to use
+#$ -l ngpus=1
+
+# Minimize initial structure
+ffxc Minimize -e 0.8 fileName.pdb -Dplatform=OMM -Dkey=ffx.properties
+
+# Set up scheduler for ManyBody
+ffxc Scheduler -p 1 -m 22G > scheduler.log & sleep 30s
+
+# Rotamer Optimization for entire structure
+ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 -Dplatform=OMM fileName.pdb_2 -Dkey=ffx.properties
+
+# Protonation State Prediction
+/Dedicated/schnieders/rgogal/software/forcefieldx/bin/ffxc ManyBody --tR --pH 7.0 --oT -T --kpH 3.0 fileName.pdb_3 -Dkey=titrate.properties
+
+# Final Minimize
+ffxc Minimize -e 0.1 fileName.pdb_4 -Dplatform=OMM -Dkey=ffx.properties

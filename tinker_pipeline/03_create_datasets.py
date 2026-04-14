@@ -24,8 +24,8 @@ Optional: pass --feat-dir to point at PKAD_Data for direct paper comparison:
         --node-subdir 4_Residues_W_Local_Frame \\
         --out-dir Graph_pKa/PKAD_Data/Subsets_Paper
 
-Run:
-    python 09_create_datasets_paper.py
+Run (from pKa_GNN/ as CWD):
+    python tinker_pipeline/03_create_datasets.py
 """
 
 from __future__ import annotations

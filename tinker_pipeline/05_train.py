@@ -28,9 +28,9 @@ Key differences vs 07_train.py:
   • Reads from Graph_pKa/Features_Paper/Datasets/
   • Results written to Graph_pKa/Results/Training_Paper/
 
-Run:
-    python 08_train_paper.py
-    python 08_train_paper.py --dataset 0          # only radius 7
+Run (from pKa_GNN/ as CWD):
+    python tinker_pipeline/05_train.py
+    python tinker_pipeline/05_train.py --dataset 0          # only radius 7
 """
 
 from __future__ import annotations

@@ -28,11 +28,11 @@ Outputs to:
         predictions_dataset_{idx}_averaged.csv    <- fold-averaged predictions
         summary_metrics.csv                       <- per-dataset MAE / RMSE
 
-Usage:
-    python 12_predict_paper_ffx.py
-    python 12_predict_paper_ffx.py --dataset 0       # only radius 7 A
-    python 12_predict_paper_ffx.py --model-dir Graph_pKa/Results/Training_Paper/models
-    python 12_predict_paper_ffx.py --predict-mode \\
+Usage (from pKa_GNN/ as CWD):
+    python tinker_pipeline/06_predict.py
+    python tinker_pipeline/06_predict.py --dataset 0       # only radius 7 A
+    python tinker_pipeline/06_predict.py --model-dir Graph_pKa/Results/Training_Paper/models
+    python tinker_pipeline/06_predict.py --predict-mode \\
         --adj-dir  Graph_pKa/Features_Paper/Adjacency_Matrices/With_Self_Loop \\
         --node-dir Graph_pKa/Features_Paper/Node_Feature_Vectors
 """
