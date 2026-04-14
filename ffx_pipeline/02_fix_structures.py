@@ -30,7 +30,7 @@ LOG_PATH  = "data/fix_log.csv"
 
 # Structures too broken to use — add PDB IDs here to skip them
 # e.g. EXCLUDE = {"3WU2", "7M2Z", "1XSN"}
-EXCLUDE: set[str] = set()
+EXCLUDE = set()  # type: ignore[var-annotated]  # set[str], Python < 3.9 compat
 # ─────────────────────────────────────────────────────────────────────────────
 
 LOG_FIELDS = [
