@@ -237,7 +237,7 @@ def main():
 
             # ── Rotamer job ──────────────────────────────────────────────────
             if RUN_ROTAMER:
-                rotamer_script = os.path.join(JOBS_DIR, f"{pdb_id}_rotamer.job")
+                rotamer_script = os.path.join(JOBS_DIR, f"rot_{pdb_id}.job")
                 _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
 
                 rotopt_done = (pdb_path.parent / f"{pdb_stem}.pdb_3").exists()
@@ -266,7 +266,7 @@ def main():
                 continue
             for ph in ACTIVE_PHS:
                 ph_str   = str(ph)
-                t_script = os.path.join(JOBS_DIR, f"{pdb_id}_titrate_pH{ph_str}.job")  # file name unchanged
+                t_script = os.path.join(JOBS_DIR, f"min_{pdb_id}_titrate_pH{ph_str}.job")
                 uind_path = pdb_path.parent / f"{pdb_id}_pH{ph_str}.pdb_2.uind"
 
                 _write_script(t_script, make_titration_job_script(
