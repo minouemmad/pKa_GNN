@@ -117,12 +117,12 @@ def strip_to_model1(pdb_path: str, out_path: str) -> int:
     return atom_count
 
 
-def preprocess_nonstandard(pdb_path: str, out_path: str) -> list[str]:
+def preprocess_nonstandard(pdb_path: str, out_path: str):
     """Rename/remove residues in BEFORE_FIXER_REMAP before pdbfixer runs.
 
     Returns list of changes applied, e.g. ["NH2→deleted", "M3L→LYS"].
     """
-    changes: list[str] = []
+    changes = []
     lines_out = []
 
     with open(pdb_path) as fh:
