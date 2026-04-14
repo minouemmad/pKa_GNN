@@ -24,7 +24,7 @@ LOG_PATH  = "data/fix_log.csv"
 ADD_H_PH  = 7.0
 
 # Structures too broken to use — skip entirely
-EXCLUDE = {"3WU2", "7M2Z", "1XSN"}
+EXCLUDE = set()  # 3WU2, 7M2Z, 1XSN re-enabled: all are in PKAD-R
 # ─────────────────────────────────────────────────────────────────────────────
 
 LOG_FIELDS = [

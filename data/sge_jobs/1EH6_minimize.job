@@ -18,29 +18,45 @@ FFX=/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc
 PROPS="-Dkey=data/fixed_pdbs/1EH6/1EH6.properties"
 PDB_IN="${BASE}/1EH6/1EH6_input.pdb"
 
-# ── Step 1a: No polarization — relax idealized H atoms, zero SCF cost ─────────
-echo "=== Step 1a: Minimize polarization=NONE (RMS=2.0) ==="
-${FFX} Minimize -e 2.0 "${PDB_IN}" ${PROPS} -Dpolarization=NONE
+# ── Step 1a-pre: Ultra-coarse NONE — soften any clashing geometry first ────────
+echo "=== Step 1a-pre: Minimize polarization=NONE (RMS=10.0, coarse) ==="
+${FFX} Minimize -e 10.0 "${PDB_IN}" ${PROPS} -Dpolarization=NONE
 if [ ! -f "${PDB_IN}_2" ]; then
-    echo "ERROR: Step 1a output not found: ${PDB_IN}_2"; exit 1
+    echo "ERROR: Step 1a-pre output not found: ${PDB_IN}_2"; exit 1
 fi
-mv "${PDB_IN}_2" "${BASE}/1EH6/1EH6_s1a.pdb"
+mv "${PDB_IN}_2" "${BASE}/1EH6/1EH6_s0.pdb"
 
-# ── Step 1b: Direct polarization — still no SCF iterations ────────────────────
-echo "=== Step 1b: Minimize polarization=DIRECT (RMS=1.0) ==="
-${FFX} Minimize -e 1.0 "${BASE}/1EH6/1EH6_s1a.pdb" ${PROPS} -Dpolarization=DIRECT
+# ── Step 1a: No polarization — further relax at moderate RMS ──────────────────
+echo "=== Step 1a: Minimize polarization=NONE (RMS=2.0) ==="
+${FFX} Minimize -e 2.0 "${BASE}/1EH6/1EH6_s0.pdb" ${PROPS} -Dpolarization=NONE
+if [ ! -f "${BASE}/1EH6/1EH6_s0.pdb_2" ]; then
+    echo "ERROR: Step 1a output not found: ${BASE}/1EH6/1EH6_s0.pdb_2"; exit 1
+fi
+mv "${BASE}/1EH6/1EH6_s0.pdb_2" "${BASE}/1EH6/1EH6_s1a.pdb"
+
+# ── Step 1b: Direct polarization with wide tolerance ──────────────────────────
+echo "=== Step 1b: Minimize polarization=DIRECT (RMS=2.0) ==="
+${FFX} Minimize -e 2.0 "${BASE}/1EH6/1EH6_s1a.pdb" ${PROPS} -Dpolarization=DIRECT
 if [ ! -f "${BASE}/1EH6/1EH6_s1a.pdb_2" ]; then
     echo "ERROR: Step 1b output not found: ${BASE}/1EH6/1EH6_s1a.pdb_2"; exit 1
 fi
 mv "${BASE}/1EH6/1EH6_s1a.pdb_2" "${BASE}/1EH6/1EH6_s1b.pdb"
 
+# ── Step 1b2: Direct polarization tighter ─────────────────────────────────────
+echo "=== Step 1b2: Minimize polarization=DIRECT (RMS=1.0) ==="
+${FFX} Minimize -e 1.0 "${BASE}/1EH6/1EH6_s1b.pdb" ${PROPS} -Dpolarization=DIRECT
+if [ ! -f "${BASE}/1EH6/1EH6_s1b.pdb_2" ]; then
+    echo "ERROR: Step 1b2 output not found: ${BASE}/1EH6/1EH6_s1b.pdb_2"; exit 1
+fi
+mv "${BASE}/1EH6/1EH6_s1b.pdb_2" "${BASE}/1EH6/1EH6_s1b2.pdb"
+
 # ── Step 1c: Mutual polarization — geometry now conditioned for SCF ────────────
 echo "=== Step 1c: Minimize polarization=MUTUAL (RMS=0.8) ==="
-${FFX} Minimize -e 0.8 "${BASE}/1EH6/1EH6_s1b.pdb" ${PROPS} -Dpolarization=MUTUAL
-if [ ! -f "${BASE}/1EH6/1EH6_s1b.pdb_2" ]; then
-    echo "ERROR: Step 1c output not found: ${BASE}/1EH6/1EH6_s1b.pdb_2"; exit 1
+${FFX} Minimize -e 0.8 "${BASE}/1EH6/1EH6_s1b2.pdb" ${PROPS} -Dpolarization=MUTUAL
+if [ ! -f "${BASE}/1EH6/1EH6_s1b2.pdb_2" ]; then
+    echo "ERROR: Step 1c output not found: ${BASE}/1EH6/1EH6_s1b2.pdb_2"; exit 1
 fi
-mv "${BASE}/1EH6/1EH6_s1b.pdb_2" "${BASE}/1EH6/1EH6_coarse.pdb"
+mv "${BASE}/1EH6/1EH6_s1b2.pdb_2" "${BASE}/1EH6/1EH6_coarse.pdb"
 
 # ── Step 2: Start Parallel Java scheduler (background) ────────────────────────
 echo "=== Step 2: Starting Scheduler ==="
