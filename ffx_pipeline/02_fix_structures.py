@@ -158,16 +158,61 @@ def strip_hydrogens(pdb_path: str, out_path: str) -> int:
 def preprocess_residues(pdb_path, out_path):
     """Remap fixable non-standard residues and strip unfixable ones.
 
+    Also:
+    - Strips _RESIDUE_STRIP names from SEQRES header lines so PDBFixer's
+      findMissingResidues() never sees them (avoids KeyError on NH2 etc.).
+    - Identifies chains where ALL coordinate records would be stripped and
+      removes those chains entirely (avoids PDBFixer NoneType crash on empty
+      chains, e.g. DNA-only chains in nucleoprotein structures like 1XSN).
+
     Returns (remapped_list, stripped_list) for logging.
     Must be called AFTER strip_hydrogens so atom counts are meaningful.
     """
-    remapped = []
-    stripped = []
+    # ── Pass 1: identify chains that will be entirely stripped ───────────────
+    chain_keep  = set()   # chains with at least one non-stripped ATOM/HETATM
+    chain_strip = set()   # chains where every ATOM/HETATM is stripped
+    with open(pdb_path) as f:
+        for line in f:
+            rec = line[:6].strip()
+            if rec in ("ATOM", "HETATM") and len(line) > 21:
+                resname = line[17:20].strip()
+                chain   = line[21]
+                if resname in _RESIDUE_STRIP:
+                    chain_strip.add(chain)
+                else:
+                    chain_keep.add(chain)
+    # A chain is truly empty only if it has zero kept atoms
+    empty_chains = chain_strip - chain_keep
+
+    # ── Pass 2: write filtered file ──────────────────────────────────────────
+    remapped  = []
+    stripped  = []
     lines_out = []
 
     with open(pdb_path) as f:
         for line in f:
             rec = line[:6].strip()
+
+            # ── SEQRES: filter out stripped residue names token-by-token
+            if rec == "SEQRES" and len(line) > 11:
+                seqres_chain = line[11]
+                if seqres_chain in empty_chains:
+                    continue   # drop entire SEQRES line for empty chain
+                prefix   = line[:19]     # everything up to first residue position
+                tokens   = line[19:].split()
+                filtered = [t for t in tokens if t not in _RESIDUE_STRIP]
+                if not filtered:
+                    continue   # whole line was stripped residues
+                # Reconstruct: each residue name is 4 chars wide (name + space)
+                lines_out.append(prefix + "".join("%-4s" % t for t in filtered).rstrip() + "\n")
+                continue
+
+            # ── Coordinate and annotation records for empty chains
+            if rec in ("ATOM", "HETATM", "TER", "ANISOU") and len(line) > 21:
+                chain = line[21]
+                if chain in empty_chains:
+                    continue
+
             if rec in ("ATOM", "HETATM"):
                 resname = line[17:20].strip()
                 if resname in _RESIDUE_STRIP:
@@ -176,8 +221,8 @@ def preprocess_residues(pdb_path, out_path):
                 if resname in _RESIDUE_REMAP:
                     new_name = _RESIDUE_REMAP[resname]
                     remapped.append("%s->%s" % (resname, new_name))
-                    # PDB columns 18-20 (0-indexed 17:20) hold the residue name
                     line = line[:17] + "%-3s" % new_name + line[20:]
+
             lines_out.append(line)
 
     with open(out_path, "w") as f:
