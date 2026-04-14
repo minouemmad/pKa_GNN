@@ -24,9 +24,11 @@ except ImportError:
     )
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-RAW_DIR   = "data/raw_pdbs"
-FIXED_DIR = "data/fixed_pdbs"
-LOG_PATH  = "data/fix_log.csv"
+# All paths are relative to pKa_GNN/ (one level above this script)
+ROOT      = Path(__file__).resolve().parent.parent
+RAW_DIR   = str(ROOT / "data/raw_pdbs")
+FIXED_DIR = str(ROOT / "data/fixed_pdbs")
+LOG_PATH  = str(ROOT / "data/fix_log.csv")
 
 # Structures too broken to use — add PDB IDs here to skip them
 # e.g. EXCLUDE = {"3WU2", "7M2Z", "1XSN"}
