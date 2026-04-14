@@ -25,6 +25,34 @@ ADD_H_PH  = 7.0
 
 # Structures too broken to use — skip entirely
 EXCLUDE = set()  # 3WU2, 7M2Z, 1XSN re-enabled: all are in PKAD-R
+
+# Residue names that pdbfixer cannot map to a standard residue.
+# These are stripped from the PDB before pdbfixer runs.
+# Keys: residue name to strip. Values: replacement name, or None to delete.
+BEFORE_FIXER_REMAP = {
+    "NH2": None,   # C-terminal amide artefact — not a real residue
+    "CSR": "CYS",  # S-oxy cysteine → CYS (extra O stripped by H-strip / atom filter)
+    "M3L": "LYS",  # N6,N6,N6-trimethyllysine → LYS
+    "M3N": "LYS",  # variant trimethylysine label
+    "2DT": None,   # DNA deoxythymidine — not a residue of interest
+    "DA":  None,   # DNA adenosine
+    "DC":  None,   # DNA cytosine
+    "DG":  None,   # DNA guanosine
+    "DT":  None,   # DNA thymidine
+    "HSK": "SER",  # homoserine (approx. → SER; side chain truncated by later strip)
+    "HYP": "PRO",  # hydroxyproline → PRO
+    "MSE": "MET",  # selenomethionine → MET (selenium already stripped as heavy atom)
+}
+
+# Atoms in remapped residues that don't exist in the target residue template.
+# These are stripped (by name) when renaming a residue.
+EXTRA_ATOMS_FOR_REMAP = {
+    "CSR": {"OD"},          # extra oxygen of sulfinic acid
+    "M3L": {"CE", "NZ", "CN1", "CN2", "CN3"},  # trimethyl groups beyond LYS backbone
+    "M3N": {"CE", "NZ", "CN1", "CN2", "CN3"},
+    "HSK": {"CB"},          # homoserine has CB+OG; map to SER loses CB
+    "HYP": {"OH"},          # hydroxyproline OD1 → remove non-PRO atoms
+}
 # ─────────────────────────────────────────────────────────────────────────────
 
 LOG_FIELDS = [
@@ -89,6 +117,51 @@ def strip_to_model1(pdb_path: str, out_path: str) -> int:
     return atom_count
 
 
+def preprocess_nonstandard(pdb_path: str, out_path: str) -> list[str]:
+    """Rename/remove residues in BEFORE_FIXER_REMAP before pdbfixer runs.
+
+    Returns list of changes applied, e.g. ["NH2→deleted", "M3L→LYS"].
+    """
+    changes: list[str] = []
+    lines_out = []
+
+    with open(pdb_path) as fh:
+        for line in fh:
+            rec = line[:6].strip()
+            if rec not in ("ATOM", "HETATM"):
+                lines_out.append(line)
+                continue
+
+            res_name = line[17:20].strip()
+            if res_name not in BEFORE_FIXER_REMAP:
+                lines_out.append(line)
+                continue
+
+            target = BEFORE_FIXER_REMAP[res_name]
+
+            if target is None:
+                # Drop the whole residue line
+                if res_name not in [c.split("→")[0] for c in changes]:
+                    changes.append(f"{res_name}→deleted")
+                continue
+
+            # Check if this specific atom should be dropped
+            atom_name = line[12:16].strip()
+            if atom_name in EXTRA_ATOMS_FOR_REMAP.get(res_name, set()):
+                continue
+
+            # Rename residue in columns 17-20 (3 chars, right-padded)
+            new_line = line[:17] + f"{target:<3}" + line[20:]
+            lines_out.append(new_line)
+            if f"{res_name}→{target}" not in changes:
+                changes.append(f"{res_name}→{target}")
+
+    with open(out_path, "w") as fh:
+        fh.writelines(lines_out)
+
+    return changes
+
+
 def strip_hydrogens(pdb_path: str, out_path: str) -> int:
     """Remove all H/D atoms so FFX assigns its own via AMOEBA biotypes.
 
@@ -123,6 +196,7 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
     log["pdb_id"] = pdb_id
     stripped_tmp  = None
     noh_tmp       = None
+    preproc_tmp   = None
 
     try:
         input_path = raw_path
@@ -151,6 +225,13 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
             return log
         input_path = noh_tmp
 
+        # ── Preprocess: rename/remove residues pdbfixer can't handle ──────────
+        preproc_tmp = noh_tmp.replace("_noh_tmp.pdb", "_preproc_tmp.pdb")
+        preproc_changes = preprocess_nonstandard(input_path, preproc_tmp)
+        if preproc_changes:
+            log["nonstandard_replaced"] = "(pre-strip) " + "; ".join(preproc_changes)
+            input_path = preproc_tmp
+
         # ── PDBFixer ──────────────────────────────────────────────────────────
         fixer = PDBFixer(filename=input_path)
 
@@ -164,10 +245,16 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
         fixer.findNonstandardResidues()
         ns = fixer.nonstandardResidues
         if ns:
-            log["nonstandard_replaced"] = "; ".join(
-                f"{r.name}{r.id}" for r, _ in ns
-            )
-        fixer.replaceNonstandardResidues()
+            existing = log["nonstandard_replaced"] or ""
+            ns_names = "; ".join(f"{r.name}{r.id}" for r, _ in ns)
+            log["nonstandard_replaced"] = (existing + " " + ns_names).strip()
+        try:
+            fixer.replaceNonstandardResidues()
+        except (KeyError, Exception) as exc:
+            # pdbfixer cannot map all residues; remove the unmappable ones
+            # rather than aborting the whole structure.
+            log["notes"] = f"replaceNonstandardResidues skipped ({exc}); unmapped residues dropped"
+            fixer.nonstandardResidues = []
 
         fixer.findMissingResidues()
         n_missing_res = sum(len(v) for v in fixer.missingResidues.values())
@@ -216,7 +303,7 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
         log["notes"] = traceback.format_exc().splitlines()[-1]
 
     finally:
-        for tmp in (stripped_tmp, noh_tmp):
+        for tmp in (stripped_tmp, noh_tmp, preproc_tmp):
             if tmp and os.path.exists(tmp):
                 os.remove(tmp)
 
@@ -248,6 +335,10 @@ def main():
         if not raw_pdbs:
             raise SystemExit(f"No PDB files found in {RAW_DIR}.")
         raw_pdbs = [p for p in raw_pdbs if p.stem.upper() not in EXCLUDE]
+        # Skip temp file artefacts left by previously crashed runs
+        _TMP_SUFFIXES = ("_noh_tmp", "_model1_tmp", "_preproc_tmp", "_noh_tmp_2")
+        raw_pdbs = [p for p in raw_pdbs
+                    if not any(p.stem.lower().endswith(s) for s in _TMP_SUFFIXES)]
         print(f"Fixing {len(raw_pdbs)} structures  (hard-excluded: {sorted(EXCLUDE)})")
 
     with open(LOG_PATH, "w", newline="") as logf:
