@@ -12,9 +12,13 @@ Generate and optionally submit SGE job scripts for:
      Output: {pdb_dir}/{pdb_id}_pH{ph}.pdb_2.uind / .uperm
 
 Flags:
-  --dry    Generate scripts but do not submit to SGE.
-  --force  Regenerate + resubmit even if outputs already exist.
-           Combined with --dry: regenerates all scripts without submitting.
+  --dry       Generate scripts but do not submit to SGE.
+  --force     Regenerate + resubmit even if outputs already exist.
+              Combined with --dry: regenerates all scripts without submitting.
+  --rotamer   Submit/generate only rotamer jobs (skip titration).
+  --titrate   Submit/generate only titration jobs (skip rotamer).
+  --ph <X>    Submit/generate titration jobs only at pH X (implies --titrate).
+              Multiple --ph flags are supported (e.g. --ph 3.94 --ph 6.45).
 """
 
 import os
@@ -46,8 +50,27 @@ WALLTIME    = "10000:00:00"
 TITRATION_PHS = [3.94, 4.4, 6.45, 8.55]
 
 # ── Flags ─────────────────────────────────────────────────────────────────────
-DRY_RUN = "--dry"   in sys.argv
-FORCE   = "--force" in sys.argv   # regenerate + resubmit even if done
+DRY_RUN   = "--dry"     in sys.argv
+FORCE     = "--force"   in sys.argv   # regenerate + resubmit even if done
+ONLY_ROT  = "--rotamer" in sys.argv
+ONLY_TIT  = "--titrate" in sys.argv or "--ph" in sys.argv
+
+# --ph can appear multiple times: collect all specified pHs
+_ph_indices = [i for i, a in enumerate(sys.argv) if a == "--ph"]
+PH_FILTER = []
+for _i in _ph_indices:
+    try:
+        PH_FILTER.append(float(sys.argv[_i + 1]))
+    except (IndexError, ValueError):
+        print("ERROR: --ph requires a float value (e.g., --ph 3.94)")
+        sys.exit(1)
+
+# Derived: which job types to actually run
+RUN_ROTAMER = ONLY_ROT or (not ONLY_ROT and not ONLY_TIT)
+RUN_TITRATE = ONLY_TIT or (not ONLY_ROT and not ONLY_TIT)
+
+# Active pH list (full list unless --ph filtered it)
+ACTIVE_PHS = [ph for ph in TITRATION_PHS if ph in PH_FILTER] if PH_FILTER else TITRATION_PHS
 
 LOG_FIELDS = ["pdb_id", "ph", "job_type", "job_script", "job_id", "status", "notes"]
 
@@ -93,7 +116,7 @@ def write_properties_for(pdb_stem: str, dest_dir: str) -> tuple:
 
 
 def make_rotamer_job_script(pdb_id: str, pdb_abs: str, ffx_prop: str) -> str:
-    job_name = f"{pdb_id}_rotamer"
+    job_name = f"min_{pdb_id}_rotamer"
     return f"""\
 #!/bin/bash
 #$ -V                        # Inherit current environment
@@ -127,8 +150,8 @@ def make_titration_job_script(
 ) -> str:
     ph_str      = str(ph)
     ph_safe     = ph_str.replace(".", "p")          # e.g. "3p94" for job name
-    job_name    = f"{pdb_id}_pH{ph_safe}"
-    rotamer_job = f"{pdb_id}_rotamer"
+    job_name    = f"min_{pdb_id}_pH{ph_safe}"
+    rotamer_job = f"min_{pdb_id}_rotamer"
     rotopt      = f"{pdb_abs}_3"                    # output of rotamer ManyBody
     ph_input    = f"{pdb_dir}/{pdb_id}_pH{ph_str}.pdb"
     titrate_out = f"{ph_input}_2"                   # ManyBody --tR output
@@ -193,8 +216,11 @@ def main():
     pdbs  = sorted(Path(PDB_DIR).glob("*/*_input.pdb"))
     mode  = "DRY RUN" if DRY_RUN else "SUBMITTING to SGE"
     force = " [--force]" if FORCE else ""
-    print(f"Processing {len(pdbs)} input PDBs  [{mode}{force}]")
-    print(f"Titration pHs: {TITRATION_PHS}")
+    jobs_desc = ("rotamer only" if ONLY_ROT and not ONLY_TIT
+                 else "titration only" if ONLY_TIT and not ONLY_ROT
+                 else "rotamer + titration")
+    print(f"Processing {len(pdbs)} input PDBs  [{mode}{force}]  jobs: {jobs_desc}")
+    print(f"Titration pHs: {ACTIVE_PHS}")
 
     with open(LOG_PATH, "a", newline="") as logf:
         writer = csv.DictWriter(logf, fieldnames=LOG_FIELDS)
@@ -210,34 +236,37 @@ def main():
             ffx_prop, titrate_prop = write_properties_for(pdb_stem, pdb_dir)
 
             # ── Rotamer job ──────────────────────────────────────────────────
-            rotamer_script = os.path.join(JOBS_DIR, f"{pdb_id}_rotamer.job")
-            _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
+            if RUN_ROTAMER:
+                rotamer_script = os.path.join(JOBS_DIR, f"{pdb_id}_rotamer.job")
+                _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
 
-            rotopt_done = (pdb_path.parent / f"{pdb_stem}.pdb_3").exists()
+                rotopt_done = (pdb_path.parent / f"{pdb_stem}.pdb_3").exists()
 
-            if rotopt_done and not FORCE:
-                print(f"  [done] {pdb_id}  rotamer output exists — script updated, skipping submit")
-            elif DRY_RUN:
-                print(f"  [dry]  {pdb_id}  rotamer → {rotamer_script}")
-                writer.writerow({"pdb_id": pdb_id, "ph": "", "job_type": "rotamer",
-                                 "job_script": rotamer_script, "job_id": "dry-run",
-                                 "status": "generated", "notes": ""})
-                logf.flush()
-            else:
-                job_id, err = submit_job(rotamer_script)
-                status = "submitted" if job_id != -1 else "submit_failed"
-                note   = err[:120] if err else ""
-                print(f"  [{'✓' if job_id != -1 else '✗'}] {pdb_id}  rotamer  job_id={job_id}"
-                      + (f"  {note}" if note else ""))
-                writer.writerow({"pdb_id": pdb_id, "ph": "", "job_type": "rotamer",
-                                 "job_script": rotamer_script, "job_id": job_id,
-                                 "status": status, "notes": note})
-                logf.flush()
+                if rotopt_done and not FORCE:
+                    print(f"  [done] {pdb_id}  rotamer output exists — script updated, skipping submit")
+                elif DRY_RUN:
+                    print(f"  [dry]  {pdb_id}  rotamer → {rotamer_script}")
+                    writer.writerow({"pdb_id": pdb_id, "ph": "", "job_type": "rotamer",
+                                     "job_script": rotamer_script, "job_id": "dry-run",
+                                     "status": "generated", "notes": ""})
+                    logf.flush()
+                else:
+                    job_id, err = submit_job(rotamer_script)
+                    status = "submitted" if job_id != -1 else "submit_failed"
+                    note   = err[:120] if err else ""
+                    print(f"  [{'✓' if job_id != -1 else '✗'}] {pdb_id}  rotamer  job_id={job_id}"
+                          + (f"  {note}" if note else ""))
+                    writer.writerow({"pdb_id": pdb_id, "ph": "", "job_type": "rotamer",
+                                     "job_script": rotamer_script, "job_id": job_id,
+                                     "status": status, "notes": note})
+                    logf.flush()
 
             # ── Titration jobs — one per pH ──────────────────────────────────
-            for ph in TITRATION_PHS:
+            if not RUN_TITRATE:
+                continue
+            for ph in ACTIVE_PHS:
                 ph_str   = str(ph)
-                t_script = os.path.join(JOBS_DIR, f"{pdb_id}_titrate_pH{ph_str}.job")
+                t_script = os.path.join(JOBS_DIR, f"{pdb_id}_titrate_pH{ph_str}.job")  # file name unchanged
                 uind_path = pdb_path.parent / f"{pdb_id}_pH{ph_str}.pdb_2.uind"
 
                 _write_script(t_script, make_titration_job_script(
