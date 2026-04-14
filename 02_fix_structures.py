@@ -128,6 +128,26 @@ def preprocess_nonstandard(pdb_path: str, out_path: str):
     with open(pdb_path) as fh:
         for line in fh:
             rec = line[:6].strip()
+
+            # ── SEQRES: rename/remove problematic residue tokens ──────────────
+            if rec == "SEQRES":
+                header = line[:19]  # "SEQRES   N C  NNN  "
+                tokens = line[19:].split()
+                new_tokens = []
+                for tok in tokens:
+                    if tok in BEFORE_FIXER_REMAP:
+                        target = BEFORE_FIXER_REMAP[tok]
+                        if target is not None:
+                            new_tokens.append(target)
+                        # else: deleted — drop token
+                    else:
+                        new_tokens.append(tok)
+                if not new_tokens:
+                    continue  # entire SEQRES line became empty — skip it
+                new_rest = "".join(f" {t:<3}" for t in new_tokens) + "\n"
+                lines_out.append(header + new_rest)
+                continue
+
             if rec not in ("ATOM", "HETATM"):
                 lines_out.append(line)
                 continue
@@ -257,6 +277,15 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
             fixer.nonstandardResidues = []
 
         fixer.findMissingResidues()
+        # Purge any entries whose residue-name list contains deleted residue
+        # types (e.g. NH2) so addMissingAtoms() doesn't try to template them.
+        _del_names = {k for k, v in BEFORE_FIXER_REMAP.items() if v is None}
+        if _del_names and fixer.missingResidues:
+            fixer.missingResidues = {
+                k: [r for r in res_list if r not in _del_names]
+                for k, res_list in fixer.missingResidues.items()
+            }
+            fixer.missingResidues = {k: v for k, v in fixer.missingResidues.items() if v}
         n_missing_res = sum(len(v) for v in fixer.missingResidues.values())
         log["missing_residues_count"] = n_missing_res
 
