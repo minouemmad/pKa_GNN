@@ -98,6 +98,19 @@ def _load_state_dict(path: Path, map_location: str = "cpu") -> dict:
         return torch.load(path, map_location=map_location)
 
 
+def _infer_arch(state_dict: dict) -> tuple[int, int]:
+    """Infer (hidden_channels, heads) from a saved state dict.
+
+    GATv2Conv with concat=True stores:
+      conv1.att  : shape [1, heads, hidden]
+      out.weight : shape [1, hidden * heads]
+    """
+    att_shape = state_dict["conv1.att"].shape   # (1, heads, hidden)
+    heads  = int(att_shape[1])
+    hidden = int(att_shape[2])
+    return hidden, heads
+
+
 # ════════════════════════════════════════════════════════════════════════════
 # Build datasets from CSV (predict mode)
 # ════════════════════════════════════════════════════════════════════════════
@@ -342,8 +355,10 @@ def main() -> None:
 
         for k, model_path in enumerate(model_paths, start=1):
             print(f"  Fold {k}  ({model_path.name})")
-            model = GATModelPaper(input_dim, args.hidden, args.heads, args.dropout)
-            model.load_state_dict(_load_state_dict(model_path))
+            state_dict = _load_state_dict(model_path)
+            hidden, heads = _infer_arch(state_dict)
+            model = GATModelPaper(input_dim, hidden, heads, args.dropout)
+            model.load_state_dict(state_dict)
 
             fold_df = run_inference(model, data_list, batch_size=args.batch_size)
 
