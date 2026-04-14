@@ -24,11 +24,13 @@ except ImportError:
     )
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-# All paths are relative to pKa_GNN/ (one level above this script)
-ROOT      = Path(__file__).resolve().parent.parent
-RAW_DIR   = str(ROOT / "data/raw_pdbs")
-FIXED_DIR = str(ROOT / "data/fixed_pdbs")
-LOG_PATH  = str(ROOT / "data/fix_log.csv")
+# PIPELINE_ROOT = ffx_pipeline/   (outputs live here)
+# REPO_ROOT     = pKa_GNN/        (shared raw inputs live here)
+PIPELINE_ROOT = Path(__file__).resolve().parent
+REPO_ROOT     = PIPELINE_ROOT.parent
+RAW_DIR   = str(REPO_ROOT     / "data/raw_pdbs")
+FIXED_DIR = str(PIPELINE_ROOT / "data/fixed_pdbs")
+LOG_PATH  = str(PIPELINE_ROOT / "data/fix_log.csv")
 
 # Structures too broken to use — add PDB IDs here to skip them
 # e.g. EXCLUDE = {"3WU2", "7M2Z", "1XSN"}

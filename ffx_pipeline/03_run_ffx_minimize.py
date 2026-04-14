@@ -25,15 +25,17 @@ import subprocess
 from pathlib import Path
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-# All paths are relative to pKa_GNN/ (one level above this script)
-ROOT     = Path(__file__).resolve().parent.parent
-PDB_DIR  = str(ROOT / "data/fixed_pdbs")
-JOBS_DIR = str(ROOT / "data/sge_jobs")
-LOG_PATH = str(ROOT / "data/minimize_log.csv")
+# PIPELINE_ROOT = ffx_pipeline/   (all pipeline data lives here)
+# REPO_ROOT     = pKa_GNN/        (shared files: .prm, etc.)
+PIPELINE_ROOT = Path(__file__).resolve().parent
+REPO_ROOT     = PIPELINE_ROOT.parent
+PDB_DIR  = str(PIPELINE_ROOT / "data/fixed_pdbs")
+JOBS_DIR = str(PIPELINE_ROOT / "data/sge_jobs")
+LOG_PATH = str(PIPELINE_ROOT / "data/minimize_log.csv")
 
 FFX_CMD         = "/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc"
 FFX_CMD_TITRATE = "/Dedicated/schnieders/rgogal/software/forcefieldx/bin/ffxc"
-SOLUTE_PRM      = str(ROOT / "naphosphate_solute.09Feb21.prm")
+SOLUTE_PRM      = str(REPO_ROOT / "naphosphate_solute.09Feb21.prm")
 
 # ── SGE resource settings ─────────────────────────────────────────────────────
 N_GPUS      = 1
