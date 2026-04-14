@@ -37,6 +37,33 @@ LOG_PATH  = str(PIPELINE_ROOT / "data/fix_log.csv")
 EXCLUDE = set()  # type: ignore[var-annotated]  # set[str], Python < 3.9 compat
 # ─────────────────────────────────────────────────────────────────────────────
 
+# ── Residue pre-processing tables ────────────────────────────────────────────
+# Residue names to rename to their nearest standard equivalent before PDBFixer.
+# PDBFixer's replaceNonstandardResidues() misses these.
+_RESIDUE_REMAP = {
+    "CSR": "CYS",   # cysteinesulfenic acid → cysteine (same backbone)
+    "M3L": "LYS",   # N6,N6,N6-trimethyllysine → lysine
+    "HSK": "SER",   # homoserine adduct → serine (closest backbone match)
+    "MSE": "MET",   # selenomethionine (backup; PDBFixer usually handles this)
+    "HSD": "HIS",   # CHARMM protonation variant
+    "HSE": "HIS",
+    "HSP": "HIS",
+}
+
+# Residue names to remove entirely — PDBFixer has no template and we can't
+# meaningfully remap them.  NH2 is a C-terminal amide cap (not an amino acid).
+# The DNA/RNA bases come from protein-nucleic acid co-crystal structures.
+_RESIDUE_STRIP = {
+    "NH2",                          # C-terminal amide cap
+    "DA", "DC", "DG", "DT",         # DNA
+    "DA3", "DC3", "DG3", "DT3",     # DNA 3′ terminal
+    "DA5", "DC5", "DG5", "DT5",     # DNA 5′ terminal
+    "2DT",                          # modified thymidine
+    "A", "C", "G", "U",             # RNA
+    "ADE", "CYT", "GUA", "THY",     # full-name variants
+}
+# ─────────────────────────────────────────────────────────────────────────────
+
 LOG_FIELDS = [
     "pdb_id", "status", "multi_model_stripped",
     "missing_residues_count", "missing_atoms_count",
@@ -128,11 +155,43 @@ def strip_hydrogens(pdb_path: str, out_path: str) -> int:
     return heavy_count
 
 
-def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
+def preprocess_residues(pdb_path, out_path):
+    """Remap fixable non-standard residues and strip unfixable ones.
+
+    Returns (remapped_list, stripped_list) for logging.
+    Must be called AFTER strip_hydrogens so atom counts are meaningful.
+    """
+    remapped = []
+    stripped = []
+    lines_out = []
+
+    with open(pdb_path) as f:
+        for line in f:
+            rec = line[:6].strip()
+            if rec in ("ATOM", "HETATM"):
+                resname = line[17:20].strip()
+                if resname in _RESIDUE_STRIP:
+                    stripped.append(resname)
+                    continue
+                if resname in _RESIDUE_REMAP:
+                    new_name = _RESIDUE_REMAP[resname]
+                    remapped.append("%s->%s" % (resname, new_name))
+                    # PDB columns 18-20 (0-indexed 17:20) hold the residue name
+                    line = line[:17] + "%-3s" % new_name + line[20:]
+            lines_out.append(line)
+
+    with open(out_path, "w") as f:
+        f.writelines(lines_out)
+
+    return sorted(set(remapped)), sorted(set(stripped))
+
+
+def fix_one(pdb_id, raw_path, fixed_path):
     log = {k: "" for k in LOG_FIELDS}
     log["pdb_id"] = pdb_id
     stripped_tmp = None
     noh_tmp      = None
+    prepro_tmp   = None
 
     try:
         input_path = raw_path
@@ -159,6 +218,15 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
             log["notes"] = "H-strip produced 0 heavy atoms — malformed PDB"
             return log
         input_path = noh_tmp
+
+        # ── Remap / strip non-standard residues before PDBFixer ───────────────
+        prepro_tmp = input_path.replace(".pdb", "_prepro_tmp.pdb")
+        remapped, stripped = preprocess_residues(input_path, prepro_tmp)
+        input_path = prepro_tmp
+        if remapped:
+            log["notes"] = (log["notes"] + " remapped:" + ",".join(remapped)).strip()
+        if stripped:
+            log["notes"] = (log["notes"] + " stripped:" + ",".join(sorted(set(stripped)))).strip()
 
         # ── PDBFixer ──────────────────────────────────────────────────────────
         fixer = PDBFixer(filename=input_path)
@@ -210,7 +278,7 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
         log["notes"] = traceback.format_exc().splitlines()[-1]
 
     finally:
-        for tmp in (stripped_tmp, noh_tmp):
+        for tmp in (stripped_tmp, noh_tmp, prepro_tmp):
             if tmp and os.path.exists(tmp):
                 os.remove(tmp)
 
@@ -219,7 +287,10 @@ def fix_one(pdb_id: str, raw_path: str, fixed_path: str) -> dict:
 
 def main():
     os.makedirs(FIXED_DIR, exist_ok=True)
-    raw_pdbs = sorted(Path(RAW_DIR).glob("*.pdb"))
+    raw_pdbs = sorted(
+        p for p in Path(RAW_DIR).glob("*.pdb")
+        if "_tmp" not in p.name.lower()          # exclude leftover temp files
+    )
 
     if not raw_pdbs:
         raise SystemExit(f"No PDB files found in {RAW_DIR}.")
