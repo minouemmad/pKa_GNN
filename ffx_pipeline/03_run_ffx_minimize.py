@@ -2,7 +2,7 @@
 03_run_ffx_minimize.py
 
 Generate and optionally submit SGE job scripts for:
-  1. Rotamer job  ({pdb_id}_rotamer.job)
+  1. Rotamer job  (rot_{pdb_id}.job)
      Coarse minimize + ManyBody rotamer optimisation.
      Output: {pdb_stem}.pdb_3
 
@@ -116,7 +116,7 @@ def write_properties_for(pdb_stem: str, dest_dir: str) -> tuple:
 
 
 def make_rotamer_job_script(pdb_id: str, pdb_abs: str, ffx_prop: str) -> str:
-    job_name = f"min_{pdb_id}_rotamer"
+    job_name = f"rot_{pdb_id}"
     return f"""\
 #!/bin/bash
 #$ -V                        # Inherit current environment
@@ -151,7 +151,7 @@ def make_titration_job_script(
     ph_str      = str(ph)
     ph_safe     = ph_str.replace(".", "p")          # e.g. "3p94" for job name
     job_name    = f"min_{pdb_id}_pH{ph_safe}"
-    rotamer_job = f"min_{pdb_id}_rotamer"
+    rotamer_job = f"rot_{pdb_id}"
     rotopt      = f"{pdb_abs}_3"                    # output of rotamer ManyBody
     ph_input    = f"{pdb_dir}/{pdb_id}_pH{ph_str}.pdb"
     titrate_out = f"{ph_input}_2"                   # ManyBody --tR output
