@@ -145,26 +145,32 @@ def main() -> None:
         source_xyz_dir=CENTER_XYZ_DIR,
     )
 
+    MERGED_CSV = f"{NEUTRAL_DIR}/System_Solve_Info_with_Charge.csv"
+
     print("\n9. Processing solvent info and OHH-OHH patterns...")
     process_solvent_info_and_ohh_ohh(
-        soaked_proteins_dir=DISSOLVED_DIR,
+        xyz_dir=CENTER_XYZ_DIR,
         solvent_info_csv=SOLVENT_INFO_CSV,
+        merged_output_csv=MERGED_CSV,
     )
 
     print("\n10. Offsetting charges (neutralizing systems)...")
     offset_charges_in_systems(
+        merged_system_solve_file=MERGED_CSV,
         soaked_proteins_dir=DISSOLVED_DIR,
-        neutralized_dir=NEUTRAL_DIR,
-        charge_info_csv=f"{CENTER_XYZ_DIR}/charge_info.csv",
-        param_file=PARAM_FILE,
+        neutralized_system_dir=NEUTRAL_DIR,
+        log_file_path=f"{NEUTRAL_DIR}/Failed/Neutralization_log.txt",
     )
 
     print("\n11. Iterative neutralization for remaining failures...")
     filter_copy_and_iterative_neutralization(
-        soaked_proteins_dir=DISSOLVED_DIR,
-        neutralized_dir=NEUTRAL_DIR,
-        charge_info_csv=f"{CENTER_XYZ_DIR}/charge_info.csv",
-        param_file=PARAM_FILE,
+        xyz_dir=NEUTRAL_DIR,
+        output_csv=f"{NEUTRAL_DIR}/Failed/Failed_Neutralizations.csv",
+        source_dir=DISSOLVED_DIR,
+        work_dir=f"{NEUTRAL_DIR}/Failed",
+        redo_dir=f"{NEUTRAL_DIR}/Redo",
+        merged_csv_file=MERGED_CSV,
+        log_file_path=f"{NEUTRAL_DIR}/Failed/Iterative_Neutralization_log.txt",
     )
 
     n_ready = len(list(Path(NEUTRAL_DIR).glob("*.xyz")))
