@@ -8,7 +8,7 @@ Generate and optionally submit SGE job scripts for:
 
   2. Per-pH titration jobs  ({pdb_id}_titrate_pH{ph}.job)  — one per TITRATION_PHS
      Copies rotopt output, runs titration ManyBody, then final minimize with
-     --saveInduced --savePermanentMoments.
+     --saveInduced.
      Output: {pdb_dir}/{pdb_id}_pH{ph}.pdb_2.uind / .uperm
 
 Flags:
@@ -134,11 +134,11 @@ echo "=== Rotamer job started: $(date) ==="
 echo "PDB: {pdb_abs}"
 
 # Step 1: Coarse minimize
-{FFX_CMD} Minimize -e 0.8 {pdb_abs} -Dplatform=OMM -Dkey={ffx_prop}
+{FFX_CMD} Minimize -e 0.8 {pdb_abs} -Dkey={ffx_prop}
 
 # Step 2: Rotamer optimization
 {FFX_CMD} Scheduler -p 1 -m {MEM_PER_JOB} > scheduler_rotamer.log & sleep 30s
-{FFX_CMD} ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 -Dplatform=OMM {pdb_abs}_2 -Dkey={ffx_prop}
+{FFX_CMD} ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 {pdb_abs}_2 -Dkey={ffx_prop}
 
 echo "=== Rotamer job done: $(date) ==="
 """
@@ -179,7 +179,7 @@ cp "{rotopt}" "{ph_input}"
 {FFX_CMD_TITRATE} ManyBody --tR --pH {ph} --oT -T --kpH 3.0 "{ph_input}" -Dkey={titrate_prop}
 
 # Final minimize — saves induced dipoles (.uind) and permanent multipoles (.uperm)
-{FFX_CMD} Minimize -e 0.1 "{titrate_out}" -Dplatform=OMM -Dkey={ffx_prop} --saveInduced --savePermanentMoments
+{FFX_CMD} Minimize -e 0.1 "{titrate_out}" -Dkey={ffx_prop} --saveInduced
 
 echo "=== Titration pH {ph} done: $(date) ==="
 """
