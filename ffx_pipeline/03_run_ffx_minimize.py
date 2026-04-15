@@ -137,7 +137,7 @@ echo "PDB: {pdb_abs}"
 {FFX_CMD} Minimize -e 0.8 {pdb_abs} -Dkey={ffx_prop}
 
 # Step 2: Rotamer optimization
-{FFX_CMD} Scheduler -p 1 -m {MEM_PER_JOB} > scheduler_rotamer.log & sleep 30s
+{FFX_CMD} Scheduler -p 20 -m {MEM_PER_JOB} > scheduler_rotamer.log & sleep 30s
 {FFX_CMD} ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 {pdb_abs}_2 -Dkey={ffx_prop}
 
 echo "=== Rotamer job done: $(date) ==="
@@ -191,6 +191,23 @@ echo "=== Titration pH {ph} done: $(date) ==="
 """
 
 
+def get_queued_job_names() -> set:
+    """Return the set of job names currently in the SGE queue (any state: running, pending, etc.)."""
+    try:
+        result = subprocess.run(["qstat"], capture_output=True, text=True, timeout=30)
+        names = set()
+        for line in result.stdout.splitlines()[2:]:   # first two lines are header
+            parts = line.split()
+            if len(parts) >= 3:
+                names.add(parts[2])
+        return names
+    except FileNotFoundError:
+        return set()
+    except subprocess.TimeoutExpired:
+        print("WARNING: qstat timed out — assuming no jobs in queue")
+        return set()
+
+
 def submit_job(script_path: str) -> tuple:
     try:
         result = subprocess.run(
@@ -228,6 +245,13 @@ def main():
     print(f"Processing {len(pdbs)} input PDBs  [{mode}{force}]  jobs: {jobs_desc}")
     print(f"Titration pHs: {ACTIVE_PHS}")
 
+    # Snapshot the SGE queue once so --force can skip already-running jobs.
+    queued_names: set = set()
+    if FORCE:
+        queued_names = get_queued_job_names()
+        if queued_names:
+            print(f"  [queue] {len(queued_names)} jobs found in SGE queue — running jobs will be skipped.")
+
     with open(LOG_PATH, "a", newline="") as logf:
         writer = csv.DictWriter(logf, fieldnames=LOG_FIELDS)
         if not log_exists:
@@ -243,20 +267,30 @@ def main():
 
             # ── Rotamer job ──────────────────────────────────────────────────
             if RUN_ROTAMER:
+                job_name      = f"rot_{pdb_id}"
                 rotamer_script = os.path.join(JOBS_DIR, f"rot_{pdb_id}.job")
-                _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
+                rotopt_done   = (pdb_path.parent / f"{pdb_stem}.pdb_3").exists()
 
-                rotopt_done = (pdb_path.parent / f"{pdb_stem}.pdb_3").exists()
+                if FORCE and job_name in queued_names:
+                    # Job is active in the queue — leave script and queue entry untouched.
+                    print(f"  [running] {pdb_id}  rotamer is in SGE queue — skipping")
 
-                if rotopt_done and not FORCE:
+                elif rotopt_done and not FORCE:
+                    # Output exists and --force not set — refresh script but don't re-submit.
+                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
                     print(f"  [done] {pdb_id}  rotamer output exists — script updated, skipping submit")
+
                 elif DRY_RUN:
+                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
                     print(f"  [dry]  {pdb_id}  rotamer → {rotamer_script}")
                     writer.writerow({"pdb_id": pdb_id, "ph": "", "job_type": "rotamer",
                                      "job_script": rotamer_script, "job_id": "dry-run",
                                      "status": "generated", "notes": ""})
                     logf.flush()
+
                 else:
+                    # Normal submit -or- --force for a job not currently in the queue.
+                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
                     job_id, err = submit_job(rotamer_script)
                     status = "submitted" if job_id != -1 else "submit_failed"
                     note   = err[:120] if err else ""
@@ -272,23 +306,35 @@ def main():
                 continue
             for ph in ACTIVE_PHS:
                 ph_str   = str(ph)
+                ph_safe  = ph_str.replace(".", "p")        # matches job name in script
+                job_name = f"titr_{pdb_id}_pH{ph_safe}"
                 t_script = os.path.join(JOBS_DIR, f"titr_{pdb_id}_pH{ph_str}.job")
                 uind_path = pdb_path.parent / f"{pdb_id}_pH{ph_str}.pdb_2.uind"
-
-                _write_script(t_script, make_titration_job_script(
-                    pdb_id, pdb_abs, pdb_dir, ffx_prop, titrate_prop, ph))
-
                 titrate_done = uind_path.exists()
 
-                if titrate_done and not FORCE:
+                if FORCE and job_name in queued_names:
+                    # Job is active in the queue — leave script and queue entry untouched.
+                    print(f"  [running] {pdb_id}  pH {ph}  is in SGE queue — skipping")
+
+                elif titrate_done and not FORCE:
+                    # Output exists and --force not set — refresh script but don't re-submit.
+                    _write_script(t_script, make_titration_job_script(
+                        pdb_id, pdb_abs, pdb_dir, ffx_prop, titrate_prop, ph))
                     print(f"  [done] {pdb_id}  pH {ph}  .uind exists — script updated, skipping submit")
+
                 elif DRY_RUN:
+                    _write_script(t_script, make_titration_job_script(
+                        pdb_id, pdb_abs, pdb_dir, ffx_prop, titrate_prop, ph))
                     print(f"  [dry]  {pdb_id}  pH {ph} → {t_script}")
                     writer.writerow({"pdb_id": pdb_id, "ph": ph_str, "job_type": "titration",
                                      "job_script": t_script, "job_id": "dry-run",
                                      "status": "generated", "notes": ""})
                     logf.flush()
+
                 else:
+                    # Normal submit -or- --force for a job not currently in the queue.
+                    _write_script(t_script, make_titration_job_script(
+                        pdb_id, pdb_abs, pdb_dir, ffx_prop, titrate_prop, ph))
                     job_id, err = submit_job(t_script)
                     status = "submitted" if job_id != -1 else "submit_failed"
                     note   = err[:120] if err else ""
