@@ -150,7 +150,7 @@ def make_titration_job_script(
 ) -> str:
     ph_str      = str(ph)
     ph_safe     = ph_str.replace(".", "p")          # e.g. "3p94" for job name
-    job_name    = f"min_{pdb_id}_pH{ph_safe}"
+    job_name    = f"titr_{pdb_id}_pH{ph_safe}"
     rotamer_job = f"rot_{pdb_id}"
     rotopt      = f"{pdb_abs}_3"                    # output of rotamer ManyBody
     ph_input    = f"{pdb_dir}/{pdb_id}_pH{ph_str}.pdb"
@@ -266,7 +266,7 @@ def main():
                 continue
             for ph in ACTIVE_PHS:
                 ph_str   = str(ph)
-                t_script = os.path.join(JOBS_DIR, f"min_{pdb_id}_titrate_pH{ph_str}.job")
+                t_script = os.path.join(JOBS_DIR, f"titr_{pdb_id}_pH{ph_str}.job")
                 uind_path = pdb_path.parent / f"{pdb_id}_pH{ph_str}.pdb_2.uind"
 
                 _write_script(t_script, make_titration_job_script(
