@@ -1,0 +1,23 @@
+#!/bin/bash
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N rot_3TP7             # Job Name
+#$ -j y                      # Combine stderr and stdout
+#$ -q MS,UI-GPU              # Queue
+#$ -pe smp 20                # Request 20 tasks/node
+#$ -o $JOB_NAME.$JOB_ID.log  # Name of output file
+#$ -l h_rt=10000:00:00        # Run Time
+#$ -S /bin/bash              # Shell to use
+#$ -l ngpus=1
+
+echo "=== Rotamer job started: $(date) ==="
+echo "PDB: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3TP7/3TP7_input.pdb"
+
+# Step 1: Coarse minimize
+/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize -e 0.8 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3TP7/3TP7_input.pdb -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3TP7/3TP7_input.properties
+
+# Step 2: Rotamer optimization
+/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 1 -m 22G > scheduler_rotamer.log & sleep 30s
+/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3TP7/3TP7_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3TP7/3TP7_input.properties
+
+echo "=== Rotamer job done: $(date) ==="
