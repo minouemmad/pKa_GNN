@@ -172,7 +172,13 @@ def make_titration_job_script(
 
 echo "=== Titration pH {ph} started: $(date) ==="
 
-# Copy rotamer output so each pH run has its own working copy
+# Verify rotamer output exists before proceeding
+if [ ! -f "{rotopt}" ]; then
+  echo "ERROR: rotamer output not found: {rotopt}" >&2
+  exit 1
+fi
+
+# Copy rotamer output so each pH run has its own working copy (pdb_3 is never modified)
 cp "{rotopt}" "{ph_input}"
 
 # Titration rotamer optimization at pH {ph}
