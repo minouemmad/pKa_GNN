@@ -37,7 +37,9 @@ from pathlib import Path
 # Tinker_EM.py lives in Graph_pKa/ and its default paths assume CWD = Graph_pKa/.
 # We import it and call each function with explicit pKa_GNN-relative paths so
 # the script can be run from pKa_GNN/ as CWD.
-sys.path.insert(0, str(Path("Graph_pKa").resolve()))
+# Anchor to pKa_GNN/ regardless of invocation CWD
+PKA_GNN_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PKA_GNN_DIR / "Graph_pKa"))
 from Tinker_EM import (  # type: ignore  # noqa: E402
     fix_pdb_files_with_pdbfixer,
     remove_water_with_mdanalysis,
@@ -52,25 +54,25 @@ from Tinker_EM import (  # type: ignore  # noqa: E402
     filter_copy_and_iterative_neutralization,
 )
 
-# ── Paths (all relative to CWD = pKa_GNN/) ───────────────────────────────────
-INPUT_PDB_GLOB   = "data/fixed_pdbs"
-RAW_PDB_DIR      = "Graph_pKa/Data/0_Raw_PDB"
-FIXED_DIR        = "Graph_pKa/Data/1_PDB_After_Fixer"
-CLEANED_DIR      = "Graph_pKa/Data/2_Cleaned_PDB"
-XYZ_DIR          = "Graph_pKa/Data/3_PDB_XYZ"
-CENTER_XYZ_DIR   = "Graph_pKa/Data/4_Center_Moved_XYZ"
-DISSOLVED_DIR    = "Graph_pKa/Data/5_Dissolved_Proteins"
-NEUTRAL_DIR      = "Graph_pKa/Data/6_Neutralized_System"
-PARAM_FILE       = "Graph_pKa/Tinker_params/amoebabio18.prm"
-COORDS_CSV       = f"{CENTER_XYZ_DIR}/TinkerXYZ_coords.csv"
-SOLVENT_INFO_CSV = f"{DISSOLVED_DIR}/System_Solve_Info.csv"
+# ── Paths (all anchored to pKa_GNN/ via __file__) ───────────────────────────
+INPUT_PDB_DIR    = str(PKA_GNN_DIR / "tinker_pipeline/data/fixed_pdbs")
+RAW_PDB_DIR      = str(PKA_GNN_DIR / "Graph_pKa/Data/0_Raw_PDB")
+FIXED_DIR        = str(PKA_GNN_DIR / "Graph_pKa/Data/1_PDB_After_Fixer")
+CLEANED_DIR      = str(PKA_GNN_DIR / "Graph_pKa/Data/2_Cleaned_PDB")
+XYZ_DIR          = str(PKA_GNN_DIR / "Graph_pKa/Data/3_PDB_XYZ")
+CENTER_XYZ_DIR   = str(PKA_GNN_DIR / "Graph_pKa/Data/4_Center_Moved_XYZ")
+DISSOLVED_DIR    = str(PKA_GNN_DIR / "Graph_pKa/Data/5_Dissolved_Proteins")
+NEUTRAL_DIR      = str(PKA_GNN_DIR / "Graph_pKa/Data/6_Neutralized_System")
+PARAM_FILE       = str(PKA_GNN_DIR / "Graph_pKa/Tinker_params/amoebabio18.prm")
+COORDS_CSV       = str(PKA_GNN_DIR / "Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv")
+SOLVENT_INFO_CSV = str(PKA_GNN_DIR / "Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv")
 
 
 def copy_input_pdbs() -> int:
-    """Copy {PDB_ID}_input.pdb → 0_Raw_PDB/{PDB_ID}.pdb for every protein."""
+    """Copy {PDB_ID}_input.pdb from tinker_pipeline/data/fixed_pdbs/ → Graph_pKa/Data/0_Raw_PDB/{PDB_ID}.pdb."""
     os.makedirs(RAW_PDB_DIR, exist_ok=True)
     copied = 0
-    for pdb_path in sorted(Path(INPUT_PDB_GLOB).glob("*/*_input.pdb")):
+    for pdb_path in sorted(Path(INPUT_PDB_DIR).glob("*/*_input.pdb")):
         pdb_id = pdb_path.parent.name
         dest   = Path(RAW_PDB_DIR) / f"{pdb_id}.pdb"
         if not dest.exists():
@@ -113,9 +115,7 @@ def main() -> None:
         cleaned_pdb_dir=CLEANED_DIR,
         xyz_dir=XYZ_DIR,
         center_moved_xyz_dir=CENTER_XYZ_DIR,
-        # param_file here is used inside the subprocess CWD = XYZ_DIR,
-        # so ../../Tinker_params/... resolves to Graph_pKa/Tinker_params/...
-        param_file="../../Tinker_params/amoebabio18.prm",
+        param_file=PARAM_FILE,   # absolute path; works regardless of subprocess CWD
     )
 
     print("\n5. Computing waterbox sizes...")
