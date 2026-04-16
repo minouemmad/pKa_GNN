@@ -47,15 +47,15 @@ import sys
 from pathlib import Path
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-PDB_DIR      = "data/fixed_pdbs"
-JOBS_DIR     = "data/sge_jobs_tinker"
-LOG_PATH     = "data/tinker_minimize_log.csv"
-MIN_DIR      = "Graph_pKa/Data/7_Energy_Minimization_Systems"
-NEUTRAL_DIR  = "Graph_pKa/Data/6_Neutralized_System"
+# Anchor everything to pKa_GNN/ regardless of the CWD used to invoke this script.
+PIPELINE_DIR = Path(__file__).resolve().parent          # pKa_GNN/tinker_pipeline/
+PKA_GNN_DIR  = PIPELINE_DIR.parent                     # pKa_GNN/
 
-# Absolute path to THIS script's directory (tinker_pipeline/)
-# Used inside job scripts so the helpers can be found regardless of SGE CWD.
-PIPELINE_DIR = str(Path(__file__).parent.resolve())
+PDB_DIR      = str(PIPELINE_DIR / "data/fixed_pdbs")
+JOBS_DIR     = str(PKA_GNN_DIR / "data/sge_jobs_tinker")
+LOG_PATH     = str(PKA_GNN_DIR / "data/tinker_minimize_log.csv")
+MIN_DIR      = str(PKA_GNN_DIR / "Graph_pKa/Data/7_Energy_Minimization_Systems")
+NEUTRAL_DIR  = str(PKA_GNN_DIR / "Graph_pKa/Data/6_Neutralized_System")
 
 # ── SGE resource settings ─────────────────────────────────────────────────────
 WALLTIME     = "10000:00:00"
@@ -150,7 +150,7 @@ def main() -> None:
     os.makedirs(JOBS_DIR, exist_ok=True)
 
     pdbs = sorted(Path(PDB_DIR).glob("*/*_input.pdb"))
-    pka_gnn_abs = str(Path(".").resolve())
+    pka_gnn_abs = str(PKA_GNN_DIR)
 
     mode = "DRY RUN" if DRY_RUN else "SUBMITTING to SGE"
     force_tag = "  [--force]" if FORCE else ""
