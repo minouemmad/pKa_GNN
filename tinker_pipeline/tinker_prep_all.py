@@ -10,17 +10,20 @@ Run from pKa_GNN/ as CWD:
     python tinker_pipeline/tinker_prep_all.py
 
 Steps executed (with corrected paths for CWD = pKa_GNN/):
-    1.  fix_pdb_files_with_pdbfixer      → Graph_pKa/Data/1_PDB_After_Fixer/
-    2.  remove_water_with_mdanalysis     → Graph_pKa/Data/2_Cleaned_PDB/
-    3.  convert_pdb_to_xyz_files         → Graph_pKa/Data/2_Cleaned_PDB/*.xyz
-    4.  move_center_of_mass_and_relocate → Graph_pKa/Data/4_Center_Moved_XYZ/
-    5.  write_xyz_coordinate_ranges      → Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv
-    6.  soak_proteins_with_waterbox      → Graph_pKa/Data/5_Dissolved_Proteins/
-    7.  analyze_and_collect_charge       → Graph_pKa/Data/4_Center_Moved_XYZ/charge_info.csv
-    8.  generate_system_solvent_info     → Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv
-    9.  process_solvent_info_and_ohh_ohh
-    10. offset_charges_in_systems        → Graph_pKa/Data/6_Neutralized_System/
-    11. filter_copy_and_iterative_neutralization
+    NOTE: PDBFixer and water removal (paper steps 1-2) are handled upstream
+    by tinker_pipeline/00_fix_structures.py.  This script picks up from
+    the already-fixed PDBs in tinker_pipeline/data/fixed_pdbs/.
+
+    0.  copy fixed PDBs                  → Graph_pKa/Data/2_Cleaned_PDB/
+    1.  convert_pdb_to_xyz_files         → Graph_pKa/Data/2_Cleaned_PDB/*.xyz
+    2.  move_center_of_mass_and_relocate → Graph_pKa/Data/4_Center_Moved_XYZ/
+    3.  write_xyz_coordinate_ranges      → Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv
+    4.  soak_proteins_with_waterbox      → Graph_pKa/Data/5_Dissolved_Proteins/
+    5.  analyze_and_collect_charge       → Graph_pKa/Data/4_Center_Moved_XYZ/charge_info.csv
+    6.  generate_system_solvent_info     → Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv
+    7.  process_solvent_info_and_ohh_ohh
+    8.  offset_charges_in_systems        → Graph_pKa/Data/6_Neutralized_System/
+    9.  filter_copy_and_iterative_neutralization
 
 When done, Graph_pKa/Data/6_Neutralized_System/ will contain
 {PDB_ID}.xyz for each protein, ready for the per-protein minimize jobs.
@@ -41,8 +44,6 @@ from pathlib import Path
 PKA_GNN_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PKA_GNN_DIR / "Graph_pKa"))
 from Tinker_EM import (  # type: ignore  # noqa: E402
-    fix_pdb_files_with_pdbfixer,
-    remove_water_with_mdanalysis,
     convert_pdb_to_xyz_files,
     move_center_of_mass_and_relocate,
     write_xyz_coordinate_ranges,
@@ -56,8 +57,6 @@ from Tinker_EM import (  # type: ignore  # noqa: E402
 
 # ── Paths (all anchored to pKa_GNN/ via __file__) ───────────────────────────
 INPUT_PDB_DIR    = str(PKA_GNN_DIR / "tinker_pipeline/data/fixed_pdbs")
-RAW_PDB_DIR      = str(PKA_GNN_DIR / "Graph_pKa/Data/0_Raw_PDB")
-FIXED_DIR        = str(PKA_GNN_DIR / "Graph_pKa/Data/1_PDB_After_Fixer")
 CLEANED_DIR      = str(PKA_GNN_DIR / "Graph_pKa/Data/2_Cleaned_PDB")
 XYZ_DIR          = str(PKA_GNN_DIR / "Graph_pKa/Data/3_PDB_XYZ")
 CENTER_XYZ_DIR   = str(PKA_GNN_DIR / "Graph_pKa/Data/4_Center_Moved_XYZ")
@@ -69,16 +68,18 @@ SOLVENT_INFO_CSV = str(PKA_GNN_DIR / "Graph_pKa/Data/5_Dissolved_Proteins/System
 
 
 def copy_input_pdbs() -> int:
-    """Copy {PDB_ID}_input.pdb from tinker_pipeline/data/fixed_pdbs/ → Graph_pKa/Data/0_Raw_PDB/{PDB_ID}.pdb."""
-    os.makedirs(RAW_PDB_DIR, exist_ok=True)
+    """Copy {PDB_ID}_input.pdb (already fixed by 00_fix_structures.py)
+    from tinker_pipeline/data/fixed_pdbs/ → Graph_pKa/Data/2_Cleaned_PDB/{PDB_ID}.pdb.
+    Skips files that already exist."""
+    os.makedirs(CLEANED_DIR, exist_ok=True)
     copied = 0
     for pdb_path in sorted(Path(INPUT_PDB_DIR).glob("*/*_input.pdb")):
         pdb_id = pdb_path.parent.name
-        dest   = Path(RAW_PDB_DIR) / f"{pdb_id}.pdb"
+        dest   = Path(CLEANED_DIR) / f"{pdb_id}.pdb"
         if not dest.exists():
             shutil.copy(str(pdb_path), str(dest))
             copied += 1
-    print(f"Copied {copied} PDB files to {RAW_PDB_DIR}")
+    print(f"Copied {copied} PDB files to {CLEANED_DIR}")
     return copied
 
 
@@ -88,29 +89,16 @@ def main() -> None:
     print(f"CWD: {os.getcwd()}")
     print("=" * 60)
 
-    print("\n0. Copying input PDBs to 0_Raw_PDB/...")
+    print("\n0. Copying fixed PDBs from 00_fix_structures output to 2_Cleaned_PDB/...")
     copy_input_pdbs()
 
-    print("\n1. Fixing PDB files with PDBFixer...")
-    fix_pdb_files_with_pdbfixer(
-        pdb_dir=RAW_PDB_DIR,
-        output_dir=FIXED_DIR,
-    )
-
-    print("\n2. Removing water with MDAnalysis...")
-    remove_water_with_mdanalysis(
-        pdb_dir=FIXED_DIR,
-        output_dir=CLEANED_DIR,
-        log_file_path=f"{CLEANED_DIR}/mdanalysis_output.log",
-    )
-
-    print("\n3. Converting PDB → XYZ with pdbxyz.x...")
+    print("\n1. Converting PDB → XYZ with pdbxyz.x...")
     convert_pdb_to_xyz_files(
         pdb_dir=CLEANED_DIR,
         param_file=PARAM_FILE,
     )
 
-    print("\n4. Centering structures with xyzedit.x...")
+    print("\n2. Centering structures with xyzedit.x...")
     move_center_of_mass_and_relocate(
         cleaned_pdb_dir=CLEANED_DIR,
         xyz_dir=XYZ_DIR,
@@ -118,13 +106,13 @@ def main() -> None:
         param_file=PARAM_FILE,   # absolute path; works regardless of subprocess CWD
     )
 
-    print("\n5. Computing waterbox sizes...")
+    print("\n3. Computing waterbox sizes...")
     write_xyz_coordinate_ranges(
         xyz_dir=CENTER_XYZ_DIR,
         output_csv=COORDS_CSV,
     )
 
-    print("\n6. Soaking structures with waterbox...")
+    print("\n4. Soaking structures with waterbox...")
     soak_proteins_with_waterbox(
         tinker_coords_csv=COORDS_CSV,
         center_moved_xyz_dir=CENTER_XYZ_DIR,
@@ -132,13 +120,13 @@ def main() -> None:
         param_file=PARAM_FILE,
     )
 
-    print("\n7. Analyzing charges with analyze.x...")
+    print("\n5. Analyzing charges with analyze.x...")
     analyze_and_collect_charge(
         xyz_dir=CENTER_XYZ_DIR,
         param_file=PARAM_FILE,
     )
 
-    print("\n8. Generating system solvent info...")
+    print("\n6. Generating system solvent info...")
     generate_system_solvent_info(
         soaked_proteins_dir=DISSOLVED_DIR,
         solvent_info_csv=SOLVENT_INFO_CSV,
@@ -147,14 +135,14 @@ def main() -> None:
 
     MERGED_CSV = f"{NEUTRAL_DIR}/System_Solve_Info_with_Charge.csv"
 
-    print("\n9. Processing solvent info and OHH-OHH patterns...")
+    print("\n7. Processing solvent info and OHH-OHH patterns...")
     process_solvent_info_and_ohh_ohh(
         xyz_dir=CENTER_XYZ_DIR,
         solvent_info_csv=SOLVENT_INFO_CSV,
         merged_output_csv=MERGED_CSV,
     )
 
-    print("\n10. Offsetting charges (neutralizing systems)...")
+    print("\n8. Offsetting charges (neutralizing systems)...")
     offset_charges_in_systems(
         merged_system_solve_file=MERGED_CSV,
         soaked_proteins_dir=DISSOLVED_DIR,
@@ -162,7 +150,7 @@ def main() -> None:
         log_file_path=f"{NEUTRAL_DIR}/Failed/Neutralization_log.txt",
     )
 
-    print("\n11. Iterative neutralization for remaining failures...")
+    print("\n9. Iterative neutralization for remaining failures...")
     filter_copy_and_iterative_neutralization(
         xyz_dir=NEUTRAL_DIR,
         output_csv=f"{NEUTRAL_DIR}/Failed/Failed_Neutralizations.csv",

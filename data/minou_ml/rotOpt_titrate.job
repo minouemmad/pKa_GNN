@@ -13,7 +13,7 @@
 ffxc Minimize -e 0.8 fileName.pdb -Dplatform=OMM -Dkey=ffx.properties
 
 # Set up scheduler for ManyBody
-ffxc Scheduler -p 1 -m 22G > scheduler.log & sleep 30s
+ffxc Scheduler -p 20 -m 22G > scheduler.log & sleep 30s
 
 # Rotamer Optimization for entire structure
 ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 -Dplatform=OMM fileName.pdb_2 -Dkey=ffx.properties
