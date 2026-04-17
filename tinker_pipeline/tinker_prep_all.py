@@ -63,6 +63,7 @@ CENTER_XYZ_DIR   = str(PKA_GNN_DIR / "Graph_pKa/Data/4_Center_Moved_XYZ")
 DISSOLVED_DIR    = str(PKA_GNN_DIR / "Graph_pKa/Data/5_Dissolved_Proteins")
 NEUTRAL_DIR      = str(PKA_GNN_DIR / "Graph_pKa/Data/6_Neutralized_System")
 PARAM_FILE       = str(PKA_GNN_DIR / "Graph_pKa/Tinker_params/amoebabio18.prm")
+WATERBOX_DIR     = str(PKA_GNN_DIR / "Graph_pKa/Tinker_params/waterbox")
 COORDS_CSV       = str(PKA_GNN_DIR / "Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv")
 SOLVENT_INFO_CSV = str(PKA_GNN_DIR / "Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv")
 
@@ -97,6 +98,8 @@ def main() -> None:
         pdb_dir=CLEANED_DIR,
         param_file=PARAM_FILE,
     )
+    n_xyz = len(list(Path(CLEANED_DIR).glob("*.xyz")))
+    print(f"   → {n_xyz} XYZ files in 2_Cleaned_PDB/")
 
     print("\n2. Centering structures with xyzedit.x...")
     move_center_of_mass_and_relocate(
@@ -105,12 +108,21 @@ def main() -> None:
         center_moved_xyz_dir=CENTER_XYZ_DIR,
         param_file=PARAM_FILE,   # absolute path; works regardless of subprocess CWD
     )
+    n_centered = len(list(Path(CENTER_XYZ_DIR).glob("*.xyz")))
+    print(f"   → {n_centered} XYZ files in 4_Center_Moved_XYZ/")
 
     print("\n3. Computing waterbox sizes...")
     write_xyz_coordinate_ranges(
         xyz_dir=CENTER_XYZ_DIR,
         output_csv=COORDS_CSV,
     )
+    import csv as _csv
+    try:
+        with open(COORDS_CSV) as _f:
+            n_csv = sum(1 for _ in _csv.DictReader(_f))
+        print(f"   → {n_csv} rows in TinkerXYZ_coords.csv")
+    except Exception:
+        print("   → TinkerXYZ_coords.csv not found or empty")
 
     print("\n4. Soaking structures with waterbox...")
     soak_proteins_with_waterbox(
@@ -118,7 +130,10 @@ def main() -> None:
         center_moved_xyz_dir=CENTER_XYZ_DIR,
         soaked_proteins_dir=DISSOLVED_DIR,
         param_file=PARAM_FILE,
+        waterbox_dir=WATERBOX_DIR,
     )
+    n_soaked = len(list(Path(DISSOLVED_DIR).glob("*.xyz")))
+    print(f"   → {n_soaked} XYZ files in 5_Dissolved_Proteins/")
 
     print("\n5. Analyzing charges with analyze.x...")
     analyze_and_collect_charge(
@@ -148,7 +163,10 @@ def main() -> None:
         soaked_proteins_dir=DISSOLVED_DIR,
         neutralized_system_dir=NEUTRAL_DIR,
         log_file_path=f"{NEUTRAL_DIR}/Failed/Neutralization_log.txt",
+        param_file=PARAM_FILE,
     )
+    n_neutral = len(list(Path(NEUTRAL_DIR).glob("*.xyz")))
+    print(f"   → {n_neutral} XYZ files in 6_Neutralized_System/")
 
     print("\n9. Iterative neutralization for remaining failures...")
     filter_copy_and_iterative_neutralization(
@@ -159,6 +177,7 @@ def main() -> None:
         redo_dir=f"{NEUTRAL_DIR}/Redo",
         merged_csv_file=MERGED_CSV,
         log_file_path=f"{NEUTRAL_DIR}/Failed/Iterative_Neutralization_log.txt",
+        param_file=PARAM_FILE,
     )
 
     n_ready = len(list(Path(NEUTRAL_DIR).glob("*.xyz")))
