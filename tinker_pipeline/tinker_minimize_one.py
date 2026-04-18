@@ -25,6 +25,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+_TINKER_BIN = "/Dedicated/schnieders/programs/tinker-tools/bin"
+
 # ── Paths (all relative to CWD = pKa_GNN/) ───────────────────────────────────
 NEUTRAL_DIR  = "Graph_pKa/Data/6_Neutralized_System"
 MIN_DIR      = "Graph_pKa/Data/7_Energy_Minimization_Systems"
@@ -69,9 +71,9 @@ def write_key_file(key_path: str, param_file_abs: str, waterbox: int) -> None:
 
 
 def run_minimize(xyz_path: str, key_path: str, work_dir: str) -> int:
-    """Call minimize.x and return the process return code."""
+    """Call minimize and return the process return code."""
     result = subprocess.run(
-        ["minimize.x", xyz_path, "-k", key_path],
+        [os.path.join(_TINKER_BIN, "minimize"), xyz_path, "-k", key_path],
         input=RMS_GRADIENT + "\n",
         capture_output=False,      # let stdout/stderr flow to job log
         text=True,
