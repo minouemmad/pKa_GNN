@@ -127,19 +127,21 @@ def main() -> None:
     dest_xyz = work_dir / f"{pdb_id}.xyz"
     shutil.copy(str(src_xyz), str(dest_xyz))
 
-    # Use absolute param file path in the key file so minimize.x can find it
-    param_abs = str(Path(args.param_file).resolve())
-    key_path  = str(work_dir / f"{pdb_id}.key")
+    # Resolve all paths to absolute so Tinker can find them regardless of cwd
+    work_dir_abs = work_dir.resolve()
+    dest_xyz_abs = dest_xyz.resolve()
+    param_abs    = str(Path(args.param_file).resolve())
+    key_path     = str(work_dir_abs / f"{pdb_id}.key")
     write_key_file(key_path, param_abs, waterbox)
 
     print(f"[{pdb_id}] Running minimize.x  (RMS gradient {RMS_GRADIENT} kcal/mol/Å)...")
-    rc = run_minimize(str(dest_xyz), key_path, str(work_dir))
+    rc = run_minimize(str(dest_xyz_abs), key_path, str(work_dir_abs))
 
     if rc != 0:
         print(f"[{pdb_id}] ERROR: minimize.x exited with code {rc}", file=sys.stderr)
         sys.exit(rc)
 
-    minimized = work_dir / f"{pdb_id}.xyz_2"
+    minimized = work_dir_abs / f"{pdb_id}.xyz_2"
     if minimized.exists():
         print(f"[{pdb_id}] Minimization complete → {minimized}")
     else:
