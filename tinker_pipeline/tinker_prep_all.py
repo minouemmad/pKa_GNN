@@ -36,10 +36,6 @@ import shutil
 import sys
 from pathlib import Path
 
-# ── Tinker binaries (pdbxyz, xyzedit, analyze, minimize) ─────────────────────
-_TINKER_BIN = "/Dedicated/schnieders/programs/tinker-tools/bin"
-os.environ["PATH"] = _TINKER_BIN + ":" + os.environ.get("PATH", "")
-
 # ── Import Tinker_EM functions ────────────────────────────────────────────────
 # Tinker_EM.py lives in Graph_pKa/ and its default paths assume CWD = Graph_pKa/.
 # We import it and call each function with explicit pKa_GNN-relative paths so
