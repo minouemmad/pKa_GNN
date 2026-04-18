@@ -27,6 +27,16 @@ from pathlib import Path
 
 _TINKER_BIN = "/Dedicated/schnieders/programs/tinker-tools/bin"
 
+# ── Intel OpenMP runtime (required by Tinker binaries on Argon) ──────────────
+_INTEL_OMP_LIB = (
+    "/opt/ssoft/apps/2021.1/linux-centos7-x86_64/gcc-4.8.5"
+    "/intel-oneapi-compilers-2021.2.0-sapdob5"
+    "/compiler/2021.2.0/linux/compiler/lib/intel64_lin"
+)
+os.environ["LD_LIBRARY_PATH"] = (
+    _INTEL_OMP_LIB + ":" + os.environ.get("LD_LIBRARY_PATH", "")
+)
+
 # ── Paths (all relative to CWD = pKa_GNN/) ───────────────────────────────────
 NEUTRAL_DIR  = "Graph_pKa/Data/6_Neutralized_System"
 MIN_DIR      = "Graph_pKa/Data/7_Energy_Minimization_Systems"
