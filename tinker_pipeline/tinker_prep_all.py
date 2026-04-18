@@ -36,6 +36,16 @@ import shutil
 import sys
 from pathlib import Path
 
+# ── Intel OpenMP runtime (required by Tinker binaries on Argon) ──────────────
+_INTEL_OMP_LIB = (
+    "/opt/ssoft/apps/2021.1/linux-centos7-x86_64/gcc-4.8.5"
+    "/intel-oneapi-compilers-2021.2.0-sapdob5"
+    "/compiler/2021.2.0/linux/compiler/lib/intel64_lin"
+)
+os.environ["LD_LIBRARY_PATH"] = (
+    _INTEL_OMP_LIB + ":" + os.environ.get("LD_LIBRARY_PATH", "")
+)
+
 # ── Import Tinker_EM functions ────────────────────────────────────────────────
 # Tinker_EM.py lives in Graph_pKa/ and its default paths assume CWD = Graph_pKa/.
 # We import it and call each function with explicit pKa_GNN-relative paths so
