@@ -36,6 +36,10 @@ _INTEL_OMP_LIB = (
 os.environ["LD_LIBRARY_PATH"] = (
     _INTEL_OMP_LIB + ":" + os.environ.get("LD_LIBRARY_PATH", "")
 )
+# Prevent Tinker AMOEBA segfaults: OMP thread stacks overflow with default 8 MB limit.
+# Set a large per-thread stack size; fall back to single-threaded if still crashing.
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("OMP_STACKSIZE", "512m")
 
 # ── Paths (all relative to CWD = pKa_GNN/) ───────────────────────────────────
 NEUTRAL_DIR  = "Graph_pKa/Data/6_Neutralized_System"
