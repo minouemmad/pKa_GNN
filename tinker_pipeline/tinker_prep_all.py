@@ -32,8 +32,10 @@ When done, Graph_pKa/Data/6_Neutralized_System/ will contain
 from __future__ import annotations
 
 import os
-import shutil
 import sys
+import csv as _csv
+import argparse
+import shutil
 from pathlib import Path
 
 # ── Intel OpenMP runtime (required by Tinker binaries on Argon) ──────────────
@@ -78,14 +80,16 @@ COORDS_CSV       = str(PKA_GNN_DIR / "Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXY
 SOLVENT_INFO_CSV = str(PKA_GNN_DIR / "Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv")
 
 
-def copy_input_pdbs() -> int:
+def copy_input_pdbs(only_ids=None) -> int:
     """Copy {PDB_ID}_input.pdb (already fixed by 00_fix_structures.py)
     from tinker_pipeline/data/fixed_pdbs/ → Graph_pKa/Data/2_Cleaned_PDB/{PDB_ID}.pdb.
-    Skips files that already exist."""
+    Skips files that already exist.  If only_ids is given, copies only those."""
     os.makedirs(CLEANED_DIR, exist_ok=True)
     copied = 0
     for pdb_path in sorted(Path(INPUT_PDB_DIR).glob("*/*_input.pdb")):
         pdb_id = pdb_path.parent.name
+        if only_ids and pdb_id.upper() not in only_ids:
+            continue
         dest   = Path(CLEANED_DIR) / f"{pdb_id}.pdb"
         if not dest.exists():
             shutil.copy(str(pdb_path), str(dest))
@@ -95,13 +99,25 @@ def copy_input_pdbs() -> int:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Run all Tinker preprocessing steps for every protein."
+    )
+    parser.add_argument(
+        "--only", nargs="+", metavar="PDB_ID",
+        help="Process only these PDB IDs (e.g. --only 1A93 1AZP 1BNZ). "
+             "Steps 1-9 skip proteins whose outputs already exist."
+    )
+    args = parser.parse_args()
+    only_ids = {p.upper() for p in args.only} if args.only else None
+
+    mode = f"only: {sorted(only_ids)}" if only_ids else "all proteins"
     print("=" * 60)
-    print("Tinker preprocessing pipeline — all proteins")
+    print(f"Tinker preprocessing pipeline — {mode}")
     print(f"CWD: {os.getcwd()}")
     print("=" * 60)
 
     print("\n0. Copying fixed PDBs from 00_fix_structures output to 2_Cleaned_PDB/...")
-    copy_input_pdbs()
+    copy_input_pdbs(only_ids=only_ids)
 
     print("\n1. Converting PDB → XYZ with pdbxyz.x...")
     convert_pdb_to_xyz_files(
@@ -126,7 +142,6 @@ def main() -> None:
         xyz_dir=CENTER_XYZ_DIR,
         output_csv=COORDS_CSV,
     )
-    import csv as _csv
     try:
         with open(COORDS_CSV) as _f:
             n_csv = sum(1 for _ in _csv.DictReader(_f))
