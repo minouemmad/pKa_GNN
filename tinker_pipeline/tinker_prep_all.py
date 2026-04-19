@@ -123,6 +123,7 @@ def main() -> None:
     convert_pdb_to_xyz_files(
         pdb_dir=CLEANED_DIR,
         param_file=PARAM_FILE,
+        only_ids=only_ids,
     )
     n_xyz = len(list(Path(CLEANED_DIR).glob("*.xyz")))
     print(f"   → {n_xyz} XYZ files in 2_Cleaned_PDB/")
@@ -132,7 +133,8 @@ def main() -> None:
         cleaned_pdb_dir=CLEANED_DIR,
         xyz_dir=XYZ_DIR,
         center_moved_xyz_dir=CENTER_XYZ_DIR,
-        param_file=PARAM_FILE,   # absolute path; works regardless of subprocess CWD
+        param_file=PARAM_FILE,
+        only_ids=only_ids,
     )
     n_centered = len(list(Path(CENTER_XYZ_DIR).glob("*.xyz")))
     print(f"   → {n_centered} XYZ files in 4_Center_Moved_XYZ/")
@@ -141,6 +143,7 @@ def main() -> None:
     write_xyz_coordinate_ranges(
         xyz_dir=CENTER_XYZ_DIR,
         output_csv=COORDS_CSV,
+        only_ids=only_ids,
     )
     try:
         with open(COORDS_CSV) as _f:
@@ -156,6 +159,7 @@ def main() -> None:
         soaked_proteins_dir=DISSOLVED_DIR,
         param_file=PARAM_FILE,
         waterbox_dir=WATERBOX_DIR,
+        only_ids=only_ids,
     )
     n_soaked = len(list(Path(DISSOLVED_DIR).glob("*.xyz")))
     print(f"   → {n_soaked} XYZ files in 5_Dissolved_Proteins/")
@@ -164,6 +168,7 @@ def main() -> None:
     analyze_and_collect_charge(
         xyz_dir=CENTER_XYZ_DIR,
         param_file=PARAM_FILE,
+        only_ids=only_ids,
     )
 
     print("\n6. Generating system solvent info...")
@@ -171,6 +176,7 @@ def main() -> None:
         soaked_proteins_dir=DISSOLVED_DIR,
         solvent_info_csv=SOLVENT_INFO_CSV,
         source_xyz_dir=CENTER_XYZ_DIR,
+        only_ids=only_ids,
     )
 
     MERGED_CSV = f"{NEUTRAL_DIR}/System_Solve_Info_with_Charge.csv"
@@ -189,6 +195,7 @@ def main() -> None:
         neutralized_system_dir=NEUTRAL_DIR,
         log_file_path=f"{NEUTRAL_DIR}/Failed/Neutralization_log.txt",
         param_file=PARAM_FILE,
+        only_ids=only_ids,
     )
     n_neutral = len(list(Path(NEUTRAL_DIR).glob("*.xyz")))
     print(f"   → {n_neutral} XYZ files in 6_Neutralized_System/")
