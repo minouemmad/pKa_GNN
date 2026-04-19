@@ -9,6 +9,7 @@ Prepare raw PDB files for Tinker/AMOEBA minimization:
   4. Write output without CRYST1 record
 """
 
+import argparse
 import os
 import csv
 import traceback
@@ -167,11 +168,17 @@ def preprocess_residues(pdb_path, out_path):
     Must be called AFTER strip_hydrogens so atom counts are meaningful.
     """
     # ── Pass 1: identify chains that will be entirely stripped ───────────────
+    # Also collect chains mentioned only in SEQRES (no ATOM/HETATM at all) —
+    # PDBFixer creates empty chain objects for these which triggers the
+    # '_current_chain' AttributeError in findMissingResidues().
     chain_keep  = set()   # chains with at least one non-stripped ATOM/HETATM
     chain_strip = set()   # chains where every ATOM/HETATM is stripped
+    chain_seqres = set()  # chains mentioned in SEQRES records
     with open(pdb_path) as f:
         for line in f:
             rec = line[:6].strip()
+            if rec == "SEQRES" and len(line) > 11:
+                chain_seqres.add(line[11])
             if rec in ("ATOM", "HETATM") and len(line) > 21:
                 resname = line[17:20].strip()
                 chain   = line[21]
@@ -179,8 +186,10 @@ def preprocess_residues(pdb_path, out_path):
                     chain_strip.add(chain)
                 else:
                     chain_keep.add(chain)
-    # A chain is truly empty only if it has zero kept atoms
-    empty_chains = chain_strip - chain_keep
+    # A chain is truly empty if it has zero kept atoms, OR exists only in
+    # SEQRES with no coordinate records at all (PDBFixer creates empty chain
+    # objects for SEQRES-only chains, triggering _current_chain AttributeError).
+    empty_chains = (chain_strip - chain_keep) | (chain_seqres - chain_keep - chain_strip)
 
     # ── Pass 2: write filtered file ──────────────────────────────────────────
     remapped  = []
@@ -329,6 +338,20 @@ def fix_one(pdb_id, raw_path, fixed_path):
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Fix raw PDB files for Tinker/AMOEBA minimization."
+    )
+    parser.add_argument(
+        "--only", nargs="+", metavar="PDB_ID",
+        help="Process only these PDB IDs (uppercase, e.g. --only 1AZP 1BNZ 1XSN)."
+    )
+    parser.add_argument(
+        "--force", action="store_true",
+        help="Re-run even if the fixed output already exists."
+    )
+    args = parser.parse_args()
+    only_ids = {p.upper() for p in args.only} if args.only else None
+
     os.makedirs(FIXED_DIR, exist_ok=True)
     raw_pdbs = sorted(
         p for p in Path(RAW_DIR).glob("*.pdb")
@@ -339,19 +362,25 @@ def main():
         raise SystemExit(f"No PDB files found in {RAW_DIR}.")
 
     raw_pdbs = [p for p in raw_pdbs if p.stem.upper() not in EXCLUDE]
+    if only_ids:
+        raw_pdbs = [p for p in raw_pdbs if p.stem.upper() in only_ids]
+        missing = only_ids - {p.stem.upper() for p in raw_pdbs}
+        if missing:
+            print(f"WARNING: --only specified PDB IDs not found in {RAW_DIR}: {sorted(missing)}")
     print(f"Fixing {len(raw_pdbs)} structures  (hard-excluded: {sorted(EXCLUDE)})")
 
-    with open(LOG_PATH, "w", newline="") as logf:
+    with open(LOG_PATH, "a" if only_ids else "w", newline="") as logf:
         writer = csv.DictWriter(logf, fieldnames=LOG_FIELDS)
-        writer.writeheader()
+        if not only_ids:
+            writer.writeheader()
 
         for raw_path in raw_pdbs:
             pdb_id = raw_path.stem.upper()
             pdb_out_dir = os.path.join(FIXED_DIR, pdb_id)
             fixed_path = os.path.join(pdb_out_dir, f"{pdb_id}_input.pdb")
 
-            if os.path.exists(fixed_path):
-                print(f"  [skip] {pdb_id} already fixed")
+            if os.path.exists(fixed_path) and not args.force:
+                print(f"  [skip] {pdb_id} already fixed  (use --force to redo)")
                 continue
 
             os.makedirs(pdb_out_dir, exist_ok=True)
