@@ -96,7 +96,7 @@ echo "=== tinker_prep done: $(date) ==="
 
 def make_minimize_script(pdb_id: str, pka_gnn_abs: str) -> str:
     """Generate a per-protein minimize job bash script."""
-    job_name = f"{pdb_id}_tinker_min"
+    job_name = f"min_{pdb_id}_tinker"
     return f"""\
 #!/bin/bash
 #$ -V                        # Inherit current environment
@@ -193,7 +193,7 @@ def main() -> None:
         for pdb_path in pdbs:
             pdb_id    = pdb_path.parent.name
             uind_out  = Path(MIN_DIR) / pdb_id / f"{pdb_id}.uind"
-            t_script  = os.path.join(JOBS_DIR, f"{pdb_id}_tinker_min.job")
+            t_script  = os.path.join(JOBS_DIR, f"min_{pdb_id}_tinker.job")
 
             _write_script(t_script, make_minimize_script(pdb_id, pka_gnn_abs))
 
