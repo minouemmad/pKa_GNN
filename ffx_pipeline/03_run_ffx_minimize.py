@@ -185,7 +185,7 @@ cp "{rotopt}" "{ph_input}"
 {FFX_CMD_TITRATE} ManyBody --tR --pH {ph} --oT -T --kpH 3.0 "{ph_input}" -Dkey={titrate_prop}
 
 # Final minimize — saves induced dipoles (.uind) and permanent multipoles (.uperm)
-{FFX_CMD} Minimize -e 0.1 "{titrate_out}" -Dkey={ffx_prop} --saveInduced
+{FFX_CMD} Minimize -e 0.1 "{titrate_out}" -Dkey={ffx_prop} --saveInduced --savePermanentMoments
 
 echo "=== Titration pH {ph} done: $(date) ==="
 """
