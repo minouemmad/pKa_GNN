@@ -182,6 +182,7 @@ fi
 cp "{rotopt}" "{ph_input}"
 
 # Titration rotamer optimization at pH {ph}
+{FFX_CMD} Scheduler -p 20 -m {MEM_PER_JOB} > scheduler_rotamer.log & sleep 30s
 {FFX_CMD_TITRATE} ManyBody --tR --pH {ph} --oT -T --kpH 3.0 "{ph_input}" -Dkey={titrate_prop}
 
 # Final minimize — saves induced dipoles (.uind) and permanent multipoles (.uperm)
