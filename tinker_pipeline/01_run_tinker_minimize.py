@@ -192,13 +192,13 @@ def main() -> None:
         # ── 2. Per-protein minimize jobs ──────────────────────────────────────
         for pdb_path in pdbs:
             pdb_id    = pdb_path.parent.name
-            min_out   = Path(MIN_DIR) / pdb_id / f"{pdb_id}.xyz_2"
+            uind_out  = Path(MIN_DIR) / pdb_id / f"{pdb_id}.uind"
             t_script  = os.path.join(JOBS_DIR, f"{pdb_id}_tinker_min.job")
 
             _write_script(t_script, make_minimize_script(pdb_id, pka_gnn_abs))
 
-            if min_out.exists() and not FORCE:
-                print(f"  [done] {pdb_id:6s}  minimized output exists — script updated, skipping")
+            if uind_out.exists() and not FORCE:
+                print(f"  [done] {pdb_id:6s}  .uind already exists — script updated, skipping")
                 continue
 
             if DRY_RUN:
