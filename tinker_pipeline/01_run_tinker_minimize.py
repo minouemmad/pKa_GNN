@@ -104,7 +104,7 @@ def make_minimize_script(pdb_id: str, pka_gnn_abs: str) -> str:
 #$ -N {job_name}             # Job name
 #$ -j y                      # Merge stderr into stdout
 #$ -q MS,UI                  # Queue (no GPU needed for minimize.x)
-#$ -pe smp {N_CPUS}          # Threads
+#$ -pe smp 10          # Threads
 #$ -o $JOB_NAME.$JOB_ID.log  # Output log
 #$ -l h_rt={WALLTIME}        # Wall time
 #$ -S /bin/bash
