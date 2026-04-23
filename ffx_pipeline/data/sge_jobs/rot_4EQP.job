@@ -17,7 +17,7 @@ echo "PDB: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/4E
 /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize -e 0.8 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/4EQP/4EQP_input.pdb -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/4EQP/4EQP_input.properties
 
 # Step 2: Rotamer optimization
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 1 -m 22G > scheduler_rotamer.log & sleep 30s
+/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 20 -m 22G > scheduler_rotamer.log & sleep 30s
 /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/4EQP/4EQP_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/4EQP/4EQP_input.properties
 
 echo "=== Rotamer job done: $(date) ==="

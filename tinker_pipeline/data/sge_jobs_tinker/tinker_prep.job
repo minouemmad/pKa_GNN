@@ -1,0 +1,17 @@
+#!/bin/bash
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N tinker_prep            # Job name
+#$ -j y                      # Merge stderr into stdout
+#$ -q MS,UI                  # Queue (no GPU needed)
+#$ -pe smp 20          # Threads
+#$ -o $JOB_NAME.$JOB_ID.log  # Output log
+#$ -l h_rt=10000:00:00        # Wall time
+#$ -S /bin/bash
+
+echo "=== tinker_prep started: $(date) ==="
+cd "/Dedicated/schnieders/maemmad/pKa_GNN/tinker_pipeline"
+
+python tinker_pipeline/tinker_prep_all.py
+
+echo "=== tinker_prep done: $(date) ==="

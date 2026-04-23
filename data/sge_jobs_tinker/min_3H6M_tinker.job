@@ -1,0 +1,18 @@
+#!/bin/bash
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N min_3H6M_tinker             # Job name
+#$ -j y                      # Merge stderr into stdout
+#$ -q MS,UI                  # Queue (no GPU needed for minimize.x)
+#$ -pe smp 10          # Threads
+#$ -o $JOB_NAME.$JOB_ID.log  # Output log
+#$ -l h_rt=10000:00:00        # Wall time
+#$ -S /bin/bash
+#$ -hold_jid tinker_prep     # Wait for preprocessing to finish
+
+echo "=== 3H6M tinker_min started: $(date) ==="
+cd "/Dedicated/schnieders/maemmad/pKa_GNN"
+
+python tinker_pipeline/tinker_minimize_one.py --pdb-id 3H6M
+
+echo "=== 3H6M tinker_min done: $(date) ==="
