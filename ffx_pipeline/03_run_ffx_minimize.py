@@ -55,6 +55,18 @@ FORCE     = "--force"   in sys.argv   # regenerate + resubmit even if done
 ONLY_ROT  = "--rotamer" in sys.argv
 ONLY_TIT  = "--titrate" in sys.argv or "--ph" in sys.argv
 
+# --only PDB_ID [PDB_ID ...]: process only these proteins
+_only_indices = [i for i, a in enumerate(sys.argv) if a == "--only"]
+ONLY_IDS: set | None = None
+if _only_indices:
+    _only_vals = []
+    for _oi in _only_indices:
+        _j = _oi + 1
+        while _j < len(sys.argv) and not sys.argv[_j].startswith("--"):
+            _only_vals.append(sys.argv[_j].upper())
+            _j += 1
+    ONLY_IDS = set(_only_vals) if _only_vals else None
+
 # --ph can appear multiple times: collect all specified pHs
 _ph_indices = [i for i, a in enumerate(sys.argv) if a == "--ph"]
 PH_FILTER = []
@@ -238,12 +250,15 @@ def main():
 
     log_exists = os.path.exists(LOG_PATH) and os.path.getsize(LOG_PATH) > 0
     pdbs  = sorted(Path(PDB_DIR).glob("*/*_input.pdb"))
+    if ONLY_IDS:
+        pdbs = [p for p in pdbs if p.parent.name.upper() in ONLY_IDS]
     mode  = "DRY RUN" if DRY_RUN else "SUBMITTING to SGE"
     force = " [--force]" if FORCE else ""
+    only_tag = f" [--only {len(ONLY_IDS)} PDBs]" if ONLY_IDS else ""
     jobs_desc = ("rotamer only" if ONLY_ROT and not ONLY_TIT
                  else "titration only" if ONLY_TIT and not ONLY_ROT
                  else "rotamer + titration")
-    print(f"Processing {len(pdbs)} input PDBs  [{mode}{force}]  jobs: {jobs_desc}")
+    print(f"Processing {len(pdbs)} input PDBs  [{mode}{force}{only_tag}]  jobs: {jobs_desc}")
     print(f"Titration pHs: {ACTIVE_PHS}")
 
     # Snapshot the SGE queue once so --force can skip already-running jobs.
