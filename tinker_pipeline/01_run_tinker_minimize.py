@@ -66,6 +66,18 @@ N_CPUS       = 20
 DRY_RUN = "--dry"   in sys.argv
 FORCE   = "--force" in sys.argv
 
+# --only PDB_ID [PDB_ID ...]: submit only these proteins (checks NEUTRAL_DIR)
+_only_indices = [i for i, a in enumerate(sys.argv) if a == "--only"]
+ONLY_IDS: set | None = None
+if _only_indices:
+    _only_vals = []
+    for _oi in _only_indices:
+        _j = _oi + 1
+        while _j < len(sys.argv) and not sys.argv[_j].startswith("--"):
+            _only_vals.append(sys.argv[_j].upper())
+            _j += 1
+    ONLY_IDS = set(_only_vals) if _only_vals else None
+
 LOG_FIELDS = ["pdb_id", "job_type", "job_script", "job_id", "status", "notes"]
 
 
@@ -94,9 +106,10 @@ echo "=== tinker_prep done: $(date) ==="
 """
 
 
-def make_minimize_script(pdb_id: str, pka_gnn_abs: str) -> str:
+def make_minimize_script(pdb_id: str, pka_gnn_abs: str, hold_prep: bool = True) -> str:
     """Generate a per-protein minimize job bash script."""
     job_name = f"min_{pdb_id}_tinker"
+    hold_line = "#$ -hold_jid tinker_prep     # Wait for preprocessing to finish\n" if hold_prep else ""
     return f"""\
 #!/bin/bash
 #$ -V                        # Inherit current environment
@@ -108,8 +121,7 @@ def make_minimize_script(pdb_id: str, pka_gnn_abs: str) -> str:
 #$ -o $JOB_NAME.$JOB_ID.log  # Output log
 #$ -l h_rt={WALLTIME}        # Wall time
 #$ -S /bin/bash
-#$ -hold_jid tinker_prep     # Wait for preprocessing to finish
-
+{hold_line}
 echo "=== {pdb_id} tinker_min started: $(date) ==="
 cd "{pka_gnn_abs}"
 
@@ -149,12 +161,29 @@ def _submit(script_path: str) -> tuple:
 def main() -> None:
     os.makedirs(JOBS_DIR, exist_ok=True)
 
-    pdbs = sorted(Path(PDB_DIR).glob("*/*_input.pdb"))
     pka_gnn_abs = str(PKA_GNN_DIR)
+
+    if ONLY_IDS:
+        # Build list from NEUTRAL_DIR: only IDs that have a .xyz there
+        neutral_path = Path(NEUTRAL_DIR)
+        pdbs = []
+        missing = []
+        for pid in sorted(ONLY_IDS):
+            xyz = neutral_path / f"{pid}.xyz"
+            if xyz.exists():
+                pdbs.append(pid)
+            else:
+                missing.append(pid)
+        if missing:
+            print(f"  [skip] not in {NEUTRAL_DIR}: {', '.join(missing)}")
+        pdb_ids = pdbs
+    else:
+        pdb_ids = [p.parent.name for p in sorted(Path(PDB_DIR).glob("*/*_input.pdb"))]
 
     mode = "DRY RUN" if DRY_RUN else "SUBMITTING to SGE"
     force_tag = "  [--force]" if FORCE else ""
-    print(f"Tinker pipeline — {len(pdbs)} proteins  [{mode}{force_tag}]")
+    only_tag  = f"  [--only {len(pdb_ids)} proteins]" if ONLY_IDS else ""
+    print(f"Tinker pipeline — {len(pdb_ids)} proteins  [{mode}{force_tag}{only_tag}]")
 
     log_exists = Path(LOG_PATH).exists() and Path(LOG_PATH).stat().st_size > 0
 
@@ -190,12 +219,11 @@ def main() -> None:
             logf.flush()
 
         # ── 2. Per-protein minimize jobs ──────────────────────────────────────
-        for pdb_path in pdbs:
-            pdb_id    = pdb_path.parent.name
+        for pdb_id in pdb_ids:
             uind_out  = Path(MIN_DIR) / pdb_id / f"{pdb_id}.uind"
             t_script  = os.path.join(JOBS_DIR, f"min_{pdb_id}_tinker.job")
 
-            _write_script(t_script, make_minimize_script(pdb_id, pka_gnn_abs))
+            _write_script(t_script, make_minimize_script(pdb_id, pka_gnn_abs, hold_prep=not bool(ONLY_IDS)))
 
             if uind_out.exists() and not FORCE:
                 print(f"  [done] {pdb_id:6s}  .uind already exists — script updated, skipping")
