@@ -170,13 +170,14 @@ def make_titration_job_script(
     pdb_id: str, pdb_abs: str, pdb_dir: str,
     ffx_prop: str, titrate_prop: str, ph: float,
 ) -> str:
-    ph_str      = str(ph)
-    ph_safe     = ph_str.replace(".", "p")          # e.g. "3p94" for job name
-    job_name    = f"titr_{pdb_id}_pH{ph_safe}"
-    rotamer_job = f"rot_{pdb_id}"
-    rotopt      = f"{pdb_abs}_3"                    # output of rotamer ManyBody
-    ph_input    = f"{pdb_dir}/{pdb_id}_pH{ph_str}.pdb"
-    titrate_out = f"{ph_input}_2"                   # ManyBody --tR output
+    ph_str          = str(ph)
+    ph_safe         = ph_str.replace(".", "p")          # e.g. "3p94" for job name
+    job_name        = f"titr_{pdb_id}_pH{ph_safe}"
+    rotamer_job     = f"rot_{pdb_id}"
+    rotopt          = f"{pdb_abs}_3"                    # output of rotamer ManyBody
+    ph_input        = f"{pdb_dir}/{pdb_id}_pH{ph_str}.pdb"
+    titrate_out     = f"{ph_input}_2"                   # ManyBody --tR output
+    titrate_restart = f"{pdb_dir}/{pdb_id}_pH{ph_str}.restart"
 
     return f"""\
 #!/bin/bash
@@ -184,7 +185,7 @@ def make_titration_job_script(
 #$ -cwd                      # Start job in submission directory
 #$ -N {job_name}             # Job Name
 #$ -j y                      # Combine stderr and stdout
-#$ -q MS,UI-GPU              # Queue
+#$ -q MS,UI-GPU,all.q        # Queue
 #$ -pe smp 20                # Request 20 tasks/node
 #$ -o $JOB_NAME.$JOB_ID.log  # Name of output file
 #$ -l h_rt={WALLTIME}        # Run Time
@@ -200,12 +201,28 @@ if [ ! -f "{rotopt}" ]; then
   exit 1
 fi
 
-# Copy rotamer output so each pH run has its own working copy (pdb_3 is never modified)
-cp "{rotopt}" "{ph_input}"
+# Copy rotamer output — runs at most once; skip if already copied
+# (protects against all.q preemption/restart rerunning this step)
+if [ ! -f "{ph_input}" ]; then
+    cp "{rotopt}" "{ph_input}"
+else
+    echo "  Copy already exists, skipping."
+fi
 
 # Titration rotamer optimization at pH {ph}
-{FFX_CMD} Scheduler -p 20 -m {MEM_PER_JOB} > scheduler_rotamer.log & sleep 30s
-{FFX_CMD_TITRATE} ManyBody --tR --pH {ph} --oT -T --kPH 3.0 "{ph_input}" -Dkey={titrate_prop}
+# Skipped if output already exists (i.e. job restarted mid-Minimize)
+# Uses --eR if a restart file is present from a prior interrupted run
+if [ ! -f "{titrate_out}" ]; then
+    {FFX_CMD} Scheduler -p 20 -m {MEM_PER_JOB} > scheduler_rotamer.log & sleep 30s
+    if [ -f "{titrate_restart}" ]; then
+        echo "  Restart file found: {titrate_restart} — adding --eR"
+        {FFX_CMD_TITRATE} ManyBody --tR --pH {ph} --oT -T --kPH 3.0 --eR "{titrate_restart}" "{ph_input}" -Dkey={titrate_prop}
+    else
+        {FFX_CMD_TITRATE} ManyBody --tR --pH {ph} --oT -T --kPH 3.0 "{ph_input}" -Dkey={titrate_prop}
+    fi
+else
+    echo "  ManyBody output already exists, skipping."
+fi
 
 # Final minimize — saves induced dipoles (.uind) and permanent multipoles (.uperm)
 {FFX_CMD} Minimize -e 0.1 "{titrate_out}" -Dkey={ffx_prop} --saveInduced --savePermanentMoments
