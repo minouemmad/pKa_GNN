@@ -358,8 +358,8 @@ def main():
                     # Job is active in the queue — leave script and queue entry untouched.
                     print(f"  [running] {pdb_id}  pH {ph}  is in SGE queue — skipping")
 
-                elif titrate_done and not FORCE:
-                    # Output exists and --force not set — refresh script but don't re-submit.
+                elif titrate_done:
+                    # Output (.uind) exists in the PDB directory — job is finished, always skip.
                     _write_script(t_script, make_titration_job_script(
                         pdb_id, pdb_abs, pdb_dir, ffx_prop, titrate_prop, ph))
                     print(f"  [done] {pdb_id}  pH {ph}  .uind exists — script updated, skipping submit")
