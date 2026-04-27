@@ -127,7 +127,7 @@ def write_properties_for(pdb_stem: str, dest_dir: str) -> tuple:
     return ffx_path, titrate_path
 
 
-def make_rotamer_job_script(pdb_id: str, pdb_abs: str, ffx_prop: str) -> str:
+def make_rotamer_job_script(pdb_id: str, pdb_abs: str, ffx_prop: str, restart_path: str) -> str:
     job_name = f"rot_{pdb_id}"
     return f"""\
 #!/bin/bash
@@ -135,7 +135,7 @@ def make_rotamer_job_script(pdb_id: str, pdb_abs: str, ffx_prop: str) -> str:
 #$ -cwd                      # Start job in submission directory
 #$ -N {job_name}             # Job Name
 #$ -j y                      # Combine stderr and stdout
-#$ -q MS,UI-GPU              # Queue
+#$ -q MS,UI-GPU,all.q        # Queue
 #$ -pe smp 20                # Request 20 tasks/node
 #$ -o $JOB_NAME.$JOB_ID.log  # Name of output file
 #$ -l h_rt={WALLTIME}        # Run Time
@@ -145,12 +145,22 @@ def make_rotamer_job_script(pdb_id: str, pdb_abs: str, ffx_prop: str) -> str:
 echo "=== Rotamer job started: $(date) ==="
 echo "PDB: {pdb_abs}"
 
-# Step 1: Coarse minimize
-{FFX_CMD} Minimize -e 0.8 {pdb_abs} -Dkey={ffx_prop}
+# Step 1: Coarse minimize — runs at most once; skip if output already exists
+# (protects against all.q preemption/restart rerunning an expensive step)
+if [ ! -f "{pdb_abs}_2" ]; then
+    {FFX_CMD} Minimize -e 0.8 {pdb_abs} -Dkey={ffx_prop}
+else
+    echo "  Minimize output already exists, skipping."
+fi
 
-# Step 2: Rotamer optimization
+# Step 2: Rotamer optimization — restart via --eR if a restart file is present
 {FFX_CMD} Scheduler -p 20 -m {MEM_PER_JOB} > scheduler_rotamer.log & sleep 30s
-{FFX_CMD} ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 {pdb_abs}_2 -Dkey={ffx_prop}
+if [ -f "{restart_path}" ]; then
+    echo "  Restart file found: {restart_path} — adding --eR"
+    {FFX_CMD} ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 --eR "{restart_path}" {pdb_abs}_2 -Dkey={ffx_prop}
+else
+    {FFX_CMD} ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 {pdb_abs}_2 -Dkey={ffx_prop}
+fi
 
 echo "=== Rotamer job done: $(date) ==="
 """
@@ -280,6 +290,7 @@ def main():
             pdb_stem = pdb_path.stem
 
             ffx_prop, titrate_prop = write_properties_for(pdb_stem, pdb_dir)
+            restart_path = str(pdb_path.parent / f"{pdb_stem}.restart")
 
             # ── Rotamer job ──────────────────────────────────────────────────
             if RUN_ROTAMER:
@@ -293,11 +304,11 @@ def main():
 
                 elif rotopt_done and not FORCE:
                     # Output exists and --force not set — refresh script but don't re-submit.
-                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
+                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop, restart_path))
                     print(f"  [done] {pdb_id}  rotamer output exists — script updated, skipping submit")
 
                 elif DRY_RUN:
-                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
+                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop, restart_path))
                     print(f"  [dry]  {pdb_id}  rotamer → {rotamer_script}")
                     writer.writerow({"pdb_id": pdb_id, "ph": "", "job_type": "rotamer",
                                      "job_script": rotamer_script, "job_id": "dry-run",
@@ -306,7 +317,7 @@ def main():
 
                 else:
                     # Normal submit -or- --force for a job not currently in the queue.
-                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop))
+                    _write_script(rotamer_script, make_rotamer_job_script(pdb_id, pdb_abs, ffx_prop, restart_path))
                     job_id, err = submit_job(rotamer_script)
                     status = "submitted" if job_id != -1 else "submit_failed"
                     note   = err[:120] if err else ""
