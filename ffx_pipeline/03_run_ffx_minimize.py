@@ -288,12 +288,10 @@ def main():
     print(f"Processing {len(pdbs)} input PDBs  [{mode}{force}{only_tag}]  jobs: {jobs_desc}")
     print(f"Titration pHs: {ACTIVE_PHS}")
 
-    # Snapshot the SGE queue once so --force can skip already-running jobs.
-    queued_names: set = set()
-    if FORCE:
-        queued_names = get_queued_job_names()
-        if queued_names:
-            print(f"  [queue] {len(queued_names)} jobs found in SGE queue — running jobs will be skipped.")
+    # Snapshot the SGE queue once — always, so in-progress jobs are never re-submitted.
+    queued_names: set = get_queued_job_names()
+    if queued_names:
+        print(f"  [queue] {len(queued_names)} jobs found in SGE queue — running jobs will be skipped.")
 
     with open(LOG_PATH, "a", newline="") as logf:
         writer = csv.DictWriter(logf, fieldnames=LOG_FIELDS)
@@ -315,7 +313,7 @@ def main():
                 rotamer_script = os.path.join(JOBS_DIR, f"rot_{pdb_id}.job")
                 rotopt_done   = (pdb_path.parent / f"{pdb_stem}.pdb_3").exists()
 
-                if FORCE and job_name in queued_names:
+                if job_name in queued_names:
                     # Job is active in the queue — leave script and queue entry untouched.
                     print(f"  [running] {pdb_id}  rotamer is in SGE queue — skipping")
 
@@ -356,7 +354,7 @@ def main():
                 uind_path = pdb_path.parent / f"{pdb_id}_pH{ph_str}.pdb_2.uind"
                 titrate_done = uind_path.exists()
 
-                if FORCE and job_name in queued_names:
+                if job_name in queued_names:
                     # Job is active in the queue — leave script and queue entry untouched.
                     print(f"  [running] {pdb_id}  pH {ph}  is in SGE queue — skipping")
 
