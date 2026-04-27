@@ -351,7 +351,7 @@ def main():
                 ph_safe  = ph_str.replace(".", "p")        # matches job name in script
                 job_name = f"titr_{pdb_id}_pH{ph_safe}"
                 t_script = os.path.join(JOBS_DIR, f"titr_{pdb_id}_pH{ph_str}.job")
-                uind_path = pdb_path.parent / f"{pdb_id}_pH{ph_str}.pdb_2.uind"
+                uind_path = pdb_path.parent / f"{pdb_id}_pH{ph_str}.uind"
                 titrate_done = uind_path.exists()
 
                 if job_name in queued_names:
