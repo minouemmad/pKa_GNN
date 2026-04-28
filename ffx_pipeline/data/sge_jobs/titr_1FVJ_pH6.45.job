@@ -1,0 +1,48 @@
+#!/bin/bash
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N titr_1FVJ_pH6p45             # Job Name
+#$ -j y                      # Combine stderr and stdout
+#$ -q MS,UI-GPU,all.q        # Queue
+#$ -pe smp 20                # Request 20 tasks/node
+#$ -o $JOB_NAME.$JOB_ID.log  # Name of output file
+#$ -l h_rt=10000:00:00        # Run Time
+#$ -S /bin/bash              # Shell to use
+#$ -l ngpus=1
+#$ -hold_jid rot_1FVJ   # Wait for rotamer job if still running
+
+echo "=== Titration pH 6.45 started: $(date) ==="
+
+# Verify rotamer output exists before proceeding
+if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_input.pdb_3" ]; then
+  echo "ERROR: rotamer output not found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_input.pdb_3" >&2
+  exit 1
+fi
+
+# Copy rotamer output — runs at most once; skip if already copied
+# (protects against all.q preemption/restart rerunning this step)
+if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.pdb" ]; then
+    cp "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_input.pdb_3" "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.pdb"
+else
+    echo "  Copy already exists, skipping."
+fi
+
+# Titration rotamer optimization at pH 6.45
+# Skipped if output already exists (i.e. job restarted mid-Minimize)
+# Uses --eR if a restart file is present from a prior interrupted run
+if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.pdb_2" ]; then
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 20 -m 22G > scheduler_rotamer.log & sleep 30s
+    if [ -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.restart" ]; then
+        echo "  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.restart — adding --eR"
+        /Dedicated/schnieders/rgogal/software/forcefieldx/bin/ffxc ManyBody --tR --pH 6.45 --oT -T --kPH 3.0 --eR "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.restart" "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.pdb" -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/titrate.properties
+    else
+        /Dedicated/schnieders/rgogal/software/forcefieldx/bin/ffxc ManyBody --tR --pH 6.45 --oT -T --kPH 3.0 "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.pdb" -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/titrate.properties
+    fi
+else
+    echo "  ManyBody output already exists, skipping."
+fi
+
+# Final minimize — saves induced dipoles (.uind) and permanent multipoles (.uperm)
+/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize -e 0.1 "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_pH6.45.pdb_2" -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1FVJ/1FVJ_input.properties --saveInduced --savePermanentMoments
+
+echo "=== Titration pH 6.45 done: $(date) ==="

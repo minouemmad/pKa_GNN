@@ -3,7 +3,7 @@
 #$ -cwd                      # Start job in submission directory
 #$ -N rot_3EJI             # Job Name
 #$ -j y                      # Combine stderr and stdout
-#$ -q MS,UI-GPU              # Queue
+#$ -q MS,UI-GPU,all.q        # Queue
 #$ -pe smp 20                # Request 20 tasks/node
 #$ -o $JOB_NAME.$JOB_ID.log  # Name of output file
 #$ -l h_rt=10000:00:00        # Run Time
@@ -13,11 +13,21 @@
 echo "=== Rotamer job started: $(date) ==="
 echo "PDB: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.pdb"
 
-# Step 1: Coarse minimize
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize -e 0.8 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.pdb -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.properties
+# Step 1: Coarse minimize — runs at most once; skip if output already exists
+# (protects against all.q preemption/restart rerunning an expensive step)
+if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.pdb_2" ]; then
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize -e 0.8 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.pdb -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.properties
+else
+    echo "  Minimize output already exists, skipping."
+fi
 
-# Step 2: Rotamer optimization
+# Step 2: Rotamer optimization — restart via --eR if a restart file is present
 /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 20 -m 22G > scheduler_rotamer.log & sleep 30s
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.properties
+if [ -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.restart" ]; then
+    echo "  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.restart — adding --eR"
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 --eR "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.restart" /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.properties
+else
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3EJI/3EJI_input.properties
+fi
 
 echo "=== Rotamer job done: $(date) ==="

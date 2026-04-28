@@ -1,0 +1,33 @@
+#!/bin/bash
+#$ -V                        # Inherit current environment
+#$ -cwd                      # Start job in submission directory
+#$ -N rot_2H1B             # Job Name
+#$ -j y                      # Combine stderr and stdout
+#$ -q MS,UI-GPU,all.q        # Queue
+#$ -pe smp 20                # Request 20 tasks/node
+#$ -o $JOB_NAME.$JOB_ID.log  # Name of output file
+#$ -l h_rt=10000:00:00        # Run Time
+#$ -S /bin/bash              # Shell to use
+#$ -l ngpus=1
+
+echo "=== Rotamer job started: $(date) ==="
+echo "PDB: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.pdb"
+
+# Step 1: Coarse minimize — runs at most once; skip if output already exists
+# (protects against all.q preemption/restart rerunning an expensive step)
+if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.pdb_2" ]; then
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Minimize -e 0.8 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.pdb -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.properties
+else
+    echo "  Minimize output already exists, skipping."
+fi
+
+# Step 2: Rotamer optimization — restart via --eR if a restart file is present
+/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 20 -m 22G > scheduler_rotamer.log & sleep 30s
+if [ -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.restart" ]; then
+    echo "  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.restart — adding --eR"
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 --eR "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.restart" /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.properties
+else
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2H1B/2H1B_input.properties
+fi
+
+echo "=== Rotamer job done: $(date) ==="

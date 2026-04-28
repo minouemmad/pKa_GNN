@@ -1,0 +1,2248 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Titration pH 4.4 started: Mon Apr 27 18:40:12 CDT 2026 ===
+  Copy already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_pH4.4.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6947  April 2026 
+        Git Revision  519408079905b3dd4b967041b75b836f63fb563f 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2025
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Mon Apr 27 18:40:43 CDT 2026
+ Process ID 73349 on argon-itf-bx53-03.hpc.
+
+ Command line arguments:
+ [ManyBody, --tR, --pH, 4.4, --oT, -T, --kPH, 3.0, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_pH4.4.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_pH4.4.pdb]
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/titrate.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 1EGF_pH4.4.pdb
+
+ Assigning atom types for 1 chains.
+ Amino acid chain A
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   41.5 A).
+
+ Bonded Terms
+  Bonds:                                    811
+  Angles:                                  1436
+  Stretch-Bends:                           1299
+  Out-of-Plane Bends:                       564
+  Torsions:                                2116
+  Pi-Orbital Torsions:                      111
+  Torsion-Torsions:                           6
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 -1.000
+
+ Opened 1EGF_pH4.4.pdb in 0.765 sec.
+
+ System Resources
+  Total CPU time:          16.63 (sec)
+  System load average:      1.81
+  Open file handles:         146 of  81920 allowed
+  System memory:           45405 MB free out of  45940 MB
+  System swap space:        2053 MB free out of   2053 MB
+  JVM memory:               4054 MB free out of   4096 MB
+
+ Adding titration hydrogen to : /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_pH4.4.pdb
+
+ Reading 1EGF_pH4.4.pdb
+
+ Assigning atom types for 1 chains.
+ Amino acid chain A
+ Renumbering PDB file due to built atoms (806 vs 800)
+ Total number of atoms: 806
+
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   42.4 A).
+
+ Bonded Terms
+  Bonds:                                    817
+  Angles:                                  1442
+  Stretch-Bends:                           1299
+  Out-of-Plane Bends:                       564
+  Torsions:                                2128
+  Pi-Orbital Torsions:                      111
+  Torsion-Torsions:                           6
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                  5.000
+ Temperature: 298.150000
+
+ Energy restart file: 1EGF_pH4.4.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood   -478.97532486      0.033
+ Cavitation              569.49003344      0.019
+ Dispersion             -455.47388803      0.048
+
+ Computed Potential Energy
+  Bond Stretching            106.73328762          817        0.000 ( 0.01830)
+  Angle Bending              202.30057494         1442        0.002 ( 3.02199)
+  Stretch-Bend                -0.75771575         1299        0.001
+  Out-of-Plane Bend            7.39879764          564        0.001
+  Torsional Angle             86.41935024         2128        0.002
+  Pi-Orbital Torsion           8.67512766          111        0.000
+  Torsion-Torsion            -24.62991335            6        0.000
+  Van der Waals              226.16695998       322156        0.123
+  Atomic Multipoles         -520.79302702       322156
+  Polarization               -49.54451921       322156        0.360
+  Solvation                 -364.95917946       325221
+  Total Potential           -322.99025671  (Kcal/mole)        0.489 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A    6-CYS  178.990    0.000    0.000    0.000
+ A   11-ASH  -86.790  -49.794    0.000    0.000
+ A   14-CYS   62.012    0.000    0.000    0.000
+ A   20-CYS -166.643    0.000    0.000    0.000
+ A   22-HIS -174.539 -154.707    0.000    0.000
+ A   24-GLH  -57.258  177.908 -112.101    0.000
+ A   27-ASH -159.172   46.904    0.000    0.000
+ A   31-CYS  -55.963    0.000    0.000    0.000
+ A   33-CYS -168.050    0.000    0.000    0.000
+ A   40-ASH  170.805 -124.573    0.000    0.000
+ A   42-CYS  -40.121    0.000    0.000    0.000
+ A   46-ASH -155.979  -71.231    0.000    0.000
+ A   51-GLH   51.105  171.187  -76.815    0.000
+
+ Rotamer Library:     Richardson
+ Algorithm:           ALL
+ Goldstein Criteria:  true
+ Three-Body Energies: true
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.002 sec
+ Pairwise distance matrix:                29.199 sec
+
+ Beginning Energy    -743.26210880
+
+     Residue  Nrot
+   1   A6-CYS   11
+   2  A11-ASH   27
+   3  A14-CYS   11
+   4  A20-CYS   11
+   5  A22-HIS   27
+   6  A24-GLH   42
+   7  A27-ASH   27
+   8  A31-CYS   11
+   9  A33-CYS   11
+  10  A40-ASH   27
+  11  A42-CYS   11
+  12  A46-ASH   27
+  13  A51-GLH   42
+
+ Backbone energy:     -284.20872331
+
+ Loaded self energies from restart file.
+  Rotamer ( A6-CYD, 1) self-energy      52.13117821 pruned by ( A6-CYS, 0)      -1.58608986.
+  Rotamer ( A6-CYD, 8) self-energy      58.30347616 pruned by ( A6-CYS, 0)      -1.58608986.
+  Rotamer ( A6-CYD, 9) self-energy      53.15991199 pruned by ( A6-CYS, 0)      -1.58608986.
+  Rotamer ( A6-CYD,10) self-energy      58.78662242 pruned by ( A6-CYS, 0)      -1.58608986.
+  Rotamer (A11-ASH, 6) self-energy       8.55856587 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A11-ASH,11) self-energy     102.36104424 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A11-ASH,16) self-energy      13.69080463 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A11-ASH,17) self-energy      39.25921002 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A11-ASH,18) self-energy      91.18404664 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A11-ASH,19) self-energy      13.05670047 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A11-ASH,21) self-energy     133.74485101 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A11-ASP,26) self-energy      19.00851335 pruned by (A11-ASP,24)     -17.09088531.
+  Rotamer (A14-CYD, 1) self-energy      51.47066707 pruned by (A14-CYS, 0)       0.13349230.
+  Rotamer (A14-CYS, 3) self-energy     126.63394339 pruned by (A14-CYS, 0)       0.13349230.
+  Rotamer (A14-CYS, 6) self-energy     126.63394339 pruned by (A14-CYS, 0)       0.13349230.
+  Rotamer (A14-CYD, 8) self-energy      51.38518558 pruned by (A14-CYS, 0)       0.13349230.
+  Rotamer (A14-CYD, 9) self-energy     110.32515738 pruned by (A14-CYS, 0)       0.13349230.
+  Rotamer (A14-CYD,10) self-energy      45.64502165 pruned by (A14-CYS, 0)       0.13349230.
+  Rotamer (A20-CYD, 1) self-energy      53.18984498 pruned by (A20-CYS, 4)      -1.26631240.
+  Rotamer (A20-CYD, 8) self-energy      52.95829108 pruned by (A20-CYS, 4)      -1.26631240.
+  Rotamer (A20-CYD, 9) self-energy      54.93832910 pruned by (A20-CYS, 4)      -1.26631240.
+  Rotamer (A20-CYD,10) self-energy      47.65774358 pruned by (A20-CYS, 4)      -1.26631240.
+  Rotamer (A22-HID, 1) self-energy       1.09213795 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIS, 3) self-energy   20345.87598425 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIS, 4) self-energy  424202.75715126 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIS, 6) self-energy       4.95090027 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIS, 8) self-energy  216908.15441606 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIS, 9) self-energy    1409.61374264 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIS,10) self-energy   12939.89286377 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,11) self-energy    7315.53764318 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,12) self-energy  820285.97619480 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,13) self-energy       8.34374235 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,14) self-energy      29.75473172 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,15) self-energy      11.66987793 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,16) self-energy  132499.12339214 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,17) self-energy    1350.63396515 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HID,18) self-energy   12660.20764926 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,19) self-energy   21218.18438248 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,20) self-energy  672235.97599280 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,21) self-energy       1.85221508 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,22) self-energy      26.89119653 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,23) self-energy       0.07592941 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,24) self-energy  230889.99688503 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,25) self-energy    1427.70298248 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A22-HIE,26) self-energy   14024.46071134 pruned by (A22-HIS, 0)     -28.87057461.
+  Rotamer (A24-GLH, 2) self-energy   58944.72538589 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH, 3) self-energy   22762.95175545 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH, 7) self-energy     123.66139442 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,10) self-energy   43143.67495727 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,11) self-energy    4751.85819890 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,14) self-energy      27.83951939 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,15) self-energy     172.41852874 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,18) self-energy   57359.96878133 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,19) self-energy    5379.29404980 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,22) self-energy      19.37592928 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,23) self-energy      90.00353083 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,26) self-energy   43161.42728156 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,27) self-energy    4662.52903218 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,28) self-energy      26.25948129 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,29) self-energy      28.38701452 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,30) self-energy      59.01325058 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,31) self-energy     191.12747610 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLH,32) self-energy      18.54732806 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLU,34) self-energy   56842.75799479 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLU,35) self-energy    4503.10840349 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLU,38) self-energy      16.90814665 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A24-GLU,39) self-energy     106.41411368 pruned by (A24-GLU,41)      -8.42234033.
+  Rotamer (A27-ASH, 2) self-energy      72.14362870 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH, 3) self-energy      14.23952357 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH, 7) self-energy      44.44477628 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH, 9) self-energy      16.09806092 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH,12) self-energy      77.54009813 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH,13) self-energy      20.32127317 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH,14) self-energy      16.31741519 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH,17) self-energy      77.76914499 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH,18) self-energy      30.49877992 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH,19) self-energy      55.14731358 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASH,21) self-energy      18.77045673 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASP,22) self-energy      92.48237495 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASP,23) self-energy      18.71869274 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A27-ASP,24) self-energy      14.06763176 pruned by (A27-ASP, 0)     -13.59797445.
+  Rotamer (A31-CYD, 1) self-energy      52.76818947 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A31-CYS, 2) self-energy     107.99978352 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A31-CYS, 3) self-energy      27.86006302 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A31-CYS, 5) self-energy     107.99978352 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A31-CYS, 6) self-energy      27.86006302 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A31-CYD, 8) self-energy     191.15374987 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A31-CYD, 9) self-energy      94.74886064 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A31-CYD,10) self-energy      56.12445582 pruned by (A31-CYS, 0)       2.74663765.
+  Rotamer (A33-CYD, 1) self-energy      54.04938471 pruned by (A33-CYS, 0)       1.03823327.
+  Rotamer (A33-CYS, 2) self-energy     164.45827802 pruned by (A33-CYS, 0)       1.03823327.
+  Rotamer (A33-CYS, 5) self-energy     164.45827802 pruned by (A33-CYS, 0)       1.03823327.
+  Rotamer (A33-CYD, 8) self-energy     254.88892851 pruned by (A33-CYS, 0)       1.03823327.
+  Rotamer (A33-CYD, 9) self-energy      60.94637475 pruned by (A33-CYS, 0)       1.03823327.
+  Rotamer (A33-CYD,10) self-energy      66.77319255 pruned by (A33-CYS, 0)       1.03823327.
+  Rotamer (A40-ASH, 5) self-energy      41.20061080 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A40-ASH, 7) self-energy      39.78296400 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A40-ASH, 8) self-energy      56.21171369 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A40-ASH,13) self-energy      13.16403680 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A40-ASH,17) self-energy     148.00853141 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A40-ASH,18) self-energy     119.13246334 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A40-ASH,19) self-energy      38.83879396 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A40-ASH,21) self-energy      18.04465915 pruned by (A40-ASP, 0)     -12.86050967.
+  Rotamer (A42-CYD, 1) self-energy      49.48033269 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A42-CYS, 2) self-energy      59.67814729 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A42-CYS, 3) self-energy      26.45985899 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A42-CYS, 5) self-energy      59.67814729 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A42-CYS, 6) self-energy      26.45985899 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A42-CYD, 8) self-energy      63.82019179 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A42-CYD, 9) self-energy      72.44280215 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A42-CYD,10) self-energy      48.96621837 pruned by (A42-CYS, 4)       0.43339745.
+  Rotamer (A46-ASH, 3) self-energy      35.10725974 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH, 4) self-energy      34.30306411 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH, 7) self-energy      20.17565037 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH, 9) self-energy      46.64243709 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH,11) self-energy      70.30221552 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH,14) self-energy      39.01484038 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH,17) self-energy      50.55252956 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH,18) self-energy      41.92250640 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH,19) self-energy     102.85409677 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASH,21) self-energy     102.15731950 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A46-ASP,24) self-energy      33.58926823 pruned by (A46-ASP, 0)     -12.86423388.
+  Rotamer (A51-GLH, 3) self-energy     153.79434143 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH, 7) self-energy     124.57425153 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,11) self-energy     178.08124471 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,14) self-energy      23.14320649 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,15) self-energy      21.68339786 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,19) self-energy     112.48473362 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,23) self-energy      27.97922935 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,27) self-energy     201.29902661 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,28) self-energy      15.52204371 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,30) self-energy      52.76307176 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLH,31) self-energy      51.21433903 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLU,35) self-energy     187.98018000 pruned by (A51-GLU, 0)      -9.57863229.
+  Rotamer (A51-GLU,38) self-energy      22.49620565 pruned by (A51-GLU, 0)      -9.57863229.
+ Loaded 2-body energies from restart file.
+ Loaded trimer energies from restart file.
+
+ Number of self energies: 0
+ Backbone energy:     -284.20872331
+
+ Time for single energies:       0.4647
+ Number of 2-body energies to calculate: 0
+ Time for 2-body energies:       0.006137
+ Number of 3-Body energies to calculate: 904
+ 3-Body  A22-HIS 0 ,  A24-GLH 17,  A27-ASH 10:       0.02817486 at      1.569 Ang (1.395 Ang by residue) in 0.4505 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 17,  A27-ASH 11:       0.02732896 at      1.520 Ang (1.395 Ang by residue) in 0.2510 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 17,  A27-ASH 15:      -0.00325726 at      1.562 Ang (1.395 Ang by residue) in 0.2324 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 17,  A27-ASH 16:       0.01464556 at      1.524 Ang (1.395 Ang by residue) in 0.2766 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 17,  A27-ASH 20:       0.04839018 at      1.566 Ang (1.395 Ang by residue) in 0.2249 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 17,  A27-ASP 25:      -0.02609689 at      1.561 Ang (1.395 Ang by residue) in 0.2533 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 17,  A27-ASP 26:       0.01039478 at      1.521 Ang (1.395 Ang by residue) in 0.2680 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASP 0 :      -0.00049134 at      1.711 Ang (1.395 Ang by residue) in 0.2606 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 1 :       0.00424223 at      1.711 Ang (1.395 Ang by residue) in 0.2416 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 4 :       0.00628030 at      1.642 Ang (1.395 Ang by residue) in 0.2488 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 5 :       0.00595467 at      1.705 Ang (1.395 Ang by residue) in 0.2447 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 6 :       0.00446807 at      1.703 Ang (1.395 Ang by residue) in 0.2383 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 8 :       0.00393148 at      1.711 Ang (1.395 Ang by residue) in 0.2393 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 10:       0.01114564 at      1.711 Ang (1.395 Ang by residue) in 0.2337 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 11:       0.01489503 at      1.661 Ang (1.395 Ang by residue) in 0.2187 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 15:       0.00552158 at      1.705 Ang (1.395 Ang by residue) in 0.2218 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 16:       0.00450062 at      1.703 Ang (1.395 Ang by residue) in 0.2164 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASH 20:       0.01217955 at      1.711 Ang (1.395 Ang by residue) in 0.2258 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASP 25:      -0.00148588 at      1.704 Ang (1.395 Ang by residue) in 0.2442 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 20,  A27-ASP 26:       0.00917748 at      1.701 Ang (1.395 Ang by residue) in 0.2473 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASP 0 :       0.00404798 at      1.713 Ang (1.395 Ang by residue) in 0.2214 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 1 :       0.00346467 at      1.713 Ang (1.395 Ang by residue) in 0.2067 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 4 :       0.00481780 at      1.644 Ang (1.395 Ang by residue) in 0.2931 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 5 :       0.00429841 at      1.707 Ang (1.395 Ang by residue) in 0.2541 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 6 :       0.00438141 at      1.713 Ang (1.395 Ang by residue) in 0.2384 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 8 :       0.00129824 at      1.713 Ang (1.395 Ang by residue) in 0.2248 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 10:       0.00521945 at      1.713 Ang (1.395 Ang by residue) in 0.2540 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 11:       0.00537666 at      1.708 Ang (1.395 Ang by residue) in 0.2650 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 15:       0.00418639 at      1.707 Ang (1.395 Ang by residue) in 0.2346 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 16:       0.00436977 at      1.713 Ang (1.395 Ang by residue) in 0.2047 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASH 20:       0.00686914 at      1.713 Ang (1.395 Ang by residue) in 0.2037 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASP 25:       0.00458634 at      1.706 Ang (1.395 Ang by residue) in 0.2119 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 21,  A27-ASP 26:       0.00545818 at      1.713 Ang (1.395 Ang by residue) in 0.1915 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASP 0 :       0.00500913 at      1.705 Ang (1.395 Ang by residue) in 0.1947 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 1 :       0.00606340 at      1.705 Ang (1.395 Ang by residue) in 0.1778 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 4 :       0.00154474 at      1.635 Ang (1.395 Ang by residue) in 0.1755 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 5 :       0.00644152 at      1.698 Ang (1.395 Ang by residue) in 0.1885 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 6 :       0.00422321 at      1.705 Ang (1.395 Ang by residue) in 0.2116 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 8 :       0.00196760 at      1.705 Ang (1.395 Ang by residue) in 0.2209 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 10:       0.00958599 at      1.705 Ang (1.395 Ang by residue) in 0.2257 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 11:       0.00548430 at      1.705 Ang (1.395 Ang by residue) in 0.2242 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 15:       0.00597270 at      1.698 Ang (1.395 Ang by residue) in 0.2182 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 16:       0.00424057 at      1.705 Ang (1.395 Ang by residue) in 0.1977 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASH 20:       0.01074904 at      1.705 Ang (1.395 Ang by residue) in 0.2088 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASP 25:       0.00420550 at      1.697 Ang (1.395 Ang by residue) in 0.2099 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 24,  A27-ASP 26:       0.00444857 at      1.705 Ang (1.395 Ang by residue) in 0.2076 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASP 0 :      -0.01898143 at      1.582 Ang (1.395 Ang by residue) in 0.2276 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 1 :       0.00566113 at      1.582 Ang (1.395 Ang by residue) in 0.1967 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 4 :      -0.00314447 at      1.506 Ang (1.395 Ang by residue) in 0.1993 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 5 :       0.00774365 at      1.575 Ang (1.395 Ang by residue) in 0.2134 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 6 :       0.01307167 at      1.582 Ang (1.395 Ang by residue) in 0.2081 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 8 :       0.00865272 at      1.582 Ang (1.395 Ang by residue) in 0.2099 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 10:       0.03737425 at      1.582 Ang (1.395 Ang by residue) in 0.2084 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 11:       0.02145837 at      1.582 Ang (1.395 Ang by residue) in 0.2088 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 15:       0.00487655 at      1.575 Ang (1.395 Ang by residue) in 0.2080 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 16:       0.01282055 at      1.582 Ang (1.395 Ang by residue) in 0.2026 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASH 20:       0.04105536 at      1.582 Ang (1.395 Ang by residue) in 0.1995 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASP 25:      -0.02256838 at      1.574 Ang (1.395 Ang by residue) in 0.2180 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 25,  A27-ASP 26:       0.00905953 at      1.582 Ang (1.395 Ang by residue) in 0.2110 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASP 0 :      -0.02773801 at      1.569 Ang (1.395 Ang by residue) in 0.2363 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 1 :      -0.00459375 at      1.569 Ang (1.395 Ang by residue) in 0.2384 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 4 :      -0.00041777 at      1.493 Ang (1.395 Ang by residue) in 0.2031 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 5 :      -0.00377200 at      1.562 Ang (1.395 Ang by residue) in 0.1968 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 6 :       0.01145857 at      1.569 Ang (1.395 Ang by residue) in 0.2177 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 8 :       0.00745901 at      1.569 Ang (1.395 Ang by residue) in 0.2167 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 10:       0.02271847 at      1.569 Ang (1.395 Ang by residue) in 0.1955 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 11:       0.02001397 at      1.563 Ang (1.395 Ang by residue) in 0.2107 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 15:      -0.00577258 at      1.562 Ang (1.395 Ang by residue) in 0.2153 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 16:       0.01116689 at      1.569 Ang (1.395 Ang by residue) in 0.2383 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASH 20:       0.02513440 at      1.569 Ang (1.395 Ang by residue) in 0.2389 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASP 25:      -0.03265894 at      1.561 Ang (1.395 Ang by residue) in 0.2370 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLH 33,  A27-ASP 26:       0.00907546 at      1.569 Ang (1.395 Ang by residue) in 0.2066 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASP 0 :      -0.00890715 at      1.709 Ang (1.395 Ang by residue) in 0.2318 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 1 :       0.00161999 at      1.709 Ang (1.395 Ang by residue) in 0.2283 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 4 :      -0.00004276 at      1.639 Ang (1.395 Ang by residue) in 0.1999 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 5 :       0.00142798 at      1.702 Ang (1.395 Ang by residue) in 0.2199 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 6 :       0.00179111 at      1.701 Ang (1.395 Ang by residue) in 0.2229 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 8 :       0.00536286 at      1.709 Ang (1.395 Ang by residue) in 0.2184 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 10:       0.00988500 at      1.709 Ang (1.395 Ang by residue) in 0.2182 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 11:       0.00974996 at      1.671 Ang (1.395 Ang by residue) in 0.2150 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 15:       0.00087069 at      1.702 Ang (1.395 Ang by residue) in 0.1966 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 16:       0.00183791 at      1.701 Ang (1.395 Ang by residue) in 0.1979 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASH 20:       0.00255013 at      1.709 Ang (1.395 Ang by residue) in 0.2298 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASP 25:      -0.01341489 at      1.701 Ang (1.395 Ang by residue) in 0.2200 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 36,  A27-ASP 26:       0.00577653 at      1.698 Ang (1.395 Ang by residue) in 0.2111 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASP 0 :      -0.00017453 at      1.713 Ang (1.395 Ang by residue) in 0.2168 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 1 :       0.00142057 at      1.713 Ang (1.395 Ang by residue) in 0.2055 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 4 :       0.00290418 at      1.644 Ang (1.395 Ang by residue) in 0.1949 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 5 :       0.00199369 at      1.707 Ang (1.395 Ang by residue) in 0.2038 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 6 :       0.00304630 at      1.713 Ang (1.395 Ang by residue) in 0.1869 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 8 :       0.00127581 at      1.713 Ang (1.395 Ang by residue) in 0.1991 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 10:       0.00410722 at      1.713 Ang (1.395 Ang by residue) in 0.2201 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 11:       0.00321427 at      1.708 Ang (1.395 Ang by residue) in 0.1974 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 15:       0.00189870 at      1.707 Ang (1.395 Ang by residue) in 0.2013 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 16:       0.00305121 at      1.713 Ang (1.395 Ang by residue) in 0.2216 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASH 20:       0.00490541 at      1.713 Ang (1.395 Ang by residue) in 0.2204 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASP 25:       0.00009842 at      1.706 Ang (1.395 Ang by residue) in 0.2433 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 37,  A27-ASP 26:       0.00363624 at      1.713 Ang (1.395 Ang by residue) in 0.2789 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASP 0 :       0.00024652 at      1.712 Ang (1.395 Ang by residue) in 0.2454 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 1 :       0.00203992 at      1.712 Ang (1.395 Ang by residue) in 0.2251 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 4 :       0.00517803 at      1.643 Ang (1.395 Ang by residue) in 0.2201 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 5 :       0.00289642 at      1.706 Ang (1.395 Ang by residue) in 0.2577 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 6 :       0.00315353 at      1.712 Ang (1.395 Ang by residue) in 0.2476 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 8 :       0.00164929 at      1.712 Ang (1.395 Ang by residue) in 0.2530 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 10:       0.00544510 at      1.712 Ang (1.395 Ang by residue) in 0.2328 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 11:       0.00361309 at      1.712 Ang (1.395 Ang by residue) in 0.2393 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 15:       0.00275266 at      1.706 Ang (1.395 Ang by residue) in 0.2095 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 16:       0.00314095 at      1.712 Ang (1.395 Ang by residue) in 0.2130 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASH 20:       0.00605534 at      1.712 Ang (1.395 Ang by residue) in 0.2234 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASP 25:       0.00085263 at      1.705 Ang (1.395 Ang by residue) in 0.2485 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 40,  A27-ASP 26:       0.00357690 at      1.712 Ang (1.395 Ang by residue) in 0.2670 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASP 0 :      -0.04412599 at      1.572 Ang (1.395 Ang by residue) in 0.2483 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 1 :      -0.01304715 at      1.572 Ang (1.395 Ang by residue) in 0.2314 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 4 :      -0.00271155 at      1.496 Ang (1.395 Ang by residue) in 0.2288 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 5 :      -0.01660298 at      1.565 Ang (1.395 Ang by residue) in 0.2377 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 6 :       0.01177695 at      1.572 Ang (1.395 Ang by residue) in 0.2419 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 8 :       0.00938050 at      1.572 Ang (1.395 Ang by residue) in 0.2524 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 10:       0.01523490 at      1.572 Ang (1.395 Ang by residue) in 0.2207 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 11:       0.02248084 at      1.572 Ang (1.395 Ang by residue) in 0.2342 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 15:      -0.01834931 at      1.565 Ang (1.395 Ang by residue) in 0.2564 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 16:       0.01083239 at      1.572 Ang (1.395 Ang by residue) in 0.2871 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASH 20:       0.00903144 at      1.572 Ang (1.395 Ang by residue) in 0.2540 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASP 25:      -0.05514276 at      1.564 Ang (1.395 Ang by residue) in 0.2527 (sec).
+ 3-Body  A22-HIS 0 ,  A24-GLU 41,  A27-ASP 26:       0.00352909 at      1.572 Ang (1.395 Ang by residue) in 0.2597 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASP 0 :      -0.00100166 at      1.713 Ang (1.395 Ang by residue) in 0.2389 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 1 :       0.00093279 at      1.713 Ang (1.395 Ang by residue) in 0.2146 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 4 :       0.00342620 at      1.644 Ang (1.395 Ang by residue) in 0.2045 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 5 :       0.00161735 at      1.707 Ang (1.395 Ang by residue) in 0.2141 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 6 :       0.00191171 at      1.713 Ang (1.395 Ang by residue) in 0.2260 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 8 :       0.00123336 at      1.713 Ang (1.395 Ang by residue) in 0.2695 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 10:       0.00323181 at      1.713 Ang (1.395 Ang by residue) in 0.2170 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 11:       0.00233716 at      1.713 Ang (1.395 Ang by residue) in 0.2146 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 15:       0.00150090 at      1.707 Ang (1.395 Ang by residue) in 0.2195 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 16:       0.00190134 at      1.713 Ang (1.395 Ang by residue) in 0.2503 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASH 20:       0.00419466 at      1.713 Ang (1.395 Ang by residue) in 0.2237 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASP 25:      -0.00041516 at      1.706 Ang (1.395 Ang by residue) in 0.2224 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 0 ,  A27-ASP 26:       0.00162611 at      1.713 Ang (1.395 Ang by residue) in 0.2143 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASP 0 :       0.00181459 at      1.713 Ang (1.395 Ang by residue) in 0.1776 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 1 :       0.00293399 at      1.713 Ang (1.395 Ang by residue) in 0.1949 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 4 :       0.00110054 at      1.644 Ang (1.395 Ang by residue) in 0.1997 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 5 :       0.00336867 at      1.707 Ang (1.395 Ang by residue) in 0.2264 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 6 :       0.00239675 at      1.713 Ang (1.395 Ang by residue) in 0.2299 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 8 :       0.00149214 at      1.713 Ang (1.395 Ang by residue) in 0.2221 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 10:       0.00509016 at      1.713 Ang (1.395 Ang by residue) in 0.2036 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 11:       0.00336663 at      1.713 Ang (1.395 Ang by residue) in 0.2273 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 15:       0.00304487 at      1.707 Ang (1.395 Ang by residue) in 0.2204 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 16:       0.00239961 at      1.713 Ang (1.395 Ang by residue) in 0.2361 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASH 20:       0.00655118 at      1.713 Ang (1.395 Ang by residue) in 0.2078 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASP 25:       0.00159881 at      1.706 Ang (1.395 Ang by residue) in 0.2312 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 1 ,  A27-ASP 26:       0.00193109 at      1.713 Ang (1.395 Ang by residue) in 0.2360 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASP 0 :       0.00369949 at      1.711 Ang (1.395 Ang by residue) in 0.2254 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 1 :       0.00459275 at      1.711 Ang (1.395 Ang by residue) in 0.1893 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 4 :       0.00777244 at      1.642 Ang (1.395 Ang by residue) in 0.2264 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 5 :       0.00576715 at      1.705 Ang (1.395 Ang by residue) in 0.2453 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 6 :       0.00545027 at      1.689 Ang (1.395 Ang by residue) in 0.2317 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 8 :       0.00344489 at      1.711 Ang (1.395 Ang by residue) in 0.2294 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 10:       0.00972338 at      1.711 Ang (1.395 Ang by residue) in 0.2458 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 11:       0.01524175 at      1.623 Ang (1.395 Ang by residue) in 0.2262 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 15:       0.00541668 at      1.705 Ang (1.395 Ang by residue) in 0.2166 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 16:       0.00516096 at      1.689 Ang (1.395 Ang by residue) in 0.2223 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASH 20:       0.01091913 at      1.711 Ang (1.395 Ang by residue) in 0.2355 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASP 25:       0.00170570 at      1.704 Ang (1.395 Ang by residue) in 0.2388 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 4 ,  A27-ASP 26:       0.00886577 at      1.687 Ang (1.395 Ang by residue) in 0.2552 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASP 0 :       0.00211574 at      1.713 Ang (1.395 Ang by residue) in 0.2488 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 1 :       0.00227357 at      1.713 Ang (1.395 Ang by residue) in 0.2281 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 4 :       0.00273298 at      1.644 Ang (1.395 Ang by residue) in 0.2456 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 5 :       0.00283826 at      1.707 Ang (1.395 Ang by residue) in 0.2611 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 6 :       0.00262485 at      1.713 Ang (1.395 Ang by residue) in 0.2814 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 8 :       0.00117009 at      1.713 Ang (1.395 Ang by residue) in 0.2417 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 10:       0.00379850 at      1.713 Ang (1.395 Ang by residue) in 0.2727 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 11:       0.00370115 at      1.708 Ang (1.395 Ang by residue) in 0.2540 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 15:       0.00270356 at      1.707 Ang (1.395 Ang by residue) in 0.2443 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 16:       0.00260516 at      1.713 Ang (1.395 Ang by residue) in 0.2305 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASH 20:       0.00538771 at      1.713 Ang (1.395 Ang by residue) in 0.2376 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASP 25:       0.00238477 at      1.706 Ang (1.395 Ang by residue) in 0.2265 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 5 ,  A27-ASP 26:       0.00261340 at      1.713 Ang (1.395 Ang by residue) in 0.2556 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASP 0 :       0.00344125 at      1.713 Ang (1.395 Ang by residue) in 0.2398 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 1 :       0.00316639 at      1.713 Ang (1.395 Ang by residue) in 0.2391 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 4 :       0.00370196 at      1.644 Ang (1.395 Ang by residue) in 0.2370 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 5 :       0.00387917 at      1.707 Ang (1.395 Ang by residue) in 0.1991 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 6 :       0.00364561 at      1.713 Ang (1.395 Ang by residue) in 0.2101 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 8 :       0.00169721 at      1.713 Ang (1.395 Ang by residue) in 0.2293 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 10:       0.00496582 at      1.713 Ang (1.395 Ang by residue) in 0.2204 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 11:       0.00529118 at      1.690 Ang (1.395 Ang by residue) in 0.2551 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 15:       0.00374578 at      1.707 Ang (1.395 Ang by residue) in 0.2494 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 16:       0.00362474 at      1.713 Ang (1.395 Ang by residue) in 0.2397 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASH 20:       0.00668248 at      1.713 Ang (1.395 Ang by residue) in 0.2227 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASP 25:       0.00383556 at      1.706 Ang (1.395 Ang by residue) in 0.2282 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 6 ,  A27-ASP 26:       0.00364476 at      1.713 Ang (1.395 Ang by residue) in 0.2350 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASP 0 :       0.00112870 at      1.712 Ang (1.395 Ang by residue) in 0.2406 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 1 :       0.00273962 at      1.712 Ang (1.395 Ang by residue) in 0.2258 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 4 :       0.00087966 at      1.643 Ang (1.395 Ang by residue) in 0.2400 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 5 :       0.00323645 at      1.706 Ang (1.395 Ang by residue) in 0.2651 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 6 :       0.00256445 at      1.712 Ang (1.395 Ang by residue) in 0.2655 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 8 :       0.00156756 at      1.712 Ang (1.395 Ang by residue) in 0.2279 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 10:       0.00534932 at      1.712 Ang (1.395 Ang by residue) in 0.2372 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 11:       0.00371816 at      1.712 Ang (1.395 Ang by residue) in 0.2435 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 15:       0.00287078 at      1.706 Ang (1.395 Ang by residue) in 0.2213 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 16:       0.00255649 at      1.712 Ang (1.395 Ang by residue) in 0.2629 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASH 20:       0.00715865 at      1.712 Ang (1.395 Ang by residue) in 0.2184 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASP 25:       0.00091180 at      1.705 Ang (1.395 Ang by residue) in 0.2607 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 8 ,  A27-ASP 26:       0.00197844 at      1.712 Ang (1.395 Ang by residue) in 0.2306 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASP 0 :      -0.01072452 at      1.516 Ang (1.395 Ang by residue) in 0.2714 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 1 :       0.00581433 at      1.516 Ang (1.395 Ang by residue) in 0.2504 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 4 :      -0.01199813 at      1.437 Ang (1.395 Ang by residue) in 0.2364 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 5 :       0.00889252 at      1.508 Ang (1.395 Ang by residue) in 0.2369 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 6 :       0.00654779 at      1.516 Ang (1.395 Ang by residue) in 0.2456 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 8 :       0.00695454 at      1.516 Ang (1.395 Ang by residue) in 0.2156 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 10:       0.02895336 at      1.516 Ang (1.395 Ang by residue) in 0.2576 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 11:       0.01280479 at      1.516 Ang (1.395 Ang by residue) in 0.2368 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 15:       0.00624051 at      1.508 Ang (1.395 Ang by residue) in 0.2326 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 16:       0.00649702 at      1.516 Ang (1.395 Ang by residue) in 0.2398 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASH 20:       0.03463023 at      1.516 Ang (1.395 Ang by residue) in 0.2500 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASP 25:      -0.01339326 at      1.508 Ang (1.395 Ang by residue) in 0.2559 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 9 ,  A27-ASP 26:       0.00280623 at      1.516 Ang (1.395 Ang by residue) in 0.2391 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASP 0 :      -0.00191278 at      1.651 Ang (1.395 Ang by residue) in 0.2603 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 1 :       0.00182148 at      1.651 Ang (1.395 Ang by residue) in 0.2281 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 4 :       0.00881855 at      1.578 Ang (1.395 Ang by residue) in 0.2285 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 5 :       0.00622685 at      1.644 Ang (1.395 Ang by residue) in 0.2601 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 6 :       0.00471915 at      1.651 Ang (1.395 Ang by residue) in 0.2421 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 8 :       0.00287307 at      1.651 Ang (1.395 Ang by residue) in 0.2266 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 10:       0.01346999 at      1.651 Ang (1.395 Ang by residue) in 0.2237 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 11:       0.01488828 at      1.606 Ang (1.395 Ang by residue) in 0.2150 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 15:       0.00585497 at      1.644 Ang (1.395 Ang by residue) in 0.2528 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 16:       0.00445312 at      1.651 Ang (1.395 Ang by residue) in 0.2459 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASH 20:       0.02856855 at      1.651 Ang (1.395 Ang by residue) in 0.2627 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASP 25:       0.00301782 at      1.643 Ang (1.395 Ang by residue) in 0.2584 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 12,  A27-ASP 26:       0.00354367 at      1.651 Ang (1.395 Ang by residue) in 0.2463 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASP 0 :       0.00184943 at      1.713 Ang (1.395 Ang by residue) in 0.2460 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 1 :       0.00216900 at      1.713 Ang (1.395 Ang by residue) in 0.2823 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 4 :       0.00219045 at      1.644 Ang (1.395 Ang by residue) in 0.2311 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 5 :       0.00262210 at      1.707 Ang (1.395 Ang by residue) in 0.2425 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 6 :       0.00260703 at      1.713 Ang (1.395 Ang by residue) in 0.2469 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 8 :       0.00116238 at      1.713 Ang (1.395 Ang by residue) in 0.2520 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 10:       0.00376706 at      1.713 Ang (1.395 Ang by residue) in 0.2557 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 11:       0.00366522 at      1.708 Ang (1.395 Ang by residue) in 0.2281 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 15:       0.00246899 at      1.707 Ang (1.395 Ang by residue) in 0.2391 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 16:       0.00259059 at      1.713 Ang (1.395 Ang by residue) in 0.2498 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASH 20:       0.00529038 at      1.713 Ang (1.395 Ang by residue) in 0.2160 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASP 25:       0.00192606 at      1.706 Ang (1.395 Ang by residue) in 0.2293 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 13,  A27-ASP 26:       0.00257186 at      1.713 Ang (1.395 Ang by residue) in 0.2465 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASP 0 :       0.00123583 at      1.712 Ang (1.395 Ang by residue) in 0.2350 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 1 :       0.00269960 at      1.712 Ang (1.395 Ang by residue) in 0.2224 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 4 :       0.00141635 at      1.643 Ang (1.395 Ang by residue) in 0.2269 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 5 :       0.00324064 at      1.706 Ang (1.395 Ang by residue) in 0.2221 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 6 :       0.00254112 at      1.712 Ang (1.395 Ang by residue) in 0.2444 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 8 :       0.00153414 at      1.712 Ang (1.395 Ang by residue) in 0.2569 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 10:       0.00523619 at      1.712 Ang (1.395 Ang by residue) in 0.2265 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 11:       0.00369849 at      1.712 Ang (1.395 Ang by residue) in 0.2498 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 15:       0.00289744 at      1.706 Ang (1.395 Ang by residue) in 0.2760 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 16:       0.00252885 at      1.712 Ang (1.395 Ang by residue) in 0.2281 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASH 20:       0.00704994 at      1.712 Ang (1.395 Ang by residue) in 0.2442 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASP 25:       0.00115495 at      1.705 Ang (1.395 Ang by residue) in 0.2154 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 16,  A27-ASP 26:       0.00197642 at      1.712 Ang (1.395 Ang by residue) in 0.2193 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASP 0 :      -0.02273945 at      1.569 Ang (1.395 Ang by residue) in 0.2218 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 1 :      -0.00678984 at      1.569 Ang (1.395 Ang by residue) in 0.2207 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 4 :       0.00696045 at      1.493 Ang (1.395 Ang by residue) in 0.2474 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 5 :      -0.00494131 at      1.562 Ang (1.395 Ang by residue) in 0.2592 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 6 :       0.00972469 at      1.524 Ang (1.395 Ang by residue) in 0.2298 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 8 :       0.00486468 at      1.569 Ang (1.395 Ang by residue) in 0.2675 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 10:       0.01538104 at      1.569 Ang (1.395 Ang by residue) in 0.2496 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 11:       0.01674690 at      1.520 Ang (1.395 Ang by residue) in 0.2266 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 15:      -0.00627834 at      1.562 Ang (1.395 Ang by residue) in 0.2213 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 16:       0.00916425 at      1.524 Ang (1.395 Ang by residue) in 0.2243 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASH 20:       0.03420595 at      1.566 Ang (1.395 Ang by residue) in 0.2530 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASP 25:      -0.02429062 at      1.561 Ang (1.395 Ang by residue) in 0.2354 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 17,  A27-ASP 26:       0.00496573 at      1.521 Ang (1.395 Ang by residue) in 0.2395 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASP 0 :      -0.00150920 at      1.711 Ang (1.395 Ang by residue) in 0.2299 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 1 :       0.00272278 at      1.711 Ang (1.395 Ang by residue) in 0.2176 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 4 :       0.00351538 at      1.642 Ang (1.395 Ang by residue) in 0.2360 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 5 :       0.00327074 at      1.705 Ang (1.395 Ang by residue) in 0.2303 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 6 :       0.00071397 at      1.703 Ang (1.395 Ang by residue) in 0.2565 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 8 :       0.00309459 at      1.711 Ang (1.395 Ang by residue) in 0.2442 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 10:       0.00733619 at      1.711 Ang (1.395 Ang by residue) in 0.2280 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 11:       0.00912155 at      1.661 Ang (1.395 Ang by residue) in 0.2423 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 15:       0.00284933 at      1.705 Ang (1.395 Ang by residue) in 0.2485 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 16:       0.00075520 at      1.703 Ang (1.395 Ang by residue) in 0.1939 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASH 20:       0.00562847 at      1.711 Ang (1.395 Ang by residue) in 0.2127 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASP 25:      -0.00406065 at      1.704 Ang (1.395 Ang by residue) in 0.2467 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 20,  A27-ASP 26:       0.00240258 at      1.701 Ang (1.395 Ang by residue) in 0.2158 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASP 0 :       0.00292847 at      1.713 Ang (1.395 Ang by residue) in 0.2366 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 1 :       0.00260323 at      1.713 Ang (1.395 Ang by residue) in 0.2256 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 4 :       0.00362407 at      1.644 Ang (1.395 Ang by residue) in 0.2495 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 5 :       0.00327180 at      1.707 Ang (1.395 Ang by residue) in 0.2341 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 6 :       0.00284712 at      1.713 Ang (1.395 Ang by residue) in 0.2289 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 8 :       0.00117667 at      1.713 Ang (1.395 Ang by residue) in 0.2294 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 10:       0.00397053 at      1.713 Ang (1.395 Ang by residue) in 0.2184 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 11:       0.00406998 at      1.708 Ang (1.395 Ang by residue) in 0.2432 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 15:       0.00315378 at      1.707 Ang (1.395 Ang by residue) in 0.2338 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 16:       0.00282101 at      1.713 Ang (1.395 Ang by residue) in 0.2305 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASH 20:       0.00567382 at      1.713 Ang (1.395 Ang by residue) in 0.2157 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASP 25:       0.00335999 at      1.706 Ang (1.395 Ang by residue) in 0.2289 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 21,  A27-ASP 26:       0.00300974 at      1.713 Ang (1.395 Ang by residue) in 0.2486 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASP 0 :       0.00257970 at      1.705 Ang (1.395 Ang by residue) in 0.2112 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 1 :       0.00414769 at      1.705 Ang (1.395 Ang by residue) in 0.2147 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 4 :      -0.00069649 at      1.635 Ang (1.395 Ang by residue) in 0.2034 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 5 :       0.00435913 at      1.698 Ang (1.395 Ang by residue) in 0.2403 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 6 :       0.00279638 at      1.705 Ang (1.395 Ang by residue) in 0.2569 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 8 :       0.00173593 at      1.705 Ang (1.395 Ang by residue) in 0.2563 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 10:       0.00694256 at      1.705 Ang (1.395 Ang by residue) in 0.2354 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 11:       0.00394666 at      1.705 Ang (1.395 Ang by residue) in 0.2378 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 15:       0.00385655 at      1.698 Ang (1.395 Ang by residue) in 0.2209 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 16:       0.00281494 at      1.705 Ang (1.395 Ang by residue) in 0.2519 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASH 20:       0.00851500 at      1.705 Ang (1.395 Ang by residue) in 0.2008 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASP 25:       0.00161341 at      1.697 Ang (1.395 Ang by residue) in 0.2067 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 24,  A27-ASP 26:       0.00230045 at      1.705 Ang (1.395 Ang by residue) in 0.2381 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASP 0 :      -0.02282451 at      1.582 Ang (1.395 Ang by residue) in 0.2317 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 1 :      -0.00190990 at      1.582 Ang (1.395 Ang by residue) in 0.2359 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 4 :      -0.01013225 at      1.506 Ang (1.395 Ang by residue) in 0.2518 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 5 :      -0.00107496 at      1.575 Ang (1.395 Ang by residue) in 0.2251 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 6 :       0.00551101 at      1.582 Ang (1.395 Ang by residue) in 0.2308 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 8 :       0.00624327 at      1.582 Ang (1.395 Ang by residue) in 0.2400 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 10:       0.02013749 at      1.582 Ang (1.395 Ang by residue) in 0.2771 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 11:       0.01090148 at      1.582 Ang (1.395 Ang by residue) in 0.2578 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 15:      -0.00360862 at      1.575 Ang (1.395 Ang by residue) in 0.2275 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 16:       0.00541957 at      1.582 Ang (1.395 Ang by residue) in 0.2137 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASH 20:       0.02392069 at      1.582 Ang (1.395 Ang by residue) in 0.2079 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASP 25:      -0.02791064 at      1.574 Ang (1.395 Ang by residue) in 0.2126 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 25,  A27-ASP 26:       0.00070968 at      1.582 Ang (1.395 Ang by residue) in 0.2433 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASP 0 :      -0.02501324 at      1.569 Ang (1.395 Ang by residue) in 0.2135 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 1 :      -0.00671191 at      1.569 Ang (1.395 Ang by residue) in 0.2149 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 4 :       0.00053338 at      1.493 Ang (1.395 Ang by residue) in 0.2258 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 5 :      -0.00704692 at      1.562 Ang (1.395 Ang by residue) in 0.2698 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 6 :       0.00506905 at      1.569 Ang (1.395 Ang by residue) in 0.2280 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 8 :       0.00522627 at      1.569 Ang (1.395 Ang by residue) in 0.2194 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 10:       0.01044920 at      1.569 Ang (1.395 Ang by residue) in 0.2021 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 11:       0.01015764 at      1.563 Ang (1.395 Ang by residue) in 0.2323 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 15:      -0.00852105 at      1.562 Ang (1.395 Ang by residue) in 0.2807 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 16:       0.00490520 at      1.569 Ang (1.395 Ang by residue) in 0.2618 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASH 20:       0.01227039 at      1.569 Ang (1.395 Ang by residue) in 0.2051 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASP 25:      -0.03077658 at      1.561 Ang (1.395 Ang by residue) in 0.2384 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLH 33,  A27-ASP 26:       0.00163216 at      1.569 Ang (1.395 Ang by residue) in 0.2127 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASP 0 :      -0.01023660 at      1.709 Ang (1.395 Ang by residue) in 0.2065 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 1 :      -0.00015711 at      1.709 Ang (1.395 Ang by residue) in 0.2022 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 4 :      -0.00297116 at      1.639 Ang (1.395 Ang by residue) in 0.2205 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 5 :      -0.00191388 at      1.702 Ang (1.395 Ang by residue) in 0.2262 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 6 :      -0.00193431 at      1.701 Ang (1.395 Ang by residue) in 0.2196 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 8 :       0.00396751 at      1.709 Ang (1.395 Ang by residue) in 0.2098 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 10:       0.00535180 at      1.709 Ang (1.395 Ang by residue) in 0.2451 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 11:       0.00237725 at      1.671 Ang (1.395 Ang by residue) in 0.2155 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 15:      -0.00244573 at      1.702 Ang (1.395 Ang by residue) in 0.2240 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 16:      -0.00186007 at      1.701 Ang (1.395 Ang by residue) in 0.2583 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASH 20:      -0.00542190 at      1.709 Ang (1.395 Ang by residue) in 0.2534 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASP 25:      -0.01688814 at      1.701 Ang (1.395 Ang by residue) in 0.2048 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 36,  A27-ASP 26:      -0.00128118 at      1.698 Ang (1.395 Ang by residue) in 0.2172 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASP 0 :      -0.00143051 at      1.713 Ang (1.395 Ang by residue) in 0.2261 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 1 :       0.00049527 at      1.713 Ang (1.395 Ang by residue) in 0.2238 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 4 :       0.00169107 at      1.644 Ang (1.395 Ang by residue) in 0.2011 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 5 :       0.00087942 at      1.707 Ang (1.395 Ang by residue) in 0.1928 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 6 :       0.00182272 at      1.713 Ang (1.395 Ang by residue) in 0.1884 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 8 :       0.00107003 at      1.713 Ang (1.395 Ang by residue) in 0.1853 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 10:       0.00280772 at      1.713 Ang (1.395 Ang by residue) in 0.1873 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 11:       0.00234559 at      1.708 Ang (1.395 Ang by residue) in 0.2077 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 15:       0.00078201 at      1.707 Ang (1.395 Ang by residue) in 0.2246 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 16:       0.00180807 at      1.713 Ang (1.395 Ang by residue) in 0.2104 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASH 20:       0.00375552 at      1.713 Ang (1.395 Ang by residue) in 0.2175 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASP 25:      -0.00128012 at      1.706 Ang (1.395 Ang by residue) in 0.1935 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 37,  A27-ASP 26:       0.00157078 at      1.713 Ang (1.395 Ang by residue) in 0.1975 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASP 0 :      -0.00177226 at      1.712 Ang (1.395 Ang by residue) in 0.1981 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 1 :       0.00051612 at      1.712 Ang (1.395 Ang by residue) in 0.1969 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 4 :       0.00387226 at      1.643 Ang (1.395 Ang by residue) in 0.2028 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 5 :       0.00128178 at      1.706 Ang (1.395 Ang by residue) in 0.1967 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 6 :       0.00207351 at      1.712 Ang (1.395 Ang by residue) in 0.2036 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 8 :       0.00123471 at      1.712 Ang (1.395 Ang by residue) in 0.1960 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 10:       0.00313964 at      1.712 Ang (1.395 Ang by residue) in 0.1943 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 11:       0.00244742 at      1.712 Ang (1.395 Ang by residue) in 0.2025 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 15:       0.00115900 at      1.706 Ang (1.395 Ang by residue) in 0.2876 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 16:       0.00205831 at      1.712 Ang (1.395 Ang by residue) in 0.1935 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASH 20:       0.00425645 at      1.712 Ang (1.395 Ang by residue) in 0.1960 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASP 25:      -0.00107915 at      1.705 Ang (1.395 Ang by residue) in 0.1861 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 40,  A27-ASP 26:       0.00185427 at      1.712 Ang (1.395 Ang by residue) in 0.2233 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASP 0 :      -0.04155345 at      1.572 Ang (1.395 Ang by residue) in 0.1872 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 1 :      -0.01590832 at      1.572 Ang (1.395 Ang by residue) in 0.1887 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 4 :       0.00235894 at      1.496 Ang (1.395 Ang by residue) in 0.1833 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 5 :      -0.01939544 at      1.565 Ang (1.395 Ang by residue) in 0.1860 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 6 :      -0.00064756 at      1.572 Ang (1.395 Ang by residue) in 0.2120 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 8 :       0.00576883 at      1.572 Ang (1.395 Ang by residue) in 0.1958 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 10:       0.00087877 at      1.572 Ang (1.395 Ang by residue) in 0.1729 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 11:       0.00504403 at      1.572 Ang (1.395 Ang by residue) in 0.1745 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 15:      -0.02034743 at      1.565 Ang (1.395 Ang by residue) in 0.2227 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 16:      -0.00134822 at      1.572 Ang (1.395 Ang by residue) in 0.2208 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASH 20:      -0.00552220 at      1.572 Ang (1.395 Ang by residue) in 0.1873 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASP 25:      -0.05113880 at      1.564 Ang (1.395 Ang by residue) in 0.1839 (sec).
+ 3-Body  A22-HIE 2 ,  A24-GLU 41,  A27-ASP 26:      -0.01068762 at      1.572 Ang (1.395 Ang by residue) in 0.1986 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASP 0 :       0.00248127 at      1.679 Ang (1.395 Ang by residue) in 0.1937 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 1 :       0.00476216 at      1.679 Ang (1.395 Ang by residue) in 0.1842 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 4 :       0.00721214 at      1.647 Ang (1.395 Ang by residue) in 0.1877 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 5 :       0.00637578 at      1.679 Ang (1.395 Ang by residue) in 0.1931 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 6 :       0.00456401 at      1.679 Ang (1.395 Ang by residue) in 0.1806 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 8 :       0.00253838 at      1.679 Ang (1.395 Ang by residue) in 0.1846 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 10:       0.00847143 at      1.679 Ang (1.395 Ang by residue) in 0.2179 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 11:       0.00539077 at      1.679 Ang (1.395 Ang by residue) in 0.2062 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 15:       0.00624353 at      1.679 Ang (1.395 Ang by residue) in 0.2036 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 16:       0.00457082 at      1.679 Ang (1.395 Ang by residue) in 0.2285 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASH 20:       0.00957543 at      1.679 Ang (1.395 Ang by residue) in 0.2031 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASP 25:       0.00384999 at      1.679 Ang (1.395 Ang by residue) in 0.2311 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 0 ,  A27-ASP 26:       0.00458260 at      1.679 Ang (1.395 Ang by residue) in 0.2169 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASP 0 :       0.00603127 at      1.679 Ang (1.395 Ang by residue) in 0.2273 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 1 :       0.00770009 at      1.679 Ang (1.395 Ang by residue) in 0.1945 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 4 :       0.00480188 at      1.647 Ang (1.395 Ang by residue) in 0.2210 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 5 :       0.00878939 at      1.679 Ang (1.395 Ang by residue) in 0.2742 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 6 :       0.00555070 at      1.679 Ang (1.395 Ang by residue) in 0.1754 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 8 :       0.00270468 at      1.679 Ang (1.395 Ang by residue) in 0.2203 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 10:       0.01150394 at      1.679 Ang (1.395 Ang by residue) in 0.2369 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 11:       0.00704139 at      1.679 Ang (1.395 Ang by residue) in 0.2152 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 15:       0.00847423 at      1.679 Ang (1.395 Ang by residue) in 0.2102 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 16:       0.00557056 at      1.679 Ang (1.395 Ang by residue) in 0.2118 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASH 20:       0.01317534 at      1.679 Ang (1.395 Ang by residue) in 0.2347 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASP 25:       0.00607325 at      1.679 Ang (1.395 Ang by residue) in 0.2169 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 1 ,  A27-ASP 26:       0.00542308 at      1.679 Ang (1.395 Ang by residue) in 0.1985 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASP 0 :       0.00630001 at      1.679 Ang (1.395 Ang by residue) in 0.1967 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 1 :       0.01019041 at      1.679 Ang (1.395 Ang by residue) in 0.2007 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 4 :       0.01279434 at      1.647 Ang (1.395 Ang by residue) in 0.2377 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 5 :       0.01302558 at      1.679 Ang (1.395 Ang by residue) in 0.2216 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 6 :       0.01284226 at      1.656 Ang (1.395 Ang by residue) in 0.2138 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 8 :       0.00654908 at      1.679 Ang (1.395 Ang by residue) in 0.2143 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 10:       0.01892016 at      1.679 Ang (1.395 Ang by residue) in 0.2291 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 11:       0.03208655 at      1.588 Ang (1.395 Ang by residue) in 0.2496 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 15:       0.01268708 at      1.679 Ang (1.395 Ang by residue) in 0.1996 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 16:       0.01253887 at      1.656 Ang (1.395 Ang by residue) in 0.2141 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASH 20:       0.02429017 at      1.679 Ang (1.395 Ang by residue) in 0.2131 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASP 25:       0.00557055 at      1.679 Ang (1.395 Ang by residue) in 0.2063 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 4 ,  A27-ASP 26:       0.01976384 at      1.654 Ang (1.395 Ang by residue) in 0.1964 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASP 0 :       0.00496242 at      1.679 Ang (1.395 Ang by residue) in 0.2397 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 1 :       0.00546159 at      1.679 Ang (1.395 Ang by residue) in 0.1944 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 4 :       0.00535403 at      1.647 Ang (1.395 Ang by residue) in 0.2179 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 5 :       0.00653928 at      1.679 Ang (1.395 Ang by residue) in 0.2326 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 6 :       0.00609679 at      1.679 Ang (1.395 Ang by residue) in 0.2159 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 8 :       0.00208085 at      1.679 Ang (1.395 Ang by residue) in 0.2528 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 10:       0.00799991 at      1.679 Ang (1.395 Ang by residue) in 0.2305 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 11:       0.00753035 at      1.673 Ang (1.395 Ang by residue) in 0.2189 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 15:       0.00640154 at      1.679 Ang (1.395 Ang by residue) in 0.2110 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 16:       0.00609879 at      1.679 Ang (1.395 Ang by residue) in 0.2495 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASH 20:       0.01012258 at      1.679 Ang (1.395 Ang by residue) in 0.2581 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASP 25:       0.00544063 at      1.679 Ang (1.395 Ang by residue) in 0.2544 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 5 ,  A27-ASP 26:       0.00684297 at      1.679 Ang (1.395 Ang by residue) in 0.2266 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASP 0 :       0.00733145 at      1.679 Ang (1.395 Ang by residue) in 0.2210 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 1 :       0.00728498 at      1.679 Ang (1.395 Ang by residue) in 0.2101 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 4 :       0.00743059 at      1.647 Ang (1.395 Ang by residue) in 0.2262 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 5 :       0.00870145 at      1.679 Ang (1.395 Ang by residue) in 0.2330 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 6 :       0.00797762 at      1.679 Ang (1.395 Ang by residue) in 0.2637 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 8 :       0.00286031 at      1.679 Ang (1.395 Ang by residue) in 0.2813 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 10:       0.01019946 at      1.679 Ang (1.395 Ang by residue) in 0.2462 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 11:       0.01020767 at      1.655 Ang (1.395 Ang by residue) in 0.2339 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 15:       0.00856226 at      1.679 Ang (1.395 Ang by residue) in 0.2261 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 16:       0.00798091 at      1.679 Ang (1.395 Ang by residue) in 0.2156 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASH 20:       0.01242163 at      1.679 Ang (1.395 Ang by residue) in 0.2471 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASP 25:       0.00805836 at      1.679 Ang (1.395 Ang by residue) in 0.2199 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 6 ,  A27-ASP 26:       0.00896854 at      1.679 Ang (1.395 Ang by residue) in 0.2272 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASP 0 :       0.00539345 at      1.679 Ang (1.395 Ang by residue) in 0.2051 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 1 :       0.00772835 at      1.679 Ang (1.395 Ang by residue) in 0.2298 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 4 :       0.00482111 at      1.647 Ang (1.395 Ang by residue) in 0.2211 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 5 :       0.00894129 at      1.679 Ang (1.395 Ang by residue) in 0.2293 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 6 :       0.00610554 at      1.679 Ang (1.395 Ang by residue) in 0.2538 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 8 :       0.00288514 at      1.679 Ang (1.395 Ang by residue) in 0.2318 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 10:       0.01221364 at      1.679 Ang (1.395 Ang by residue) in 0.2426 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 11:       0.00787411 at      1.679 Ang (1.395 Ang by residue) in 0.2144 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 15:       0.00858785 at      1.679 Ang (1.395 Ang by residue) in 0.2073 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 16:       0.00611337 at      1.679 Ang (1.395 Ang by residue) in 0.2292 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASH 20:       0.01432238 at      1.679 Ang (1.395 Ang by residue) in 0.2456 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASP 25:       0.00548518 at      1.679 Ang (1.395 Ang by residue) in 0.2245 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 8 ,  A27-ASP 26:       0.00590583 at      1.679 Ang (1.395 Ang by residue) in 0.2238 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASP 0 :       0.00261159 at      1.504 Ang (1.395 Ang by residue) in 0.2139 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 1 :       0.02906391 at      1.504 Ang (1.395 Ang by residue) in 0.1943 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 4 :       0.01244086 at      1.469 Ang (1.395 Ang by residue) in 0.2181 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 5 :       0.03528041 at      1.504 Ang (1.395 Ang by residue) in 0.2078 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 6 :       0.01925526 at      1.504 Ang (1.395 Ang by residue) in 0.2334 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 8 :       0.01311582 at      1.504 Ang (1.395 Ang by residue) in 0.2261 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 10:       0.06734425 at      1.504 Ang (1.395 Ang by residue) in 0.1930 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 11:       0.03111273 at      1.504 Ang (1.395 Ang by residue) in 0.2317 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 15:       0.03258155 at      1.504 Ang (1.395 Ang by residue) in 0.1986 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 16:       0.01905289 at      1.504 Ang (1.395 Ang by residue) in 0.2228 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASH 20:       0.07680740 at      1.504 Ang (1.395 Ang by residue) in 0.2494 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASP 25:       0.00269054 at      1.504 Ang (1.395 Ang by residue) in 0.2762 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 9 ,  A27-ASP 26:       0.01331846 at      1.504 Ang (1.395 Ang by residue) in 0.2500 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASP 0 :       0.00158809 at      1.626 Ang (1.395 Ang by residue) in 0.2267 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 1 :       0.00904627 at      1.626 Ang (1.395 Ang by residue) in 0.2190 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 4 :       0.02055074 at      1.594 Ang (1.395 Ang by residue) in 0.2278 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 5 :       0.01692684 at      1.626 Ang (1.395 Ang by residue) in 0.2095 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 6 :       0.01294313 at      1.626 Ang (1.395 Ang by residue) in 0.2187 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 8 :       0.00546187 at      1.626 Ang (1.395 Ang by residue) in 0.2300 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 10:       0.02542858 at      1.626 Ang (1.395 Ang by residue) in 0.2429 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 11:       0.03145696 at      1.580 Ang (1.395 Ang by residue) in 0.2053 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 15:       0.01658907 at      1.626 Ang (1.395 Ang by residue) in 0.2134 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 16:       0.01262481 at      1.626 Ang (1.395 Ang by residue) in 0.2403 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASH 20:       0.05029013 at      1.626 Ang (1.395 Ang by residue) in 0.2233 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASP 25:       0.01015100 at      1.626 Ang (1.395 Ang by residue) in 0.2218 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 12,  A27-ASP 26:       0.01186368 at      1.626 Ang (1.395 Ang by residue) in 0.2296 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASP 0 :       0.00457898 at      1.679 Ang (1.395 Ang by residue) in 0.2352 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 1 :       0.00527571 at      1.679 Ang (1.395 Ang by residue) in 0.2079 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 4 :       0.00478797 at      1.647 Ang (1.395 Ang by residue) in 0.2266 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 5 :       0.00628314 at      1.679 Ang (1.395 Ang by residue) in 0.2381 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 6 :       0.00602639 at      1.679 Ang (1.395 Ang by residue) in 0.1974 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 8 :       0.00204630 at      1.679 Ang (1.395 Ang by residue) in 0.2108 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 10:       0.00790860 at      1.679 Ang (1.395 Ang by residue) in 0.2108 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 11:       0.00742581 at      1.673 Ang (1.395 Ang by residue) in 0.2099 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 15:       0.00613239 at      1.679 Ang (1.395 Ang by residue) in 0.2213 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 16:       0.00603323 at      1.679 Ang (1.395 Ang by residue) in 0.2335 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASH 20:       0.00994685 at      1.679 Ang (1.395 Ang by residue) in 0.2263 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASP 25:       0.00492501 at      1.679 Ang (1.395 Ang by residue) in 0.2382 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 13,  A27-ASP 26:       0.00673355 at      1.679 Ang (1.395 Ang by residue) in 0.2349 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASP 0 :       0.00551438 at      1.679 Ang (1.395 Ang by residue) in 0.2092 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 1 :       0.00765370 at      1.679 Ang (1.395 Ang by residue) in 0.2087 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 4 :       0.00512126 at      1.647 Ang (1.395 Ang by residue) in 0.2364 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 5 :       0.00887842 at      1.679 Ang (1.395 Ang by residue) in 0.2098 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 6 :       0.00606660 at      1.679 Ang (1.395 Ang by residue) in 0.2224 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 8 :       0.00283841 at      1.679 Ang (1.395 Ang by residue) in 0.2298 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 10:       0.01200528 at      1.679 Ang (1.395 Ang by residue) in 0.2393 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 11:       0.00783336 at      1.679 Ang (1.395 Ang by residue) in 0.2279 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 15:       0.00854043 at      1.679 Ang (1.395 Ang by residue) in 0.2210 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 16:       0.00606980 at      1.679 Ang (1.395 Ang by residue) in 0.2345 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASH 20:       0.01409901 at      1.679 Ang (1.395 Ang by residue) in 0.2505 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASP 25:       0.00568736 at      1.679 Ang (1.395 Ang by residue) in 0.2177 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 16,  A27-ASP 26:       0.00590421 at      1.679 Ang (1.395 Ang by residue) in 0.2257 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASP 0 :      -0.03382470 at      1.550 Ang (1.395 Ang by residue) in 0.2311 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 1 :      -0.00480704 at      1.550 Ang (1.395 Ang by residue) in 0.2349 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 4 :       0.00974226 at      1.516 Ang (1.395 Ang by residue) in 0.2374 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 5 :       0.00324912 at      1.550 Ang (1.395 Ang by residue) in 0.2283 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 6 :       0.02029856 at      1.503 Ang (1.395 Ang by residue) in 0.2272 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 8 :       0.00787441 at      1.550 Ang (1.395 Ang by residue) in 0.2287 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 10:       0.03325816 at      1.550 Ang (1.395 Ang by residue) in 0.2064 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 11:       0.03586552 at      1.500 Ang (1.395 Ang by residue) in 0.2312 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 15:       0.00143072 at      1.550 Ang (1.395 Ang by residue) in 0.2301 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 16:       0.01949592 at      1.503 Ang (1.395 Ang by residue) in 0.2381 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASH 20:       0.06763383 at      1.547 Ang (1.395 Ang by residue) in 0.2169 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASP 25:      -0.03165352 at      1.550 Ang (1.395 Ang by residue) in 0.2155 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 17,  A27-ASP 26:       0.01314877 at      1.501 Ang (1.395 Ang by residue) in 0.2066 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASP 0 :       0.00003588 at      1.679 Ang (1.395 Ang by residue) in 0.2163 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 1 :       0.00764237 at      1.679 Ang (1.395 Ang by residue) in 0.1890 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 4 :       0.00781331 at      1.647 Ang (1.395 Ang by residue) in 0.2203 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 5 :       0.01001139 at      1.679 Ang (1.395 Ang by residue) in 0.2087 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 6 :       0.00359003 at      1.671 Ang (1.395 Ang by residue) in 0.2125 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 8 :       0.00591104 at      1.679 Ang (1.395 Ang by residue) in 0.2108 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 10:       0.01585120 at      1.679 Ang (1.395 Ang by residue) in 0.2059 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 11:       0.02162268 at      1.627 Ang (1.395 Ang by residue) in 0.2048 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 15:       0.00963494 at      1.679 Ang (1.395 Ang by residue) in 0.1986 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 16:       0.00364675 at      1.671 Ang (1.395 Ang by residue) in 0.1892 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASH 20:       0.01643102 at      1.679 Ang (1.395 Ang by residue) in 0.2214 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASP 25:      -0.00077830 at      1.679 Ang (1.395 Ang by residue) in 0.2273 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 20,  A27-ASP 26:       0.00616737 at      1.668 Ang (1.395 Ang by residue) in 0.2560 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASP 0 :       0.00594648 at      1.679 Ang (1.395 Ang by residue) in 0.1996 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 1 :       0.00590687 at      1.679 Ang (1.395 Ang by residue) in 0.1983 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 4 :       0.00597459 at      1.647 Ang (1.395 Ang by residue) in 0.2320 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 5 :       0.00695541 at      1.679 Ang (1.395 Ang by residue) in 0.2031 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 6 :       0.00650693 at      1.679 Ang (1.395 Ang by residue) in 0.2001 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 8 :       0.00210098 at      1.679 Ang (1.395 Ang by residue) in 0.2087 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 10:       0.00824049 at      1.679 Ang (1.395 Ang by residue) in 0.2116 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 11:       0.00815985 at      1.673 Ang (1.395 Ang by residue) in 0.2207 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 15:       0.00682352 at      1.679 Ang (1.395 Ang by residue) in 0.1966 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 16:       0.00649970 at      1.679 Ang (1.395 Ang by residue) in 0.2264 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASH 20:       0.01050524 at      1.679 Ang (1.395 Ang by residue) in 0.2306 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASP 25:       0.00637912 at      1.679 Ang (1.395 Ang by residue) in 0.2135 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 21,  A27-ASP 26:       0.00752692 at      1.679 Ang (1.395 Ang by residue) in 0.2075 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASP 0 :       0.00781780 at      1.679 Ang (1.395 Ang by residue) in 0.2261 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 1 :       0.01003284 at      1.679 Ang (1.395 Ang by residue) in 0.2240 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 4 :       0.00474766 at      1.647 Ang (1.395 Ang by residue) in 0.2089 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 5 :       0.01103005 at      1.679 Ang (1.395 Ang by residue) in 0.2332 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 6 :       0.00646254 at      1.679 Ang (1.395 Ang by residue) in 0.2223 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 8 :       0.00309036 at      1.679 Ang (1.395 Ang by residue) in 0.2149 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 10:       0.01477697 at      1.679 Ang (1.395 Ang by residue) in 0.2123 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 11:       0.00822959 at      1.679 Ang (1.395 Ang by residue) in 0.2286 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 15:       0.01057911 at      1.679 Ang (1.395 Ang by residue) in 0.2318 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 16:       0.00649635 at      1.679 Ang (1.395 Ang by residue) in 0.2029 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASH 20:       0.01667632 at      1.679 Ang (1.395 Ang by residue) in 0.2166 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASP 25:       0.00730455 at      1.679 Ang (1.395 Ang by residue) in 0.2153 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 24,  A27-ASP 26:       0.00635954 at      1.679 Ang (1.395 Ang by residue) in 0.2053 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASP 0 :      -0.01847359 at      1.566 Ang (1.395 Ang by residue) in 0.2113 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 1 :       0.01399921 at      1.566 Ang (1.395 Ang by residue) in 0.2130 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 4 :       0.00481664 at      1.533 Ang (1.395 Ang by residue) in 0.2258 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 5 :       0.02035740 at      1.566 Ang (1.395 Ang by residue) in 0.2193 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 6 :       0.01721170 at      1.566 Ang (1.395 Ang by residue) in 0.2162 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 8 :       0.01231836 at      1.566 Ang (1.395 Ang by residue) in 0.2145 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 10:       0.05148036 at      1.566 Ang (1.395 Ang by residue) in 0.2399 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 11:       0.02847833 at      1.566 Ang (1.395 Ang by residue) in 0.2018 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 15:       0.01763750 at      1.566 Ang (1.395 Ang by residue) in 0.2183 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 16:       0.01700829 at      1.566 Ang (1.395 Ang by residue) in 0.2112 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASH 20:       0.05903979 at      1.566 Ang (1.395 Ang by residue) in 0.2030 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASP 25:      -0.01802437 at      1.566 Ang (1.395 Ang by residue) in 0.2305 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 25,  A27-ASP 26:       0.01014901 at      1.566 Ang (1.395 Ang by residue) in 0.2324 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASP 0 :      -0.03561516 at      1.550 Ang (1.395 Ang by residue) in 0.2092 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 1 :      -0.00470794 at      1.550 Ang (1.395 Ang by residue) in 0.2092 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 4 :      -0.00073775 at      1.516 Ang (1.395 Ang by residue) in 0.2251 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 5 :       0.00010658 at      1.550 Ang (1.395 Ang by residue) in 0.2236 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 6 :       0.01317214 at      1.550 Ang (1.395 Ang by residue) in 0.2308 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 8 :       0.00852609 at      1.550 Ang (1.395 Ang by residue) in 0.2225 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 10:       0.02748745 at      1.550 Ang (1.395 Ang by residue) in 0.2119 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 11:       0.02538585 at      1.543 Ang (1.395 Ang by residue) in 0.2183 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 15:      -0.00180557 at      1.550 Ang (1.395 Ang by residue) in 0.2075 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 16:       0.01290371 at      1.550 Ang (1.395 Ang by residue) in 0.2175 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASH 20:       0.03496171 at      1.550 Ang (1.395 Ang by residue) in 0.2102 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASP 25:      -0.03862872 at      1.550 Ang (1.395 Ang by residue) in 0.2163 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLH 33,  A27-ASP 26:       0.00778360 at      1.550 Ang (1.395 Ang by residue) in 0.2269 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASP 0 :      -0.01093234 at      1.679 Ang (1.395 Ang by residue) in 0.2358 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 1 :       0.00340762 at      1.679 Ang (1.395 Ang by residue) in 0.2248 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 4 :       0.00125041 at      1.647 Ang (1.395 Ang by residue) in 0.2102 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 5 :       0.00414955 at      1.679 Ang (1.395 Ang by residue) in 0.2024 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 6 :      -0.00167154 at      1.670 Ang (1.395 Ang by residue) in 0.1884 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 8 :       0.00752056 at      1.679 Ang (1.395 Ang by residue) in 0.2139 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 10:       0.01288674 at      1.679 Ang (1.395 Ang by residue) in 0.2225 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 11:       0.01289736 at      1.640 Ang (1.395 Ang by residue) in 0.2165 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 15:       0.00371897 at      1.679 Ang (1.395 Ang by residue) in 0.2219 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 16:      -0.00158206 at      1.670 Ang (1.395 Ang by residue) in 0.2362 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASH 20:       0.00198934 at      1.679 Ang (1.395 Ang by residue) in 0.2004 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASP 25:      -0.01471119 at      1.679 Ang (1.395 Ang by residue) in 0.2241 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 36,  A27-ASP 26:      -0.00082212 at      1.668 Ang (1.395 Ang by residue) in 0.2197 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASP 0 :       0.00133220 at      1.679 Ang (1.395 Ang by residue) in 0.2182 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 1 :       0.00356259 at      1.679 Ang (1.395 Ang by residue) in 0.2142 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 4 :       0.00576518 at      1.647 Ang (1.395 Ang by residue) in 0.2359 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 5 :       0.00509008 at      1.679 Ang (1.395 Ang by residue) in 0.2866 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 6 :       0.00451872 at      1.679 Ang (1.395 Ang by residue) in 0.2668 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 8 :       0.00209476 at      1.679 Ang (1.395 Ang by residue) in 0.2629 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 10:       0.00700503 at      1.679 Ang (1.395 Ang by residue) in 0.2627 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 11:       0.00509266 at      1.673 Ang (1.395 Ang by residue) in 0.2300 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 15:       0.00500404 at      1.679 Ang (1.395 Ang by residue) in 0.2532 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 16:       0.00453400 at      1.679 Ang (1.395 Ang by residue) in 0.2220 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASH 20:       0.00830865 at      1.679 Ang (1.395 Ang by residue) in 0.2154 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASP 25:       0.00267210 at      1.679 Ang (1.395 Ang by residue) in 0.2270 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 37,  A27-ASP 26:       0.00479027 at      1.679 Ang (1.395 Ang by residue) in 0.2348 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASP 0 :       0.00150749 at      1.679 Ang (1.395 Ang by residue) in 0.2275 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 1 :       0.00430097 at      1.679 Ang (1.395 Ang by residue) in 0.2109 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 4 :       0.00731911 at      1.647 Ang (1.395 Ang by residue) in 0.2025 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 5 :       0.00602747 at      1.679 Ang (1.395 Ang by residue) in 0.1977 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 6 :       0.00485835 at      1.679 Ang (1.395 Ang by residue) in 0.1976 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 8 :       0.00260545 at      1.679 Ang (1.395 Ang by residue) in 0.2041 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 10:       0.00851579 at      1.679 Ang (1.395 Ang by residue) in 0.1845 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 11:       0.00567084 at      1.679 Ang (1.395 Ang by residue) in 0.2441 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 15:       0.00587971 at      1.679 Ang (1.395 Ang by residue) in 0.2190 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 16:       0.00486147 at      1.679 Ang (1.395 Ang by residue) in 0.1961 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASH 20:       0.00977323 at      1.679 Ang (1.395 Ang by residue) in 0.1899 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASP 25:       0.00296306 at      1.679 Ang (1.395 Ang by residue) in 0.1895 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 40,  A27-ASP 26:       0.00497773 at      1.679 Ang (1.395 Ang by residue) in 0.2020 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASP 0 :      -0.06223451 at      1.552 Ang (1.395 Ang by residue) in 0.2198 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 1 :      -0.02646131 at      1.552 Ang (1.395 Ang by residue) in 0.2038 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 4 :      -0.01496355 at      1.519 Ang (1.395 Ang by residue) in 0.2510 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 5 :      -0.02635039 at      1.552 Ang (1.395 Ang by residue) in 0.2053 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 6 :       0.00431463 at      1.552 Ang (1.395 Ang by residue) in 0.2023 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 8 :       0.00361632 at      1.552 Ang (1.395 Ang by residue) in 0.2150 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 10:       0.00460433 at      1.552 Ang (1.395 Ang by residue) in 0.1926 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 11:       0.01913370 at      1.552 Ang (1.395 Ang by residue) in 0.2148 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 15:      -0.02787431 at      1.552 Ang (1.395 Ang by residue) in 0.2051 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 16:       0.00327541 at      1.552 Ang (1.395 Ang by residue) in 0.2071 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASH 20:       0.00229025 at      1.552 Ang (1.395 Ang by residue) in 0.2247 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASP 25:      -0.07559841 at      1.552 Ang (1.395 Ang by residue) in 0.2499 (sec).
+ 3-Body  A22-HIS 5 ,  A24-GLU 41,  A27-ASP 26:      -0.00875024 at      1.552 Ang (1.395 Ang by residue) in 0.2060 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASP 0 :       0.00238414 at      1.576 Ang (1.395 Ang by residue) in 0.1990 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 1 :       0.00438770 at      1.576 Ang (1.395 Ang by residue) in 0.2062 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 4 :       0.00655757 at      1.576 Ang (1.395 Ang by residue) in 0.2062 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 5 :       0.00573381 at      1.576 Ang (1.395 Ang by residue) in 0.2041 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 6 :       0.00451503 at      1.576 Ang (1.395 Ang by residue) in 0.2002 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 8 :       0.00224453 at      1.576 Ang (1.395 Ang by residue) in 0.2200 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 10:       0.00849172 at      1.576 Ang (1.395 Ang by residue) in 0.2012 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 11:       0.00524563 at      1.576 Ang (1.395 Ang by residue) in 0.1880 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 15:       0.00566955 at      1.576 Ang (1.395 Ang by residue) in 0.1906 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 16:       0.00450626 at      1.576 Ang (1.395 Ang by residue) in 0.1864 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASH 20:       0.01025017 at      1.576 Ang (1.395 Ang by residue) in 0.2206 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASP 25:       0.00470216 at      1.576 Ang (1.395 Ang by residue) in 0.2122 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 0 ,  A27-ASP 26:       0.00482099 at      1.576 Ang (1.395 Ang by residue) in 0.2054 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASP 0 :       0.00298152 at      1.576 Ang (1.395 Ang by residue) in 0.2340 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 1 :       0.00629820 at      1.576 Ang (1.395 Ang by residue) in 0.2118 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 4 :       0.00741742 at      1.576 Ang (1.395 Ang by residue) in 0.2093 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 5 :       0.00708967 at      1.576 Ang (1.395 Ang by residue) in 0.2071 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 6 :       0.00588179 at      1.576 Ang (1.395 Ang by residue) in 0.2443 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 8 :       0.00285517 at      1.576 Ang (1.395 Ang by residue) in 0.2382 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 10:       0.01154736 at      1.576 Ang (1.395 Ang by residue) in 0.2488 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 11:       0.00748016 at      1.576 Ang (1.395 Ang by residue) in 0.2281 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 15:       0.00676585 at      1.576 Ang (1.395 Ang by residue) in 0.2451 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 16:       0.00589537 at      1.576 Ang (1.395 Ang by residue) in 0.2108 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASH 20:       0.01282678 at      1.576 Ang (1.395 Ang by residue) in 0.2308 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASP 25:       0.00364172 at      1.576 Ang (1.395 Ang by residue) in 0.2364 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 1 ,  A27-ASP 26:       0.00588818 at      1.576 Ang (1.395 Ang by residue) in 0.2054 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASP 0 :      -0.02018214 at      1.587 Ang (1.395 Ang by residue) in 0.2169 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 1 :      -0.00987588 at      1.587 Ang (1.395 Ang by residue) in 0.2201 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 4 :       0.00763439 at      1.587 Ang (1.395 Ang by residue) in 0.2464 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 5 :      -0.00195212 at      1.587 Ang (1.395 Ang by residue) in 0.2194 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 6 :       0.00651712 at      1.562 Ang (1.395 Ang by residue) in 0.2544 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 8 :       0.00483046 at      1.587 Ang (1.395 Ang by residue) in 0.2119 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 10:       0.00386357 at      1.587 Ang (1.395 Ang by residue) in 0.2863 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 11:       0.02858387 at      1.490 Ang (1.395 Ang by residue) in 0.2170 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 15:      -0.00218360 at      1.587 Ang (1.395 Ang by residue) in 0.1928 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 16:       0.00617138 at      1.562 Ang (1.395 Ang by residue) in 0.2535 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASH 20:       0.02431519 at      1.587 Ang (1.395 Ang by residue) in 0.2366 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASP 25:      -0.00948567 at      1.587 Ang (1.395 Ang by residue) in 0.2312 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 4 ,  A27-ASP 26:       0.01023246 at      1.561 Ang (1.395 Ang by residue) in 0.2196 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASP 0 :       0.00338255 at      1.640 Ang (1.395 Ang by residue) in 0.2508 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 1 :       0.00424491 at      1.640 Ang (1.395 Ang by residue) in 0.2002 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 4 :       0.00584980 at      1.640 Ang (1.395 Ang by residue) in 0.2105 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 5 :       0.00511475 at      1.640 Ang (1.395 Ang by residue) in 0.2194 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 6 :       0.00615424 at      1.640 Ang (1.395 Ang by residue) in 0.2157 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 8 :       0.00195529 at      1.640 Ang (1.395 Ang by residue) in 0.2088 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 10:       0.00692893 at      1.640 Ang (1.395 Ang by residue) in 0.2499 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 11:       0.00739635 at      1.635 Ang (1.395 Ang by residue) in 0.2092 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 15:       0.00500974 at      1.640 Ang (1.395 Ang by residue) in 0.2374 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 16:       0.00615722 at      1.640 Ang (1.395 Ang by residue) in 0.2190 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASH 20:       0.00939023 at      1.640 Ang (1.395 Ang by residue) in 0.2470 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASP 25:       0.00446447 at      1.640 Ang (1.395 Ang by residue) in 0.2322 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 5 ,  A27-ASP 26:       0.00685432 at      1.640 Ang (1.395 Ang by residue) in 0.2413 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASP 0 :       0.00467418 at      1.640 Ang (1.395 Ang by residue) in 0.2058 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 1 :       0.00491704 at      1.640 Ang (1.395 Ang by residue) in 0.2257 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 4 :       0.00677131 at      1.640 Ang (1.395 Ang by residue) in 0.2505 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 5 :       0.00606095 at      1.640 Ang (1.395 Ang by residue) in 0.2143 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 6 :       0.00778309 at      1.640 Ang (1.395 Ang by residue) in 0.2207 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 8 :       0.00262479 at      1.640 Ang (1.395 Ang by residue) in 0.2229 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 10:       0.00777818 at      1.640 Ang (1.395 Ang by residue) in 0.2508 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 11:       0.00965578 at      1.617 Ang (1.395 Ang by residue) in 0.2416 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 15:       0.00597138 at      1.640 Ang (1.395 Ang by residue) in 0.2255 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 16:       0.00778655 at      1.640 Ang (1.395 Ang by residue) in 0.2333 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASH 20:       0.01070053 at      1.640 Ang (1.395 Ang by residue) in 0.2192 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASP 25:       0.00600486 at      1.640 Ang (1.395 Ang by residue) in 0.2698 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 6 ,  A27-ASP 26:       0.00865807 at      1.640 Ang (1.395 Ang by residue) in 0.2418 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASP 0 :       0.00216222 at      1.580 Ang (1.395 Ang by residue) in 0.2617 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 1 :       0.00637440 at      1.580 Ang (1.395 Ang by residue) in 0.2618 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 4 :       0.00765841 at      1.580 Ang (1.395 Ang by residue) in 0.2573 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 5 :       0.00721512 at      1.580 Ang (1.395 Ang by residue) in 0.2617 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 6 :       0.00665155 at      1.580 Ang (1.395 Ang by residue) in 0.2517 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 8 :       0.00302931 at      1.580 Ang (1.395 Ang by residue) in 0.2315 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 10:       0.01247076 at      1.580 Ang (1.395 Ang by residue) in 0.2467 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 11:       0.00853639 at      1.580 Ang (1.395 Ang by residue) in 0.2147 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 15:       0.00684814 at      1.580 Ang (1.395 Ang by residue) in 0.2454 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 16:       0.00664970 at      1.580 Ang (1.395 Ang by residue) in 0.2367 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASH 20:       0.01394324 at      1.580 Ang (1.395 Ang by residue) in 0.2270 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASP 25:       0.00297708 at      1.580 Ang (1.395 Ang by residue) in 0.2323 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 8 ,  A27-ASP 26:       0.00668916 at      1.580 Ang (1.395 Ang by residue) in 0.2135 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASP 0 :      -0.07060005 at      1.453 Ang (1.395 Ang by residue) in 0.1994 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 1 :       0.00496941 at      1.453 Ang (1.395 Ang by residue) in 0.2156 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 4 :       0.03634757 at      1.453 Ang (1.395 Ang by residue) in 0.2491 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 5 :       0.01322285 at      1.453 Ang (1.395 Ang by residue) in 0.2539 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 6 :       0.02591573 at      1.453 Ang (1.395 Ang by residue) in 0.2299 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 8 :       0.01424384 at      1.453 Ang (1.395 Ang by residue) in 0.2441 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 10:       0.06824040 at      1.453 Ang (1.395 Ang by residue) in 0.2317 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 11:       0.04312557 at      1.453 Ang (1.395 Ang by residue) in 0.2341 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 15:       0.01050778 at      1.453 Ang (1.395 Ang by residue) in 0.2363 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 16:       0.02512455 at      1.453 Ang (1.395 Ang by residue) in 0.1948 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASH 20:       0.08422163 at      1.453 Ang (1.395 Ang by residue) in 0.2066 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASP 25:      -0.05200186 at      1.453 Ang (1.395 Ang by residue) in 0.2064 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 9 ,  A27-ASP 26:       0.01532681 at      1.453 Ang (1.395 Ang by residue) in 0.2378 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASP 0 :       0.00498179 at      1.546 Ang (1.395 Ang by residue) in 0.2411 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 1 :       0.01802401 at      1.546 Ang (1.395 Ang by residue) in 0.2234 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 4 :       0.02579961 at      1.546 Ang (1.395 Ang by residue) in 0.2585 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 5 :       0.02296610 at      1.546 Ang (1.395 Ang by residue) in 0.2423 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 6 :       0.01935215 at      1.546 Ang (1.395 Ang by residue) in 0.2726 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 8 :       0.00611387 at      1.546 Ang (1.395 Ang by residue) in 0.2361 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 10:       0.03442671 at      1.546 Ang (1.395 Ang by residue) in 0.2302 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 11:       0.03863087 at      1.497 Ang (1.395 Ang by residue) in 0.2133 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 15:       0.02251316 at      1.546 Ang (1.395 Ang by residue) in 0.2310 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 16:       0.01898407 at      1.546 Ang (1.395 Ang by residue) in 0.2246 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASH 20:       0.05263509 at      1.546 Ang (1.395 Ang by residue) in 0.2659 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASP 25:       0.01448196 at      1.546 Ang (1.395 Ang by residue) in 0.2086 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 12,  A27-ASP 26:       0.01813356 at      1.546 Ang (1.395 Ang by residue) in 0.2468 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASP 0 :       0.00282335 at      1.640 Ang (1.395 Ang by residue) in 0.2647 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 1 :       0.00392345 at      1.640 Ang (1.395 Ang by residue) in 0.2420 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 4 :       0.00541562 at      1.640 Ang (1.395 Ang by residue) in 0.2290 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 5 :       0.00482447 at      1.640 Ang (1.395 Ang by residue) in 0.2448 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 6 :       0.00609882 at      1.640 Ang (1.395 Ang by residue) in 0.2439 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 8 :       0.00194100 at      1.640 Ang (1.395 Ang by residue) in 0.2492 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 10:       0.00675218 at      1.640 Ang (1.395 Ang by residue) in 0.2700 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 11:       0.00730504 at      1.635 Ang (1.395 Ang by residue) in 0.2936 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 15:       0.00470290 at      1.640 Ang (1.395 Ang by residue) in 0.2962 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 16:       0.00610693 at      1.640 Ang (1.395 Ang by residue) in 0.2348 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASH 20:       0.00913210 at      1.640 Ang (1.395 Ang by residue) in 0.2451 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASP 25:       0.00389737 at      1.640 Ang (1.395 Ang by residue) in 0.2594 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 13,  A27-ASP 26:       0.00676348 at      1.640 Ang (1.395 Ang by residue) in 0.2422 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASP 0 :       0.00268410 at      1.580 Ang (1.395 Ang by residue) in 0.2249 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 1 :       0.00656221 at      1.580 Ang (1.395 Ang by residue) in 0.2199 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 4 :       0.00788554 at      1.580 Ang (1.395 Ang by residue) in 0.2361 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 5 :       0.00733131 at      1.580 Ang (1.395 Ang by residue) in 0.2144 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 6 :       0.00660250 at      1.580 Ang (1.395 Ang by residue) in 0.2588 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 8 :       0.00297805 at      1.580 Ang (1.395 Ang by residue) in 0.2101 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 10:       0.01244764 at      1.580 Ang (1.395 Ang by residue) in 0.2446 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 11:       0.00848066 at      1.580 Ang (1.395 Ang by residue) in 0.2088 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 15:       0.00698114 at      1.580 Ang (1.395 Ang by residue) in 0.2298 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 16:       0.00659642 at      1.580 Ang (1.395 Ang by residue) in 0.2439 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASH 20:       0.01392212 at      1.580 Ang (1.395 Ang by residue) in 0.2275 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASP 25:       0.00345593 at      1.580 Ang (1.395 Ang by residue) in 0.2686 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 16,  A27-ASP 26:       0.00667386 at      1.580 Ang (1.395 Ang by residue) in 0.2404 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASP 0 :      -0.11900211 at      1.469 Ang (1.395 Ang by residue) in 0.2320 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 1 :      -0.06891972 at      1.469 Ang (1.395 Ang by residue) in 0.2148 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 4 :       0.01060104 at      1.469 Ang (1.395 Ang by residue) in 0.2435 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 5 :      -0.03783877 at      1.469 Ang (1.395 Ang by residue) in 0.2609 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 6 :       0.00852216 at      1.420 Ang (1.395 Ang by residue) in 0.2429 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 8 :      -0.00698817 at      1.469 Ang (1.395 Ang by residue) in 0.2351 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 10:      -0.01300594 at      1.469 Ang (1.395 Ang by residue) in 0.2304 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 11:       0.03265338 at      1.416 Ang (1.395 Ang by residue) in 0.2202 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 15:      -0.03857164 at      1.469 Ang (1.395 Ang by residue) in 0.2224 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 16:       0.00684636 at      1.420 Ang (1.395 Ang by residue) in 0.2551 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASH 20:       0.03755886 at      1.466 Ang (1.395 Ang by residue) in 0.2047 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASP 25:      -0.06811127 at      1.469 Ang (1.395 Ang by residue) in 0.2138 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 17,  A27-ASP 26:      -0.00702750 at      1.418 Ang (1.395 Ang by residue) in 0.2373 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASP 0 :      -0.02748932 at      1.587 Ang (1.395 Ang by residue) in 0.2254 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 1 :      -0.01313226 at      1.587 Ang (1.395 Ang by residue) in 0.2156 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 4 :       0.00382221 at      1.587 Ang (1.395 Ang by residue) in 0.2117 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 5 :      -0.00465523 at      1.587 Ang (1.395 Ang by residue) in 0.2023 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 6 :      -0.00056458 at      1.578 Ang (1.395 Ang by residue) in 0.2177 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 8 :       0.00481702 at      1.587 Ang (1.395 Ang by residue) in 0.2492 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 10:       0.00089515 at      1.587 Ang (1.395 Ang by residue) in 0.2251 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 11:       0.02078915 at      1.532 Ang (1.395 Ang by residue) in 0.2220 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 15:      -0.00492967 at      1.587 Ang (1.395 Ang by residue) in 0.1979 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 16:      -0.00057570 at      1.578 Ang (1.395 Ang by residue) in 0.2249 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASH 20:       0.01577730 at      1.587 Ang (1.395 Ang by residue) in 0.1992 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASP 25:      -0.01558095 at      1.587 Ang (1.395 Ang by residue) in 0.2322 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 20,  A27-ASP 26:       0.00006562 at      1.575 Ang (1.395 Ang by residue) in 0.2136 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASP 0 :       0.00462132 at      1.640 Ang (1.395 Ang by residue) in 0.2213 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 1 :       0.00490047 at      1.640 Ang (1.395 Ang by residue) in 0.2017 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 4 :       0.00656641 at      1.640 Ang (1.395 Ang by residue) in 0.2037 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 5 :       0.00558439 at      1.640 Ang (1.395 Ang by residue) in 0.2142 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 6 :       0.00649109 at      1.640 Ang (1.395 Ang by residue) in 0.2043 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 8 :       0.00194635 at      1.640 Ang (1.395 Ang by residue) in 0.2107 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 10:       0.00728456 at      1.640 Ang (1.395 Ang by residue) in 0.2588 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 11:       0.00791328 at      1.635 Ang (1.395 Ang by residue) in 0.2285 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 15:       0.00548902 at      1.640 Ang (1.395 Ang by residue) in 0.1996 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 16:       0.00648658 at      1.640 Ang (1.395 Ang by residue) in 0.2257 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASH 20:       0.00990062 at      1.640 Ang (1.395 Ang by residue) in 0.2460 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASP 25:       0.00544346 at      1.640 Ang (1.395 Ang by residue) in 0.2272 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 21,  A27-ASP 26:       0.00743215 at      1.640 Ang (1.395 Ang by residue) in 0.2396 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASP 0 :       0.00298161 at      1.569 Ang (1.395 Ang by residue) in 0.2344 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 1 :       0.00841750 at      1.569 Ang (1.395 Ang by residue) in 0.2329 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 4 :       0.00846995 at      1.569 Ang (1.395 Ang by residue) in 0.2632 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 5 :       0.00914204 at      1.569 Ang (1.395 Ang by residue) in 0.2350 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 6 :       0.00738156 at      1.569 Ang (1.395 Ang by residue) in 0.2218 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 8 :       0.00352370 at      1.569 Ang (1.395 Ang by residue) in 0.2174 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 10:       0.01562179 at      1.569 Ang (1.395 Ang by residue) in 0.2461 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 11:       0.00924312 at      1.569 Ang (1.395 Ang by residue) in 0.2814 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 15:       0.00860401 at      1.569 Ang (1.395 Ang by residue) in 0.2141 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 16:       0.00742870 at      1.569 Ang (1.395 Ang by residue) in 0.2022 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASH 20:       0.01665940 at      1.569 Ang (1.395 Ang by residue) in 0.2001 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASP 25:       0.00304998 at      1.569 Ang (1.395 Ang by residue) in 0.2522 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 24,  A27-ASP 26:       0.00757327 at      1.569 Ang (1.395 Ang by residue) in 0.2097 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASP 0 :      -0.10974541 at      1.401 Ang (1.395 Ang by residue) in 0.2065 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 1 :      -0.03450673 at      1.401 Ang (1.395 Ang by residue) in 0.2072 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 4 :       0.01381410 at      1.401 Ang (1.395 Ang by residue) in 0.2547 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 5 :      -0.01291432 at      1.401 Ang (1.395 Ang by residue) in 0.2120 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 6 :       0.02039228 at      1.401 Ang (1.395 Ang by residue) in 0.2383 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 8 :       0.01293007 at      1.401 Ang (1.395 Ang by residue) in 0.2267 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 10:       0.03610444 at      1.401 Ang (1.395 Ang by residue) in 0.2399 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 11:       0.03758254 at      1.401 Ang (1.395 Ang by residue) in 0.2222 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 15:      -0.01616657 at      1.401 Ang (1.395 Ang by residue) in 0.2138 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 16:       0.01977824 at      1.401 Ang (1.395 Ang by residue) in 0.2370 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASH 20:       0.05361051 at      1.401 Ang (1.395 Ang by residue) in 0.2235 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASP 25:      -0.07347253 at      1.401 Ang (1.395 Ang by residue) in 0.2125 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 25,  A27-ASP 26:       0.00786204 at      1.401 Ang (1.395 Ang by residue) in 0.2185 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASP 0 :      -0.13666631 at      1.469 Ang (1.395 Ang by residue) in 0.2186 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 1 :      -0.08422733 at      1.469 Ang (1.395 Ang by residue) in 0.2346 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 4 :      -0.00369419 at      1.469 Ang (1.395 Ang by residue) in 0.2205 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 5 :      -0.05216727 at      1.469 Ang (1.395 Ang by residue) in 0.1964 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 6 :      -0.00185325 at      1.469 Ang (1.395 Ang by residue) in 0.1793 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 8 :      -0.00686607 at      1.469 Ang (1.395 Ang by residue) in 0.1997 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 10:      -0.03044586 at      1.469 Ang (1.395 Ang by residue) in 0.2205 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 11:       0.01665200 at      1.462 Ang (1.395 Ang by residue) in 0.2184 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 15:      -0.05290374 at      1.469 Ang (1.395 Ang by residue) in 0.2206 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 16:      -0.00291841 at      1.469 Ang (1.395 Ang by residue) in 0.2243 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASH 20:       0.00205497 at      1.469 Ang (1.395 Ang by residue) in 0.2384 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASP 25:      -0.08611380 at      1.469 Ang (1.395 Ang by residue) in 0.2149 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLH 33,  A27-ASP 26:      -0.01365347 at      1.469 Ang (1.395 Ang by residue) in 0.2336 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASP 0 :      -0.05332911 at      1.584 Ang (1.395 Ang by residue) in 0.2152 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 1 :      -0.03058059 at      1.584 Ang (1.395 Ang by residue) in 0.2316 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 4 :      -0.00856222 at      1.584 Ang (1.395 Ang by residue) in 0.2487 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 5 :      -0.01843181 at      1.584 Ang (1.395 Ang by residue) in 0.2198 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 6 :      -0.00739854 at      1.575 Ang (1.395 Ang by residue) in 0.2361 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 8 :       0.00595657 at      1.584 Ang (1.395 Ang by residue) in 0.1998 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 10:      -0.01247993 at      1.584 Ang (1.395 Ang by residue) in 0.2045 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 11:       0.01205608 at      1.543 Ang (1.395 Ang by residue) in 0.2480 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 15:      -0.01868648 at      1.584 Ang (1.395 Ang by residue) in 0.2323 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 16:      -0.00742556 at      1.575 Ang (1.395 Ang by residue) in 0.2436 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASH 20:      -0.00084815 at      1.584 Ang (1.395 Ang by residue) in 0.2479 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASP 25:      -0.03625218 at      1.584 Ang (1.395 Ang by residue) in 0.2426 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 36,  A27-ASP 26:      -0.00697807 at      1.572 Ang (1.395 Ang by residue) in 0.2468 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASP 0 :       0.00102187 at      1.640 Ang (1.395 Ang by residue) in 0.2625 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 1 :       0.00292382 at      1.640 Ang (1.395 Ang by residue) in 0.2266 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 4 :       0.00457646 at      1.640 Ang (1.395 Ang by residue) in 0.2090 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 5 :       0.00448945 at      1.640 Ang (1.395 Ang by residue) in 0.2763 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 6 :       0.00462060 at      1.640 Ang (1.395 Ang by residue) in 0.2604 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 8 :       0.00192069 at      1.640 Ang (1.395 Ang by residue) in 0.2482 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 10:       0.00649247 at      1.640 Ang (1.395 Ang by residue) in 0.2418 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 11:       0.00502059 at      1.635 Ang (1.395 Ang by residue) in 0.2342 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 15:       0.00443958 at      1.640 Ang (1.395 Ang by residue) in 0.2470 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 16:       0.00462879 at      1.640 Ang (1.395 Ang by residue) in 0.2712 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASH 20:       0.00867013 at      1.640 Ang (1.395 Ang by residue) in 0.2374 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASP 25:       0.00341743 at      1.640 Ang (1.395 Ang by residue) in 0.2206 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 37,  A27-ASP 26:       0.00495191 at      1.640 Ang (1.395 Ang by residue) in 0.2318 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASP 0 :       0.00158033 at      1.580 Ang (1.395 Ang by residue) in 0.2415 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 1 :       0.00390756 at      1.580 Ang (1.395 Ang by residue) in 0.2437 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 4 :       0.00663756 at      1.580 Ang (1.395 Ang by residue) in 0.2668 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 5 :       0.00538222 at      1.580 Ang (1.395 Ang by residue) in 0.2231 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 6 :       0.00477048 at      1.580 Ang (1.395 Ang by residue) in 0.2391 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 8 :       0.00220507 at      1.580 Ang (1.395 Ang by residue) in 0.2275 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 10:       0.00841911 at      1.580 Ang (1.395 Ang by residue) in 0.2369 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 11:       0.00539992 at      1.580 Ang (1.395 Ang by residue) in 0.2724 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 15:       0.00532119 at      1.580 Ang (1.395 Ang by residue) in 0.2403 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 16:       0.00475648 at      1.580 Ang (1.395 Ang by residue) in 0.2228 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASH 20:       0.01035429 at      1.580 Ang (1.395 Ang by residue) in 0.2936 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASP 25:       0.00427921 at      1.580 Ang (1.395 Ang by residue) in 0.2418 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 40,  A27-ASP 26:       0.00529147 at      1.580 Ang (1.395 Ang by residue) in 0.2463 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASP 0 :      -0.17964299 at      1.460 Ang (1.395 Ang by residue) in 0.2103 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 1 :      -0.14940705 at      1.460 Ang (1.395 Ang by residue) in 0.2522 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 4 :      -0.05552652 at      1.460 Ang (1.395 Ang by residue) in 0.2364 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 5 :      -0.11345882 at      1.460 Ang (1.395 Ang by residue) in 0.2511 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 6 :      -0.03743422 at      1.460 Ang (1.395 Ang by residue) in 0.2293 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 8 :      -0.03633169 at      1.460 Ang (1.395 Ang by residue) in 0.2513 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 10:      -0.11202600 at      1.460 Ang (1.395 Ang by residue) in 0.2422 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 11:      -0.01131313 at      1.460 Ang (1.395 Ang by residue) in 0.2457 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 15:      -0.11263534 at      1.460 Ang (1.395 Ang by residue) in 0.2373 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 16:      -0.03995944 at      1.460 Ang (1.395 Ang by residue) in 0.2463 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASH 20:      -0.07216841 at      1.460 Ang (1.395 Ang by residue) in 0.2362 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASP 25:      -0.13265130 at      1.460 Ang (1.395 Ang by residue) in 0.2770 (sec).
+ 3-Body  A22-HIS 7 ,  A24-GLU 41,  A27-ASP 26:      -0.06160311 at      1.460 Ang (1.395 Ang by residue) in 0.2312 (sec).
+ Time for 3-Body energies:        205.4
+ Time for all energies:           205.8
+ Energy of the system with rotamers in their default conformation:    -598.30539643
+
+ Iteration 1: Applying Single Goldstein DEE conditions 
+  Rotamer elimination of (  A6-CYS, 3) by (  A6-CYS, 0):       0.7360 > 0.0000.
+   Self:       0.6565, Pairs:       0.0795, Triples:       0.0000.
+  Rotamer elimination of (  A6-CYS, 4) by (  A6-CYS, 0):      61.6765 > 0.0000.
+   Self:       4.6641, Pairs:      57.0123, Triples:       0.0000.
+  Rotamer elimination of (  A6-CYS, 6) by (  A6-CYS, 0):       0.7360 > 0.0000.
+   Self:       0.6565, Pairs:       0.0795, Triples:       0.0000.
+  Rotamer elimination of (  A6-CYS, 7) by (  A6-CYS, 0):      61.6765 > 0.0000.
+   Self:       4.6641, Pairs:      57.0123, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 0) by ( A11-ASH,22):       2.2373 > 0.0000.
+   Self:       2.2373, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 1) by ( A11-ASH, 2):       3.0102 > 0.0000.
+   Self:       3.0102, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 2) by ( A11-ASH,10):       0.2445 > 0.0000.
+   Self:       0.2445, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 3) by ( A11-ASH, 4):       2.8275 > 0.0000.
+   Self:       2.8275, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 4) by ( A11-ASH,10):       0.6090 > 0.0000.
+   Self:       0.6090, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 5) by ( A11-ASH,10):       1.5948 > 0.0000.
+   Self:       1.5948, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 7) by ( A11-ASH, 9):       9.8186 > 0.0000.
+   Self:       9.8186, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 8) by ( A11-ASH, 9):      17.8467 > 0.0000.
+   Self:      17.8467, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH, 9) by ( A11-ASH,10):       3.1033 > 0.0000.
+   Self:       3.1033, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,10) by ( A11-ASH,22):       2.6681 > 0.0000.
+   Self:       2.6681, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,12) by ( A11-ASH,20):       0.0727 > 0.0000.
+   Self:       0.0727, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,13) by ( A11-ASH,14):       3.5996 > 0.0000.
+   Self:       3.5996, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,14) by ( A11-ASH,20):       0.3256 > 0.0000.
+   Self:       0.3256, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,15) by ( A11-ASH,20):       2.1834 > 0.0000.
+   Self:       2.1834, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,20) by ( A11-ASH,22):       8.0869 > 0.0000.
+   Self:       8.0869, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,22) by ( A11-ASH,24):       0.4142 > 0.0000.
+   Self:       0.4142, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,23) by ( A11-ASH,24):       4.9082 > 0.0000.
+   Self:       4.9082, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A11-ASH,25) by ( A11-ASH,24):       0.4570 > 0.0000.
+   Self:       0.4570, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A14-CYS, 2) by ( A14-CYS, 0):       0.0028 > 0.0000.
+   Self:       0.0059, Pairs:      -0.0031, Triples:      -0.0000.
+  Rotamer elimination of ( A14-CYS, 4) by ( A14-CYS, 0):     100.8988 > 0.0000.
+   Self:       4.2274, Pairs:      96.7706, Triples:      -0.0991.
+  Rotamer elimination of ( A14-CYS, 5) by ( A14-CYS, 0):       0.0028 > 0.0000.
+   Self:       0.0059, Pairs:      -0.0031, Triples:      -0.0000.
+  Rotamer elimination of ( A14-CYS, 7) by ( A14-CYS, 0):     100.8988 > 0.0000.
+   Self:       4.2274, Pairs:      96.7706, Triples:      -0.0991.
+  Rotamer elimination of ( A20-CYS, 2) by ( A20-CYS, 0):      19.5514 > 0.0000.
+   Self:       2.7171, Pairs:      16.8296, Triples:       0.0046.
+  Rotamer elimination of ( A20-CYS, 3) by ( A20-CYS, 0):       1.2825 > 0.0000.
+   Self:       1.4439, Pairs:      -0.1635, Triples:       0.0021.
+  Rotamer elimination of ( A20-CYS, 4) by ( A20-CYS, 0):       6.7352 > 0.0000.
+   Self:      -0.1534, Pairs:       6.8793, Triples:       0.0093.
+  Rotamer elimination of ( A20-CYS, 5) by ( A20-CYS, 0):      19.5514 > 0.0000.
+   Self:       2.7171, Pairs:      16.8296, Triples:       0.0046.
+  Rotamer elimination of ( A20-CYS, 6) by ( A20-CYS, 0):       1.2825 > 0.0000.
+   Self:       1.4439, Pairs:      -0.1635, Triples:       0.0021.
+  Rotamer elimination of ( A20-CYS, 7) by ( A20-CYS, 0):       6.7352 > 0.0000.
+   Self:      -0.1534, Pairs:       6.8793, Triples:       0.0093.
+  Rotamer elimination of ( A22-HIS, 2) by ( A22-HIS, 0):      18.0624 > 0.0000.
+   Self:      19.4032, Pairs:      -1.3026, Triples:      -0.0382.
+  Rotamer elimination of ( A22-HIS, 7) by ( A22-HIS, 0):       4.8105 > 0.0000.
+   Self:      15.9762, Pairs:     -11.0685, Triples:      -0.0972.
+  Rotamer elimination of ( A24-GLH, 1) by ( A24-GLH, 0):       7.6463 > 0.0000.
+   Self:       7.6762, Pairs:      -0.0283, Triples:      -0.0017.
+  Rotamer elimination of ( A24-GLH, 4) by ( A24-GLH, 0):      14.2307 > 0.0000.
+   Self:      13.9323, Pairs:       0.2928, Triples:       0.0055.
+  Rotamer elimination of ( A24-GLH, 5) by ( A24-GLH, 0):      11.1721 > 0.0000.
+   Self:      11.5291, Pairs:      -0.3567, Triples:      -0.0002.
+  Rotamer elimination of ( A24-GLH, 6) by ( A24-GLH, 0):      23.3516 > 0.0000.
+   Self:      23.8721, Pairs:      -0.5237, Triples:       0.0032.
+  Rotamer elimination of ( A24-GLH, 8) by ( A24-GLH, 0):       3.0783 > 0.0000.
+   Self:       3.1140, Pairs:      -0.0340, Triples:      -0.0016.
+  Rotamer elimination of ( A24-GLH, 9) by ( A24-GLH, 0):       4.5982 > 0.0000.
+   Self:       3.7509, Pairs:       0.8509, Triples:      -0.0036.
+  Rotamer elimination of ( A24-GLH,12) by ( A24-GLH, 0):      16.1344 > 0.0000.
+   Self:      16.3143, Pairs:      -0.1784, Triples:      -0.0015.
+  Rotamer elimination of ( A24-GLH,13) by ( A24-GLH, 0):      17.8134 > 0.0000.
+   Self:      18.1457, Pairs:      -0.3315, Triples:      -0.0008.
+  Rotamer elimination of ( A24-GLH,16) by ( A24-GLH, 0):       7.1327 > 0.0000.
+   Self:       7.1980, Pairs:      -0.0643, Triples:      -0.0010.
+  Rotamer elimination of ( A24-GLH,17) by ( A24-GLH, 0):       6.3614 > 0.0000.
+   Self:       6.4354, Pairs:      -0.0014, Triples:      -0.0726.
+  Rotamer elimination of ( A24-GLH,20) by ( A24-GLH, 0):      18.0419 > 0.0000.
+   Self:      17.7583, Pairs:       0.2907, Triples:      -0.0071.
+  Rotamer elimination of ( A24-GLH,21) by ( A24-GLH, 0):      14.7271 > 0.0000.
+   Self:      15.1679, Pairs:      -0.4427, Triples:       0.0019.
+  Rotamer elimination of ( A24-GLH,24) by ( A24-GLH, 0):       6.7565 > 0.0000.
+   Self:       6.6785, Pairs:       0.0793, Triples:      -0.0013.
+  Rotamer elimination of ( A24-GLH,25) by ( A24-GLH, 0):       9.2436 > 0.0000.
+   Self:       8.5679, Pairs:       0.7186, Triples:      -0.0428.
+  Rotamer elimination of ( A24-GLH,33) by ( A24-GLH, 0):      21.3554 > 0.0000.
+   Self:      21.0373, Pairs:       0.3987, Triples:      -0.0806.
+  Rotamer elimination of ( A24-GLH,36) by ( A24-GLH, 0):      10.9846 > 0.0000.
+   Self:      11.6108, Pairs:      -0.6001, Triples:      -0.0261.
+  Rotamer elimination of ( A24-GLH,37) by ( A24-GLH, 0):      10.4120 > 0.0000.
+   Self:      10.5265, Pairs:      -0.1130, Triples:      -0.0015.
+  Rotamer elimination of ( A24-GLH,40) by ( A24-GLH, 0):       1.9814 > 0.0000.
+   Self:       2.0137, Pairs:      -0.0316, Triples:      -0.0007.
+  Rotamer elimination of ( A27-ASH, 1) by ( A27-ASH, 0):      10.4213 > 0.0000.
+   Self:       9.9826, Pairs:       0.4053, Triples:       0.0334.
+  Rotamer elimination of ( A27-ASH, 4) by ( A27-ASH, 0):      38.9214 > 0.0000.
+   Self:      24.7521, Pairs:      14.1231, Triples:       0.0461.
+  Rotamer elimination of ( A27-ASH, 5) by ( A27-ASH, 0):       9.0000 > 0.0000.
+   Self:       6.6823, Pairs:       2.2863, Triples:       0.0314.
+  Rotamer elimination of ( A27-ASH, 6) by ( A27-ASH, 0):       1.8584 > 0.0000.
+   Self:       2.8870, Pairs:      -1.0327, Triples:       0.0041.
+  Rotamer elimination of ( A27-ASH, 8) by ( A27-ASH, 0):      16.0532 > 0.0000.
+   Self:      17.3553, Pairs:      -1.3557, Triples:       0.0536.
+  Rotamer elimination of ( A27-ASH,10) by ( A27-ASH, 0):       8.0806 > 0.0000.
+   Self:       5.6778, Pairs:       2.3375, Triples:       0.0654.
+  Rotamer elimination of ( A27-ASH,11) by ( A27-ASH, 0):       5.2948 > 0.0000.
+   Self:       7.1591, Pairs:      -1.9339, Triples:       0.0695.
+  Rotamer elimination of ( A27-ASH,15) by ( A27-ASH, 0):      15.1853 > 0.0000.
+   Self:      13.0091, Pairs:       2.1467, Triples:       0.0295.
+  Rotamer elimination of ( A27-ASH,16) by ( A27-ASH, 0):       6.9637 > 0.0000.
+   Self:       7.9593, Pairs:      -0.9997, Triples:       0.0041.
+  Rotamer elimination of ( A27-ASH,20) by ( A27-ASH, 0):      12.7740 > 0.0000.
+   Self:      11.1736, Pairs:       1.5402, Triples:       0.0603.
+  Rotamer elimination of ( A27-ASH,25) by ( A27-ASH, 0):       4.9785 > 0.0000.
+   Self:       3.0409, Pairs:       1.9643, Triples:      -0.0267.
+  Rotamer elimination of ( A27-ASH,26) by ( A27-ASH, 0):       3.5693 > 0.0000.
+   Self:       4.9847, Pairs:      -1.4196, Triples:       0.0042.
+  Rotamer elimination of ( A31-CYS, 4) by ( A31-CYS, 0):       3.5413 > 0.0000.
+   Self:       1.2692, Pairs:       2.2756, Triples:      -0.0036.
+  Rotamer elimination of ( A31-CYS, 7) by ( A31-CYS, 0):       3.5413 > 0.0000.
+   Self:       1.2692, Pairs:       2.2756, Triples:      -0.0036.
+  Rotamer elimination of ( A33-CYS, 3) by ( A33-CYS, 0):       5.4207 > 0.0000.
+   Self:       5.4476, Pairs:      -0.0269, Triples:       0.0000.
+  Rotamer elimination of ( A33-CYS, 4) by ( A33-CYS, 0):     221.8524 > 0.0000.
+   Self:      11.0082, Pairs:     210.8443, Triples:       0.0000.
+  Rotamer elimination of ( A33-CYS, 6) by ( A33-CYS, 0):       5.4207 > 0.0000.
+   Self:       5.4476, Pairs:      -0.0269, Triples:       0.0000.
+  Rotamer elimination of ( A33-CYS, 7) by ( A33-CYS, 0):     221.8524 > 0.0000.
+   Self:      11.0082, Pairs:     210.8443, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH, 1) by ( A40-ASH, 0):      22.7682 > 0.0000.
+   Self:      22.7394, Pairs:       0.0287, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH, 2) by ( A40-ASH, 0):      14.8241 > 0.0000.
+   Self:      14.7971, Pairs:       0.0271, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH, 3) by ( A40-ASH, 0):      20.5771 > 0.0000.
+   Self:      20.5486, Pairs:       0.0285, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH, 4) by ( A40-ASH, 0):      14.4172 > 0.0000.
+   Self:      14.3956, Pairs:       0.0216, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH, 6) by ( A40-ASH, 0):       5.7305 > 0.0000.
+   Self:       5.6934, Pairs:       0.0372, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH, 9) by ( A40-ASH, 0):      18.6773 > 0.0000.
+   Self:      18.6475, Pairs:       0.0298, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,10) by ( A40-ASH, 0):      10.1247 > 0.0000.
+   Self:      10.0858, Pairs:       0.0389, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,11) by ( A40-ASH, 0):       9.4669 > 0.0000.
+   Self:       9.4282, Pairs:       0.0387, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,12) by ( A40-ASH, 0):      19.3999 > 0.0000.
+   Self:      19.3731, Pairs:       0.0268, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,14) by ( A40-ASH, 0):      17.2708 > 0.0000.
+   Self:      17.2457, Pairs:       0.0251, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,15) by ( A40-ASH, 0):      19.4694 > 0.0000.
+   Self:      19.4386, Pairs:       0.0308, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,16) by ( A40-ASH, 0):      11.0420 > 0.0000.
+   Self:      11.0043, Pairs:       0.0377, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,20) by ( A40-ASH, 0):      15.3480 > 0.0000.
+   Self:      15.3060, Pairs:       0.0420, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,22) by ( A40-ASH, 0):       9.9966 > 0.0000.
+   Self:      10.0050, Pairs:      -0.0084, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,23) by ( A40-ASH, 0):      18.1912 > 0.0000.
+   Self:      18.1974, Pairs:      -0.0062, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,24) by ( A40-ASH, 0):       8.1531 > 0.0000.
+   Self:       8.1596, Pairs:      -0.0065, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,25) by ( A40-ASH, 0):       4.2196 > 0.0000.
+   Self:       4.2141, Pairs:       0.0055, Triples:       0.0000.
+  Rotamer elimination of ( A40-ASH,26) by ( A40-ASH, 0):       6.9422 > 0.0000.
+   Self:       6.9313, Pairs:       0.0110, Triples:       0.0000.
+  Rotamer elimination of ( A42-CYS, 4) by ( A42-CYS, 0):       7.6508 > 0.0000.
+   Self:      -0.0234, Pairs:       7.6715, Triples:       0.0027.
+  Rotamer elimination of ( A42-CYS, 7) by ( A42-CYS, 0):       7.6508 > 0.0000.
+   Self:      -0.0234, Pairs:       7.6715, Triples:       0.0027.
+  Rotamer elimination of ( A46-ASH, 1) by ( A46-ASH, 0):       9.7737 > 0.0000.
+   Self:       9.7737, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH, 2) by ( A46-ASH, 0):      19.9325 > 0.0000.
+   Self:      19.9325, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH, 5) by ( A46-ASH, 0):       8.3045 > 0.0000.
+   Self:       8.3045, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH, 6) by ( A46-ASH, 0):      17.5642 > 0.0000.
+   Self:      17.5642, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH, 8) by ( A46-ASH, 0):      24.1703 > 0.0000.
+   Self:      24.1703, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,10) by ( A46-ASH, 0):       5.6673 > 0.0000.
+   Self:       5.6673, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,12) by ( A46-ASH, 0):      18.1088 > 0.0000.
+   Self:      18.1088, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,13) by ( A46-ASH, 0):      23.4287 > 0.0000.
+   Self:      23.4287, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,15) by ( A46-ASH, 0):      13.7786 > 0.0000.
+   Self:      13.7786, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,16) by ( A46-ASH, 0):      22.7864 > 0.0000.
+   Self:      22.7864, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,20) by ( A46-ASH, 0):      10.9862 > 0.0000.
+   Self:      10.9862, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,22) by ( A46-ASH, 0):      12.2913 > 0.0000.
+   Self:      12.2913, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,23) by ( A46-ASH, 0):      14.8556 > 0.0000.
+   Self:      14.8556, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,25) by ( A46-ASH, 0):       0.5908 > 0.0000.
+   Self:       0.5908, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A46-ASH,26) by ( A46-ASH, 0):      24.7640 > 0.0000.
+   Self:      24.7640, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH, 1) by ( A51-GLH, 0):       6.0138 > 0.0000.
+   Self:       6.0138, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH, 2) by ( A51-GLH, 0):       3.1034 > 0.0000.
+   Self:       3.1034, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH, 4) by ( A51-GLH, 0):       4.9317 > 0.0000.
+   Self:       4.9317, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH, 5) by ( A51-GLH, 0):       2.6245 > 0.0000.
+   Self:       2.6245, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH, 6) by ( A51-GLH, 0):      16.4227 > 0.0000.
+   Self:      16.4227, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH, 8) by ( A51-GLH, 0):       3.6220 > 0.0000.
+   Self:       3.6220, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH, 9) by ( A51-GLH, 0):       6.2677 > 0.0000.
+   Self:       6.2677, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,10) by ( A51-GLH, 0):       4.6598 > 0.0000.
+   Self:       4.6598, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,12) by ( A51-GLH, 0):       7.2866 > 0.0000.
+   Self:       7.2866, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,13) by ( A51-GLH, 0):       5.6355 > 0.0000.
+   Self:       5.6355, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,16) by ( A51-GLH, 0):       6.8343 > 0.0000.
+   Self:       6.8343, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,17) by ( A51-GLH, 0):       8.9189 > 0.0000.
+   Self:       8.9189, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,18) by ( A51-GLH, 0):       9.2971 > 0.0000.
+   Self:       9.2971, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,20) by ( A51-GLH, 0):       8.3676 > 0.0000.
+   Self:       8.3676, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,21) by ( A51-GLH, 0):       6.3356 > 0.0000.
+   Self:       6.3356, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,22) by ( A51-GLH, 0):      20.0205 > 0.0000.
+   Self:      20.0205, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,24) by ( A51-GLH, 0):       7.2599 > 0.0000.
+   Self:       7.2599, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,25) by ( A51-GLH, 0):      10.6708 > 0.0000.
+   Self:      10.6708, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,26) by ( A51-GLH, 0):      23.0315 > 0.0000.
+   Self:      23.0315, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,29) by ( A51-GLH, 0):      23.2297 > 0.0000.
+   Self:      23.2297, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,32) by ( A51-GLH, 0):      24.8513 > 0.0000.
+   Self:      24.8513, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,33) by ( A51-GLH, 0):      23.6069 > 0.0000.
+   Self:      23.6069, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,34) by ( A51-GLH, 0):       1.1540 > 0.0000.
+   Self:       1.1540, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,36) by ( A51-GLH, 0):       2.1224 > 0.0000.
+   Self:       2.1224, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,37) by ( A51-GLH, 0):       2.3531 > 0.0000.
+   Self:       2.3531, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,39) by ( A51-GLH, 0):      22.7708 > 0.0000.
+   Self:      22.7708, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,40) by ( A51-GLH, 0):       2.5358 > 0.0000.
+   Self:       2.5358, Pairs:       0.0000, Triples:       0.0000.
+  Rotamer elimination of ( A51-GLH,41) by ( A51-GLH, 0):       3.7023 > 0.0000.
+   Self:       3.7023, Pairs:       0.0000, Triples:       0.0000.
+ 268 out of 285 rotamers eliminated.
+ 36532 out of 36663 rotamer pairs eliminated.
+
+ Iteration 2: Applying Single Rotamer Goldstein DEE conditions 
+  Rotamer elimination of (  A6-CYS, 2) by (  A6-CYS, 0):       5.8452 > 0.0000.
+   Self:       5.7984, Pairs:       0.0469, Triples:       0.0000.
+  Rotamer elimination of (  A6-CYS, 5) by (  A6-CYS, 0):       5.8452 > 0.0000.
+   Self:       5.7984, Pairs:       0.0469, Triples:       0.0000.
+  Rotamer elimination of ( A22-HIS, 5) by ( A22-HIS, 0):      12.3904 > 0.0000.
+   Self:      11.5239, Pairs:       0.9027, Triples:      -0.0362.
+  Rotamer elimination of ( A24-GLH,41) by ( A24-GLH, 0):       0.8335 > 0.0000.
+   Self:      -0.0219, Pairs:       0.9456, Triples:      -0.0902.
+ 272 out of 285 rotamers eliminated.
+ 36585 out of 36663 rotamer pairs eliminated.
+
+ Iteration 3: Applying Single Rotamer Goldstein DEE conditions 
+ No more single rotamers to eliminate.
+
+ Iteration 4: Applying Rotamer Pair Goldstein DEE conditions 
+ 272 out of 285 rotamers eliminated.
+ 36585 out of 36663 rotamer pairs eliminated.
+ Self-consistent DEE rotamer elimination achieved.
+
+ Collecting Permutations:
+                     Condition         Number of Permutations Left      Number of Permutations Removed
+               No Eliminations                4.484081655567083E16                                    
+           Single Eliminations                                 1.0                4.484081655567083E16
+             Pair Eliminations                                 1.0                                 0.0
+  Single and Pair Eliminations                                 1.0                4.484081655567083E16
+
+ Energy of permutations:
+  Permutation                    Energy    Lowest Possible Energy
+            1               -384.763399               -384.763399
+
+ Energy contributions:
+            Type                    Energy    Lowest Possible Energy
+       Backbone:               -284.208723                          
+           Self:               -101.587082               -101.785792
+           Pair:                  1.034747                 -1.409708
+         Trimer:                 -0.002341                          
+      Neglected:                  1.108344                          
+    Approximate:               -384.763399                          
+
+ Final rotamers:
+          Residue      Chi 1       Chi 2        Chi 3       Chi 4         Energy
+   1 A ( A6-CYS, 0)   179.0  0.0    0.0  0.0    0.0  0.0    0.0  0.0      -1.5677 
+   2 A (A11-ASP,24)  -177.0  0.0    0.0  0.0    0.0  0.0    0.0  0.0     -17.0909 
+   3 A (A14-CYS, 0)    62.0  0.0    0.0  0.0    0.0  0.0    0.0  0.0       0.3598 
+   4 A (A20-CYS, 0)  -166.6  0.0    0.0  0.0    0.0  0.0    0.0  0.0      -1.0214 
+   5 A (A22-HIS, 0)  -174.5  0.0 -154.7  0.0    0.0  0.0    0.0  0.0     -28.9711 
+   6 A (A24-GLU, 0)   -57.3  0.0  177.9  0.0 -112.1  0.0    0.0  0.0      -8.4051 
+   7 A (A27-ASP, 0)  -159.2  0.0   46.9  0.0    0.0  0.0    0.0  0.0     -13.2609 
+   8 A (A31-CYS, 0)   -56.0  0.0    0.0  0.0    0.0  0.0    0.0  0.0       3.0757 
+   9 A (A33-CYS, 0)  -168.0  0.0    0.0  0.0    0.0  0.0    0.0  0.0       1.1453 
+  10 A (A40-ASP, 0)   170.8  0.0 -124.6  0.0    0.0  0.0    0.0  0.0     -12.8793 
+  11 A (A42-CYS, 0)   -40.1  0.0    0.0  0.0    0.0  0.0    0.0  0.0       0.5037 
+  12 A (A46-ASP, 0)  -156.0  0.0  -71.2  0.0    0.0  0.0    0.0  0.0     -12.8642 
+  13 A (A51-GLU, 0)    51.1  0.0  171.2  0.0  -76.8  0.0    0.0  0.0      -9.5786 
+
+
+ Final Minimum Energy
+ Generalized Kirkwood   -514.25653230      0.021
+ Cavitation              569.94746562      0.017
+ Dispersion             -454.74297561      0.020
+
+ Computed Potential Energy
+  Bond Stretching             71.46660626          817        0.000 ( 0.01614)
+  Angle Bending              207.94824581         1442        0.000 ( 7.10011)
+  Stretch-Bend                 1.21418152         1299        0.000
+  Out-of-Plane Bend            7.33333646          564        0.000
+  Torsional Angle             60.22675871         2128        0.000
+  Pi-Orbital Torsion           8.67512766          111        0.000
+  Torsion-Torsion            -24.62991335            6        0.000
+  Van der Waals              226.99776816       322141        0.001
+  Atomic Multipoles         -697.99425983       317353
+  Polarization               -63.14137556       317353        0.204
+  Solvation                 -399.05204229       325221
+  Total Potential           -600.95556646  (Kcal/mole)        0.205 (sec)
+
+  Rotamer pH Bias        217.30051139
+  Potential with Bias   -383.65505507
+
+ Saving 1EGF_pH4.4.pdb_2
+
+ Script wall clock time: 244.441 (sec)
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6991  April 2026 
+        Git Revision  937dfd3f3a84d0dc91f73b0419518078a8c41842 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2026
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Mon Apr 27 18:44:50 CDT 2026
+ Process ID 79590 on argon-itf-bx53-03.hpc.
+
+ Command line arguments:
+ [Minimize, -e, 0.1, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_pH4.4.pdb_2, --saveInduced, --savePermanentMoments]
+
+ Executing internal command: ffx.algorithms.commands.Minimize
+
+ Initializing 1 topologies...
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_input.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 1EGF_pH4.4.pdb_2
+
+ Assigning atom types for 1 chains.
+ Amino acid chain A
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   41.1 A).
+
+ Bonded Terms
+  Bonds:                                    811
+  Angles:                                  1436
+  Stretch-Bends:                           1299
+  Out-of-Plane Bends:                       564
+  Torsions:                                2116
+  Pi-Orbital Torsions:                      111
+  Torsion-Torsions:                           6
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    1.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 -1.000
+
+ Opened 1EGF_pH4.4.pdb_2 in 0.746 sec.
+
+ System Resources
+  Total CPU time:          16.87 (sec)
+  System load average:     44.04
+  Open file handles:         146 of  81920 allowed
+  System memory:           45385 MB free out of  45940 MB
+  System swap space:        2053 MB free out of   2053 MB
+  JVM memory:               4054 MB free out of   4096 MB
+
+ Minimizing energy of Single Topology  [1EGF_pH4.4.pdb_2] 
+ Setting lambda to 0.000.
+ Generalized Kirkwood  -1036.75954206      0.093
+ Cavitation              569.94734434      0.128
+ Dispersion             -454.74302257      0.128
+
+ Computed Potential Energy
+  Bond Stretching             71.46683364          811        0.002 ( 0.01613)
+  Angle Bending              207.93304457         1436        0.002 ( 3.07909)
+  Stretch-Bend                 1.21690009         1299        0.002
+  Out-of-Plane Bend            7.33336758          564        0.001
+  Torsional Angle             60.22729837         2116        0.002
+  Pi-Orbital Torsion           8.67512766          111        0.000
+  Torsion-Torsion            -24.62991335            6        0.000
+  Van der Waals              226.99290725       317353        0.038
+  Atomic Multipoles        -1395.98869267       317353
+  Polarization              -254.02807714       317353        1.769
+  Solvation                 -921.55522029       320400
+  Total Potential          -2012.35642430  (Kcal/mole)        1.817 (sec)
+
+ Limited Memory BFGS Quasi-Newton Optimization: 
+
+ Cycle       Energy      G RMS    Delta E   Delta X    Angle  Evals     Time
+
+     0   -2012.3564     2.6316
+     1   -2017.1659     2.0831     4.8095    0.0016     0.00      3    1.254
+     2   -2020.2200     1.5326     3.0541    0.0009    37.37      4    0.472
+     3   -2024.9815     1.1219     4.7615    0.0020    34.74      5    0.471
+     4   -2029.5837     2.2634     4.6021    0.0044    36.19      6    0.490
+     5   -2032.0694     1.7194     2.4858    0.0031    66.95      7    0.442
+     6   -2033.7893     1.0345     1.7199    0.0006    28.68      8    0.440
+     7   -2036.1539     0.8006     2.3646    0.0018    41.06      9    0.439
+     8   -2037.8738     0.9628     1.7199    0.0024    58.61     10    0.459
+     9   -2038.8337     1.9908     0.9599    0.0037    66.13     11    0.464
+    10   -2040.2932     1.0510     1.4595    0.0011    68.86     12    0.502
+    11   -2041.4892     0.6197     1.1961    0.0017    64.48     13    0.475
+    12   -2042.1635     0.7272     0.6743    0.0013    63.28     14    0.454
+    13   -2043.1564     0.8730     0.9929    0.0020    67.19     15    0.397
+    14   -2044.2615     0.8231     1.1050    0.0032    72.81     16    0.415
+    15   -2045.0492     0.5514     0.7877    0.0019    72.48     17    0.417
+    16   -2045.8110     0.6476     0.7618    0.0019    64.83     18    0.407
+    17   -2046.5456     0.9161     0.7346    0.0025    70.92     19    0.391
+    18   -2047.2850     0.7599     0.7394    0.0025    76.23     20    0.445
+    19   -2047.9126     0.5514     0.6276    0.0014    71.10     21    0.406
+    20   -2048.6677     0.6366     0.7551    0.0022    66.47     22    0.442
+    21   -2049.4466     0.9154     0.7788    0.0031    74.56     23    0.448
+    22   -2050.4941     0.7492     1.0476    0.0039    79.68     24    0.413
+    23   -2051.5242     0.9150     1.0301    0.0046    77.21     25    0.435
+    24   -2052.4503     0.7440     0.9261    0.0039    79.16     26    0.443
+    25   -2053.1132     0.5898     0.6629    0.0019    75.07     27    0.435
+    26   -2054.0189     0.6409     0.9057    0.0034    74.21     28    0.458
+    27   -2054.8388     1.0089     0.8199    0.0059    78.53     29    0.447
+    28   -2055.5867     0.6766     0.7478    0.0021    78.51     30    0.438
+    29   -2056.4846     0.6122     0.8979    0.0030    74.06     31    0.434
+    30   -2057.2134     0.7888     0.7288    0.0040    79.13     32    0.414
+    31   -2057.9995     0.7668     0.7861    0.0047    80.50     33    0.433
+    32   -2058.6976     0.5770     0.6981    0.0025    78.24     34    0.429
+    33   -2059.5516     0.6111     0.8539    0.0034    73.26     35    0.406
+    34   -2060.3458     0.8696     0.7942    0.0037    76.54     36    0.418
+    35   -2061.3408     0.7071     0.9950    0.0047    81.49     37    0.446
+    36   -2062.2884     0.8609     0.9476    0.0057    78.61     38    0.464
+    37   -2062.9741     0.6387     0.6857    0.0016    71.10     39    0.440
+    38   -2063.5617     0.5808     0.5877    0.0013    67.96     40    0.432
+    39   -2064.3384     0.7030     0.7767    0.0030    73.83     41    0.441
+    40   -2064.9701     0.8952     0.6317    0.0050    79.39     42    0.454
+    41   -2065.5002     0.5253     0.5301    0.0012    73.79     43    0.418
+    42   -2066.1055     0.5037     0.6052    0.0018    67.09     44    0.425
+    43   -2066.6732     0.5714     0.5677    0.0028    76.67     45    0.442
+    44   -2067.0760     1.1074     0.4028    0.0044    79.15     46    0.424
+    45   -2067.6584     0.5700     0.5824    0.0020    81.10     47    0.442
+    46   -2068.1157     0.4286     0.4573    0.0020    75.68     48    0.433
+    47   -2068.5094     0.5025     0.3937    0.0019    74.49     49    0.410
+    48   -2068.9777     0.7751     0.4683    0.0029    77.15     50    0.401
+    49   -2069.5697     0.4921     0.5920    0.0033    81.29     51    0.455
+    50   -2069.9599     0.4574     0.3902    0.0019    75.11     52    0.486
+    51   -2070.4112     0.5210     0.4513    0.0022    71.93     53    0.459
+    52   -2070.8633     0.5326     0.4521    0.0020    75.68     54    0.393
+    53   -2071.4496     0.5868     0.5864    0.0033    77.55     55    0.433
+    54   -2071.8967     0.8141     0.4470    0.0046    79.83     56    0.409
+    55   -2072.3453     0.4818     0.4486    0.0007    64.02     57    0.410
+    56   -2072.9087     0.4901     0.5633    0.0017    65.73     58    0.444
+    57   -2073.3934     0.5719     0.4847    0.0031    79.58     59    0.431
+    58   -2073.7027     1.0498     0.3093    0.0045    80.88     60    0.425
+    59   -2074.1577     0.5380     0.4550    0.0018    82.34     61    0.426
+    60   -2074.5550     0.3964     0.3973    0.0022    78.23     62    0.415
+    61   -2074.9157     0.4743     0.3608    0.0024    78.30     63    0.443
+    62   -2075.4726     0.5834     0.5569    0.0037    80.25     64    0.422
+    63   -2075.9187     0.8965     0.4461    0.0061    82.51     65    0.426
+    64   -2076.4777     0.4199     0.5590    0.0013    72.12     66    0.433
+    65   -2076.7758     0.4209     0.2981    0.0009    63.94     67    0.464
+    66   -2077.2069     0.5751     0.4312    0.0024    75.91     68    0.427
+    67   -2077.7005     0.6901     0.4935    0.0037    80.15     69    0.419
+    68   -2078.1593     0.5230     0.4588    0.0036    83.00     70    0.422
+    69   -2078.5900     0.4531     0.4308    0.0027    79.33     71    0.393
+    70   -2079.0802     0.5382     0.4902    0.0022    69.99     72    0.410
+    71   -2079.5251     0.6732     0.4449    0.0025    76.20     73    0.425
+    72   -2079.9619     0.4877     0.4368    0.0022    79.34     74    0.433
+    73   -2080.3645     0.4226     0.4025    0.0019    74.85     75    0.425
+    74   -2080.8205     0.5931     0.4560    0.0031    76.81     76    0.431
+    75   -2081.3906     0.5590     0.5702    0.0040    80.89     77    0.403
+    76   -2081.9010     0.5678     0.5104    0.0029    77.41     78    0.416
+    77   -2082.3640     0.5345     0.4630    0.0028    78.08     79    0.427
+    78   -2082.8005     0.4813     0.4366    0.0014    70.24     80    0.405
+    79   -2083.3917     0.5019     0.5912    0.0024    71.44     81    0.441
+    80   -2083.8476     0.9539     0.4559    0.0046    77.81     82    0.443
+    81   -2084.3758     0.5020     0.5281    0.0016    78.20     83    0.413
+    82   -2084.7852     0.4661     0.4094    0.0013    67.26     84    0.407
+    83   -2085.2341     0.5583     0.4489    0.0032    79.98     85    0.422
+    84   -2085.7716     0.7323     0.5375    0.0040    80.43     86    0.456
+    85   -2086.4014     0.5617     0.6298    0.0051    83.35     87    0.455
+    86   -2086.9658     0.4996     0.5644    0.0024    75.21     88    0.451
+    87   -2087.5035     0.5987     0.5377    0.0023    68.21     89    0.443
+    88   -2087.9766     0.5302     0.4731    0.0030    79.23     90    0.419
+    89   -2088.3297     0.4434     0.3531    0.0012    69.98     91    0.428
+    90   -2088.6968     0.5222     0.3671    0.0015    64.66     92    0.436
+    91   -2089.0580     0.4718     0.3612    0.0024    79.80     93    0.394
+    92   -2089.5022     0.4783     0.4442    0.0019    72.31     94    0.428
+    93   -2089.8238     0.7189     0.3216    0.0028    75.87     95    0.437
+    94   -2090.1311     0.4088     0.3073    0.0010    73.06     96    0.389
+    95   -2090.3278     0.3880     0.1967    0.0005    61.48     97    0.435
+    96   -2090.6358     0.3971     0.3080    0.0011    67.06     98    0.423
+    97   -2090.9698     0.6788     0.3340    0.0024    74.33     99    0.423
+    98   -2091.3427     0.4015     0.3728    0.0028    82.32    100    0.444
+    99   -2091.6136     0.3585     0.2709    0.0018    78.27    101    0.414
+   100   -2092.0050     0.4440     0.3914    0.0032    78.78    102    0.437
+   101   -2092.3696     0.6729     0.3646    0.0046    81.64    103    0.493
+   102   -2092.7391     0.5441     0.3695    0.0026    81.61    104    0.400
+   103   -2093.1163     0.4389     0.3772    0.0011    68.86    105    0.403
+   104   -2093.5692     0.5710     0.4529    0.0040    79.76    106    0.412
+   105   -2093.9428     0.5909     0.3736    0.0039    81.66    107    0.451
+   106   -2094.2441     0.4176     0.3013    0.0010    74.31    108    0.419
+   107   -2094.6452     0.3745     0.4011    0.0027    77.29    109    0.424
+   108   -2095.0338     0.5445     0.3886    0.0025    74.80    110    0.443
+   109   -2095.4923     0.4964     0.4584    0.0039    81.28    111    0.397
+   110   -2095.8252     0.5166     0.3330    0.0025    78.34    112    0.419
+   111   -2096.0997     0.3569     0.2744    0.0011    72.66    113    0.426
+   112   -2096.3649     0.3485     0.2653    0.0010    65.28    114    0.444
+   113   -2096.7325     0.4608     0.3675    0.0022    73.62    115    0.389
+   114   -2097.1554     0.4928     0.4230    0.0039    80.09    116    0.440
+   115   -2097.4561     0.5488     0.3007    0.0031    80.95    117    0.436
+   116   -2097.7615     0.3657     0.3053    0.0013    75.35    118    0.401
+   117   -2098.0984     0.3808     0.3369    0.0019    72.39    119    0.402
+   118   -2098.3947     0.6223     0.2963    0.0030    78.13    120    0.421
+   119   -2098.7288     0.4364     0.3341    0.0027    83.35    121    0.411
+   120   -2099.0956     0.3975     0.3669    0.0035    80.97    122    0.400
+   121   -2099.4302     0.5292     0.3346    0.0025    77.32    123    0.427
+   122   -2099.8409     0.4329     0.4107    0.0027    79.68    124    0.398
+   123   -2100.1529     0.5980     0.3120    0.0030    78.01    125    0.409
+   124   -2100.4360     0.3877     0.2830    0.0011    74.43    126    0.402
+   125   -2100.6992     0.3898     0.2632    0.0011    71.05    127    0.418
+   126   -2101.0829     0.5015     0.3837    0.0027    77.84    128    0.415
+   127   -2101.4999     0.6219     0.4171    0.0046    82.03    129    0.433
+   128   -2101.8798     0.4260     0.3799    0.0032    83.35    130    0.429
+   129   -2102.2561     0.4073     0.3763    0.0033    80.42    131    0.428
+   130   -2102.5964     0.5808     0.3403    0.0038    80.55    132    0.415
+   131   -2102.9514     0.4691     0.3550    0.0029    82.59    133    0.431
+   132   -2103.3556     0.4403     0.4041    0.0035    81.09    134    0.430
+   133   -2103.7468     0.5450     0.3912    0.0040    81.31    135    0.440
+   134   -2104.1598     0.4914     0.4130    0.0048    83.68    136    0.454
+   135   -2104.5505     0.4356     0.3907    0.0027    79.51    137    0.459
+   136   -2104.9287     0.4497     0.3782    0.0028    77.47    138    0.389
+   137   -2105.2238     0.5723     0.2951    0.0024    77.75    139    0.397
+   138   -2105.5543     0.3983     0.3306    0.0019    80.34    140    0.413
+   139   -2105.9740     0.3775     0.4197    0.0041    80.18    141    0.416
+   140   -2106.2419     0.7147     0.2679    0.0044    81.01    142    0.414
+   141   -2106.5555     0.4225     0.3136    0.0017    82.26    143    0.402
+   142   -2106.9571     0.3671     0.4016    0.0029    77.86    144    0.410
+   143   -2107.2126     0.4467     0.2555    0.0019    78.33    145    0.465
+   144   -2107.5296     0.5088     0.3170    0.0032    81.37    146    0.454
+   145   -2107.9172     0.3902     0.3876    0.0035    82.62    147    0.492
+   146   -2108.3333     0.4674     0.4161    0.0039    80.30    148    0.569
+   147   -2108.6939     0.7081     0.3607    0.0053    81.90    149    0.505
+   148   -2109.0586     0.4349     0.3647    0.0009    69.77    150    0.522
+   149   -2109.4415     0.4161     0.3829    0.0016    70.00    151    0.419
+   150   -2109.8136     0.5151     0.3721    0.0030    79.95    152    0.470
+   151   -2110.2088     0.6847     0.3952    0.0056    83.84    153    0.463
+   152   -2110.5864     0.4288     0.3777    0.0029    83.31    154    0.392
+   153   -2110.9256     0.3963     0.3392    0.0024    78.40    155    0.438
+   154   -2111.2732     0.4883     0.3476    0.0032    80.17    156    0.421
+   155   -2111.6258     0.6697     0.3526    0.0046    82.60    157    0.409
+   156   -2111.9544     0.4408     0.3285    0.0025    82.46    158    0.430
+   157   -2112.2216     0.3648     0.2672    0.0010    68.51    159    0.439
+   158   -2112.5608     0.4068     0.3392    0.0023    77.02    160    0.415
+   159   -2112.8837     0.7245     0.3230    0.0039    79.83    161    0.399
+   160   -2113.2672     0.4097     0.3834    0.0033    84.22    162    0.390
+   161   -2113.5453     0.3597     0.2781    0.0023    80.12    163    0.425
+   162   -2113.8973     0.5308     0.3521    0.0033    78.76    164    0.412
+   163   -2114.3014     0.4992     0.4041    0.0040    82.38    165    0.395
+   164   -2114.6637     0.4037     0.3623    0.0023    79.80    166    0.435
+   165   -2114.9910     0.6130     0.3273    0.0030    75.78    167    0.431
+   166   -2115.2898     0.4165     0.2989    0.0012    74.85    168    0.423
+   167   -2115.5790     0.4095     0.2892    0.0013    74.24    169    0.427
+   168   -2115.9868     0.5121     0.4078    0.0031    79.16    170    0.427
+   169   -2116.2537     0.7971     0.2669    0.0047    81.83    171    0.446
+   170   -2116.5659     0.3790     0.3122    0.0008    72.49    172    0.416
+   171   -2116.8198     0.3574     0.2539    0.0010    68.27    173    0.404
+   172   -2117.1085     0.4194     0.2887    0.0022    77.54    174    0.418
+   173   -2117.4553     0.6482     0.3469    0.0033    80.02    175    0.412
+   174   -2117.8390     0.4065     0.3837    0.0043    84.11    176    0.395
+   175   -2118.0822     0.3311     0.2431    0.0012    73.31    177    0.413
+   176   -2118.3566     0.3966     0.2744    0.0014    65.20    178    0.422
+   177   -2118.6046     0.4552     0.2480    0.0015    74.83    179    0.403
+   178   -2118.8957     0.3702     0.2912    0.0022    79.75    180    0.420
+   179   -2119.1131     0.5561     0.2173    0.0027    77.40    181    0.434
+   180   -2119.3361     0.3335     0.2231    0.0012    78.17    182    0.399
+   181   -2119.5205     0.3333     0.1843    0.0009    70.16    183    0.419
+   182   -2119.7554     0.4064     0.2350    0.0021    77.04    184    0.406
+   183   -2119.8422     0.7048     0.0868    0.0030    80.85    185    0.379
+   184   -2119.9842     0.4412     0.1419    0.0002    47.29    186    0.395
+   185   -2120.1742     0.2328     0.1900    0.0005    57.95    187    0.408
+   186   -2120.2920     0.3002     0.1179    0.0010    73.86    188    0.407
+   187   -2120.4791     0.3362     0.1871    0.0019    80.08    189    0.416
+   188   -2120.6100     0.7512     0.1309    0.0031    81.52    190    0.415
+   189   -2120.8137     0.4511     0.2037    0.0014    84.02    191    0.413
+   190   -2121.0354     0.2406     0.2216    0.0020    80.93    192    0.426
+   191   -2121.1687     0.2956     0.1334    0.0013    76.93    193    0.420
+   192   -2121.3693     0.3340     0.2006    0.0020    79.33    194    0.402
+   193   -2121.4803     0.6811     0.1110    0.0031    80.78    195    0.416
+   194   -2121.6492     0.3656     0.1689    0.0005    75.60    196    0.405
+   195   -2121.8015     0.2480     0.1523    0.0007    68.08    197    0.415
+   196   -2121.9065     0.3078     0.1049    0.0010    76.54    198    0.440
+   197   -2122.0734     0.3239     0.1669    0.0018    80.71    199    0.407
+   198   -2122.1831     0.6931     0.1097    0.0030    81.82    200    0.449
+   199   -2122.3516     0.3990     0.1685    0.0012    83.72    201    0.428
+   200   -2122.5134     0.2332     0.1618    0.0017    81.13    202    0.477
+   201   -2122.6191     0.2865     0.1057    0.0012    78.59    203    0.474
+   202   -2122.7825     0.3148     0.1634    0.0019    80.62    204    0.428
+   203   -2122.8708     0.6678     0.0883    0.0030    81.71    205    0.403
+   204   -2123.0108     0.4019     0.1400    0.0005    77.97    206    0.442
+   205   -2123.1679     0.2308     0.1571    0.0008    72.75    207    0.453
+   206   -2123.2631     0.2892     0.0952    0.0009    76.41    208    0.418
+   207   -2123.4146     0.3042     0.1515    0.0017    80.68    209    0.422
+   208   -2123.5319     0.6383     0.1173    0.0028    81.43    210    0.472
+   209   -2123.7005     0.3378     0.1686    0.0015    84.07    211    0.457
+   210   -2123.8266     0.1910     0.1261    0.0013    80.05    212    0.432
+   211   -2123.9303     0.2489     0.1037    0.0012    75.56    213    0.423
+   212   -2124.0621     0.3633     0.1317    0.0019    79.54    214    0.439
+   213   -2124.1772     0.3930     0.1151    0.0025    82.95    215    0.422
+   214   -2124.2916     0.2316     0.1144    0.0004    66.00    216    0.426
+   215   -2124.4310     0.2444     0.1394    0.0008    60.78    217    0.453
+   216   -2124.5345     0.3229     0.1035    0.0015    80.67    218    0.446
+   217   -2124.6582     0.3051     0.1237    0.0023    83.36    219    0.427
+   218   -2124.7653     0.2335     0.1071    0.0019    83.24    220    0.466
+   219   -2124.8697     0.2244     0.1044    0.0016    80.63    221    0.406
+   220   -2125.0027     0.2894     0.1329    0.0019    78.26    222    0.418
+   221   -2125.1290     0.3444     0.1263    0.0019    79.72    223    0.430
+   222   -2125.2270     0.2445     0.0980    0.0010    78.47    224    0.465
+   223   -2125.3030     0.2156     0.0760    0.0005    67.38    225    0.445
+   224   -2125.4063     0.2200     0.1033    0.0008    67.76    226    0.405
+   225   -2125.4959     0.4262     0.0896    0.0019    78.04    227    0.441
+   226   -2125.5939     0.2150     0.0980    0.0009    81.24    228    0.424
+   227   -2125.6642     0.1885     0.0704    0.0011    79.63    229    0.391
+   228   -2125.7233     0.2191     0.0591    0.0009    79.95    230    0.410
+   229   -2125.8142     0.2641     0.0908    0.0013    79.84    231    0.414
+   230   -2125.9490     0.2380     0.1348    0.0020    81.83    232    0.408
+   231   -2126.0592     0.4472     0.1102    0.0031    81.27    233    0.422
+   232   -2126.1970     0.2207     0.1378    0.0013    80.93    234    0.420
+   233   -2126.2944     0.2085     0.0974    0.0005    60.03    235    0.423
+   234   -2126.4234     0.2735     0.1290    0.0013    72.77    236    0.383
+   235   -2126.5030     0.4299     0.0796    0.0024    80.57    237    0.397
+   236   -2126.6041     0.2099     0.1011    0.0005    74.40    238    0.394
+   237   -2126.7018     0.2297     0.0977    0.0012    77.37    239    0.397
+   238   -2126.8081     0.2721     0.1062    0.0019    82.14    240    0.404
+   239   -2126.9433     0.4222     0.1353    0.0027    83.21    241    0.384
+   240   -2127.1156     0.2700     0.1723    0.0040    86.18    242    0.425
+   241   -2127.2292     0.2607     0.1136    0.0023    83.50    243    0.379
+   242   -2127.3675     0.2926     0.1382    0.0024    81.35    244    0.404
+   243   -2127.5014     0.3043     0.1339    0.0014    79.55    245    0.391
+   244   -2127.6735     0.3395     0.1721    0.0026    81.76    246    0.416
+   245   -2127.8285     0.3845     0.1549    0.0041    84.12    247    0.393
+   246   -2127.9532     0.2635     0.1247    0.0007    74.42    248    0.395
+   247   -2128.1009     0.2621     0.1477    0.0013    74.73    249    0.376
+   248   -2128.2496     0.3650     0.1487    0.0029    82.68    250    0.373
+   249   -2128.3850     0.3503     0.1354    0.0040    85.15    251    0.384
+   250   -2128.4887     0.2212     0.1038    0.0009    79.66    252    0.398
+   251   -2128.5966     0.2194     0.1079    0.0012    75.24    253    0.397
+   252   -2128.7040     0.3102     0.1074    0.0019    80.67    254    0.392
+   253   -2128.8489     0.2613     0.1448    0.0027    83.93    255    0.411
+   254   -2128.9730     0.3184     0.1242    0.0026    82.42    256    0.373
+   255   -2129.0895     0.2538     0.1164    0.0019    82.46    257    0.393
+   256   -2129.2010     0.2229     0.1115    0.0008    72.44    258    0.396
+   257   -2129.3402     0.3041     0.1393    0.0014    72.95    259    0.369
+   258   -2129.4648     0.3230     0.1246    0.0023    81.19    260    0.401
+   259   -2129.5549     0.2408     0.0901    0.0010    81.05    261    0.393
+   260   -2129.6759     0.2377     0.1209    0.0016    79.50    262    0.383
+   261   -2129.8175     0.3170     0.1417    0.0024    81.13    263    0.390
+   262   -2129.9496     0.3655     0.1320    0.0032    83.40    264    0.400
+   263   -2130.0672     0.2227     0.1177    0.0012    80.43    265    0.403
+   264   -2130.1686     0.2123     0.1013    0.0010    73.71    266    0.394
+   265   -2130.2756     0.2835     0.1070    0.0015    78.07    267    0.387
+   266   -2130.4144     0.2343     0.1388    0.0023    82.22    268    0.402
+   267   -2130.5297     0.3139     0.1153    0.0025    81.36    269    0.382
+   268   -2130.6374     0.2477     0.1077    0.0019    82.95    270    0.400
+   269   -2130.7441     0.2348     0.1067    0.0013    80.34    271    0.398
+   270   -2130.8986     0.3058     0.1545    0.0025    81.18    272    0.401
+   271   -2131.0810     0.3266     0.1824    0.0042    84.31    273    0.380
+   272   -2131.2221     0.3307     0.1411    0.0031    84.50    274    0.364
+   273   -2131.3818     0.2782     0.1597    0.0022    82.80    275    0.382
+   274   -2131.5777     0.3752     0.1960    0.0033    81.76    276    0.362
+   275   -2131.7653     0.3603     0.1876    0.0040    84.17    277    0.379
+   276   -2131.9091     0.2916     0.1438    0.0018    82.99    278    0.373
+   277   -2132.1123     0.2840     0.2032    0.0034    83.12    279    0.368
+   278   -2132.3565     0.5086     0.2442    0.0050    83.13    280    0.394
+   279   -2132.6359     0.3848     0.2794    0.0050    85.60    281    0.417
+   280   -2132.8801     0.3956     0.2442    0.0009    60.75    282    0.451
+   281   -2133.0702     0.3279     0.1901    0.0008    65.14    283    0.379
+   282   -2133.2132     0.2639     0.1430    0.0012    77.87    284    0.430
+   283   -2133.3910     0.2826     0.1778    0.0029    80.90    285    0.409
+   284   -2133.5278     0.4423     0.1368    0.0034    82.40    286    0.409
+   285   -2133.6888     0.2662     0.1611    0.0012    80.64    287    0.423
+   286   -2133.8710     0.2341     0.1822    0.0012    68.48    288    0.421
+   287   -2133.9736     0.3273     0.1026    0.0010    73.34    289    0.420
+   288   -2134.1073     0.2260     0.1337    0.0012    77.74    290    0.403
+   289   -2134.2345     0.2447     0.1272    0.0014    75.15    291    0.421
+   290   -2134.3309     0.2913     0.0964    0.0017    78.54    292    0.429
+   291   -2134.4109     0.2212     0.0800    0.0010    80.92    293    0.437
+   292   -2134.5172     0.2478     0.1063    0.0018    81.29    294    0.421
+   293   -2134.6638     0.3505     0.1466    0.0034    83.99    295    0.436
+   294   -2134.7531     0.6127     0.0893    0.0044    85.43    296    0.397
+   295   -2134.8960     0.3657     0.1428    0.0004    73.41    297    0.459
+   296   -2135.0639     0.1985     0.1680    0.0011    74.19    298    0.415
+   297   -2135.1367     0.2268     0.0727    0.0014    81.91    299    0.431
+   298   -2135.2458     0.3035     0.1092    0.0018    81.60    300    0.424
+   299   -2135.3945     0.2624     0.1487    0.0030    84.36    301    0.430
+   300   -2135.5421     0.2944     0.1475    0.0026    81.53    302    0.406
+   301   -2135.6579     0.3655     0.1159    0.0027    82.18    303    0.401
+   302   -2135.7760     0.2209     0.1180    0.0004    61.60    304    0.416
+   303   -2135.8709     0.1956     0.0949    0.0005    55.98    305    0.443
+   304   -2135.9659     0.3065     0.0951    0.0016    78.12    306    0.359
+   305   -2136.1013     0.2389     0.1353    0.0029    84.90    307    0.395
+   306   -2136.2530     0.2893     0.1517    0.0041    83.90    308    0.401
+   307   -2136.3870     0.3443     0.1340    0.0049    85.59    309    0.406
+   308   -2136.5058     0.2444     0.1188    0.0021    84.59    310    0.392
+   309   -2136.6602     0.2439     0.1544    0.0030    82.19    311    0.430
+   310   -2136.7676     0.4114     0.1074    0.0020    78.76    312    0.383
+   311   -2136.8978     0.2399     0.1303    0.0011    80.19    313    0.463
+   312   -2137.0042     0.2047     0.1064    0.0011    76.10    314    0.433
+   313   -2137.1178     0.2392     0.1136    0.0021    80.62    315    0.405
+   314   -2137.1752     0.4938     0.0574    0.0029    82.20    316    0.414
+   315   -2137.2641     0.2663     0.0889    0.0005    79.76    317    0.412
+   316   -2137.3545     0.1827     0.0904    0.0010    77.89    318    0.434
+   317   -2137.4140     0.2184     0.0595    0.0011    80.68    319    0.361
+   318   -2137.5119     0.2648     0.0980    0.0017    82.24    320    0.392
+   319   -2137.6373     0.2830     0.1254    0.0027    83.46    321    0.398
+   320   -2137.7642     0.2296     0.1268    0.0033    84.23    322    0.383
+   321   -2137.8366     0.2286     0.0724    0.0011    79.61    323    0.392
+   322   -2137.9357     0.1976     0.0991    0.0010    75.32    324    0.389
+   323   -2138.0279     0.3127     0.0922    0.0012    73.61    325    0.374
+   324   -2138.1200     0.2194     0.0921    0.0014    81.12    326    0.394
+   325   -2138.1892     0.1874     0.0692    0.0006    74.79    327    0.384
+   326   -2138.2814     0.2208     0.0921    0.0015    78.35    328    0.402
+   327   -2138.3694     0.2844     0.0880    0.0022    80.99    329    0.415
+   328   -2138.4396     0.1968     0.0702    0.0010    81.89    330    0.380
+   329   -2138.5183     0.1796     0.0787    0.0013    78.90    331    0.390
+   330   -2138.5950     0.2678     0.0767    0.0015    79.22    332    0.377
+   331   -2138.6913     0.2075     0.0963    0.0019    82.78    333    0.354
+   332   -2138.7838     0.1948     0.0926    0.0015    79.73    334    0.352
+   333   -2138.8710     0.2920     0.0872    0.0020    78.28    335    0.396
+   334   -2138.9479     0.2166     0.0769    0.0007    75.09    336    0.349
+   335   -2139.0161     0.2021     0.0681    0.0005    69.20    337    0.406
+   336   -2139.1088     0.2401     0.0928    0.0013    77.57    338    0.405
+   337   -2139.1754     0.3422     0.0666    0.0027    83.15    339    0.379
+   338   -2139.2387     0.1795     0.0632    0.0004    74.53    340    0.366
+   339   -2139.3042     0.1925     0.0655    0.0010    77.69    341    0.359
+   340   -2139.3737     0.2282     0.0695    0.0016    82.68    342    0.355
+   341   -2139.4651     0.3179     0.0914    0.0023    83.57    343    0.372
+   342   -2139.5594     0.2314     0.0943    0.0034    85.99    344    0.388
+   343   -2139.6221     0.1676     0.0627    0.0006    76.26    345    0.370
+   344   -2139.7055     0.2049     0.0834    0.0007    61.39    346    0.389
+   345   -2139.7790     0.2823     0.0735    0.0012    78.21    347    0.338
+   346   -2139.8616     0.2269     0.0827    0.0019    83.58    348    0.387
+   347   -2139.9216     0.1931     0.0600    0.0013    82.14    349    0.394
+   348   -2139.9776     0.1821     0.0559    0.0011    80.58    350    0.375
+   349   -2140.0454     0.1775     0.0679    0.0011    78.99    351    0.413
+   350   -2140.1100     0.3726     0.0645    0.0018    79.73    352    0.440
+   351   -2140.1919     0.2013     0.0820    0.0012    83.84    353    0.419
+   352   -2140.2514     0.1665     0.0595    0.0010    80.11    354    0.384
+   353   -2140.3051     0.2008     0.0537    0.0010    78.87    355    0.395
+   354   -2140.3741     0.2597     0.0690    0.0017    82.27    356    0.386
+   355   -2140.4544     0.1904     0.0803    0.0019    84.17    357    0.368
+   356   -2140.5183     0.2211     0.0638    0.0015    81.08    358    0.370
+   357   -2140.5843     0.2011     0.0660    0.0010    79.82    359    0.388
+   358   -2140.6675     0.2282     0.0832    0.0013    78.78    360    0.357
+   359   -2140.7277     0.3305     0.0602    0.0020    81.39    361    0.376
+   360   -2140.7939     0.1618     0.0662    0.0003    67.61    362    0.387
+   361   -2140.8387     0.1484     0.0448    0.0005    72.45    363    0.394
+   362   -2140.8930     0.1861     0.0543    0.0011    78.81    364    0.386
+   363   -2140.9526     0.2513     0.0596    0.0016    81.13    365    0.396
+   364   -2141.0186     0.1522     0.0660    0.0014    83.70    366    0.379
+   365   -2141.0756     0.1523     0.0570    0.0013    80.38    367    0.395
+   366   -2141.1268     0.2843     0.0512    0.0018    80.37    368    0.383
+   367   -2141.1889     0.1763     0.0621    0.0009    82.01    369    0.383
+   368   -2141.2620     0.1670     0.0731    0.0010    76.25    370    0.394
+   369   -2141.3246     0.2091     0.0626    0.0010    77.33    371    0.401
+   370   -2141.3800     0.2805     0.0554    0.0017    81.43    372    0.389
+   371   -2141.4391     0.1580     0.0591    0.0005    75.28    373    0.394
+   372   -2141.4932     0.1532     0.0542    0.0007    72.25    374    0.396
+   373   -2141.5334     0.1982     0.0402    0.0008    78.29    375    0.400
+   374   -2141.5885     0.1617     0.0551    0.0012    81.66    376    0.394
+   375   -2141.6495     0.1864     0.0610    0.0014    79.91    377    0.395
+   376   -2141.6939     0.2692     0.0444    0.0016    80.56    378    0.403
+   377   -2141.7396     0.1446     0.0457    0.0002    50.57    379    0.398
+   378   -2141.7851     0.1334     0.0456    0.0004    58.36    380    0.386
+   379   -2141.8300     0.1717     0.0449    0.0009    77.26    381    0.384
+   380   -2141.8661     0.2921     0.0360    0.0016    82.28    382    0.394
+   381   -2141.9142     0.1509     0.0481    0.0008    82.83    383    0.432
+   382   -2141.9570     0.1331     0.0428    0.0009    78.91    384    0.397
+   383   -2142.0001     0.1701     0.0432    0.0010    79.04    385    0.400
+   384   -2142.0420     0.2779     0.0419    0.0014    81.02    386    0.413
+   385   -2142.0930     0.1594     0.0510    0.0008    81.85    387    0.403
+   386   -2142.1372     0.1344     0.0442    0.0006    74.32    388    0.424
+   387   -2142.1815     0.1775     0.0443    0.0007    72.78    389    0.387
+   388   -2142.2308     0.2142     0.0493    0.0011    79.04    390    0.395
+   389   -2142.2812     0.1478     0.0504    0.0008    80.34    391    0.384
+   390   -2142.3270     0.1422     0.0458    0.0009    77.15    392    0.372
+   391   -2142.3646     0.1809     0.0377    0.0007    75.52    393    0.384
+   392   -2142.4120     0.1636     0.0473    0.0008    79.66    394    0.378
+   393   -2142.4667     0.2050     0.0548    0.0013    79.21    395    0.410
+   394   -2142.5105     0.1646     0.0437    0.0011    81.13    396    0.416
+   395   -2142.5381     0.1317     0.0277    0.0004    75.32    397    0.397
+   396   -2142.5790     0.1141     0.0409    0.0007    74.46    398    0.403
+   397   -2142.6274     0.2317     0.0484    0.0014    77.96    399    0.413
+   398   -2142.6759     0.1848     0.0484    0.0018    84.69    400    0.376
+   399   -2142.7172     0.1366     0.0414    0.0007    80.45    401    0.386
+   400   -2142.7715     0.1371     0.0543    0.0011    77.30    402    0.403
+   401   -2142.8138     0.2396     0.0423    0.0016    80.98    403    0.422
+   402   -2142.8582     0.1596     0.0445    0.0010    83.93    404    0.389
+   403   -2142.9111     0.1493     0.0529    0.0014    81.17    405    0.413
+   404   -2142.9538     0.2093     0.0426    0.0011    80.46    406    0.386
+   405   -2143.0169     0.1719     0.0631    0.0013    82.70    407    0.397
+   406   -2143.0869     0.2515     0.0700    0.0020    81.16    408    0.445
+   407   -2143.1444     0.1652     0.0575    0.0015    82.65    409    0.381
+   408   -2143.1757     0.1348     0.0313    0.0002    52.11    410    0.367
+   409   -2143.2219     0.1314     0.0462    0.0005    66.73    411    0.402
+   410   -2143.2772     0.2535     0.0553    0.0016    79.12    412    0.400
+   411   -2143.3423     0.1973     0.0651    0.0022    85.53    413    0.389
+   412   -2143.3941     0.1704     0.0517    0.0013    82.48    414    0.400
+   413   -2143.4448     0.1771     0.0508    0.0010    77.13    415    0.389
+   414   -2143.4806     0.1449     0.0358    0.0003    61.10    416    0.394
+   415   -2143.5127     0.1134     0.0321    0.0003    61.23    417    0.428
+   416   -2143.5488     0.1358     0.0361    0.0006    67.55    418    0.407
+   417   -2143.5756     0.1580     0.0268    0.0005    70.38    419    0.569
+   418   -2143.6008     0.1212     0.0251    0.0003    72.44    420    0.439
+   419   -2143.6359     0.0959     0.0351    0.0005    71.02    421    0.460
+
+ Optimization achieved convergence criteria:  0.09589
+ Generalized Kirkwood   -972.77734907      0.017
+ Cavitation              572.59054197      0.013
+ Dispersion             -466.70749972      0.018
+
+ Computed Potential Energy
+  Bond Stretching             67.74210243          811        0.000 ( 0.01562)
+  Angle Bending              195.90859417         1436        0.000 ( 3.00908)
+  Stretch-Bend                 0.28384553         1299        0.000
+  Out-of-Plane Bend            6.28420749          564        0.000
+  Torsional Angle             30.59396579         2116        0.000
+  Pi-Orbital Torsion           5.17559813          111        0.000
+  Torsion-Torsion            -25.24050808            6        0.000
+  Van der Waals              203.06235265       317353        0.096
+  Atomic Multipoles        -1505.37953804       317353
+  Polarization              -255.17218544       317353        0.308
+  Solvation                 -866.89430683       320400
+  Total Potential          -2143.63587220  (Kcal/mole)        0.405 (sec)
+ Setting atom names to PDB standard.
+ Saving 1EGF_pH4.4.pdb_3
+ Wrote induced dipoles to: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_pH4.4.uind
+ Wrote permanent multipoles to: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1EGF/1EGF_pH4.4.uperm
+
+ Script wall clock time: 179.597 (sec)
+=== Titration pH 4.4 done: Mon Apr 27 18:47:51 CDT 2026 ===

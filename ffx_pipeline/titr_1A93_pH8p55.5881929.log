@@ -1,0 +1,1476 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Titration pH 8.55 started: Mon Apr 27 16:07:50 CDT 2026 ===
+  Copy already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1A93/1A93_pH8.55.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6947  April 2026 
+        Git Revision  519408079905b3dd4b967041b75b836f63fb563f 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2025
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Mon Apr 27 16:08:22 CDT 2026
+ Process ID 57562 on argon-itf-bx54-08.hpc.
+
+ Command line arguments:
+ [ManyBody, --tR, --pH, 8.55, --oT, -T, --kPH, 3.0, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1A93/1A93_pH8.55.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1A93/1A93_pH8.55.pdb]
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1A93/titrate.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 1A93_pH8.55.pdb
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   52.6 A).
+
+ Bonded Terms
+  Bonds:                                   1070
+  Angles:                                  1937
+  Stretch-Bends:                           1688
+  Out-of-Plane Bends:                       594
+  Torsions:                                2804
+  Pi-Orbital Torsions:                       83
+  Torsion-Torsions:                           4
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                  3.000
+
+ Opened 1A93_pH8.55.pdb in 0.891 sec.
+
+ System Resources
+  Total CPU time:          17.71 (sec)
+  System load average:    317.34
+  Open file handles:         146 of  81920 allowed
+  System memory:           43562 MB free out of  44520 MB
+  System swap space:        2053 MB free out of   2053 MB
+  JVM memory:               4050 MB free out of   4096 MB
+
+ Adding titration hydrogen to : /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1A93/1A93_pH8.55.pdb
+
+ Reading 1A93_pH8.55.pdb
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Renumbering PDB file due to built atoms (1082 vs 1070)
+ Total number of atoms: 1082
+
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   52.6 A).
+
+ Bonded Terms
+  Bonds:                                   1082
+  Angles:                                  1949
+  Stretch-Bends:                           1688
+  Out-of-Plane Bends:                       594
+  Torsions:                                2828
+  Pi-Orbital Torsions:                       83
+  Torsion-Torsions:                           4
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 15.000
+ Temperature: 298.150000
+
+ Energy restart file: 1A93_pH8.55.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood  -1783.95474648      0.053
+ Cavitation              722.48226449      0.046
+ Dispersion             -538.41051723      0.062
+
+ Computed Potential Energy
+  Bond Stretching            151.01322297         1082        0.000 ( 0.01858)
+  Angle Bending              225.05612806         1949        0.001 ( 2.68774)
+  Stretch-Bend                -0.77503300         1688        0.001
+  Out-of-Plane Bend            7.31720922          594        0.001
+  Torsional Angle             91.84931538         2828        0.002
+  Pi-Orbital Torsion           5.62126438           83        0.008
+  Torsion-Torsion            -10.19994402            4        0.002
+  Van der Waals              287.96621021       581790        0.244
+  Atomic Multipoles          317.30385487       581790
+  Polarization               -90.19676125       581790        0.520
+  Solvation                -1599.88299922       585903
+  Total Potential           -614.92753239  (Kcal/mole)        0.780 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A    2-CYS  -59.262    0.000    0.000    0.000
+ A    8-GLH  -64.996  -64.992  -40.024    0.000
+ A    9-GLH -177.387 -174.110  144.863    0.000
+ A   11-LYS -173.942  175.173  -54.676 -170.998
+ A   15-GLH -177.027   64.998   10.000    0.000
+ A   16-GLH  176.644 -166.273  114.926    0.000
+ A   17-ASH -163.187 -113.094    0.000    0.000
+ A   21-LYS -176.999 -179.985 -180.000  179.964
+ A   24-GLH -177.020  -79.981  -25.028    0.000
+ A   27-LYS -157.692 -165.413 -160.491 -174.221
+ A   28-HIS -177.011   60.022    0.000    0.000
+ A   29-LYS  -74.268  178.208  148.582  177.217
+ A   31-GLH -176.996  -80.013  -25.013    0.000
+ B   10-ASH  -70.019  -14.991    0.000    0.000
+ B   12-HIS  -68.416  -45.906    0.000    0.000
+ B   18-ASH  -69.995  -15.006    0.000    0.000
+ B   20-LYS  -85.192 -158.395  170.113 -176.909
+
+ Rotamer Library:     Richardson
+ Algorithm:           ALL
+ Goldstein Criteria:  true
+ Three-Body Energies: true
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.002 sec
+ Pairwise distance matrix:               136.259 sec
+
+ Beginning Energy   -1191.30231722
+
+     Residue  Nrot
+   1   A2-CYS   11
+   2   A8-GLH   42
+   3   A9-GLH   42
+   4  A11-LYS   56
+   5  A15-GLH   42
+   6  A16-GLH   42
+   7  A17-ASH   27
+   8  A21-LYS   56
+   9  A24-GLH   42
+  10  A27-LYS   56
+  11  A28-HIS   27
+  12  A29-LYS   56
+  13  A31-GLH   42
+  14  B10-ASH   27
+  15  B12-HIS   27
+  16  B18-ASH   27
+  17  B20-LYS   56
+
+ Backbone energy:     -633.22318407
+
+ Loaded self energies from restart file.
+  Rotamer ( A2-CYD, 9) self-energy      39.05950488 pruned by ( A2-CYS, 0)       0.73440817.
+  Rotamer ( A8-GLH, 1) self-energy      55.77602740 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 2) self-energy      63.87819252 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 3) self-energy   17597.64544300 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 4) self-energy      56.31049730 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 5) self-energy      54.46110008 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 6) self-energy  137453.01223672 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 7) self-energy     731.53373857 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 8) self-energy      49.88085508 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH, 9) self-energy      51.66403005 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,10) self-energy      60.24544378 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,11) self-energy   15871.09488791 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,12) self-energy      58.78306527 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,13) self-energy      57.44057436 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,14) self-energy    3097.62088416 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,15) self-energy     669.10546256 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,16) self-energy      53.23445376 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,17) self-energy      54.28850791 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,18) self-energy      72.89847574 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,19) self-energy    3483.52121760 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,20) self-energy      60.89087902 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,21) self-energy      58.48518988 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,22) self-energy    2799.31709656 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,23) self-energy     734.87922445 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,24) self-energy      53.50882869 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,25) self-energy      56.18667654 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,26) self-energy      78.64302503 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,27) self-energy   14239.65756797 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,28) self-energy      76.97736491 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,29) self-energy      75.01444068 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,30) self-energy    3121.06600125 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,31) self-energy     335.63173071 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,32) self-energy      71.47677983 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLH,33) self-energy      69.14063677 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLU,35) self-energy    9253.89606289 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLU,38) self-energy    2847.52777871 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A8-GLU,39) self-energy     863.47070612 pruned by ( A8-GLU,41)     -13.12029150.
+  Rotamer ( A9-GLH, 1) self-energy      54.05987364 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 2) self-energy     107.08986398 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 3) self-energy *     1.5527e+06 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 4) self-energy      49.57308604 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 5) self-energy      72.85478308 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 6) self-energy     842.95248380 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 7) self-energy   72474.81827223 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 8) self-energy      59.87727986 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH, 9) self-energy   31168.24238282 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,10) self-energy      87.32119845 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,11) self-energy   25646.81257251 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,12) self-energy      54.88614216 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,13) self-energy      55.00282185 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,14) self-energy     283.14379778 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,15) self-energy   33789.99578332 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,16) self-energy      57.29141861 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,17) self-energy   18834.39288033 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,18) self-energy     431.25418361 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,19) self-energy *     1.5358e+06 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,20) self-energy      53.72575346 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,21) self-energy      58.63432207 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,22) self-energy     220.48408214 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,23) self-energy   72458.48670435 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,24) self-energy      62.57551287 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,25) self-energy   28693.14751386 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,26) self-energy     105.88520769 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,27) self-energy   25071.27837761 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,28) self-energy      72.49037017 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,29) self-energy      72.83088462 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,30) self-energy     312.47884935 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,31) self-energy   22398.51171367 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,32) self-energy      75.49057209 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLH,33) self-energy   18849.04824143 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLU,34) self-energy      36.06584330 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLU,35) self-energy   76077.51533799 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLU,38) self-energy     228.33186540 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLU,39) self-energy  104711.09585338 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer ( A9-GLU,41) self-energy   26389.95389173 pruned by ( A9-GLU,36)     -15.32242980.
+  Rotamer (A11-LYD, 2) self-energy      18.24086390 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYD, 3) self-energy     171.08609728 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYD, 4) self-energy     162.04392376 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYD, 5) self-energy    7902.58947121 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYD, 6) self-energy      16.08998857 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYD,17) self-energy      11.87840264 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYD,18) self-energy      39.15387560 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYD,24) self-energy      74.64230957 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYS,29) self-energy       6.83861965 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYS,31) self-energy     150.81461084 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYS,32) self-energy    7966.95575542 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYS,33) self-energy       4.01624924 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYS,45) self-energy      31.00983444 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A11-LYS,51) self-energy      63.27375656 pruned by (A11-LYS, 0)     -22.60163762.
+  Rotamer (A15-GLH, 1) self-energy      56.94405002 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 2) self-energy     120.87064573 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 3) self-energy  383740.76595663 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 4) self-energy      52.82011707 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 5) self-energy      51.07665518 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 6) self-energy      66.54247999 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 7) self-energy   13911.36308095 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 8) self-energy      48.17826112 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH, 9) self-energy      51.07072592 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,10) self-energy      80.22751837 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,11) self-energy   20845.29796794 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,12) self-energy      55.38030648 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,13) self-energy      54.08074513 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,14) self-energy      86.29210312 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,15) self-energy   22456.06432108 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,16) self-energy      51.71911253 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,17) self-energy      53.78154330 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,18) self-energy     296.37790042 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,19) self-energy  376120.54993266 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,20) self-energy      56.72837629 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,21) self-energy      54.87334342 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,22) self-energy      66.96574279 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,23) self-energy   13913.00630892 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,24) self-energy      51.85903465 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,25) self-energy      55.56133492 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,26) self-energy      98.68228853 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,27) self-energy   19986.05063108 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,28) self-energy      73.56997346 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,29) self-energy      71.78020129 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,30) self-energy     100.85623458 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,31) self-energy    4363.68387781 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,32) self-energy      70.00320480 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLH,33) self-energy      68.28593868 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLU,34) self-energy      26.91363655 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLU,35) self-energy   42804.35978879 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A15-GLU,39) self-energy   18861.49657047 pruned by (A15-GLU,40)     -13.81049371.
+  Rotamer (A16-GLH, 1) self-energy      55.87138152 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 2) self-energy     127.87514204 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 3) self-energy    5387.69892312 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 4) self-energy     455.26586523 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 5) self-energy     188.72597707 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 6) self-energy    1456.97560986 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 7) self-energy    9819.92775004 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 8) self-energy     164.48573908 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH, 9) self-energy   22811.62246406 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,10) self-energy     127.46529086 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,11) self-energy    3263.26180943 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,12) self-energy     244.82350372 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,13) self-energy      91.41034727 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,14) self-energy     257.84500020 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,15) self-energy    4132.97154347 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,16) self-energy     162.58197825 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,17) self-energy   68542.45616822 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,18) self-energy     155.87801183 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,19) self-energy    1661.50470633 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,20) self-energy     378.19374171 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,21) self-energy     413.44755426 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,22) self-energy     182.81673072 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,23) self-energy    9856.22851180 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,24) self-energy     161.04407548 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,25) self-energy   23419.82449177 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,26) self-energy     145.83298028 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,27) self-energy    3305.99059324 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,28) self-energy     256.30921764 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,29) self-energy     108.97296313 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,30) self-energy     280.02840914 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,31) self-energy    2923.50051375 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,32) self-energy     180.70624808 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLH,33) self-energy   68547.14367660 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,34) self-energy      83.39697659 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,35) self-energy    3121.94348925 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,36) self-energy     171.06470259 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,37) self-energy      48.27542669 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,38) self-energy     170.31490391 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,39) self-energy    9872.60951667 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,40) self-energy     101.06184186 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A16-GLU,41) self-energy   65327.33532251 pruned by (A16-GLU, 0)     -12.45499611.
+  Rotamer (A17-ASH, 1) self-energy      59.38918052 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 2) self-energy     187.19279016 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 3) self-energy     303.23729501 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 4) self-energy      59.16173612 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 5) self-energy      55.11390327 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 6) self-energy      51.78004027 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 7) self-energy     169.44790844 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 8) self-energy     112.13694664 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH, 9) self-energy      64.57576535 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,10) self-energy      54.64957233 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,11) self-energy      56.20039630 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,12) self-energy     163.73468216 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,13) self-energy     128.84497510 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,14) self-energy      64.38786759 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,15) self-energy      61.55095034 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,16) self-energy      56.85034930 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,17) self-energy     272.67570960 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,18) self-energy     189.15469983 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,19) self-energy      95.59036712 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,20) self-energy      60.66892879 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASH,21) self-energy      79.31192561 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASP,22) self-energy     113.90426620 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A17-ASP,23) self-energy      61.19862375 pruned by (A17-ASP, 0)     -19.02139362.
+  Rotamer (A21-LYD, 2) self-energy      22.34031858 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYD, 3) self-energy     344.07998302 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYD, 4) self-energy     298.29215080 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYD, 5) self-energy    7202.31520093 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYD, 6) self-energy      19.99618306 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYD,17) self-energy      10.56041692 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYD,18) self-energy      39.39073561 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYD,24) self-energy      39.53517524 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYS,29) self-energy      10.94974732 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYS,31) self-energy     287.26057623 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYS,32) self-energy    7309.26100167 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYS,33) self-energy       7.75210255 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYS,45) self-energy      30.89502103 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A21-LYS,51) self-energy      27.45336616 pruned by (A21-LYS, 0)     -22.00424575.
+  Rotamer (A24-GLH, 1) self-energy      57.53046477 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 2) self-energy      66.46060987 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 3) self-energy    1514.76022028 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 4) self-energy      54.08260677 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 5) self-energy      52.02098588 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 6) self-energy      53.21155892 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 7) self-energy     624.10588646 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 8) self-energy      49.38287266 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH, 9) self-energy      51.26192845 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,10) self-energy      69.49380039 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,11) self-energy    1096.08836993 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,12) self-energy      56.65524438 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,13) self-energy      55.01250087 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,14) self-energy      63.28680479 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,15) self-energy     350.33878808 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,16) self-energy      52.60554130 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,17) self-energy      53.75797554 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,18) self-energy      73.00004088 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,19) self-energy     668.84382276 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,20) self-energy      58.04641733 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,21) self-energy      55.73975287 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,22) self-energy      57.16629735 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,23) self-energy     624.09895207 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,24) self-energy      53.09394997 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,25) self-energy      55.87751728 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,26) self-energy      87.96450998 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,27) self-energy    1051.72249897 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,28) self-energy      74.89597730 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,29) self-energy      72.69438529 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,30) self-energy      92.19136732 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,31) self-energy     270.03083146 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,32) self-energy      70.72535586 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLH,33) self-energy      68.49326267 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLU,35) self-energy     945.09830852 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A24-GLU,39) self-energy     667.13245225 pruned by (A24-GLU,41)     -12.92052817.
+  Rotamer (A27-LYD, 2) self-energy      26.61491895 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD, 3) self-energy      51.77057325 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD, 4) self-energy      40.62669190 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD, 5) self-energy    3870.98919885 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD, 6) self-energy       3.41438208 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,17) self-energy    1195.23777100 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,18) self-energy      37.51375428 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,20) self-energy     128.65824693 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,21) self-energy      21.71201728 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,23) self-energy      41.96140405 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,24) self-energy     881.50022863 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,25) self-energy     478.30899509 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,26) self-energy    3876.48901997 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYD,27) self-energy   14995.26545955 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,29) self-energy      17.50176598 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,30) self-energy       3.17004736 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,31) self-energy      28.60254173 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,32) self-energy    3880.89228243 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,44) self-energy    1185.10134799 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,45) self-energy      28.86490392 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,47) self-energy     125.90260461 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,48) self-energy      26.32323390 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,50) self-energy      32.47189342 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,51) self-energy    1021.53314959 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,52) self-energy     465.74289427 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,53) self-energy    3900.39589660 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A27-LYS,54) self-energy   15037.35780872 pruned by (A27-LYS, 0)     -22.88556086.
+  Rotamer (A28-HIS, 3) self-energy    1965.36273216 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HIS, 4) self-energy     821.94750479 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HIS, 8) self-energy       6.04241639 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HIS,10) self-energy     465.99673703 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HID,11) self-energy    1572.58751407 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HID,12) self-energy     754.19672030 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HID,16) self-energy      -5.08568679 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HID,18) self-energy     391.77193039 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HIE,19) self-energy    1810.52955634 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HIE,20) self-energy     784.34541658 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HIE,24) self-energy      -3.11986165 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A28-HIE,26) self-energy      27.45577344 pruned by (A28-HIE,23)     -30.92031710.
+  Rotamer (A29-LYD, 2) self-energy     114.49412127 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD, 3) self-energy    1554.30153134 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD, 4) self-energy     261.73854852 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD, 5) self-energy     966.02302566 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD, 6) self-energy    1672.23132249 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD,10) self-energy   24924.09419131 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD,11) self-energy     916.38403173 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD,17) self-energy       5.42109833 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD,18) self-energy      35.59139089 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYD,24) self-energy       4.93200349 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYS,29) self-energy     102.69310999 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYS,31) self-energy     253.99689068 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYS,32) self-energy    1006.34790079 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYS,33) self-energy    1663.81726379 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYS,37) self-energy   24920.77178006 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYS,38) self-energy     906.91299430 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A29-LYS,45) self-energy      26.53689319 pruned by (A29-LYS, 0)     -24.70281336.
+  Rotamer (A31-GLH, 1) self-energy      58.11261377 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 2) self-energy      73.20438388 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 3) self-energy   35606.48998065 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 4) self-energy      53.90280831 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 5) self-energy      52.00294500 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 6) self-energy      53.73939292 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 7) self-energy  130380.93154277 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 8) self-energy      52.21873372 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH, 9) self-energy      56.29222973 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,10) self-energy      73.07932713 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,11) self-energy   25944.06090345 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,12) self-energy      56.38906711 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,13) self-energy      54.93527294 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,14) self-energy      63.72070793 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,15) self-energy   13438.56966924 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,16) self-energy      55.92509475 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,17) self-energy      59.01617126 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,18) self-energy     112.42698887 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,19) self-energy   25203.80950910 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,20) self-energy      57.85399496 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,21) self-energy      55.67836218 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,22) self-energy      57.68419175 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,23) self-energy  130378.89042147 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,24) self-energy      55.80963836 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,25) self-energy      60.66737832 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,26) self-energy      91.38474509 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,27) self-energy   25849.58244358 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,28) self-energy      74.31692891 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,29) self-energy      72.33881273 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,30) self-energy      93.58196760 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,31) self-energy    9039.20531784 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,32) self-energy      73.90211532 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLH,33) self-energy      73.63758552 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLU,35) self-energy   21042.50603474 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (A31-GLU,39) self-energy  155696.50949515 pruned by (A31-GLU,36)      -9.31389790.
+  Rotamer (B10-ASH, 1) self-energy      55.28241829 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 2) self-energy     148.43955664 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 3) self-energy     124.54259783 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 4) self-energy      53.96721476 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 5) self-energy      52.45226953 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 6) self-energy      50.83885163 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 7) self-energy     139.81398369 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 8) self-energy      94.79252247 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH, 9) self-energy      58.16750606 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,10) self-energy      52.02844964 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,11) self-energy      54.57266029 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,12) self-energy     147.70946225 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,13) self-energy     102.39616340 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,14) self-energy      59.25683498 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,15) self-energy      58.92034490 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,16) self-energy      55.71238259 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,17) self-energy     272.30035259 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,18) self-energy     185.56725886 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,19) self-energy      85.43524309 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,20) self-energy      57.61034170 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASH,21) self-energy      77.36533537 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASP,22) self-energy      93.37002172 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B10-ASP,23) self-energy      30.30524168 pruned by (B10-ASP,25)     -20.98520774.
+  Rotamer (B12-HIS, 3) self-energy   22815.59353545 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIS, 4) self-energy    1791.06501801 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIS, 5) self-energy   12512.40862620 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIS, 6) self-energy    9426.59137348 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIS, 7) self-energy    1174.36875754 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIS, 8) self-energy       3.92471223 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIS,10) self-energy     137.96401244 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HID,11) self-energy   14051.81668112 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HID,12) self-energy    1700.51439262 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HID,13) self-energy   12954.89296398 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HID,14) self-energy    2771.20115441 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HID,15) self-energy    1152.94572265 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HID,18) self-energy     104.05892180 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIE,19) self-energy   20320.75210415 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIE,20) self-energy    1848.33862013 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIE,21) self-energy   10438.44758798 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIE,22) self-energy    9548.35160312 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIE,23) self-energy    1120.53129016 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B12-HIE,26) self-energy      -2.54215140 pruned by (B12-HIE, 2)     -28.14990087.
+  Rotamer (B18-ASH, 1) self-energy      66.69553234 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 2) self-energy     187.89164017 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 3) self-energy     334.23422600 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 4) self-energy      57.12732914 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 5) self-energy      54.11270774 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 6) self-energy      54.28779797 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 7) self-energy     166.20072509 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 8) self-energy     119.25287650 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH, 9) self-energy      63.88634684 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,10) self-energy      53.95825382 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,11) self-energy      60.69046019 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,12) self-energy     163.62269412 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,13) self-energy     139.00298555 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,14) self-energy      62.29197544 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,15) self-energy      60.29526347 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,16) self-energy      58.60520562 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,17) self-energy     246.13688840 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,18) self-energy     186.22292764 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,19) self-energy      94.36790209 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,20) self-energy      59.38281314 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASH,21) self-energy      81.44222254 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASP,22) self-energy     116.45386659 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B18-ASP,23) self-energy      69.17352901 pruned by (B18-ASP,25)     -19.04845950.
+  Rotamer (B20-LYD, 2) self-energy       7.97455725 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD, 3) self-energy     914.51209268 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD, 4) self-energy     347.09753186 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD, 5) self-energy    1601.37123058 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD, 6) self-energy       6.08264499 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,17) self-energy    1110.00157383 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,18) self-energy      36.92500519 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,20) self-energy      33.78475991 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,24) self-energy      91.80330830 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,25) self-energy     482.08103701 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,26) self-energy     653.35614783 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,27) self-energy    4133.70364347 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYD,28) self-energy      53.02283270 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,31) self-energy     336.27909614 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,32) self-energy    1610.40140254 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,44) self-energy    1101.17851581 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,45) self-energy      28.57208981 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,47) self-energy      44.99074839 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,51) self-energy      98.24967538 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,52) self-energy     471.34282357 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,53) self-energy     641.25794177 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,54) self-energy    4661.69985906 pruned by (B20-LYS,40)     -22.35262148.
+  Rotamer (B20-LYS,55) self-energy      40.53461325 pruned by (B20-LYS,40)     -22.35262148.
+ Loaded 2-body energies from restart file.
+
+ Number of self energies: 0
+ Backbone energy:     -633.22318407
+
+ Time for single energies:       0.7575
+ Number of 2-body energies to calculate: 3435
+ Pair   A8-GLU 0 ,  A11-LYD 13:      -0.00656620 at      2.791 A (0.450 A by res) in 0.7400 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 14:       0.02130617 at      2.791 A (0.450 A by res) in 0.5684 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 15:       0.05946954 at      2.791 A (0.450 A by res) in 0.5615 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 16:      -0.02504740 at      2.791 A (0.450 A by res) in 0.5313 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 19:      -0.01720453 at      2.736 A (0.450 A by res) in 0.5985 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 20:       0.00197536 at      2.736 A (0.450 A by res) in 0.5282 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 21:       0.06904257 at      2.736 A (0.450 A by res) in 0.5795 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 22:       0.00372023 at      2.736 A (0.450 A by res) in 0.5832 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 23:       2.25504782 at      1.694 A (0.450 A by res) in 0.5336 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 25:       0.02562838 at      2.777 A (0.450 A by res) in 0.5667 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 26:      -0.00983009 at      2.777 A (0.450 A by res) in 0.5242 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 27:      -0.01756833 at      2.777 A (0.450 A by res) in 0.5647 (sec).
+ Pair   A8-GLU 0 ,  A11-LYD 28:      -0.02379570 at      2.777 A (0.450 A by res) in 0.5404 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 30:      -0.55842705 at      2.700 A (0.450 A by res) in 0.5939 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 34:      -0.48888053 at      2.791 A (0.450 A by res) in 0.5449 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 35:      -0.45913593 at      2.791 A (0.450 A by res) in 0.5463 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 36:      -0.54737077 at      2.791 A (0.450 A by res) in 0.5266 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 37:      -0.90332747 at      2.791 A (0.450 A by res) in 0.5566 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 38:      -1.50917971 at      2.787 A (0.450 A by res) in 0.5029 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 39:      -0.57160809 at      2.791 A (0.450 A by res) in 0.5193 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 40:      -0.67709749 at      2.791 A (0.450 A by res) in 0.5580 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 41:      -0.63094201 at      2.791 A (0.450 A by res) in 0.5365 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 42:      -0.76610829 at      2.791 A (0.450 A by res) in 0.6000 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 43:      -0.60666345 at      2.791 A (0.450 A by res) in 0.5693 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 44:      -0.51523753 at      2.673 A (0.450 A by res) in 0.5187 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 46:      -0.74506196 at      2.736 A (0.450 A by res) in 0.5257 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 47:      -0.56430267 at      2.736 A (0.450 A by res) in 0.5052 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 48:      -0.69949586 at      2.736 A (0.450 A by res) in 0.5343 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 49:      -0.55024378 at      2.736 A (0.450 A by res) in 0.5531 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 50:      -0.25965228 at      1.694 A (0.450 A by res) in 0.5425 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 52:      -0.55606345 at      2.777 A (0.450 A by res) in 0.5574 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 53:      -0.46350021 at      2.777 A (0.450 A by res) in 0.5543 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 54:      -0.48979432 at      2.777 A (0.450 A by res) in 0.5457 (sec).
+ Pair   A8-GLU 0 ,  A11-LYS 55:      -0.48537779 at      2.777 A (0.450 A by res) in 0.5781 (sec).
+ Pair   A8-GLU 0 ,  B12-HIS 0 :      -0.35364717 at      5.512 A (1.569 A by res) in 0.6002 (sec).
+ Pair   A8-GLU 0 ,  B12-HID 1 :      -0.01920043 at      5.512 A (1.569 A by res) in 0.5809 (sec).
+ Pair   A8-GLU 0 ,  B12-HIE 2 :      -0.02660802 at      5.512 A (1.569 A by res) in 0.5559 (sec).
+ Pair   A8-GLU 0 ,  B12-HIS 9 :      -0.35405268 at      5.090 A (1.569 A by res) in 0.6264 (sec).
+ Pair   A8-GLU 0 ,  B12-HID 16:      -0.02358055 at      6.383 A (1.569 A by res) in 0.5915 (sec).
+ Pair   A8-GLU 0 ,  B12-HID 17:      -0.04298833 at      5.113 A (1.569 A by res) in 0.6227 (sec).
+ Pair   A8-GLU 0 ,  B12-HIE 24:      -0.01823236 at      6.383 A (1.569 A by res) in 0.5273 (sec).
+ Pair   A8-GLU 0 ,  B12-HIE 25:       0.00313157 at      6.027 A (1.569 A by res) in 0.5970 (sec).
+ Pair   A8-GLU 34,   A9-GLU 0 :       0.52213554 at      1.356 A (0.578 A by res) in 0.5866 (sec).
+ Pair   A8-GLU 34,   A9-GLU 36:       0.56713308 at      1.356 A (0.578 A by res) in 0.6266 (sec).
+ Pair   A8-GLU 34,   A9-GLU 37:       0.52442624 at      1.356 A (0.578 A by res) in 0.6431 (sec).
+ Pair   A8-GLU 34,   A9-GLU 40:       0.76770089 at      1.356 A (0.578 A by res) in 0.5051 (sec).
+ Pair   A8-GLU 34,  A11-LYS 0 :      -0.34585199 at      2.800 A (0.450 A by res) in 0.5477 (sec).
+ Pair   A8-GLU 34,  A11-LYD 1 :       0.01801426 at      2.800 A (0.450 A by res) in 0.5314 (sec).
+ Pair   A8-GLU 34,  A11-LYD 7 :       0.01791936 at      2.791 A (0.450 A by res) in 0.5544 (sec).
+ Pair   A8-GLU 34,  A11-LYD 8 :       0.00697752 at      2.791 A (0.450 A by res) in 0.5660 (sec).
+ Pair   A8-GLU 34,  A11-LYD 9 :       0.00941428 at      2.791 A (0.450 A by res) in 0.6380 (sec).
+ Pair   A8-GLU 34,  A11-LYD 10:       0.40702241 at      2.791 A (0.450 A by res) in 0.6091 (sec).
+ Pair   A8-GLU 34,  A11-LYD 11:       0.55393002 at      2.791 A (0.450 A by res) in 0.5550 (sec).
+ Pair   A8-GLU 34,  A11-LYD 12:       0.00713850 at      2.791 A (0.450 A by res) in 0.5628 (sec).
+ Pair   A8-GLU 34,  A11-LYD 13:       0.00846248 at      2.791 A (0.450 A by res) in 0.5534 (sec).
+ Pair   A8-GLU 34,  A11-LYD 14:       0.02161635 at      2.791 A (0.450 A by res) in 0.5191 (sec).
+ Pair   A8-GLU 34,  A11-LYD 15:       0.02335781 at      2.791 A (0.450 A by res) in 0.5012 (sec).
+ Pair   A8-GLU 34,  A11-LYD 16:       0.00487308 at      2.791 A (0.450 A by res) in 0.5155 (sec).
+ Pair   A8-GLU 34,  A11-LYD 19:       0.01315956 at      2.736 A (0.450 A by res) in 0.5687 (sec).
+ Pair   A8-GLU 34,  A11-LYD 20:       0.01990202 at      2.736 A (0.450 A by res) in 0.5238 (sec).
+ Pair   A8-GLU 34,  A11-LYD 21:       0.03009714 at      2.736 A (0.450 A by res) in 0.5582 (sec).
+ Pair   A8-GLU 34,  A11-LYD 22:       0.01396689 at      2.736 A (0.450 A by res) in 0.5330 (sec).
+ Pair   A8-GLU 34,  A11-LYD 23:       1.01190791 at      2.054 A (0.450 A by res) in 0.5160 (sec).
+ Pair   A8-GLU 34,  A11-LYD 25:       0.02215433 at      2.777 A (0.450 A by res) in 0.5012 (sec).
+ Pair   A8-GLU 34,  A11-LYD 26:       0.00841538 at      2.777 A (0.450 A by res) in 0.5008 (sec).
+ Pair   A8-GLU 34,  A11-LYD 27:       0.01169541 at      2.777 A (0.450 A by res) in 0.5356 (sec).
+ Pair   A8-GLU 34,  A11-LYD 28:       0.00699094 at      2.777 A (0.450 A by res) in 0.5481 (sec).
+ Pair   A8-GLU 34,  A11-LYS 30:      -0.32266996 at      2.700 A (0.450 A by res) in 0.6011 (sec).
+ Pair   A8-GLU 34,  A11-LYS 34:      -0.29683108 at      2.791 A (0.450 A by res) in 0.5174 (sec).
+ Pair   A8-GLU 34,  A11-LYS 35:      -0.27787052 at      2.791 A (0.450 A by res) in 0.5086 (sec).
+ Pair   A8-GLU 34,  A11-LYS 36:      -0.30525293 at      2.791 A (0.450 A by res) in 0.5342 (sec).
+ Pair   A8-GLU 34,  A11-LYS 37:       0.01914708 at      2.791 A (0.450 A by res) in 0.5449 (sec).
+ Pair   A8-GLU 34,  A11-LYS 38:       0.16091205 at      2.791 A (0.450 A by res) in 0.5806 (sec).
+ Pair   A8-GLU 34,  A11-LYS 39:      -0.31063721 at      2.791 A (0.450 A by res) in 0.5291 (sec).
+ Pair   A8-GLU 34,  A11-LYS 40:      -0.33829677 at      2.791 A (0.450 A by res) in 0.5781 (sec).
+ Pair   A8-GLU 34,  A11-LYS 41:      -0.34017463 at      2.791 A (0.450 A by res) in 0.5915 (sec).
+ Pair   A8-GLU 34,  A11-LYS 42:      -0.34822831 at      2.791 A (0.450 A by res) in 0.6037 (sec).
+ Pair   A8-GLU 34,  A11-LYS 43:      -0.31734971 at      2.791 A (0.450 A by res) in 0.6044 (sec).
+ Pair   A8-GLU 34,  A11-LYS 44:      -0.30369563 at      2.673 A (0.450 A by res) in 0.5594 (sec).
+ Pair   A8-GLU 34,  A11-LYS 46:      -0.33985244 at      2.736 A (0.450 A by res) in 0.5246 (sec).
+ Pair   A8-GLU 34,  A11-LYS 47:      -0.32523998 at      2.736 A (0.450 A by res) in 0.5160 (sec).
+ Pair   A8-GLU 34,  A11-LYS 48:      -0.33768669 at      2.736 A (0.450 A by res) in 0.5154 (sec).
+ Pair   A8-GLU 34,  A11-LYS 49:      -0.30754673 at      2.736 A (0.450 A by res) in 0.5157 (sec).
+ Pair   A8-GLU 34,  A11-LYS 50:       0.63943765 at      2.054 A (0.450 A by res) in 0.5633 (sec).
+ Pair   A8-GLU 34,  A11-LYS 52:      -0.31467475 at      2.777 A (0.450 A by res) in 0.4657 (sec).
+ Pair   A8-GLU 34,  A11-LYS 53:      -0.28530420 at      2.777 A (0.450 A by res) in 0.5240 (sec).
+ Pair   A8-GLU 34,  A11-LYS 54:      -0.30701335 at      2.777 A (0.450 A by res) in 0.5164 (sec).
+ Pair   A8-GLU 34,  A11-LYS 55:      -0.28698514 at      2.777 A (0.450 A by res) in 0.5044 (sec).
+ Pair   A8-GLU 34,  B12-HIS 0 :      -0.40396735 at      5.512 A (1.569 A by res) in 0.5691 (sec).
+ Pair   A8-GLU 34,  B12-HID 1 :      -0.01638655 at      5.512 A (1.569 A by res) in 0.5451 (sec).
+ Pair   A8-GLU 34,  B12-HIE 2 :      -0.03943179 at      5.512 A (1.569 A by res) in 0.5619 (sec).
+ Pair   A8-GLU 34,  B12-HIS 9 :      -0.40292014 at      5.090 A (1.569 A by res) in 0.5240 (sec).
+ Pair   A8-GLU 34,  B12-HID 16:      -0.01737752 at      6.383 A (1.569 A by res) in 0.5151 (sec).
+ Pair   A8-GLU 34,  B12-HID 17:      -0.04414566 at      5.113 A (1.569 A by res) in 0.5583 (sec).
+ Pair   A8-GLU 34,  B12-HIE 24:      -0.03497988 at      6.383 A (1.569 A by res) in 0.5372 (sec).
+ Pair   A8-GLU 34,  B12-HIE 25:       0.00354309 at      6.027 A (1.569 A by res) in 0.5611 (sec).
+ Pair   A8-GLU 36,   A9-GLU 0 :       0.39538794 at      1.356 A (0.578 A by res) in 0.5252 (sec).
+ Pair   A8-GLU 36,   A9-GLU 36:       0.49693646 at      1.356 A (0.578 A by res) in 0.5039 (sec).
+ Pair   A8-GLU 36,   A9-GLU 37:       0.39590856 at      1.356 A (0.578 A by res) in 0.5553 (sec).
+ Pair   A8-GLU 36,   A9-GLU 40:       0.44584053 at      1.356 A (0.578 A by res) in 0.5039 (sec).
+ Pair   A8-GLU 36,  A11-LYS 0 :      -0.68635939 at      2.800 A (0.450 A by res) in 0.5287 (sec).
+ Pair   A8-GLU 36,  A11-LYD 1 :       0.03538742 at      2.800 A (0.450 A by res) in 0.4932 (sec).
+ Pair   A8-GLU 36,  A11-LYD 7 :       0.02479698 at      2.791 A (0.450 A by res) in 0.5069 (sec).
+ Pair   A8-GLU 36,  A11-LYD 8 :      -0.00990413 at      2.791 A (0.450 A by res) in 0.5123 (sec).
+ Pair   A8-GLU 36,  A11-LYD 9 :      -0.00255057 at      2.791 A (0.450 A by res) in 0.5124 (sec).
+ Pair   A8-GLU 36,  A11-LYD 10:      -0.40640134 at      2.624 A (0.450 A by res) in 0.5672 (sec).
+ Pair   A8-GLU 36,  A11-LYD 11:      -0.13977039 at      2.592 A (0.450 A by res) in 0.5196 (sec).
+ Pair   A8-GLU 36,  A11-LYD 12:      -0.02612293 at      2.791 A (0.450 A by res) in 0.5043 (sec).
+ Pair   A8-GLU 36,  A11-LYD 13:      -0.02249337 at      2.791 A (0.450 A by res) in 0.5545 (sec).
+ Pair   A8-GLU 36,  A11-LYD 14:       0.03410600 at      2.791 A (0.450 A by res) in 0.5432 (sec).
+ Pair   A8-GLU 36,  A11-LYD 15:       0.03526160 at      2.791 A (0.450 A by res) in 0.5240 (sec).
+ Pair   A8-GLU 36,  A11-LYD 16:      -0.03150887 at      2.791 A (0.450 A by res) in 0.5696 (sec).
+ Pair   A8-GLU 36,  A11-LYD 19:      -0.04670550 at      2.736 A (0.450 A by res) in 0.5033 (sec).
+ Pair   A8-GLU 36,  A11-LYD 20:      -0.01031049 at      2.736 A (0.450 A by res) in 0.5809 (sec).
+ Pair   A8-GLU 36,  A11-LYD 21:       0.02640259 at      2.736 A (0.450 A by res) in 0.5287 (sec).
+ Pair   A8-GLU 36,  A11-LYD 22:      -0.00645324 at      2.736 A (0.450 A by res) in 0.5747 (sec).
+ Pair   A8-GLU 36,  A11-LYD 23:       0.64811781 at      2.054 A (0.450 A by res) in 0.4928 (sec).
+ Pair   A8-GLU 36,  A11-LYD 25:       0.02201887 at      2.777 A (0.450 A by res) in 0.5207 (sec).
+ Pair   A8-GLU 36,  A11-LYD 26:      -0.00530768 at      2.777 A (0.450 A by res) in 0.5072 (sec).
+ Pair   A8-GLU 36,  A11-LYD 27:      -0.01048199 at      2.777 A (0.450 A by res) in 0.5815 (sec).
+ Pair   A8-GLU 36,  A11-LYD 28:      -0.01863583 at      2.777 A (0.450 A by res) in 0.5158 (sec).
+ Pair   A8-GLU 36,  A11-LYS 30:      -0.52582632 at      2.700 A (0.450 A by res) in 0.5171 (sec).
+ Pair   A8-GLU 36,  A11-LYS 34:      -0.52151466 at      2.791 A (0.450 A by res) in 0.5005 (sec).
+ Pair   A8-GLU 36,  A11-LYS 35:      -0.46922675 at      2.791 A (0.450 A by res) in 0.5629 (sec).
+ Pair   A8-GLU 36,  A11-LYS 36:      -0.55951008 at      2.791 A (0.450 A by res) in 0.5134 (sec).
+ Pair   A8-GLU 36,  A11-LYS 37:      -1.59627634 at      2.624 A (0.450 A by res) in 0.5140 (sec).
+ Pair   A8-GLU 36,  A11-LYS 38:      -1.50833940 at      2.592 A (0.450 A by res) in 0.5089 (sec).
+ Pair   A8-GLU 36,  A11-LYS 39:      -0.59920627 at      2.791 A (0.450 A by res) in 0.5372 (sec).
+ Pair   A8-GLU 36,  A11-LYS 40:      -0.69265434 at      2.791 A (0.450 A by res) in 0.5437 (sec).
+ Pair   A8-GLU 36,  A11-LYS 41:      -0.69894491 at      2.791 A (0.450 A by res) in 0.5165 (sec).
+ Pair   A8-GLU 36,  A11-LYS 42:      -0.73659675 at      2.791 A (0.450 A by res) in 0.5731 (sec).
+ Pair   A8-GLU 36,  A11-LYS 43:      -0.61999602 at      2.791 A (0.450 A by res) in 0.5077 (sec).
+ Pair   A8-GLU 36,  A11-LYS 44:      -0.49607250 at      2.673 A (0.450 A by res) in 0.5528 (sec).
+ Pair   A8-GLU 36,  A11-LYS 46:      -0.73695577 at      2.736 A (0.450 A by res) in 0.5568 (sec).
+ Pair   A8-GLU 36,  A11-LYS 47:      -0.53237149 at      2.736 A (0.450 A by res) in 0.5628 (sec).
+ Pair   A8-GLU 36,  A11-LYS 48:      -0.60117366 at      2.736 A (0.450 A by res) in 0.5062 (sec).
+ Pair   A8-GLU 36,  A11-LYS 49:      -0.52863141 at      2.736 A (0.450 A by res) in 0.5130 (sec).
+ Pair   A8-GLU 36,  A11-LYS 50:      -0.64358778 at      2.054 A (0.450 A by res) in 0.5162 (sec).
+ Pair   A8-GLU 36,  A11-LYS 52:      -0.51786778 at      2.777 A (0.450 A by res) in 0.5121 (sec).
+ Pair   A8-GLU 36,  A11-LYS 53:      -0.44502888 at      2.777 A (0.450 A by res) in 0.5446 (sec).
+ Pair   A8-GLU 36,  A11-LYS 54:      -0.46447178 at      2.777 A (0.450 A by res) in 0.5185 (sec).
+ Pair   A8-GLU 36,  A11-LYS 55:      -0.48445650 at      2.777 A (0.450 A by res) in 0.5070 (sec).
+ Pair   A8-GLU 36,  B12-HIS 0 :      -0.41119294 at      5.512 A (1.569 A by res) in 0.6260 (sec).
+ Pair   A8-GLU 36,  B12-HID 1 :      -0.02638424 at      5.512 A (1.569 A by res) in 0.5439 (sec).
+ Pair   A8-GLU 36,  B12-HIE 2 :      -0.02864416 at      5.512 A (1.569 A by res) in 0.5908 (sec).
+ Pair   A8-GLU 36,  B12-HIS 9 :      -0.41242285 at      5.090 A (1.569 A by res) in 0.5605 (sec).
+ Pair   A8-GLU 36,  B12-HID 16:      -0.03181095 at      6.100 A (1.569 A by res) in 0.5800 (sec).
+ Pair   A8-GLU 36,  B12-HID 17:      -0.05386163 at      5.113 A (1.569 A by res) in 0.6123 (sec).
+ Pair   A8-GLU 36,  B12-HIE 24:      -0.01851262 at      6.100 A (1.569 A by res) in 0.5863 (sec).
+ Pair   A8-GLU 36,  B12-HIE 25:       0.00771486 at      6.027 A (1.569 A by res) in 0.5283 (sec).
+ Pair   A8-GLU 37,   A9-GLU 0 :       0.42387558 at      1.356 A (0.578 A by res) in 0.5898 (sec).
+ Pair   A8-GLU 37,   A9-GLU 36:       0.52396407 at      1.356 A (0.578 A by res) in 0.5528 (sec).
+ Pair   A8-GLU 37,   A9-GLU 37:       0.42565568 at      1.356 A (0.578 A by res) in 0.5726 (sec).
+ Pair   A8-GLU 37,   A9-GLU 40:       0.51732069 at      1.356 A (0.578 A by res) in 0.5662 (sec).
+ Pair   A8-GLU 37,  A11-LYS 0 :      -0.38507224 at      2.800 A (0.450 A by res) in 0.5031 (sec).
+ Pair   A8-GLU 37,  A11-LYD 1 :       0.03151926 at      2.800 A (0.450 A by res) in 0.5070 (sec).
+ Pair   A8-GLU 37,  A11-LYD 7 :       0.02721331 at      2.791 A (0.450 A by res) in 0.5074 (sec).
+ Pair   A8-GLU 37,  A11-LYD 8 :       0.01093508 at      2.791 A (0.450 A by res) in 0.5076 (sec).
+ Pair   A8-GLU 37,  A11-LYD 9 :       0.01292919 at      2.791 A (0.450 A by res) in 0.4878 (sec).
+ Pair   A8-GLU 37,  A11-LYD 10:       0.44724723 at      2.791 A (0.450 A by res) in 0.5535 (sec).
+ Pair   A8-GLU 37,  A11-LYD 11:       0.59272673 at      2.791 A (0.450 A by res) in 0.5390 (sec).
+ Pair   A8-GLU 37,  A11-LYD 12:       0.01534613 at      2.791 A (0.450 A by res) in 0.5090 (sec).
+ Pair   A8-GLU 37,  A11-LYD 13:       0.01520800 at      2.791 A (0.450 A by res) in 0.5578 (sec).
+ Pair   A8-GLU 37,  A11-LYD 14:       0.03918441 at      2.791 A (0.450 A by res) in 0.5258 (sec).
+ Pair   A8-GLU 37,  A11-LYD 15:       0.03814380 at      2.791 A (0.450 A by res) in 0.5487 (sec).
+ Pair   A8-GLU 37,  A11-LYD 16:       0.01583673 at      2.791 A (0.450 A by res) in 0.5328 (sec).
+ Pair   A8-GLU 37,  A11-LYD 19:       0.01484852 at      2.736 A (0.450 A by res) in 0.5232 (sec).
+ Pair   A8-GLU 37,  A11-LYD 20:       0.02414543 at      2.736 A (0.450 A by res) in 0.5327 (sec).
+ Pair   A8-GLU 37,  A11-LYD 21:       0.03760794 at      2.736 A (0.450 A by res) in 0.5592 (sec).
+ Pair   A8-GLU 37,  A11-LYD 22:       0.02158752 at      2.736 A (0.450 A by res) in 0.5581 (sec).
+ Pair   A8-GLU 37,  A11-LYD 23:       1.03908193 at      2.054 A (0.450 A by res) in 0.5317 (sec).
+ Pair   A8-GLU 37,  A11-LYD 25:       0.02736660 at      2.777 A (0.450 A by res) in 0.5205 (sec).
+ Pair   A8-GLU 37,  A11-LYD 26:       0.01362866 at      2.777 A (0.450 A by res) in 0.5010 (sec).
+ Pair   A8-GLU 37,  A11-LYD 27:       0.01455783 at      2.777 A (0.450 A by res) in 0.5807 (sec).
+ Pair   A8-GLU 37,  A11-LYD 28:       0.00918389 at      2.777 A (0.450 A by res) in 0.6064 (sec).
+ Pair   A8-GLU 37,  A11-LYS 30:      -0.34289172 at      2.700 A (0.450 A by res) in 0.5827 (sec).
+ Pair   A8-GLU 37,  A11-LYS 34:      -0.33599486 at      2.791 A (0.450 A by res) in 0.5612 (sec).
+ Pair   A8-GLU 37,  A11-LYS 35:      -0.30620917 at      2.791 A (0.450 A by res) in 0.5496 (sec).
+ Pair   A8-GLU 37,  A11-LYS 36:      -0.34542686 at      2.791 A (0.450 A by res) in 0.5029 (sec).
+ Pair   A8-GLU 37,  A11-LYS 37:      -0.03954440 at      2.791 A (0.450 A by res) in 0.5251 (sec).
+ Pair   A8-GLU 37,  A11-LYS 38:       0.11527593 at      2.791 A (0.450 A by res) in 0.5681 (sec).
+ Pair   A8-GLU 37,  A11-LYS 39:      -0.35169180 at      2.791 A (0.450 A by res) in 0.5110 (sec).
+ Pair   A8-GLU 37,  A11-LYS 40:      -0.39310706 at      2.791 A (0.450 A by res) in 0.5471 (sec).
+ Pair   A8-GLU 37,  A11-LYS 41:      -0.40278807 at      2.791 A (0.450 A by res) in 0.6339 (sec).
+ Pair   A8-GLU 37,  A11-LYS 42:      -0.38909264 at      2.791 A (0.450 A by res) in 0.5222 (sec).
+ Pair   A8-GLU 37,  A11-LYS 43:      -0.34795595 at      2.791 A (0.450 A by res) in 0.5566 (sec).
+ Pair   A8-GLU 37,  A11-LYS 44:      -0.32180049 at      2.673 A (0.450 A by res) in 0.5460 (sec).
+ Pair   A8-GLU 37,  A11-LYS 46:      -0.38597492 at      2.736 A (0.450 A by res) in 0.5779 (sec).
+ Pair   A8-GLU 37,  A11-LYS 47:      -0.33506736 at      2.736 A (0.450 A by res) in 0.5653 (sec).
+ Pair   A8-GLU 37,  A11-LYS 48:      -0.36152996 at      2.736 A (0.450 A by res) in 0.5552 (sec).
+ Pair   A8-GLU 37,  A11-LYS 49:      -0.32641601 at      2.736 A (0.450 A by res) in 0.5693 (sec).
+ Pair   A8-GLU 37,  A11-LYS 50:       0.60143788 at      2.054 A (0.450 A by res) in 0.5274 (sec).
+ Pair   A8-GLU 37,  A11-LYS 52:      -0.33072127 at      2.777 A (0.450 A by res) in 0.4973 (sec).
+ Pair   A8-GLU 37,  A11-LYS 53:      -0.29649658 at      2.777 A (0.450 A by res) in 0.5344 (sec).
+ Pair   A8-GLU 37,  A11-LYS 54:      -0.31238989 at      2.777 A (0.450 A by res) in 0.5553 (sec).
+ Pair   A8-GLU 37,  A11-LYS 55:      -0.31036520 at      2.777 A (0.450 A by res) in 0.5496 (sec).
+ Pair   A8-GLU 37,  B12-HIS 0 :      -0.41676122 at      5.512 A (1.569 A by res) in 0.5534 (sec).
+ Pair   A8-GLU 37,  B12-HID 1 :      -0.02577025 at      5.512 A (1.569 A by res) in 0.5494 (sec).
+ Pair   A8-GLU 37,  B12-HIE 2 :      -0.03320707 at      5.512 A (1.569 A by res) in 0.5494 (sec).
+ Pair   A8-GLU 37,  B12-HIS 9 :      -0.41883267 at      5.090 A (1.569 A by res) in 0.5614 (sec).
+ Pair   A8-GLU 37,  B12-HID 16:      -0.02755153 at      6.078 A (1.569 A by res) in 0.5466 (sec).
+ Pair   A8-GLU 37,  B12-HID 17:      -0.05281927 at      5.113 A (1.569 A by res) in 0.5949 (sec).
+ Pair   A8-GLU 37,  B12-HIE 24:      -0.02763645 at      6.078 A (1.569 A by res) in 0.5722 (sec).
+ Pair   A8-GLU 37,  B12-HIE 25:       0.00869703 at      6.027 A (1.569 A by res) in 0.5610 (sec).
+ Pair   A8-GLU 40,   A9-GLU 0 :       0.38710977 at      1.356 A (0.578 A by res) in 0.5578 (sec).
+ Pair   A8-GLU 40,   A9-GLU 36:       0.44513709 at      1.356 A (0.578 A by res) in 0.5930 (sec).
+ Pair   A8-GLU 40,   A9-GLU 37:       0.38763187 at      1.356 A (0.578 A by res) in 0.5499 (sec).
+ Pair   A8-GLU 40,   A9-GLU 40:       0.47374400 at      1.356 A (0.578 A by res) in 0.5675 (sec).
+ Pair   A8-GLU 40,  A11-LYS 0 :      -0.42148184 at      2.800 A (0.450 A by res) in 0.5770 (sec).
+ Pair   A8-GLU 40,  A11-LYD 1 :       0.02114244 at      2.800 A (0.450 A by res) in 0.5927 (sec).
+ Pair   A8-GLU 40,  A11-LYD 7 :       0.01189519 at      2.791 A (0.450 A by res) in 0.5221 (sec).
+ Pair   A8-GLU 40,  A11-LYD 8 :      -0.00156475 at      2.791 A (0.450 A by res) in 0.5487 (sec).
+ Pair   A8-GLU 40,  A11-LYD 9 :       0.00396755 at      2.791 A (0.450 A by res) in 0.6079 (sec).
+ Pair   A8-GLU 40,  A11-LYD 10:       0.40776836 at      2.791 A (0.450 A by res) in 0.5485 (sec).
+ Pair   A8-GLU 40,  A11-LYD 11:       0.56843404 at      2.791 A (0.450 A by res) in 0.5388 (sec).
+ Pair   A8-GLU 40,  A11-LYD 12:       0.00031465 at      2.791 A (0.450 A by res) in 0.5522 (sec).
+ Pair   A8-GLU 40,  A11-LYD 13:       0.00618534 at      2.791 A (0.450 A by res) in 0.5911 (sec).
+ Pair   A8-GLU 40,  A11-LYD 14:       0.02046361 at      2.791 A (0.450 A by res) in 0.5271 (sec).
+ Pair   A8-GLU 40,  A11-LYD 15:       0.02845208 at      2.791 A (0.450 A by res) in 0.5752 (sec).
+ Pair   A8-GLU 40,  A11-LYD 16:       0.00042929 at      2.791 A (0.450 A by res) in 0.6161 (sec).
+ Pair   A8-GLU 40,  A11-LYD 19:       0.01484179 at      2.736 A (0.450 A by res) in 0.5867 (sec).
+ Pair   A8-GLU 40,  A11-LYD 20:       0.01689235 at      2.736 A (0.450 A by res) in 0.6126 (sec).
+ Pair   A8-GLU 40,  A11-LYD 21:       0.04025027 at      2.736 A (0.450 A by res) in 0.5899 (sec).
+ Pair   A8-GLU 40,  A11-LYD 22:       0.01534530 at      2.736 A (0.450 A by res) in 0.5406 (sec).
+ Pair   A8-GLU 40,  A11-LYD 23:       1.00613685 at      2.054 A (0.450 A by res) in 0.5698 (sec).
+ Pair   A8-GLU 40,  A11-LYD 25:       0.02057813 at      2.777 A (0.450 A by res) in 0.5812 (sec).
+ Pair   A8-GLU 40,  A11-LYD 26:       0.00330163 at      2.777 A (0.450 A by res) in 0.5901 (sec).
+ Pair   A8-GLU 40,  A11-LYD 27:       0.00236805 at      2.777 A (0.450 A by res) in 0.6071 (sec).
+ Pair   A8-GLU 40,  A11-LYD 28:      -0.00121763 at      2.777 A (0.450 A by res) in 0.5998 (sec).
+ Pair   A8-GLU 40,  A11-LYS 30:      -0.37053984 at      2.700 A (0.450 A by res) in 0.5561 (sec).
+ Pair   A8-GLU 40,  A11-LYS 34:      -0.32700596 at      2.791 A (0.450 A by res) in 0.5689 (sec).
+ Pair   A8-GLU 40,  A11-LYS 35:      -0.30841300 at      2.791 A (0.450 A by res) in 0.5779 (sec).
+ Pair   A8-GLU 40,  A11-LYS 36:      -0.34838540 at      2.791 A (0.450 A by res) in 0.5452 (sec).
+ Pair   A8-GLU 40,  A11-LYS 37:      -0.04356602 at      2.791 A (0.450 A by res) in 0.5566 (sec).
+ Pair   A8-GLU 40,  A11-LYS 38:       0.08100855 at      2.791 A (0.450 A by res) in 0.5544 (sec).
+ Pair   A8-GLU 40,  A11-LYS 39:      -0.35739399 at      2.791 A (0.450 A by res) in 0.5261 (sec).
+ Pair   A8-GLU 40,  A11-LYS 40:      -0.40433867 at      2.791 A (0.450 A by res) in 0.5266 (sec).
+ Pair   A8-GLU 40,  A11-LYS 41:      -0.39075479 at      2.791 A (0.450 A by res) in 0.5221 (sec).
+ Pair   A8-GLU 40,  A11-LYS 42:      -0.42516130 at      2.791 A (0.450 A by res) in 0.5314 (sec).
+ Pair   A8-GLU 40,  A11-LYS 43:      -0.36966045 at      2.791 A (0.450 A by res) in 0.5495 (sec).
+ Pair   A8-GLU 40,  A11-LYS 44:      -0.34425567 at      2.673 A (0.450 A by res) in 0.5581 (sec).
+ Pair   A8-GLU 40,  A11-LYS 46:      -0.41218218 at      2.736 A (0.450 A by res) in 0.5186 (sec).
+ Pair   A8-GLU 40,  A11-LYS 47:      -0.38008439 at      2.736 A (0.450 A by res) in 0.5601 (sec).
+ Pair   A8-GLU 40,  A11-LYS 48:      -0.40834356 at      2.736 A (0.450 A by res) in 0.5515 (sec).
+ Pair   A8-GLU 40,  A11-LYS 49:      -0.35396964 at      2.736 A (0.450 A by res) in 0.5212 (sec).
+ Pair   A8-GLU 40,  A11-LYS 50:       0.50399985 at      2.054 A (0.450 A by res) in 0.5905 (sec).
+ Pair   A8-GLU 40,  A11-LYS 52:      -0.36006370 at      2.777 A (0.450 A by res) in 0.5882 (sec).
+ Pair   A8-GLU 40,  A11-LYS 53:      -0.31546452 at      2.777 A (0.450 A by res) in 0.5799 (sec).
+ Pair   A8-GLU 40,  A11-LYS 54:      -0.33678024 at      2.777 A (0.450 A by res) in 0.5299 (sec).
+ Pair   A8-GLU 40,  A11-LYS 55:      -0.32024721 at      2.777 A (0.450 A by res) in 0.5488 (sec).
+ Pair   A8-GLU 40,  B12-HIS 0 :      -0.35198533 at      5.512 A (1.569 A by res) in 0.6302 (sec).
+ Pair   A8-GLU 40,  B12-HID 1 :      -0.01818310 at      5.512 A (1.569 A by res) in 0.5311 (sec).
+ Pair   A8-GLU 40,  B12-HIE 2 :      -0.03041207 at      5.512 A (1.569 A by res) in 0.5901 (sec).
+ Pair   A8-GLU 40,  B12-HIS 9 :      -0.35295304 at      5.090 A (1.569 A by res) in 0.5871 (sec).
+ Pair   A8-GLU 40,  B12-HID 16:      -0.01998973 at      6.383 A (1.569 A by res) in 0.6097 (sec).
+ Pair   A8-GLU 40,  B12-HID 17:      -0.04154788 at      5.113 A (1.569 A by res) in 0.5069 (sec).
+ Pair   A8-GLU 40,  B12-HIE 24:      -0.02575033 at      6.383 A (1.569 A by res) in 0.5579 (sec).
+ Pair   A8-GLU 40,  B12-HIE 25:       0.00263714 at      6.027 A (1.569 A by res) in 0.5466 (sec).
+ Pair   A8-GLU 41,   A9-GLU 0 :       0.36334236 at      1.356 A (0.578 A by res) in 0.6006 (sec).
+ Pair   A8-GLU 41,   A9-GLU 36:       0.42768447 at      1.356 A (0.578 A by res) in 0.5896 (sec).
+ Pair   A8-GLU 41,   A9-GLU 37:       0.36324832 at      1.356 A (0.578 A by res) in 0.6001 (sec).
+ Pair   A8-GLU 41,   A9-GLU 40:       0.40765330 at      1.356 A (0.578 A by res) in 0.6000 (sec).
+ Pair   A8-GLU 41,  A11-LYS 0 :      -0.72482915 at      2.800 A (0.450 A by res) in 0.5998 (sec).
+ Pair   A8-GLU 41,  A11-LYD 1 :       0.04372193 at      2.800 A (0.450 A by res) in 0.5904 (sec).
+ Pair   A8-GLU 41,  A11-LYD 7 :       0.00421930 at      2.791 A (0.450 A by res) in 0.6047 (sec).
+ Pair   A8-GLU 41,  A11-LYD 8 :      -0.02246914 at      2.791 A (0.450 A by res) in 0.6131 (sec).
+ Pair   A8-GLU 41,  A11-LYD 9 :      -0.00784259 at      2.791 A (0.450 A by res) in 0.5853 (sec).
+ Pair   A8-GLU 41,  A11-LYD 10:      -0.10223115 at      2.791 A (0.450 A by res) in 0.6127 (sec).
+ Pair   A8-GLU 41,  A11-LYD 11:      -0.26588371 at      2.791 A (0.450 A by res) in 0.5710 (sec).
+ Pair   A8-GLU 41,  A11-LYD 12:      -0.02512034 at      2.791 A (0.450 A by res) in 0.5261 (sec).
+ Pair   A8-GLU 41,  A11-LYD 13:      -0.00657612 at      2.791 A (0.450 A by res) in 0.5440 (sec).
+ Pair   A8-GLU 41,  A11-LYD 14:       0.02131678 at      2.791 A (0.450 A by res) in 0.6000 (sec).
+ Pair   A8-GLU 41,  A11-LYD 15:       0.05953289 at      2.791 A (0.450 A by res) in 0.5530 (sec).
+ Pair   A8-GLU 41,  A11-LYD 16:      -0.02506246 at      2.791 A (0.450 A by res) in 0.6062 (sec).
+ Pair   A8-GLU 41,  A11-LYD 19:      -0.01729472 at      2.736 A (0.450 A by res) in 0.5832 (sec).
+ Pair   A8-GLU 41,  A11-LYD 20:       0.00193773 at      2.736 A (0.450 A by res) in 0.5450 (sec).
+ Pair   A8-GLU 41,  A11-LYD 21:       0.06907231 at      2.736 A (0.450 A by res) in 0.5917 (sec).
+ Pair   A8-GLU 41,  A11-LYD 22:       0.00369950 at      2.736 A (0.450 A by res) in 0.5693 (sec).
+ Pair   A8-GLU 41,  A11-LYD 23:       2.26282224 at      1.911 A (0.450 A by res) in 0.5831 (sec).
+ Pair   A8-GLU 41,  A11-LYD 25:       0.02562038 at      2.777 A (0.450 A by res) in 0.5753 (sec).
+ Pair   A8-GLU 41,  A11-LYD 26:      -0.00984799 at      2.777 A (0.450 A by res) in 0.5576 (sec).
+ Pair   A8-GLU 41,  A11-LYD 27:      -0.01759137 at      2.777 A (0.450 A by res) in 0.5883 (sec).
+ Pair   A8-GLU 41,  A11-LYD 28:      -0.02381707 at      2.777 A (0.450 A by res) in 0.5776 (sec).
+ Pair   A8-GLU 41,  A11-LYS 30:      -0.55853643 at      2.700 A (0.450 A by res) in 0.5955 (sec).
+ Pair   A8-GLU 41,  A11-LYS 34:      -0.48897072 at      2.791 A (0.450 A by res) in 0.5637 (sec).
+ Pair   A8-GLU 41,  A11-LYS 35:      -0.45921791 at      2.791 A (0.450 A by res) in 0.5590 (sec).
+ Pair   A8-GLU 41,  A11-LYS 36:      -0.54748191 at      2.791 A (0.450 A by res) in 0.5402 (sec).
+ Pair   A8-GLU 41,  A11-LYS 37:      -0.90371900 at      2.791 A (0.450 A by res) in 0.5732 (sec).
+ Pair   A8-GLU 41,  A11-LYS 38:      -1.51068554 at      2.791 A (0.450 A by res) in 0.5909 (sec).
+ Pair   A8-GLU 41,  A11-LYS 39:      -0.57174577 at      2.791 A (0.450 A by res) in 0.5747 (sec).
+ Pair   A8-GLU 41,  A11-LYS 40:      -0.67729757 at      2.791 A (0.450 A by res) in 0.5250 (sec).
+ Pair   A8-GLU 41,  A11-LYS 41:      -0.63110707 at      2.791 A (0.450 A by res) in 0.5886 (sec).
+ Pair   A8-GLU 41,  A11-LYS 42:      -0.76648676 at      2.791 A (0.450 A by res) in 0.5636 (sec).
+ Pair   A8-GLU 41,  A11-LYS 43:      -0.60685172 at      2.791 A (0.450 A by res) in 0.5424 (sec).
+ Pair   A8-GLU 41,  A11-LYS 44:      -0.51533643 at      2.673 A (0.450 A by res) in 0.5942 (sec).
+ Pair   A8-GLU 41,  A11-LYS 46:      -0.74545200 at      2.736 A (0.450 A by res) in 0.5527 (sec).
+ Pair   A8-GLU 41,  A11-LYS 47:      -0.56448912 at      2.736 A (0.450 A by res) in 0.5266 (sec).
+ Pair   A8-GLU 41,  A11-LYS 48:      -0.69977951 at      2.736 A (0.450 A by res) in 0.5165 (sec).
+ Pair   A8-GLU 41,  A11-LYS 49:      -0.55039981 at      2.736 A (0.450 A by res) in 0.5212 (sec).
+ Pair   A8-GLU 41,  A11-LYS 50:      -0.25538114 at      1.911 A (0.450 A by res) in 0.5198 (sec).
+ Pair   A8-GLU 41,  A11-LYS 52:      -0.55617041 at      2.777 A (0.450 A by res) in 0.5493 (sec).
+ Pair   A8-GLU 41,  A11-LYS 53:      -0.46357563 at      2.777 A (0.450 A by res) in 0.5207 (sec).
+ Pair   A8-GLU 41,  A11-LYS 54:      -0.48987103 at      2.777 A (0.450 A by res) in 0.5278 (sec).
+ Pair   A8-GLU 41,  A11-LYS 55:      -0.48546618 at      2.777 A (0.450 A by res) in 0.5435 (sec).
+ Pair   A8-GLU 41,  B12-HIS 0 :      -0.35365140 at      5.512 A (1.569 A by res) in 0.5372 (sec).
+ Pair   A8-GLU 41,  B12-HID 1 :      -0.01920204 at      5.512 A (1.569 A by res) in 0.5917 (sec).
+ Pair   A8-GLU 41,  B12-HIE 2 :      -0.02660602 at      5.512 A (1.569 A by res) in 0.5859 (sec).
+ Pair   A8-GLU 41,  B12-HIS 9 :      -0.35405775 at      5.090 A (1.569 A by res) in 0.5871 (sec).
+ Pair   A8-GLU 41,  B12-HID 16:      -0.02358306 at      6.383 A (1.569 A by res) in 0.5453 (sec).
+ Pair   A8-GLU 41,  B12-HID 17:      -0.04299045 at      5.113 A (1.569 A by res) in 0.5488 (sec).
+ Pair   A8-GLU 41,  B12-HIE 24:      -0.01822968 at      6.383 A (1.569 A by res) in 0.5623 (sec).
+ Pair   A8-GLU 41,  B12-HIE 25:       0.00313243 at      6.027 A (1.569 A by res) in 0.5651 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 0 :      -0.27567705 at      3.188 A (2.847 A by res) in 0.5863 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 1 :      -0.00345204 at      3.188 A (2.847 A by res) in 0.5503 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 7 :       0.00284675 at      3.188 A (2.847 A by res) in 0.5533 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 8 :      -0.00000509 at      3.188 A (2.847 A by res) in 0.5047 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 9 :      -0.00312436 at      3.188 A (2.847 A by res) in 0.5149 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 10:       0.00293724 at      3.188 A (2.847 A by res) in 0.5322 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 11:      -0.00914353 at      3.188 A (2.847 A by res) in 0.5571 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 12:       0.00070229 at      3.188 A (2.847 A by res) in 0.5903 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 13:      -0.00356223 at      3.188 A (2.847 A by res) in 0.5541 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 14:       0.00048221 at      3.188 A (2.847 A by res) in 0.5369 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 15:      -0.00056004 at      3.188 A (2.847 A by res) in 0.5551 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 16:      -0.00817610 at      3.188 A (2.847 A by res) in 0.5272 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 19:      -0.00988750 at      3.188 A (2.847 A by res) in 0.5412 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 20:       0.00118532 at      3.188 A (2.847 A by res) in 0.5321 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 21:      -0.00475878 at      3.188 A (2.847 A by res) in 0.5497 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 22:      -0.01204177 at      3.188 A (2.847 A by res) in 0.5181 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 23:      -0.01107612 at      3.188 A (2.847 A by res) in 0.5656 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 25:      -0.00349762 at      3.188 A (2.847 A by res) in 0.5803 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 26:      -0.01261073 at      3.188 A (2.847 A by res) in 0.5295 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 27:      -0.00224238 at      3.188 A (2.847 A by res) in 0.5276 (sec).
+ Pair   A9-GLU 0 ,  A11-LYD 28:      -0.00613477 at      3.188 A (2.847 A by res) in 0.5371 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 30:      -0.29412924 at      3.188 A (2.847 A by res) in 0.5297 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 34:      -0.27710300 at      3.188 A (2.847 A by res) in 0.5103 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 35:      -0.26406601 at      3.188 A (2.847 A by res) in 0.5104 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 36:      -0.26719987 at      3.188 A (2.847 A by res) in 0.5107 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 37:      -0.30533130 at      3.188 A (2.847 A by res) in 0.5149 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 38:      -0.29210793 at      3.188 A (2.847 A by res) in 0.5167 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 39:      -0.26777951 at      3.188 A (2.847 A by res) in 0.5085 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 40:      -0.26488631 at      3.188 A (2.847 A by res) in 0.5224 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 41:      -0.27807603 at      3.188 A (2.847 A by res) in 0.4969 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 42:      -0.27834341 at      3.188 A (2.847 A by res) in 0.5271 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 43:      -0.28046503 at      3.188 A (2.847 A by res) in 0.5560 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 44:      -0.29799063 at      3.188 A (2.847 A by res) in 0.5200 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 46:      -0.28212884 at      3.188 A (2.847 A by res) in 0.5179 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 47:      -0.31711606 at      3.188 A (2.847 A by res) in 0.5399 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 48:      -0.28981146 at      3.188 A (2.847 A by res) in 0.5419 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 49:      -0.29217060 at      3.188 A (2.847 A by res) in 0.5206 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 50:      -0.30915327 at      3.188 A (2.847 A by res) in 0.5200 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 52:      -0.29585632 at      3.188 A (2.847 A by res) in 0.5626 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 53:      -0.29085833 at      3.188 A (2.847 A by res) in 0.5741 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 54:      -0.32152701 at      3.188 A (2.847 A by res) in 0.5271 (sec).
+ Pair   A9-GLU 0 ,  A11-LYS 55:      -0.28112051 at      3.188 A (2.847 A by res) in 0.5176 (sec).
+ Pair   A9-GLU 0 ,  B12-HIS 0 :      -0.49764577 at      2.540 A (0.927 A by res) in 0.5681 (sec).
+ Pair   A9-GLU 0 ,  B12-HID 1 :       0.05871805 at      2.540 A (0.927 A by res) in 0.5381 (sec).
+ Pair   A9-GLU 0 ,  B12-HIE 2 :      -0.03609575 at      2.540 A (0.927 A by res) in 0.5816 (sec).
+ Pair   A9-GLU 0 ,  B12-HIS 9 :      -0.33077641 at      2.438 A (0.927 A by res) in 0.5707 (sec).
+ Pair   A9-GLU 0 ,  B12-HID 16:       0.02031803 at      3.221 A (0.927 A by res) in 0.6252 (sec).
+ Pair   A9-GLU 0 ,  B12-HID 17:       0.11372415 at      2.506 A (0.927 A by res) in 0.5984 (sec).
+ Pair   A9-GLU 0 ,  B12-HIE 24:       0.00877700 at      3.235 A (0.927 A by res) in 0.6277 (sec).
+ Pair   A9-GLU 0 ,  B12-HIE 25:       0.02508265 at      2.458 A (0.927 A by res) in 0.5809 (sec).
+ Pair   A9-GLU 36,  A11-LYS 0 :      -0.30976781 at      3.188 A (2.847 A by res) in 0.5454 (sec).
+ Pair   A9-GLU 36,  A11-LYD 1 :       0.00238911 at      3.188 A (2.847 A by res) in 0.5474 (sec).
+ Pair   A9-GLU 36,  A11-LYD 7 :       0.01217934 at      3.188 A (2.847 A by res) in 0.5276 (sec).
+ Pair   A9-GLU 36,  A11-LYD 8 :       0.00420184 at      3.188 A (2.847 A by res) in 0.5326 (sec).
+ Pair   A9-GLU 36,  A11-LYD 9 :      -0.00120061 at      3.188 A (2.847 A by res) in 0.5400 (sec).
+ Pair   A9-GLU 36,  A11-LYD 10:       0.01201570 at      3.188 A (2.847 A by res) in 0.5944 (sec).
+ Pair   A9-GLU 36,  A11-LYD 11:      -0.00762422 at      3.188 A (2.847 A by res) in 0.5746 (sec).
+ Pair   A9-GLU 36,  A11-LYD 12:       0.00546019 at      3.188 A (2.847 A by res) in 0.5315 (sec).
+ Pair   A9-GLU 36,  A11-LYD 13:      -0.00224102 at      3.188 A (2.847 A by res) in 0.5251 (sec).
+ Pair   A9-GLU 36,  A11-LYD 14:       0.00796634 at      3.188 A (2.847 A by res) in 0.5514 (sec).
+ Pair   A9-GLU 36,  A11-LYD 15:       0.00518371 at      3.188 A (2.847 A by res) in 0.6261 (sec).
+ Pair   A9-GLU 36,  A11-LYD 16:      -0.00366846 at      3.188 A (2.847 A by res) in 0.5199 (sec).
+ Pair   A9-GLU 36,  A11-LYD 19:      -0.01217129 at      3.188 A (2.847 A by res) in 0.5735 (sec).
+ Pair   A9-GLU 36,  A11-LYD 20:       0.00225337 at      3.188 A (2.847 A by res) in 0.5688 (sec).
+ Pair   A9-GLU 36,  A11-LYD 21:      -0.00252872 at      3.188 A (2.847 A by res) in 0.5519 (sec).
+ Pair   A9-GLU 36,  A11-LYD 22:      -0.00921511 at      3.188 A (2.847 A by res) in 0.5681 (sec).
+ Pair   A9-GLU 36,  A11-LYD 23:      -0.00810446 at      3.188 A (2.847 A by res) in 0.5302 (sec).
+ Pair   A9-GLU 36,  A11-LYD 25:      -0.00077026 at      3.188 A (2.847 A by res) in 0.5630 (sec).
+ Pair   A9-GLU 36,  A11-LYD 26:      -0.00972840 at      3.188 A (2.847 A by res) in 0.5460 (sec).
+ Pair   A9-GLU 36,  A11-LYD 27:      -0.00145250 at      3.188 A (2.847 A by res) in 0.5585 (sec).
+ Pair   A9-GLU 36,  A11-LYD 28:      -0.00537281 at      3.188 A (2.847 A by res) in 0.5343 (sec).
+ Pair   A9-GLU 36,  A11-LYS 30:      -0.31524408 at      3.188 A (2.847 A by res) in 0.5706 (sec).
+ Pair   A9-GLU 36,  A11-LYS 34:      -0.33040771 at      3.188 A (2.847 A by res) in 0.5357 (sec).
+ Pair   A9-GLU 36,  A11-LYS 35:      -0.30147560 at      3.188 A (2.847 A by res) in 0.5190 (sec).
+ Pair   A9-GLU 36,  A11-LYS 36:      -0.31023834 at      3.188 A (2.847 A by res) in 0.5492 (sec).
+ Pair   A9-GLU 36,  A11-LYS 37:      -0.38772981 at      3.188 A (2.847 A by res) in 0.5223 (sec).
+ Pair   A9-GLU 36,  A11-LYS 38:      -0.35163149 at      3.188 A (2.847 A by res) in 0.5141 (sec).
+ Pair   A9-GLU 36,  A11-LYS 39:      -0.31285447 at      3.188 A (2.847 A by res) in 0.4987 (sec).
+ Pair   A9-GLU 36,  A11-LYS 40:      -0.31182885 at      3.188 A (2.847 A by res) in 0.5601 (sec).
+ Pair   A9-GLU 36,  A11-LYS 41:      -0.34022382 at      3.188 A (2.847 A by res) in 0.5108 (sec).
+ Pair   A9-GLU 36,  A11-LYS 42:      -0.31469953 at      3.188 A (2.847 A by res) in 0.4929 (sec).
+ Pair   A9-GLU 36,  A11-LYS 43:      -0.31576769 at      3.188 A (2.847 A by res) in 0.5238 (sec).
+ Pair   A9-GLU 36,  A11-LYS 44:      -0.31748487 at      3.188 A (2.847 A by res) in 0.5000 (sec).
+ Pair   A9-GLU 36,  A11-LYS 46:      -0.32094060 at      3.188 A (2.847 A by res) in 0.5722 (sec).
+ Pair   A9-GLU 36,  A11-LYS 47:      -0.33236848 at      3.188 A (2.847 A by res) in 0.5140 (sec).
+ Pair   A9-GLU 36,  A11-LYS 48:      -0.31252881 at      3.188 A (2.847 A by res) in 0.5212 (sec).
+ Pair   A9-GLU 36,  A11-LYS 49:      -0.31400341 at      3.188 A (2.847 A by res) in 0.5382 (sec).
+ Pair   A9-GLU 36,  A11-LYS 50:      -0.34631641 at      3.188 A (2.847 A by res) in 0.5274 (sec).
+ Pair   A9-GLU 36,  A11-LYS 52:      -0.31569379 at      3.188 A (2.847 A by res) in 0.5212 (sec).
+ Pair   A9-GLU 36,  A11-LYS 53:      -0.30739517 at      3.188 A (2.847 A by res) in 0.5438 (sec).
+ Pair   A9-GLU 36,  A11-LYS 54:      -0.33183815 at      3.188 A (2.847 A by res) in 0.5661 (sec).
+ Pair   A9-GLU 36,  A11-LYS 55:      -0.31276901 at      3.188 A (2.847 A by res) in 0.5281 (sec).
+ Pair   A9-GLU 36,  B12-HIS 0 :     156.61354541 at      1.327 A (0.927 A by res) in 0.5711 (sec).
+ Pair   A9-GLU 36,  B12-HID 1 :     104.97730071 at      1.327 A (0.927 A by res) in 0.5985 (sec).
+ Pair   A9-GLU 36,  B12-HIE 2 :     161.20551459 at      1.327 A (0.927 A by res) in 0.5942 (sec).
+ Pair   A9-GLU 36,  B12-HIS 9 :     310.99738109 at      1.151 A (0.927 A by res) in 0.5768 (sec).
+ Pair   A9-GLU 36,  B12-HID 16:      39.40799285 at      2.067 A (0.927 A by res) in 0.5900 (sec).
+ Pair   A9-GLU 36,  B12-HID 17:     252.88324803 at      1.202 A (0.927 A by res) in 0.5600 (sec).
+ Pair   A9-GLU 36,  B12-HIE 24:      40.22886148 at      1.783 A (0.927 A by res) in 0.6012 (sec).
+ Pair   A9-GLU 36,  B12-HIE 25:     292.79133499 at      1.154 A (0.927 A by res) in 0.5983 (sec).
+ Pair   A9-GLU 37,  A11-LYS 0 :      -0.27524129 at      3.188 A (2.847 A by res) in 0.5615 (sec).
+ Pair   A9-GLU 37,  A11-LYD 1 :      -0.00320110 at      3.188 A (2.847 A by res) in 0.5494 (sec).
+ Pair   A9-GLU 37,  A11-LYD 7 :       0.00306177 at      3.188 A (2.847 A by res) in 0.5498 (sec).
+ Pair   A9-GLU 37,  A11-LYD 8 :      -0.00005523 at      3.188 A (2.847 A by res) in 0.5227 (sec).
+ Pair   A9-GLU 37,  A11-LYD 9 :      -0.00312124 at      3.188 A (2.847 A by res) in 0.5462 (sec).
+ Pair   A9-GLU 37,  A11-LYD 10:       0.00303969 at      3.188 A (2.847 A by res) in 0.5285 (sec).
+ Pair   A9-GLU 37,  A11-LYD 11:      -0.00910473 at      3.188 A (2.847 A by res) in 0.4938 (sec).
+ Pair   A9-GLU 37,  A11-LYD 12:       0.00069973 at      3.188 A (2.847 A by res) in 0.5129 (sec).
+ Pair   A9-GLU 37,  A11-LYD 13:      -0.00354465 at      3.188 A (2.847 A by res) in 0.5347 (sec).
+ Pair   A9-GLU 37,  A11-LYD 14:       0.00073730 at      3.188 A (2.847 A by res) in 0.5120 (sec).
+ Pair   A9-GLU 37,  A11-LYD 15:      -0.00032891 at      3.188 A (2.847 A by res) in 0.5247 (sec).
+ Pair   A9-GLU 37,  A11-LYD 16:      -0.00798003 at      3.188 A (2.847 A by res) in 0.4885 (sec).
+ Pair   A9-GLU 37,  A11-LYD 19:      -0.01004730 at      3.188 A (2.847 A by res) in 0.5236 (sec).
+ Pair   A9-GLU 37,  A11-LYD 20:       0.00085736 at      3.188 A (2.847 A by res) in 0.4732 (sec).
+ Pair   A9-GLU 37,  A11-LYD 21:      -0.00470928 at      3.188 A (2.847 A by res) in 0.5146 (sec).
+ Pair   A9-GLU 37,  A11-LYD 22:      -0.01200721 at      3.188 A (2.847 A by res) in 0.4959 (sec).
+ Pair   A9-GLU 37,  A11-LYD 23:      -0.01116963 at      3.188 A (2.847 A by res) in 0.4543 (sec).
+ Pair   A9-GLU 37,  A11-LYD 25:      -0.00346807 at      3.188 A (2.847 A by res) in 0.5412 (sec).
+ Pair   A9-GLU 37,  A11-LYD 26:      -0.01253816 at      3.188 A (2.847 A by res) in 0.4738 (sec).
+ Pair   A9-GLU 37,  A11-LYD 27:      -0.00264808 at      3.188 A (2.847 A by res) in 0.4440 (sec).
+ Pair   A9-GLU 37,  A11-LYD 28:      -0.00637120 at      3.188 A (2.847 A by res) in 0.5125 (sec).
+ Pair   A9-GLU 37,  A11-LYS 30:      -0.29262181 at      3.188 A (2.847 A by res) in 0.5761 (sec).
+ Pair   A9-GLU 37,  A11-LYS 34:      -0.27666697 at      3.188 A (2.847 A by res) in 0.5433 (sec).
+ Pair   A9-GLU 37,  A11-LYS 35:      -0.26309740 at      3.188 A (2.847 A by res) in 0.5333 (sec).
+ Pair   A9-GLU 37,  A11-LYS 36:      -0.26671416 at      3.188 A (2.847 A by res) in 0.5473 (sec).
+ Pair   A9-GLU 37,  A11-LYS 37:      -0.30630431 at      3.188 A (2.847 A by res) in 0.5506 (sec).
+ Pair   A9-GLU 37,  A11-LYS 38:      -0.29268776 at      3.188 A (2.847 A by res) in 0.4942 (sec).
+ Pair   A9-GLU 37,  A11-LYS 39:      -0.26746050 at      3.188 A (2.847 A by res) in 0.5259 (sec).
+ Pair   A9-GLU 37,  A11-LYS 40:      -0.26500796 at      3.188 A (2.847 A by res) in 0.5186 (sec).
+ Pair   A9-GLU 37,  A11-LYS 41:      -0.27846890 at      3.188 A (2.847 A by res) in 0.4976 (sec).
+ Pair   A9-GLU 37,  A11-LYS 42:      -0.27796296 at      3.188 A (2.847 A by res) in 0.4831 (sec).
+ Pair   A9-GLU 37,  A11-LYS 43:      -0.27959264 at      3.188 A (2.847 A by res) in 0.5160 (sec).
+ Pair   A9-GLU 37,  A11-LYS 44:      -0.29600768 at      3.188 A (2.847 A by res) in 0.4984 (sec).
+ Pair   A9-GLU 37,  A11-LYS 46:      -0.28185749 at      3.188 A (2.847 A by res) in 0.4618 (sec).
+ Pair   A9-GLU 37,  A11-LYS 47:      -0.31569588 at      3.188 A (2.847 A by res) in 0.4595 (sec).
+ Pair   A9-GLU 37,  A11-LYS 48:      -0.28901010 at      3.188 A (2.847 A by res) in 0.4575 (sec).
+ Pair   A9-GLU 37,  A11-LYS 49:      -0.29078579 at      3.188 A (2.847 A by res) in 0.4483 (sec).
+ Pair   A9-GLU 37,  A11-LYS 50:      -0.30917216 at      3.188 A (2.847 A by res) in 0.5002 (sec).
+ Pair   A9-GLU 37,  A11-LYS 52:      -0.29419323 at      3.188 A (2.847 A by res) in 0.4960 (sec).
+ Pair   A9-GLU 37,  A11-LYS 53:      -0.28861021 at      3.188 A (2.847 A by res) in 0.4772 (sec).
+ Pair   A9-GLU 37,  A11-LYS 54:      -0.31857378 at      3.188 A (2.847 A by res) in 0.4680 (sec).
+ Pair   A9-GLU 37,  A11-LYS 55:      -0.27969835 at      3.188 A (2.847 A by res) in 0.4958 (sec).
+ Pair   A9-GLU 37,  B12-HIS 0 :      -0.62336459 at      2.449 A (0.927 A by res) in 0.5191 (sec).
+ Pair   A9-GLU 37,  B12-HID 1 :       0.16831317 at      2.449 A (0.927 A by res) in 0.6095 (sec).
+ Pair   A9-GLU 37,  B12-HIE 2 :      -0.15130511 at      2.449 A (0.927 A by res) in 0.5485 (sec).
+ Pair   A9-GLU 37,  B12-HIS 9 :      -0.43032493 at      2.371 A (0.927 A by res) in 0.5643 (sec).
+ Pair   A9-GLU 37,  B12-HID 16:       0.10606928 at      3.194 A (0.927 A by res) in 0.5928 (sec).
+ Pair   A9-GLU 37,  B12-HID 17:       0.05765997 at      2.440 A (0.927 A by res) in 0.5672 (sec).
+ Pair   A9-GLU 37,  B12-HIE 24:      -0.10219701 at      3.209 A (0.927 A by res) in 0.5476 (sec).
+ Pair   A9-GLU 37,  B12-HIE 25:       0.00178325 at      2.389 A (0.927 A by res) in 0.5147 (sec).
+ Pair   A9-GLU 40,  A11-LYS 0 :      -0.28730100 at      3.188 A (2.847 A by res) in 0.5643 (sec).
+ Pair   A9-GLU 40,  A11-LYD 1 :      -0.00604652 at      3.188 A (2.847 A by res) in 0.5035 (sec).
+ Pair   A9-GLU 40,  A11-LYD 7 :      -0.00056731 at      3.188 A (2.847 A by res) in 0.4919 (sec).
+ Pair   A9-GLU 40,  A11-LYD 8 :      -0.00525382 at      3.188 A (2.847 A by res) in 0.4755 (sec).
+ Pair   A9-GLU 40,  A11-LYD 9 :      -0.00675845 at      3.188 A (2.847 A by res) in 0.5219 (sec).
+ Pair   A9-GLU 40,  A11-LYD 10:      -0.00321520 at      3.188 A (2.847 A by res) in 0.5169 (sec).
+ Pair   A9-GLU 40,  A11-LYD 11:      -0.01474344 at      3.188 A (2.847 A by res) in 0.5034 (sec).
+ Pair   A9-GLU 40,  A11-LYD 12:      -0.00434106 at      3.188 A (2.847 A by res) in 0.5183 (sec).
+ Pair   A9-GLU 40,  A11-LYD 13:      -0.00717479 at      3.188 A (2.847 A by res) in 0.5175 (sec).
+ Pair   A9-GLU 40,  A11-LYD 14:      -0.00204081 at      3.188 A (2.847 A by res) in 0.5098 (sec).
+ Pair   A9-GLU 40,  A11-LYD 15:      -0.00282075 at      3.188 A (2.847 A by res) in 0.5003 (sec).
+ Pair   A9-GLU 40,  A11-LYD 16:      -0.01220823 at      3.188 A (2.847 A by res) in 0.5192 (sec).
+ Pair   A9-GLU 40,  A11-LYD 19:      -0.01278293 at      3.188 A (2.847 A by res) in 0.5299 (sec).
+ Pair   A9-GLU 40,  A11-LYD 20:      -0.00355507 at      3.188 A (2.847 A by res) in 0.4890 (sec).
+ Pair   A9-GLU 40,  A11-LYD 21:      -0.00601509 at      3.188 A (2.847 A by res) in 0.4807 (sec).
+ Pair   A9-GLU 40,  A11-LYD 22:      -0.01523429 at      3.188 A (2.847 A by res) in 0.4675 (sec).
+ Pair   A9-GLU 40,  A11-LYD 23:      -0.01624149 at      3.188 A (2.847 A by res) in 0.5571 (sec).
+ Pair   A9-GLU 40,  A11-LYD 25:      -0.00474456 at      3.188 A (2.847 A by res) in 0.5003 (sec).
+ Pair   A9-GLU 40,  A11-LYD 26:      -0.01513045 at      3.188 A (2.847 A by res) in 0.4766 (sec).
+ Pair   A9-GLU 40,  A11-LYD 27:      -0.00777063 at      3.188 A (2.847 A by res) in 0.4745 (sec).
+ Pair   A9-GLU 40,  A11-LYD 28:      -0.01038036 at      3.188 A (2.847 A by res) in 0.4756 (sec).
+ Pair   A9-GLU 40,  A11-LYS 30:      -0.29895919 at      3.188 A (2.847 A by res) in 0.5087 (sec).
+ Pair   A9-GLU 40,  A11-LYS 34:      -0.27501204 at      3.188 A (2.847 A by res) in 0.4884 (sec).
+ Pair   A9-GLU 40,  A11-LYS 35:      -0.26154189 at      3.188 A (2.847 A by res) in 0.5156 (sec).
+ Pair   A9-GLU 40,  A11-LYS 36:      -0.26991727 at      3.188 A (2.847 A by res) in 0.4902 (sec).
+ Pair   A9-GLU 40,  A11-LYS 37:      -0.32085296 at      3.188 A (2.847 A by res) in 0.4905 (sec).
+ Pair   A9-GLU 40,  A11-LYS 38:      -0.31109109 at      3.188 A (2.847 A by res) in 0.5055 (sec).
+ Pair   A9-GLU 40,  A11-LYS 39:      -0.27233438 at      3.188 A (2.847 A by res) in 0.5636 (sec).
+ Pair   A9-GLU 40,  A11-LYS 40:      -0.27498127 at      3.188 A (2.847 A by res) in 0.5105 (sec).
+ Pair   A9-GLU 40,  A11-LYS 41:      -0.28550332 at      3.188 A (2.847 A by res) in 0.5099 (sec).
+ Pair   A9-GLU 40,  A11-LYS 42:      -0.29031770 at      3.188 A (2.847 A by res) in 0.4805 (sec).
+ Pair   A9-GLU 40,  A11-LYS 43:      -0.28588425 at      3.188 A (2.847 A by res) in 0.5051 (sec).
+ Pair   A9-GLU 40,  A11-LYS 44:      -0.29942357 at      3.188 A (2.847 A by res) in 0.5290 (sec).
+ Pair   A9-GLU 40,  A11-LYS 46:      -0.29341432 at      3.188 A (2.847 A by res) in 0.5309 (sec).
+ Pair   A9-GLU 40,  A11-LYS 47:      -0.32867646 at      3.188 A (2.847 A by res) in 0.4662 (sec).
+ Pair   A9-GLU 40,  A11-LYS 48:      -0.30225542 at      3.188 A (2.847 A by res) in 0.4762 (sec).
+ Pair   A9-GLU 40,  A11-LYS 49:      -0.29760113 at      3.188 A (2.847 A by res) in 0.5010 (sec).
+ Pair   A9-GLU 40,  A11-LYS 50:      -0.33278229 at      3.188 A (2.847 A by res) in 0.5554 (sec).
+ Pair   A9-GLU 40,  A11-LYS 52:      -0.29907044 at      3.188 A (2.847 A by res) in 0.4799 (sec).
+ Pair   A9-GLU 40,  A11-LYS 53:      -0.28735148 at      3.188 A (2.847 A by res) in 0.4908 (sec).
+ Pair   A9-GLU 40,  A11-LYS 54:      -0.31887818 at      3.188 A (2.847 A by res) in 0.4822 (sec).
+ Pair   A9-GLU 40,  A11-LYS 55:      -0.27855439 at      3.188 A (2.847 A by res) in 0.4891 (sec).
+ Pair   A9-GLU 40,  B12-HIS 0 :      -0.40963951 at      3.270 A (0.927 A by res) in 0.5344 (sec).
+ Pair   A9-GLU 40,  B12-HID 1 :       0.04046625 at      3.270 A (0.927 A by res) in 0.5394 (sec).
+ Pair   A9-GLU 40,  B12-HIE 2 :       0.02860525 at      3.270 A (0.927 A by res) in 0.5055 (sec).
+ Pair   A9-GLU 40,  B12-HIS 9 :      -0.33330390 at      3.088 A (0.927 A by res) in 0.5360 (sec).
+ Pair   A9-GLU 40,  B12-HID 16:      -0.06739793 at      3.870 A (0.927 A by res) in 0.5287 (sec).
+ Pair   A9-GLU 40,  B12-HID 17:       0.09998512 at      3.090 A (0.927 A by res) in 0.5233 (sec).
+ Pair   A9-GLU 40,  B12-HIE 24:      -0.15080782 at      3.843 A (0.927 A by res) in 0.5621 (sec).
+ Pair   A9-GLU 40,  B12-HIE 25:       0.06688490 at      3.528 A (0.927 A by res) in 0.5502 (sec).
+ Pair  A11-LYS 0 ,  A15-GLU 0 :      -0.38934382 at      2.044 A (0.314 A by res) in 0.4752 (sec).
+ Pair  A11-LYS 0 ,  A15-GLU 36:      -0.38933454 at      2.044 A (0.314 A by res) in 0.4972 (sec).
+ Pair  A11-LYS 0 ,  A15-GLU 37:      -0.51877191 at      2.044 A (0.314 A by res) in 0.5432 (sec).
+ Pair  A11-LYS 0 ,  A15-GLU 38:      -0.31257085 at      2.044 A (0.314 A by res) in 0.5701 (sec).
+ Pair  A11-LYS 0 ,  A15-GLU 40:       1.55005413 at      2.044 A (0.314 A by res) in 0.5254 (sec).
+ Pair  A11-LYS 0 ,  A15-GLU 41:      -0.42906912 at      2.044 A (0.314 A by res) in 0.4813 (sec).
+ Pair  A11-LYD 1 ,  A15-GLU 0 :       0.03197606 at      2.044 A (0.314 A by res) in 0.5285 (sec).
+ Pair  A11-LYD 1 ,  A15-GLU 36:       0.03200237 at      2.044 A (0.314 A by res) in 0.5138 (sec).
+ Pair  A11-LYD 1 ,  A15-GLU 37:       0.00929497 at      2.044 A (0.314 A by res) in 0.4801 (sec).
+ Pair  A11-LYD 1 ,  A15-GLU 38:       0.04767581 at      2.044 A (0.314 A by res) in 0.5591 (sec).
+ Pair  A11-LYD 1 ,  A15-GLU 40:       2.25113475 at      2.044 A (0.314 A by res) in 0.4748 (sec).
+ Pair  A11-LYD 1 ,  A15-GLU 41:       0.05201650 at      2.044 A (0.314 A by res) in 0.4871 (sec).
+ Pair  A11-LYD 7 ,  A15-GLU 0 :       1.35257110 at      1.966 A (0.314 A by res) in 0.4752 (sec).
+ Pair  A11-LYD 7 ,  A15-GLU 36:       1.35294937 at      1.966 A (0.314 A by res) in 0.5154 (sec).
+ Pair  A11-LYD 7 ,  A15-GLU 37:       1.79563572 at      1.966 A (0.314 A by res) in 0.4867 (sec).
+ Pair  A11-LYD 7 ,  A15-GLU 38:       1.78451257 at      1.966 A (0.314 A by res) in 0.4738 (sec).
+ Pair  A11-LYD 7 ,  A15-GLU 40:    1819.65194793 at      0.769 A (0.314 A by res) in 0.4694 (sec).
+ Pair  A11-LYD 7 ,  A15-GLU 41:     187.68860556 at      1.026 A (0.314 A by res) in 0.4650 (sec).
+ Pair  A11-LYD 8 ,  A15-GLU 0 :       0.12649910 at      2.044 A (0.314 A by res) in 0.4934 (sec).
+ Pair  A11-LYD 8 ,  A15-GLU 36:       0.12652720 at      2.044 A (0.314 A by res) in 0.4781 (sec).
+ Pair  A11-LYD 8 ,  A15-GLU 37:       0.03445663 at      2.044 A (0.314 A by res) in 0.4738 (sec).
+ Pair  A11-LYD 8 ,  A15-GLU 38:       0.11650263 at      2.044 A (0.314 A by res) in 0.4925 (sec).
+ Pair  A11-LYD 8 ,  A15-GLU 40:     256.47307144 at      1.118 A (0.314 A by res) in 0.4557 (sec).
+ Pair  A11-LYD 8 ,  A15-GLU 41:       5.99044613 at      1.913 A (0.314 A by res) in 0.5040 (sec).
+ Pair  A11-LYD 9 ,  A15-GLU 0 :       0.08466033 at      2.044 A (0.314 A by res) in 0.4945 (sec).
+ Pair  A11-LYD 9 ,  A15-GLU 36:       0.08468630 at      2.044 A (0.314 A by res) in 0.4832 (sec).
+ Pair  A11-LYD 9 ,  A15-GLU 37:       0.00650013 at      2.044 A (0.314 A by res) in 0.4693 (sec).
+ Pair  A11-LYD 9 ,  A15-GLU 38:       0.10016790 at      2.044 A (0.314 A by res) in 0.4909 (sec).
+ Pair  A11-LYD 9 ,  A15-GLU 40:     336.02689069 at      1.048 A (0.314 A by res) in 0.4888 (sec).
+ Pair  A11-LYD 9 ,  A15-GLU 41:       3.57875301 at      1.900 A (0.314 A by res) in 0.4874 (sec).
+ Pair  A11-LYD 10,  A15-GLU 0 :       0.06457429 at      2.044 A (0.314 A by res) in 0.4578 (sec).
+ Pair  A11-LYD 10,  A15-GLU 36:       0.06460575 at      2.044 A (0.314 A by res) in 0.4767 (sec).
+ Pair  A11-LYD 10,  A15-GLU 37:      -0.06802021 at      2.044 A (0.314 A by res) in 0.4480 (sec).
+ Pair  A11-LYD 10,  A15-GLU 38:       0.07772414 at      2.044 A (0.314 A by res) in 0.4934 (sec).
+ Pair  A11-LYD 10,  A15-GLU 40:       1.94414964 at      2.044 A (0.314 A by res) in 0.4884 (sec).
+ Pair  A11-LYD 10,  A15-GLU 41:       0.09676452 at      2.044 A (0.314 A by res) in 0.5138 (sec).
+ Pair  A11-LYD 11,  A15-GLU 0 :       0.04988594 at      2.044 A (0.314 A by res) in 0.5555 (sec).
+ Pair  A11-LYD 11,  A15-GLU 36:       0.04991973 at      2.044 A (0.314 A by res) in 0.4702 (sec).
+ Pair  A11-LYD 11,  A15-GLU 37:       0.01124240 at      2.044 A (0.314 A by res) in 0.4746 (sec).
+ Pair  A11-LYD 11,  A15-GLU 38:       0.05315046 at      2.044 A (0.314 A by res) in 0.4726 (sec).
+ Pair  A11-LYD 11,  A15-GLU 40:       1.90365874 at      2.044 A (0.314 A by res) in 0.4968 (sec).
+ Pair  A11-LYD 11,  A15-GLU 41:       0.07524756 at      2.044 A (0.314 A by res) in 0.5033 (sec).
+ Pair  A11-LYD 12,  A15-GLU 0 :       0.07885122 at      2.044 A (0.314 A by res) in 0.5066 (sec).
+ Pair  A11-LYD 12,  A15-GLU 36:       0.07890229 at      2.044 A (0.314 A by res) in 0.5088 (sec).
+ Pair  A11-LYD 12,  A15-GLU 37:      -0.11821607 at      2.044 A (0.314 A by res) in 0.4858 (sec).
+ Pair  A11-LYD 12,  A15-GLU 38:       0.07820515 at      2.044 A (0.314 A by res) in 0.4942 (sec).
+ Pair  A11-LYD 12,  A15-GLU 40:      33.43616452 at      1.720 A (0.314 A by res) in 0.5158 (sec).
+ Pair  A11-LYD 12,  A15-GLU 41:      -0.17128947 at      2.044 A (0.314 A by res) in 0.5058 (sec).
+ Pair  A11-LYD 13,  A15-GLU 0 :       0.03819881 at      2.044 A (0.314 A by res) in 0.5049 (sec).
+ Pair  A11-LYD 13,  A15-GLU 36:       0.03824071 at      2.044 A (0.314 A by res) in 0.4799 (sec).
+ Pair  A11-LYD 13,  A15-GLU 37:      -0.15752494 at      2.044 A (0.314 A by res) in 0.5110 (sec).
+ Pair  A11-LYD 13,  A15-GLU 38:       0.05277759 at      2.044 A (0.314 A by res) in 0.4723 (sec).
+ Pair  A11-LYD 13,  A15-GLU 40:      22.58581648 at      1.805 A (0.314 A by res) in 0.4619 (sec).
+ Pair  A11-LYD 13,  A15-GLU 41:       0.03355508 at      2.044 A (0.314 A by res) in 0.5061 (sec).
+ Pair  A11-LYD 14,  A15-GLU 0 :       0.13860331 at      2.044 A (0.314 A by res) in 0.4714 (sec).
+ Pair  A11-LYD 14,  A15-GLU 36:       0.13871270 at      2.044 A (0.314 A by res) in 0.4779 (sec).
+ Pair  A11-LYD 14,  A15-GLU 37:       0.11535519 at      2.044 A (0.314 A by res) in 0.4999 (sec).
+ Pair  A11-LYD 14,  A15-GLU 38:       0.15200346 at      2.044 A (0.314 A by res) in 0.4977 (sec).
+ Pair  A11-LYD 14,  A15-GLU 40:     154.47888790 at      1.332 A (0.314 A by res) in 0.4915 (sec).
+ Pair  A11-LYD 14,  A15-GLU 41:       0.23285681 at      1.923 A (0.314 A by res) in 0.4755 (sec).
+ Pair  A11-LYD 15,  A15-GLU 0 :       0.03004314 at      2.044 A (0.314 A by res) in 0.4912 (sec).
+ Pair  A11-LYD 15,  A15-GLU 36:       0.03007042 at      2.044 A (0.314 A by res) in 0.4591 (sec).
+ Pair  A11-LYD 15,  A15-GLU 37:      -0.00601423 at      2.044 A (0.314 A by res) in 0.4818 (sec).
+ Pair  A11-LYD 15,  A15-GLU 38:       0.04860175 at      2.044 A (0.314 A by res) in 0.4542 (sec).
+ Pair  A11-LYD 15,  A15-GLU 40:       2.11041945 at      2.044 A (0.314 A by res) in 0.4420 (sec).
+ Pair  A11-LYD 15,  A15-GLU 41:       0.04164397 at      2.044 A (0.314 A by res) in 0.4859 (sec).
+ Pair  A11-LYD 16,  A15-GLU 0 :       0.05694644 at      2.044 A (0.314 A by res) in 0.4759 (sec).
+ Pair  A11-LYD 16,  A15-GLU 36:       0.05697857 at      2.044 A (0.314 A by res) in 0.5184 (sec).
+ Pair  A11-LYD 16,  A15-GLU 37:       0.01160378 at      2.044 A (0.314 A by res) in 0.4821 (sec).
+ Pair  A11-LYD 16,  A15-GLU 38:       0.05615575 at      2.044 A (0.314 A by res) in 0.5110 (sec).
+ Pair  A11-LYD 16,  A15-GLU 40:       2.12247825 at      2.044 A (0.314 A by res) in 0.4588 (sec).
+ Pair  A11-LYD 16,  A15-GLU 41:       0.08255177 at      2.044 A (0.314 A by res) in 0.4830 (sec).
+ Pair  A11-LYD 19,  A15-GLU 0 :      -0.02047312 at      2.044 A (0.314 A by res) in 0.4668 (sec).
+ Pair  A11-LYD 19,  A15-GLU 36:      -0.02045507 at      2.044 A (0.314 A by res) in 0.4570 (sec).
+ Pair  A11-LYD 19,  A15-GLU 37:      -0.03294956 at      2.044 A (0.314 A by res) in 0.4821 (sec).
+ Pair  A11-LYD 19,  A15-GLU 38:      -0.01130623 at      2.044 A (0.314 A by res) in 0.5403 (sec).
+ Pair  A11-LYD 19,  A15-GLU 40:       0.80687758 at      2.044 A (0.314 A by res) in 0.4976 (sec).
+ Pair  A11-LYD 19,  A15-GLU 41:       0.13540225 at      2.044 A (0.314 A by res) in 0.4636 (sec).
+ Pair  A11-LYD 20,  A15-GLU 0 :      -0.00387542 at      2.044 A (0.314 A by res) in 0.4741 (sec).
+ Pair  A11-LYD 20,  A15-GLU 36:      -0.00385802 at      2.044 A (0.314 A by res) in 0.4540 (sec).
+ Pair  A11-LYD 20,  A15-GLU 37:      -0.00615246 at      2.044 A (0.314 A by res) in 0.5077 (sec).
+ Pair  A11-LYD 20,  A15-GLU 38:       0.00308943 at      2.044 A (0.314 A by res) in 0.4671 (sec).
+ Pair  A11-LYD 20,  A15-GLU 40:       0.94045571 at      2.044 A (0.314 A by res) in 0.5036 (sec).
+ Pair  A11-LYD 20,  A15-GLU 41:       0.14673781 at      2.044 A (0.314 A by res) in 0.4790 (sec).
+ Pair  A11-LYD 21,  A15-GLU 0 :      -0.01082224 at      2.044 A (0.314 A by res) in 0.4617 (sec).
+ Pair  A11-LYD 21,  A15-GLU 36:      -0.01080507 at      2.044 A (0.314 A by res) in 0.4438 (sec).
+ Pair  A11-LYD 21,  A15-GLU 37:      -0.00783328 at      2.044 A (0.314 A by res) in 0.4467 (sec).
+ Pair  A11-LYD 21,  A15-GLU 38:      -0.00023102 at      2.044 A (0.314 A by res) in 0.4581 (sec).
+ Pair  A11-LYD 21,  A15-GLU 40:       0.93509020 at      2.044 A (0.314 A by res) in 0.4686 (sec).
+ Pair  A11-LYD 21,  A15-GLU 41:       0.13488303 at      2.044 A (0.314 A by res) in 0.4928 (sec).
+ Pair  A11-LYD 22,  A15-GLU 0 :       0.00642414 at      2.044 A (0.314 A by res) in 0.4944 (sec).
+ Pair  A11-LYD 22,  A15-GLU 36:       0.00644378 at      2.044 A (0.314 A by res) in 0.4759 (sec).
+ Pair  A11-LYD 22,  A15-GLU 37:       0.00534455 at      2.044 A (0.314 A by res) in 0.4904 (sec).
+ Pair  A11-LYD 22,  A15-GLU 38:       0.00563491 at      2.044 A (0.314 A by res) in 0.4745 (sec).
+ Pair  A11-LYD 22,  A15-GLU 40:       0.96538879 at      2.044 A (0.314 A by res) in 0.4738 (sec).
+ Pair  A11-LYD 22,  A15-GLU 41:       0.16158230 at      2.044 A (0.314 A by res) in 0.4783 (sec).
+ Pair  A11-LYD 23,  A15-GLU 0 :       0.00201890 at      2.044 A (0.314 A by res) in 0.4752 (sec).
+ Pair  A11-LYD 23,  A15-GLU 36:       0.00203804 at      2.044 A (0.314 A by res) in 0.4709 (sec).
+ Pair  A11-LYD 23,  A15-GLU 37:       0.00652560 at      2.044 A (0.314 A by res) in 0.4734 (sec).
+ Pair  A11-LYD 23,  A15-GLU 38:       0.00493159 at      2.044 A (0.314 A by res) in 0.4850 (sec).
+ Pair  A11-LYD 23,  A15-GLU 40:       0.96042298 at      2.044 A (0.314 A by res) in 0.4984 (sec).
+ Pair  A11-LYD 23,  A15-GLU 41:       0.15250742 at      2.044 A (0.314 A by res) in 0.4403 (sec).
+ Pair  A11-LYD 25,  A15-GLU 0 :      -0.00765490 at      2.044 A (0.314 A by res) in 0.4819 (sec).
+ Pair  A11-LYD 25,  A15-GLU 36:      -0.00763769 at      2.044 A (0.314 A by res) in 0.4785 (sec).
+ Pair  A11-LYD 25,  A15-GLU 37:      -0.00193107 at      2.044 A (0.314 A by res) in 0.4755 (sec).
+ Pair  A11-LYD 25,  A15-GLU 38:       0.00328673 at      2.044 A (0.314 A by res) in 0.4596 (sec).
+ Pair  A11-LYD 25,  A15-GLU 40:       0.95200632 at      2.044 A (0.314 A by res) in 0.4813 (sec).
+ Pair  A11-LYD 25,  A15-GLU 41:       0.14783229 at      2.044 A (0.314 A by res) in 0.4994 (sec).
+ Pair  A11-LYD 26,  A15-GLU 0 :       0.00929884 at      2.044 A (0.314 A by res) in 0.4755 (sec).
+ Pair  A11-LYD 26,  A15-GLU 36:       0.00931868 at      2.044 A (0.314 A by res) in 0.4465 (sec).
+ Pair  A11-LYD 26,  A15-GLU 37:       0.00372098 at      2.044 A (0.314 A by res) in 0.4508 (sec).
+ Pair  A11-LYD 26,  A15-GLU 38:       0.00652673 at      2.044 A (0.314 A by res) in 0.4347 (sec).
+ Pair  A11-LYD 26,  A15-GLU 40:       0.96656491 at      2.044 A (0.314 A by res) in 0.4550 (sec).
+ Pair  A11-LYD 26,  A15-GLU 41:       0.17794673 at      2.044 A (0.314 A by res) in 0.4548 (sec).
+ Pair  A11-LYD 27,  A15-GLU 0 :      -0.00275245 at      2.044 A (0.314 A by res) in 0.4676 (sec).
+ Pair  A11-LYD 27,  A15-GLU 36:      -0.00273469 at      2.044 A (0.314 A by res) in 0.4429 (sec).
+ Pair  A11-LYD 27,  A15-GLU 37:      -0.00842390 at      2.044 A (0.314 A by res) in 0.5670 (sec).
+ Pair  A11-LYD 27,  A15-GLU 38:       0.00298335 at      2.044 A (0.314 A by res) in 0.5051 (sec).
+ Pair  A11-LYD 27,  A15-GLU 40:       0.94331464 at      2.044 A (0.314 A by res) in 0.4818 (sec).
+ Pair  A11-LYD 27,  A15-GLU 41:       0.15731086 at      2.044 A (0.314 A by res) in 0.4786 (sec).
+ Pair  A11-LYD 28,  A15-GLU 0 :       0.00980101 at      2.044 A (0.314 A by res) in 0.4611 (sec).
+ Pair  A11-LYD 28,  A15-GLU 36:       0.00982358 at      2.044 A (0.314 A by res) in 0.4700 (sec).
+ Pair  A11-LYD 28,  A15-GLU 37:      -0.00518888 at      2.044 A (0.314 A by res) in 0.5115 (sec).
+ Pair  A11-LYD 28,  A15-GLU 38:       0.01006495 at      2.044 A (0.314 A by res) in 0.4720 (sec).
+ Pair  A11-LYD 28,  A15-GLU 40:       0.84013721 at      2.044 A (0.314 A by res) in 0.4644 (sec).
+ Pair  A11-LYD 28,  A15-GLU 41:       0.23414579 at      2.044 A (0.314 A by res) in 0.5701 (sec).
+ Pair  A11-LYS 30,  A15-GLU 0 :      -0.39624438 at      2.044 A (0.314 A by res) in 0.4857 (sec).
+ Pair  A11-LYS 30,  A15-GLU 36:      -0.39624163 at      2.044 A (0.314 A by res) in 0.4979 (sec).
+ Pair  A11-LYS 30,  A15-GLU 37:      -0.44746292 at      2.044 A (0.314 A by res) in 0.4711 (sec).
+ Pair  A11-LYS 30,  A15-GLU 38:      -0.32347901 at      2.044 A (0.314 A by res) in 0.4844 (sec).
+ Pair  A11-LYS 30,  A15-GLU 40:       0.36970220 at      2.044 A (0.314 A by res) in 0.4577 (sec).
+ Pair  A11-LYS 30,  A15-GLU 41:      -0.31758733 at      2.044 A (0.314 A by res) in 0.4707 (sec).
+ Pair  A11-LYS 34,  A15-GLU 0 :       1.27089009 at      1.966 A (0.314 A by res) in 0.4537 (sec).
+ Pair  A11-LYS 34,  A15-GLU 36:       1.27134913 at      1.966 A (0.314 A by res) in 0.4674 (sec).
+ Pair  A11-LYS 34,  A15-GLU 37:       0.83722893 at      1.966 A (0.314 A by res) in 0.4332 (sec).
+ Pair  A11-LYS 34,  A15-GLU 38:       1.87395972 at      1.966 A (0.314 A by res) in 0.4686 (sec).
+ Pair  A11-LYS 34,  A15-GLU 40:    3169.38538117 at      0.769 A (0.314 A by res) in 0.4594 (sec).
+ Pair  A11-LYS 34,  A15-GLU 41:     236.15137544 at      1.026 A (0.314 A by res) in 0.4888 (sec).
+ Pair  A11-LYS 35,  A15-GLU 0 :      -0.52237088 at      2.044 A (0.314 A by res) in 0.4802 (sec).
+ Pair  A11-LYS 35,  A15-GLU 36:      -0.52244490 at      2.044 A (0.314 A by res) in 0.4816 (sec).
+ Pair  A11-LYS 35,  A15-GLU 37:      -0.53188804 at      2.044 A (0.314 A by res) in 0.4410 (sec).
+ Pair  A11-LYS 35,  A15-GLU 38:      -0.28542762 at      2.044 A (0.314 A by res) in 0.5111 (sec).
+ Pair  A11-LYS 35,  A15-GLU 40:     251.18805906 at      1.118 A (0.314 A by res) in 0.4641 (sec).
+ Pair  A11-LYS 35,  A15-GLU 41:       4.03304892 at      1.913 A (0.314 A by res) in 0.4846 (sec).
+ Pair  A11-LYS 36,  A15-GLU 0 :      -0.44527230 at      2.044 A (0.314 A by res) in 0.5209 (sec).
+ Pair  A11-LYS 36,  A15-GLU 36:      -0.44527598 at      2.044 A (0.314 A by res) in 0.4660 (sec).
+ Pair  A11-LYS 36,  A15-GLU 37:      -0.60760458 at      2.044 A (0.314 A by res) in 0.4628 (sec).
+ Pair  A11-LYS 36,  A15-GLU 38:      -0.29618165 at      2.044 A (0.314 A by res) in 0.4933 (sec).
+ Pair  A11-LYS 36,  A15-GLU 40:     332.20862092 at      1.048 A (0.314 A by res) in 0.4607 (sec).
+ Pair  A11-LYS 36,  A15-GLU 41:       3.24337749 at      1.900 A (0.314 A by res) in 0.4488 (sec).
+ Pair  A11-LYS 37,  A15-GLU 0 :      -0.42943029 at      2.044 A (0.314 A by res) in 0.4191 (sec).
+ Pair  A11-LYS 37,  A15-GLU 36:      -0.42933509 at      2.044 A (0.314 A by res) in 0.4186 (sec).
+ Pair  A11-LYS 37,  A15-GLU 37:      -1.59902217 at      2.044 A (0.314 A by res) in 0.4617 (sec).
+ Pair  A11-LYS 37,  A15-GLU 38:      -0.40559657 at      2.044 A (0.314 A by res) in 0.4511 (sec).
+ Pair  A11-LYS 37,  A15-GLU 40:      -0.40736190 at      2.044 A (0.314 A by res) in 0.4121 (sec).
+ Pair  A11-LYS 37,  A15-GLU 41:      -0.40262683 at      2.044 A (0.314 A by res) in 0.4185 (sec).
+ Pair  A11-LYS 38,  A15-GLU 0 :      -0.39971565 at      2.044 A (0.314 A by res) in 0.4493 (sec).
+ Pair  A11-LYS 38,  A15-GLU 36:      -0.39969168 at      2.044 A (0.314 A by res) in 0.4223 (sec).
+ Pair  A11-LYS 38,  A15-GLU 37:      -0.68159277 at      2.044 A (0.314 A by res) in 0.4480 (sec).
+ Pair  A11-LYS 38,  A15-GLU 38:      -0.36462955 at      2.044 A (0.314 A by res) in 0.4445 (sec).
+ Pair  A11-LYS 38,  A15-GLU 40:       0.92079832 at      2.044 A (0.314 A by res) in 0.5031 (sec).
+ Pair  A11-LYS 38,  A15-GLU 41:      -0.40793238 at      2.044 A (0.314 A by res) in 0.4858 (sec).
+ Pair  A11-LYS 39,  A15-GLU 0 :      -0.50122883 at      2.044 A (0.314 A by res) in 0.4994 (sec).
+ Pair  A11-LYS 39,  A15-GLU 36:      -0.50120030 at      2.044 A (0.314 A by res) in 0.4771 (sec).
+ Pair  A11-LYS 39,  A15-GLU 37:      -0.85366430 at      2.044 A (0.314 A by res) in 0.4797 (sec).
+ Pair  A11-LYS 39,  A15-GLU 38:      -0.35924962 at      2.044 A (0.314 A by res) in 0.4848 (sec).
+ Pair  A11-LYS 39,  A15-GLU 40:      29.68455533 at      1.720 A (0.314 A by res) in 0.4942 (sec).
+ Pair  A11-LYS 39,  A15-GLU 41:      -0.76386702 at      2.044 A (0.314 A by res) in 0.4842 (sec).
+ Pair  A11-LYS 40,  A15-GLU 0 :      -0.45239785 at      2.044 A (0.314 A by res) in 0.5173 (sec).
+ Pair  A11-LYS 40,  A15-GLU 36:      -0.45236588 at      2.044 A (0.314 A by res) in 0.4826 (sec).
+ Pair  A11-LYS 40,  A15-GLU 37:      -0.89089218 at      2.044 A (0.314 A by res) in 0.5063 (sec).
+ Pair  A11-LYS 40,  A15-GLU 38:      -0.35700963 at      2.044 A (0.314 A by res) in 0.4771 (sec).
+ Pair  A11-LYS 40,  A15-GLU 40:      20.44888709 at      1.805 A (0.314 A by res) in 0.4944 (sec).
+ Pair  A11-LYS 40,  A15-GLU 41:      -0.48883589 at      2.044 A (0.314 A by res) in 0.4304 (sec).
+ Pair  A11-LYS 41,  A15-GLU 0 :      -0.37083211 at      2.044 A (0.314 A by res) in 0.4886 (sec).
+ Pair  A11-LYS 41,  A15-GLU 36:      -0.37061670 at      2.044 A (0.314 A by res) in 0.4915 (sec).
+ Pair  A11-LYS 41,  A15-GLU 37:      -1.85609002 at      2.044 A (0.314 A by res) in 0.5053 (sec).
+ Pair  A11-LYS 41,  A15-GLU 38:      -0.32498944 at      2.044 A (0.314 A by res) in 0.4677 (sec).
+ Pair  A11-LYS 41,  A15-GLU 40:     141.77452037 at      1.332 A (0.314 A by res) in 0.5073 (sec).
+ Pair  A11-LYS 41,  A15-GLU 41:      -0.20953181 at      1.923 A (0.314 A by res) in 0.4567 (sec).
+ Pair  A11-LYS 42,  A15-GLU 0 :      -0.39388752 at      2.044 A (0.314 A by res) in 0.5230 (sec).
+ Pair  A11-LYS 42,  A15-GLU 36:      -0.39387639 at      2.044 A (0.314 A by res) in 0.4665 (sec).
+ Pair  A11-LYS 42,  A15-GLU 37:      -0.54501126 at      2.044 A (0.314 A by res) in 0.4753 (sec).
+ Pair  A11-LYS 42,  A15-GLU 38:      -0.31734060 at      2.044 A (0.314 A by res) in 0.5081 (sec).
+ Pair  A11-LYS 42,  A15-GLU 40:       1.30494834 at      2.044 A (0.314 A by res) in 0.5052 (sec).
+ Pair  A11-LYS 42,  A15-GLU 41:      -0.43994360 at      2.044 A (0.314 A by res) in 0.4929 (sec).
+ Pair  A11-LYS 43,  A15-GLU 0 :      -0.44595155 at      2.044 A (0.314 A by res) in 0.4691 (sec).
+ Pair  A11-LYS 43,  A15-GLU 36:      -0.44594512 at      2.044 A (0.314 A by res) in 0.5194 (sec).
+ Pair  A11-LYS 43,  A15-GLU 37:      -0.56241101 at      2.044 A (0.314 A by res) in 0.5480 (sec).
+ Pair  A11-LYS 43,  A15-GLU 38:      -0.33408626 at      2.044 A (0.314 A by res) in 0.4628 (sec).
+ Pair  A11-LYS 43,  A15-GLU 40:       1.09119833 at      2.044 A (0.314 A by res) in 0.4987 (sec).
+ Pair  A11-LYS 43,  A15-GLU 41:      -0.51952527 at      2.044 A (0.314 A by res) in 0.4693 (sec).
+ Pair  A11-LYS 44,  A15-GLU 0 :      -0.41037598 at      2.044 A (0.314 A by res) in 0.4407 (sec).
+ Pair  A11-LYS 44,  A15-GLU 36:      -0.41037441 at      2.044 A (0.314 A by res) in 0.4680 (sec).
+ Pair  A11-LYS 44,  A15-GLU 37:      -0.44615947 at      2.044 A (0.314 A by res) in 0.4663 (sec).
+ Pair  A11-LYS 44,  A15-GLU 38:      -0.33092433 at      2.044 A (0.314 A by res) in 0.4625 (sec).
+ Pair  A11-LYS 44,  A15-GLU 40:       0.38447776 at      2.044 A (0.314 A by res) in 0.5056 (sec).
+ Pair  A11-LYS 44,  A15-GLU 41:      -0.35311056 at      2.044 A (0.314 A by res) in 0.5158 (sec).
+ Pair  A11-LYS 46,  A15-GLU 0 :      -0.43505476 at      2.044 A (0.314 A by res) in 0.4628 (sec).
+ Pair  A11-LYS 46,  A15-GLU 36:      -0.43505501 at      2.044 A (0.314 A by res) in 0.5270 (sec).
+ Pair  A11-LYS 46,  A15-GLU 37:      -0.54471506 at      2.044 A (0.314 A by res) in 0.5185 (sec).
+ Pair  A11-LYS 46,  A15-GLU 38:      -0.36396540 at      2.044 A (0.314 A by res) in 0.4827 (sec).
+ Pair  A11-LYS 46,  A15-GLU 40:       0.09881334 at      2.044 A (0.314 A by res) in 0.5204 (sec).
+ Pair  A11-LYS 46,  A15-GLU 41:      -0.35073614 at      2.044 A (0.314 A by res) in 0.4573 (sec).
+ Pair  A11-LYS 47,  A15-GLU 0 :      -0.35368887 at      2.044 A (0.314 A by res) in 0.5090 (sec).
+ Pair  A11-LYS 47,  A15-GLU 36:      -0.35368251 at      2.044 A (0.314 A by res) in 0.5299 (sec).
+ Pair  A11-LYS 47,  A15-GLU 37:      -0.40761132 at      2.044 A (0.314 A by res) in 0.4673 (sec).
+ Pair  A11-LYS 47,  A15-GLU 38:      -0.30923483 at      2.044 A (0.314 A by res) in 0.4721 (sec).
+ Pair  A11-LYS 47,  A15-GLU 40:       0.42149842 at      2.044 A (0.314 A by res) in 0.4136 (sec).
+ Pair  A11-LYS 47,  A15-GLU 41:      -0.26713405 at      2.044 A (0.314 A by res) in 0.4778 (sec).
+ Pair  A11-LYS 48,  A15-GLU 0 :      -0.36598334 at      2.044 A (0.314 A by res) in 0.4579 (sec).
+ Pair  A11-LYS 48,  A15-GLU 36:      -0.36597968 at      2.044 A (0.314 A by res) in 0.4462 (sec).
+ Pair  A11-LYS 48,  A15-GLU 37:      -0.42847210 at      2.044 A (0.314 A by res) in 0.4544 (sec).
+ Pair  A11-LYS 48,  A15-GLU 38:      -0.31274681 at      2.044 A (0.314 A by res) in 0.4591 (sec).
+ Pair  A11-LYS 48,  A15-GLU 40:       0.38890527 at      2.044 A (0.314 A by res) in 0.4805 (sec).
+ Pair  A11-LYS 48,  A15-GLU 41:      -0.27965828 at      2.044 A (0.314 A by res) in 0.4451 (sec).
+ Pair  A11-LYS 49,  A15-GLU 0 :      -0.39845010 at      2.044 A (0.314 A by res) in 0.4643 (sec).
+ Pair  A11-LYS 49,  A15-GLU 36:      -0.39844931 at      2.044 A (0.314 A by res) in 0.4937 (sec).
+ Pair  A11-LYS 49,  A15-GLU 37:      -0.44020434 at      2.044 A (0.314 A by res) in 0.4584 (sec).
+ Pair  A11-LYS 49,  A15-GLU 38:      -0.32517625 at      2.044 A (0.314 A by res) in 0.4830 (sec).
+ Pair  A11-LYS 49,  A15-GLU 40:       0.35921378 at      2.044 A (0.314 A by res) in 0.4770 (sec).
+ Pair  A11-LYS 49,  A15-GLU 41:      -0.33565771 at      2.044 A (0.314 A by res) in 0.4758 (sec).
+ Pair  A11-LYS 50,  A15-GLU 0 :      -0.36521776 at      2.044 A (0.314 A by res) in 0.5099 (sec).
+ Pair  A11-LYS 50,  A15-GLU 36:      -0.36521070 at      2.044 A (0.314 A by res) in 0.4648 (sec).
+ Pair  A11-LYS 50,  A15-GLU 37:      -0.46895301 at      2.044 A (0.314 A by res) in 0.4569 (sec).
+ Pair  A11-LYS 50,  A15-GLU 38:      -0.33678589 at      2.044 A (0.314 A by res) in 0.4909 (sec).
+ Pair  A11-LYS 50,  A15-GLU 40:       0.35785505 at      2.044 A (0.314 A by res) in 0.4883 (sec).
+ Pair  A11-LYS 50,  A15-GLU 41:      -0.26488541 at      2.044 A (0.314 A by res) in 0.4540 (sec).
+ Pair  A11-LYS 52,  A15-GLU 0 :      -0.39407952 at      2.044 A (0.314 A by res) in 0.4891 (sec).
+ Pair  A11-LYS 52,  A15-GLU 36:      -0.39407778 at      2.044 A (0.314 A by res) in 0.4545 (sec).
+ Pair  A11-LYS 52,  A15-GLU 37:      -0.42894301 at      2.044 A (0.314 A by res) in 0.4257 (sec).
+ Pair  A11-LYS 52,  A15-GLU 38:      -0.32144289 at      2.044 A (0.314 A by res) in 0.4323 (sec).
+ Pair  A11-LYS 52,  A15-GLU 40:       0.39018335 at      2.044 A (0.314 A by res) in 0.4278 (sec).
+ Pair  A11-LYS 52,  A15-GLU 41:      -0.32081083 at      2.044 A (0.314 A by res) in 0.4785 (sec).
+ Pair  A11-LYS 53,  A15-GLU 0 :      -0.41366235 at      2.044 A (0.314 A by res) in 0.4524 (sec).
+ Pair  A11-LYS 53,  A15-GLU 36:      -0.41366240 at      2.044 A (0.314 A by res) in 0.4881 (sec).
+ Pair  A11-LYS 53,  A15-GLU 37:      -0.41576755 at      2.044 A (0.314 A by res) in 0.4268 (sec).
+ Pair  A11-LYS 53,  A15-GLU 38:      -0.32228196 at      2.044 A (0.314 A by res) in 0.4652 (sec).
+ Pair  A11-LYS 53,  A15-GLU 40:       0.40829147 at      2.044 A (0.314 A by res) in 0.5000 (sec).
+ Pair  A11-LYS 53,  A15-GLU 41:      -0.35981544 at      2.044 A (0.314 A by res) in 0.4340 (sec).
+ Pair  A11-LYS 54,  A15-GLU 0 :      -0.37573159 at      2.044 A (0.314 A by res) in 0.4788 (sec).
+ Pair  A11-LYS 54,  A15-GLU 36:      -0.37572629 at      2.044 A (0.314 A by res) in 0.4694 (sec).
+ Pair  A11-LYS 54,  A15-GLU 37:      -0.39886871 at      2.044 A (0.314 A by res) in 0.4490 (sec).
+ Pair  A11-LYS 54,  A15-GLU 38:      -0.31433356 at      2.044 A (0.314 A by res) in 0.4906 (sec).
+ Pair  A11-LYS 54,  A15-GLU 40:       0.44275813 at      2.044 A (0.314 A by res) in 0.4619 (sec).
+ Pair  A11-LYS 54,  A15-GLU 41:      -0.29716736 at      2.044 A (0.314 A by res) in 0.4735 (sec).
+ Pair  A11-LYS 55,  A15-GLU 0 :      -0.51477595 at      2.044 A (0.314 A by res) in 0.5160 (sec).
+ Pair  A11-LYS 55,  A15-GLU 36:      -0.51478559 at      2.044 A (0.314 A by res) in 0.4734 (sec).
+ Pair  A11-LYS 55,  A15-GLU 37:      -0.51075827 at      2.044 A (0.314 A by res) in 0.5261 (sec).
+ Pair  A11-LYS 55,  A15-GLU 38:      -0.37123757 at      2.044 A (0.314 A by res) in 0.4937 (sec).
+ Pair  A11-LYS 55,  A15-GLU 40:       0.07595102 at      2.044 A (0.314 A by res) in 0.4585 (sec).
+ Pair  A11-LYS 55,  A15-GLU 41:      -0.49370896 at      2.044 A (0.314 A by res) in 0.4849 (sec).
+ Pair  A15-GLU 0 ,  B20-LYS 0 :      -0.65747227 at      4.185 A (0.851 A by res) in 0.5138 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 1 :      -0.03595713 at      4.185 A (0.851 A by res) in 0.4733 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 7 :      -0.03448979 at      6.656 A (0.851 A by res) in 0.4917 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 8 :      -0.03201008 at      6.656 A (0.851 A by res) in 0.4950 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 9 :      -0.00678927 at      6.656 A (0.851 A by res) in 0.4818 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 10:      -0.03018410 at      6.802 A (0.851 A by res) in 0.4776 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 11:      -0.02940614 at      6.802 A (0.851 A by res) in 0.4605 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 12:      -0.02847676 at      6.802 A (0.851 A by res) in 0.5182 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 13:      -0.01093533 at      6.802 A (0.851 A by res) in 0.4925 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 14:      -0.03414112 at      6.802 A (0.851 A by res) in 0.4936 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 15:      -0.04796892 at      5.905 A (0.851 A by res) in 0.4562 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 16:      -0.05181278 at      5.271 A (0.851 A by res) in 0.4971 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 19:      -0.00232446 at      5.136 A (0.851 A by res) in 0.4629 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 21:      -0.02186135 at      4.035 A (0.851 A by res) in 0.5469 (sec).
+ Pair  A15-GLU 0 ,  B20-LYD 22:      -0.17192793 at      3.170 A (0.851 A by res) in 0.4927 (sec).
