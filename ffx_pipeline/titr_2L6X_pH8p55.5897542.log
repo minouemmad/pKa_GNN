@@ -1,0 +1,718 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Titration pH 8.55 started: Thu Apr 30 09:49:40 CDT 2026 ===
+  Copy already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2L6X/2L6X_pH8.55.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6947  April 2026 
+        Git Revision  519408079905b3dd4b967041b75b836f63fb563f 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2025
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Thu Apr 30 09:50:12 CDT 2026
+ Process ID 50872 on argon-itf-bx54-13.hpc.
+
+ Command line arguments:
+ [ManyBody, --tR, --pH, 8.55, --oT, -T, --kPH, 3.0, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2L6X/2L6X_pH8.55.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2L6X/2L6X_pH8.55.pdb]
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2L6X/titrate.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 2L6X_pH8.55.pdb
+
+ Assigning atom types for 1 chains.
+ Amino acid chain A
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   77.5 A).
+
+ Bonded Terms
+  Bonds:                                   3811
+  Angles:                                  6857
+  Stretch-Bends:                           6056
+  Out-of-Plane Bends:                      2487
+  Torsions:                               10036
+  Pi-Orbital Torsions:                      555
+  Torsion-Torsions:                          26
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                  3.000
+
+ Opened 2L6X_pH8.55.pdb in 1.376 sec.
+
+ System Resources
+  Total CPU time:          19.73 (sec)
+  System load average:      1.21
+  Open file handles:         146 of  81920 allowed
+  System memory:           43686 MB free out of  44520 MB
+  System swap space:        1793 MB free out of   2053 MB
+  JVM memory:               3987 MB free out of   4096 MB
+
+ Adding titration hydrogen to : /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2L6X/2L6X_pH8.55.pdb
+
+ Reading 2L6X_pH8.55.pdb
+
+ Assigning atom types for 1 chains.
+ Amino acid chain A
+ Renumbering PDB file due to built atoms (3766 vs 3751)
+ Total number of atoms: 3766
+
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   77.5 A).
+
+ Bonded Terms
+  Bonds:                                   3826
+  Angles:                                  6872
+  Stretch-Bends:                           6056
+  Out-of-Plane Bends:                      2487
+  Torsions:                               10066
+  Pi-Orbital Torsions:                      555
+  Torsion-Torsions:                          26
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 18.000
+ Temperature: 298.150000
+
+ Energy restart file: 2L6X_pH8.55.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood  -2205.41892331      0.300
+ Cavitation             2458.38090786      0.275
+ Dispersion            -1715.59369801      0.410
+
+ Computed Potential Energy
+  Bond Stretching            525.12107453         3826        0.002 ( 0.02013)
+  Angle Bending             1031.93501761         6872        0.007 ( 3.14404)
+  Stretch-Bend                13.26255054         6056        0.002
+  Out-of-Plane Bend           37.15150889         2487        0.003
+  Torsional Angle            229.45099184        10066        0.004
+  Pi-Orbital Torsion          55.46103620          555        0.001
+  Torsion-Torsion            -95.33888866           26        0.000
+  Van der Waals              915.49524833      7078797        0.197
+  Atomic Multipoles        -1460.83213247      7078797
+  Polarization              -187.90820180      7078797        3.729
+  Solvation                -1462.63171345      7093261
+  Total Potential           -398.83350844  (Kcal/mole)        3.946 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A    5-ASH -167.270  -26.594    0.000    0.000
+ A    7-ASH  -70.007  -14.992    0.000    0.000
+ A   10-ASH  -71.254   42.297    0.000    0.000
+ A   33-GLH  -61.826  169.102  -19.331    0.000
+ A   35-ASH  -69.150   14.980    0.000    0.000
+ A   40-LYS  -66.987 -179.988  179.967  179.979
+ A   42-LYS -177.006  179.980  179.983 -179.990
+ A   58-HIS  175.660  -72.163    0.000    0.000
+ A   68-GLH -177.004   65.025    9.951    0.000
+ A   71-ASH -177.026   65.033    0.000    0.000
+ A   80-ASH  175.934 -107.975    0.000    0.000
+ A   90-CYS -168.344    0.000    0.000    0.000
+ A   91-GLH  -66.987 -179.977  -10.040    0.000
+ A  108-LYS  -79.678   63.232  156.049 -160.629
+ A  109-LYS -105.352  105.353 -143.531  104.825
+ A  125-GLH -177.014  -80.002  -24.984    0.000
+ A  139-CYS  179.026    0.000    0.000    0.000
+ A  148-GLH  -81.547  -64.377  -40.543    0.000
+ A  153-GLH  -64.997   84.984    0.004    0.000
+ A  155-LYS   62.013 -179.987  179.973  179.953
+ A  158-CYS -176.986    0.000    0.000    0.000
+ A  195-ASH   61.982   10.036    0.000    0.000
+ A  210-ASH -162.759 -104.386    0.000    0.000
+ A  214-LYS  -52.002  -99.191 -166.724  -45.790
+ A  227-LYS -172.180 -171.863  176.096 -172.878
+ A  228-GLH  -67.394  -68.486  -25.791    0.000
+ A  238-HIS  -65.003  164.995    0.000    0.000
+ A  239-HIS   47.960  -72.435    0.000    0.000
+ A  240-HIS   61.989   79.976    0.000    0.000
+ A  241-HIS  146.763  150.955    0.000    0.000
+ A  242-HIS   53.295   39.806    0.000    0.000
+ A  243-HIS -176.983   59.994    0.000    0.000
+
+ Rotamer Library:     Richardson
+ Algorithm:           ALL
+ Goldstein Criteria:  true
+ Three-Body Energies: true
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.013 sec
+ Pairwise distance matrix:               222.318 sec
+
+ Beginning Energy   -1068.50024012
+
+     Residue  Nrot
+   1   A5-ASH   27
+   2   A7-ASH   27
+   3  A10-ASH   27
+   4  A33-GLH   42
+   5  A35-ASH   27
+   6  A40-LYS   56
+   7  A42-LYS   56
+   8  A58-HIS   27
+   9  A68-GLH   42
+  10  A71-ASH   27
+  11  A80-ASH   27
+  12  A90-CYS   11
+  13  A91-GLH   42
+  14 A108-LYS   56
+  15 A109-LYS   56
+  16 A125-GLH   42
+  17 A139-CYS   11
+  18 A148-GLH   42
+  19 A153-GLH   42
+  20 A155-LYS   56
+  21 A158-CYS   11
+  22 A195-ASH   27
+  23 A210-ASH   27
+  24 A214-LYS   56
+  25 A227-LYS   56
+  26 A228-GLH   42
+  27 A238-HIS   27
+  28 A239-HIS   27
+  29 A240-HIS   27
+  30 A241-HIS   27
+  31 A242-HIS   27
+  32 A243-HIS   27
+
+ Backbone energy:     -132.66642147
+
+ Loaded self energies from restart file.
+  Rotamer ( A5-ASH, 1) self-energy      58.56877631 pruned by ( A5-ASP, 0)     -18.52014231.
+  Rotamer ( A5-ASH, 2) self-energy      69.39544048 pruned by ( A5-ASP, 0)     -18.52014231.
+  Rotamer ( A5-ASH, 3) self-energy      79.38779738 pruned by ( A5-ASP, 0)     -18.52014231.
+  Rotamer ( A5-ASH, 4) self-energy      54.35635240 pruned by ( A5-ASP, 0)     -18.52014231.
+  Rotamer ( A5-ASH, 5) self-energy      54.53388153 pruned by ( A5-ASP, 0)     -18.52014231.
+  Rotamer ( A5-ASH, 6) self-energy      79.07444761 pruned by ( A5-ASP, 0)     -18.52014231.
+  Rotamer ( A5-ASH, 7) self-energy     119.59865493 pruned by ( A5-ASP, 0)     -18.52014231.
+  Rotamer ( A5-ASH, 8) self-energy     132.66610679 pruned by ( A5-ASP, 0)     -18.52014231.
+
+ Number of self energies: 1115
+ Backbone energy:     -132.66642147
+
+ Self   A5-ASH 9 :      57.16696449 in 3.7365 (sec).
+ Self   A5-ASH 10:      54.29730704 in 3.4047 (sec).
+ Self   A5-ASH 11:     170.12412601 in 3.7023 (sec).
+ Self   A5-ASH 12:      74.67409736 in 4.0086 (sec).
+ Self   A5-ASH 13:      85.30996957 in 3.9564 (sec).
+ Self   A5-ASH 14:      59.45910281 in 3.9892 (sec).
+ Self   A5-ASH 15:      60.51139204 in 3.9814 (sec).
+ Self   A5-ASH 16:      84.23054156 in 4.0351 (sec).
+ Self   A5-ASH 17:     241.89296085 in 3.8523 (sec).
+ Self   A5-ASH 18:     640.75049232 in 3.9269 (sec).
+ Self   A5-ASH 19:      79.94801240 in 3.8416 (sec).
+ Self   A5-ASH 20:      59.75585782 in 3.8661 (sec).
+ Self   A5-ASH 21:     195.13617792 in 4.1464 (sec).
+ Self   A5-ASP 22:       1.63397491 in 3.9245 (sec).
+ Self   A5-ASP 23:      14.19662068 in 3.9477 (sec).
+ Self   A5-ASP 24:     -18.44642360 in 4.2421 (sec).
+ Self   A5-ASP 25:     -17.35042794 in 4.1193 (sec).
+ Self   A5-ASP 26:      21.47190214 in 3.9726 (sec).
+ Self   A7-ASP 0 :     -16.29502893 in 3.9897 (sec).
+ Self   A7-ASH 1 :      54.79882457 in 4.0734 (sec).
+ Self   A7-ASH 2 :      61.55171169 in 4.1565 (sec).
+ Self   A7-ASH 3 :      77.28803245 in 3.9794 (sec).
+ Self   A7-ASH 4 :     120.93497340 in 3.9835 (sec).
+ Self   A7-ASH 5 :      58.43963794 in 4.1181 (sec).
+ Self   A7-ASH 6 :      50.61807330 in 4.0881 (sec).
+ Self   A7-ASH 7 :     126.69783654 in 4.1234 (sec).
+ Self   A7-ASH 8 :     253.72295577 in 4.0650 (sec).
+ Self   A7-ASH 9 :     146.76481026 in 3.3441 (sec).
+ Self   A7-ASH 10:      56.46487332 in 3.5910 (sec).
+ Self   A7-ASH 11:      54.24734883 in 3.3621 (sec).
+ Self   A7-ASH 12:      66.78678470 in 3.4903 (sec).
+ Self   A7-ASH 13:      83.17893063 in 3.3325 (sec).
+ Self   A7-ASH 14:     125.93631265 in 3.4302 (sec).
+ Self   A7-ASH 15:      64.97604515 in 3.5896 (sec).
+ Self   A7-ASH 16:      55.79024946 in 3.5124 (sec).
+ Self   A7-ASH 17:     128.69124382 in 3.6216 (sec).
+ Self   A7-ASH 18:     159.30333686 in 3.4124 (sec).
+ Self   A7-ASH 19:     226.55805976 in 3.4926 (sec).
+ Self   A7-ASH 20:      61.84435036 in 3.4916 (sec).
+ Self   A7-ASH 21:      74.66546580 in 3.4723 (sec).
+ Self   A7-ASP 22:      -9.44198520 in 3.1405 (sec).
+ Self   A7-ASP 23:       9.35772881 in 3.0145 (sec).
+ Self   A7-ASP 24:      56.94059548 in 3.0966 (sec).
+ Self   A7-ASP 25:     -17.06210917 in 3.2505 (sec).
+ Self   A7-ASP 26:     -16.29130988 in 3.1914 (sec).
+ Self  A10-ASP 0 :     -18.38467778 in 3.1762 (sec).
+ Self  A10-ASH 1 :      54.73300730 in 3.1859 (sec).
+ Self  A10-ASH 2 :    4370.51544722 in 3.3816 (sec).
+ Self  A10-ASH 3 :    1546.71370887 in 3.2714 (sec).
+ Self  A10-ASH 4 :    6594.76846071 in 3.4698 (sec).
+ Self  A10-ASH 5 :     380.50718941 in 3.6382 (sec).
+ Self  A10-ASH 6 :      49.59950576 in 3.7992 (sec).
+ Self  A10-ASH 7 :     973.27897847 in 3.5993 (sec).
+ Self  A10-ASH 8 :     849.48280026 in 3.6471 (sec).
+ Self  A10-ASH 9 :     332.71781363 in 3.6363 (sec).
+ Self  A10-ASH 10:     597.82211882 in 4.0006 (sec).
+ Self  A10-ASH 11:      53.62421881 in 4.0352 (sec).
+ Self  A10-ASH 12:     936.55500564 in 3.8877 (sec).
+ Self  A10-ASH 13:     535.99100280 in 3.7770 (sec).
+ Self  A10-ASH 14:     332.53262289 in 3.9279 (sec).
+ Self  A10-ASH 15:     340.05170555 in 3.8931 (sec).
+ Self  A10-ASH 16:      55.65551929 in 4.0187 (sec).
+ Self  A10-ASH 17:    1189.10859631 in 4.1577 (sec).
+ Self  A10-ASH 18:    1703.27795738 in 4.0990 (sec).
+ Self  A10-ASH 19:     361.52882930 in 4.2594 (sec).
+ Self  A10-ASH 20:     603.11154557 in 4.1943 (sec).
+ Self  A10-ASH 21:      77.07430741 in 3.8906 (sec).
+ Self  A10-ASP 22:     966.96328102 in 3.9346 (sec).
+ Self  A10-ASP 23:     694.59368576 in 3.8903 (sec).
+ Self  A10-ASP 24:     232.78364934 in 4.1057 (sec).
+ Self  A10-ASP 25:     454.85984466 in 4.1326 (sec).
+ Self  A10-ASP 26:     -17.64036152 in 4.0340 (sec).
+ Self  A33-GLU 0 :     -11.03715353 in 3.7659 (sec).
+ Self  A33-GLH 1 :      58.64649338 in 4.1479 (sec).
+ Self  A33-GLH 2 :     332.07512942 in 3.7540 (sec).
+ Self  A33-GLH 3 :  149412.92228531 in 4.0822 (sec).
+ Self  A33-GLH 4 :     470.75533356 in 4.2188 (sec).
+ Self  A33-GLH 5 :   30315.94504710 in 4.0731 (sec).
+ Self  A33-GLH 6 :   92538.14468506 in 3.8886 (sec).
+ Self  A33-GLH 7 :    1250.35462297 in 3.9212 (sec).
+ Self  A33-GLH 8 :      54.78913900 in 3.7896 (sec).
+ Self  A33-GLH 9 :      63.78740877 in 3.6921 (sec).
+ Self  A33-GLH 10:     215.91867001 in 3.8171 (sec).
+ Self  A33-GLH 11:   11061.32290289 in 4.1205 (sec).
+ Self  A33-GLH 12:     505.62467283 in 4.1196 (sec).
+ Self  A33-GLH 13:   10801.06341046 in 3.7714 (sec).
+ Self  A33-GLH 14:   13709.70435259 in 3.5225 (sec).
+ Self  A33-GLH 15:    4088.85831820 in 3.4783 (sec).
+ Self  A33-GLH 16:      63.93937673 in 3.4369 (sec).
+ Self  A33-GLH 17:      72.18810748 in 3.2199 (sec).
+ Self  A33-GLH 18:    1263.78433536 in 3.4677 (sec).
+ Self  A33-GLH 19:  144362.14901632 in 3.5672 (sec).
+ Self  A33-GLH 20:     508.38367049 in 3.5249 (sec).
+ Self  A33-GLH 21:   30655.15067061 in 3.5490 (sec).
+ Self  A33-GLH 22:   91736.87382144 in 3.4086 (sec).
+ Self  A33-GLH 23:    1253.44715742 in 3.3161 (sec).
+ Self  A33-GLH 24:      58.32286094 in 3.4533 (sec).
+ Self  A33-GLH 25:      68.27292827 in 3.3729 (sec).
+ Self  A33-GLH 26:     237.77222843 in 3.5134 (sec).
+ Self  A33-GLH 27:   10493.45809703 in 3.4487 (sec).
+ Self  A33-GLH 28:     523.66558918 in 3.4132 (sec).
+ Self  A33-GLH 29:   10816.83661015 in 3.3236 (sec).
+ Self  A33-GLH 30:   13738.10993256 in 3.4080 (sec).
+ Self  A33-GLH 31:    3680.25040526 in 3.3227 (sec).
+ Self  A33-GLH 32:      79.68426183 in 3.3397 (sec).
+ Self  A33-GLH 33:      95.08593575 in 3.5503 (sec).
+ Self  A33-GLU 34:     193.17741539 in 3.3114 (sec).
+ Self  A33-GLU 35:  100837.17720893 in 3.3865 (sec).
+ Self  A33-GLU 36:     476.37497895 in 3.3395 (sec).
+ Self  A33-GLU 37:   17563.03272613 in 3.3890 (sec).
+ Self  A33-GLU 38:   22533.63810812 in 3.2186 (sec).
+ Self  A33-GLU 39:    1596.90531960 in 3.2762 (sec).
+ Self  A33-GLU 40:      -6.57460956 in 3.3062 (sec).
+ Self  A33-GLU 41:       1.84319915 in 3.2422 (sec).
+ Self  A35-ASP 0 :     -20.56234314 in 3.4704 (sec).
+ Self  A35-ASH 1 :      53.59318417 in 3.2156 (sec).
+ Self  A35-ASH 2 :      54.87664795 in 3.3063 (sec).
+ Self  A35-ASH 3 :      54.56268298 in 3.2640 (sec).
+ Self  A35-ASH 4 :      67.66754689 in 3.3397 (sec).
+ Self  A35-ASH 5 :      52.85540917 in 3.3488 (sec).
+ Self  A35-ASH 6 :      48.49607860 in 3.3714 (sec).
+ Self  A35-ASH 7 :      69.87674463 in 3.3465 (sec).
+ Self  A35-ASH 8 :      68.01704283 in 3.2725 (sec).
+ Self  A35-ASH 9 :      74.25356239 in 3.3657 (sec).
+ Self  A35-ASH 10:      52.26680141 in 3.3187 (sec).
+ Self  A35-ASH 11:      53.49541698 in 3.2998 (sec).
+ Self  A35-ASH 12:      60.18990536 in 3.4704 (sec).
+ Self  A35-ASH 13:      60.60982564 in 3.3797 (sec).
+ Self  A35-ASH 14:      72.82870693 in 3.2892 (sec).
+ Self  A35-ASH 15:      59.42719677 in 3.1846 (sec).
+ Self  A35-ASH 16:      53.58931417 in 3.2931 (sec).
+ Self  A35-ASH 17:     107.74859965 in 3.3534 (sec).
+ Self  A35-ASH 18:     104.51889755 in 3.3453 (sec).
+ Self  A35-ASH 19:     113.70227208 in 3.4963 (sec).
+ Self  A35-ASH 20:      57.90726723 in 3.4205 (sec).
+ Self  A35-ASH 21:      75.59400222 in 3.5884 (sec).
+ Self  A35-ASP 22:     -14.57152891 in 3.3970 (sec).
+ Self  A35-ASP 23:     -14.61591332 in 3.3125 (sec).
+ Self  A35-ASP 24:       0.22853574 in 3.3427 (sec).
+ Self  A35-ASP 25:     -19.78336754 in 3.2685 (sec).
+ Self  A35-ASP 26:     -19.22354141 in 3.3092 (sec).
+ Self  A40-LYS 0 :     -23.42437391 in 3.3519 (sec).
+ Self  A40-LYD 1 :      -9.99268681 in 2.9774 (sec).
+ Self  A40-LYD 2 :       0.10626936 in 3.2409 (sec).
+ Self  A40-LYD 3 :      54.16643181 in 3.1002 (sec).
+ Self  A40-LYD 4 :       0.24677031 in 3.4295 (sec).
+ Self  A40-LYD 5 :       2.25232956 in 3.2048 (sec).
+ Self  A40-LYD 6 :       0.18180032 in 3.3908 (sec).
+ Self  A40-LYD 7 :      -7.09774819 in 3.2613 (sec).
+ Self  A40-LYD 8 :      -7.79794685 in 3.2890 (sec).
+ Self  A40-LYD 9 :      -5.91169736 in 3.4653 (sec).
+ Self  A40-LYD 10:      -7.05839292 in 3.4724 (sec).
+ Self  A40-LYD 11:      -8.35994784 in 3.3384 (sec).
+ Self  A40-LYD 12:      -8.55956832 in 3.2121 (sec).
+ Self  A40-LYD 13:      10.25898475 in 3.2830 (sec).
+ Self  A40-LYD 14:      -6.08492775 in 3.5640 (sec).
+ Self  A40-LYD 15:      -8.33899809 in 3.2090 (sec).
+ Self  A40-LYD 16:      -5.98743936 in 3.2866 (sec).
+ Self  A40-LYD 17:       4.48152832 in 3.1782 (sec).
+ Self  A40-LYD 18:      36.53292160 in 3.4552 (sec).
+ Self  A40-LYD 19:      -8.32747521 in 3.2734 (sec).
+ Self  A40-LYD 20:      -9.01413083 in 3.4186 (sec).
+ Self  A40-LYD 21:      -9.99407301 in 3.3120 (sec).
+ Self  A40-LYD 22:      -8.09166736 in 3.3805 (sec).
+ Self  A40-LYD 23:      -8.33638103 in 3.2786 (sec).
+ Self  A40-LYD 24:      -5.79720370 in 3.3436 (sec).
+ Self  A40-LYD 25:      -7.31021185 in 3.3853 (sec).
+ Self  A40-LYD 26:      -8.21610792 in 3.4784 (sec).
+ Self  A40-LYD 27:      -6.35493881 in 3.4181 (sec).
+ Self  A40-LYD 28:      -6.55273785 in 3.3141 (sec).
+ Self  A40-LYS 29:     -12.92224163 in 3.1230 (sec).
+ Self  A40-LYS 30:     -18.95798885 in 3.4994 (sec).
+ Self  A40-LYS 31:     -11.89371836 in 3.4582 (sec).
+ Self  A40-LYS 32:      -9.55874316 in 3.2693 (sec).
+ Self  A40-LYS 33:     -12.70807813 in 3.2996 (sec).
+ Self  A40-LYS 34:     -19.30696253 in 3.3587 (sec).
+ Self  A40-LYS 35:     -21.33723323 in 3.5419 (sec).
+ Self  A40-LYS 36:     -19.13510780 in 3.4486 (sec).
+ Self  A40-LYS 37:     -18.25998178 in 3.3188 (sec).
+ Self  A40-LYS 38:     -21.10459300 in 3.3966 (sec).
+ Self  A40-LYS 39:     -20.78308417 in 3.5109 (sec).
+ Self  A40-LYS 40:      -3.53003592 in 3.4983 (sec).
+ Self  A40-LYS 41:     -18.40164284 in 3.3062 (sec).
+ Self  A40-LYS 42:     -21.56465863 in 3.3680 (sec).
+ Self  A40-LYS 43:     -19.24909400 in 3.3362 (sec).
+ Self  A40-LYS 44:      -6.29565351 in 3.7713 (sec).
+ Self  A40-LYS 45:      27.94036512 in 3.6638 (sec).
+ Self  A40-LYS 46:     -21.55194608 in 3.5855 (sec).
+ Self  A40-LYS 47:     -21.18902897 in 3.8049 (sec).
+ Self  A40-LYS 48:     -23.42233383 in 3.6916 (sec).
+ Self  A40-LYS 49:     -21.33965776 in 3.5168 (sec).
+ Self  A40-LYS 50:     -21.36402128 in 3.6811 (sec).
+ Self  A40-LYS 51:     -18.66947783 in 3.7035 (sec).
+ Self  A40-LYS 52:     -19.61310517 in 3.5709 (sec).
+ Self  A40-LYS 53:     -21.70361147 in 3.5807 (sec).
+ Self  A40-LYS 54:     -19.28965964 in 3.8765 (sec).
+ Self  A40-LYS 55:     -19.84083801 in 3.4831 (sec).
+ Self  A42-LYS 0 :     -19.51486127 in 3.5088 (sec).
+ Self  A42-LYD 1 :      -6.60299265 in 3.4371 (sec).
+ Self  A42-LYD 2 :      12.58800574 in 3.6380 (sec).
+ Self  A42-LYD 3 :      19.14920095 in 3.4457 (sec).
+ Self  A42-LYD 4 :       8.91179986 in 3.4672 (sec).
+ Self  A42-LYD 5 :      10.98405636 in 3.6762 (sec).
+ Self  A42-LYD 6 :      10.02990358 in 3.5636 (sec).
+ Self  A42-LYD 7 :    1257.65032597 in 3.6009 (sec).
+ Self  A42-LYD 8 :     635.51035025 in 3.6417 (sec).
+ Self  A42-LYD 9 :     162.55797146 in 3.7346 (sec).
+ Self  A42-LYD 10:      -4.32208896 in 3.5227 (sec).
+ Self  A42-LYD 11:      -5.14516228 in 3.5852 (sec).
+ Self  A42-LYD 12:      -6.93770141 in 3.6842 (sec).
+ Self  A42-LYD 13:      -6.60813411 in 3.5404 (sec).
+ Self  A42-LYD 14:      -4.41799724 in 3.6385 (sec).
+ Self  A42-LYD 15:      -4.96020746 in 3.6755 (sec).
+ Self  A42-LYD 16:      -2.44507132 in 3.6386 (sec).
+ Self  A42-LYD 17:      72.46966976 in 3.7563 (sec).
+ Self  A42-LYD 18:      43.84947498 in 3.7066 (sec).
+ Self  A42-LYD 19:      -1.20569546 in 3.7355 (sec).
+ Self  A42-LYD 20:      24.10778004 in 3.9145 (sec).
+ Self  A42-LYD 21:      -2.44520611 in 3.8945 (sec).
+ Self  A42-LYD 22:      -0.38493306 in 4.1876 (sec).
+ Self  A42-LYD 23:       4.25630572 in 3.7838 (sec).
+ Self  A42-LYD 24:     400.32742162 in 3.7113 (sec).
+ Self  A42-LYD 25:       6.05221168 in 3.6829 (sec).
+ Self  A42-LYD 26:       4.83999026 in 4.0214 (sec).
+ Self  A42-LYD 27:     180.05577491 in 3.6990 (sec).
+ Self  A42-LYD 28:       7.58596262 in 3.8955 (sec).
+ Self  A42-LYS 29:      -0.74297018 in 3.8049 (sec).
+ Self  A42-LYS 30:     -15.14049740 in 4.0596 (sec).
+ Self  A42-LYS 31:      -4.38605110 in 3.7781 (sec).
+ Self  A42-LYS 32:      -2.02575823 in 4.0714 (sec).
+ Self  A42-LYS 33:      -3.04163066 in 4.1851 (sec).
+ Self  A42-LYS 34:    1279.72737863 in 4.0648 (sec).
+ Self  A42-LYS 35:    1075.49919976 in 4.2687 (sec).
+ Self  A42-LYS 36:     151.72336713 in 4.2348 (sec).
+ Self  A42-LYS 37:     -15.16236928 in 4.3352 (sec).
+ Self  A42-LYS 38:     -18.06012677 in 4.3728 (sec).
+ Self  A42-LYS 39:     -13.33747751 in 4.2450 (sec).
+ Self  A42-LYS 40:     -19.52164323 in 4.3651 (sec).
+ Self  A42-LYS 41:     -16.64279837 in 4.1151 (sec).
+ Self  A42-LYS 42:     -17.87502448 in 4.0898 (sec).
+ Self  A42-LYS 43:     -14.45977209 in 4.0721 (sec).
+ Self  A42-LYS 44:      63.99599024 in 4.0740 (sec).
+ Self  A42-LYS 45:      36.21466847 in 4.2892 (sec).
+ Self  A42-LYS 46:     -13.66764668 in 4.0475 (sec).
+ Self  A42-LYS 47:      50.38272940 in 4.4128 (sec).
+ Self  A42-LYS 48:     -15.02862455 in 4.4785 (sec).
+ Self  A42-LYS 49:     -12.70033879 in 4.4978 (sec).
+ Self  A42-LYS 50:      -8.83064067 in 4.4754 (sec).
+ Self  A42-LYS 51:     368.31268670 in 4.8682 (sec).
+ Self  A42-LYS 52:      -5.66624190 in 4.4749 (sec).
+ Self  A42-LYS 53:      -7.61222193 in 4.2515 (sec).
+ Self  A42-LYS 54:     170.12532625 in 4.4550 (sec).
+ Self  A42-LYS 55:       0.72226627 in 4.4196 (sec).
+ Self  A58-HIS 0 :     -13.67914620 in 4.6761 (sec).
+ Self  A58-HID 1 :     -24.09632763 in 4.4505 (sec).
+ Self  A58-HIE 2 :     -26.50895862 in 4.3615 (sec).
+ Self  A58-HIS 3 :   76023.77377265 in 4.5797 (sec).
+ Self  A58-HIS 4 :    4819.54338477 in 4.7243 (sec).
+ Self  A58-HIS 5 :      -8.42039701 in 4.7802 (sec).
+ Self  A58-HIS 6 :     -11.10701999 in 4.4095 (sec).
+ Self  A58-HIS 7 :      -4.23400067 in 4.1845 (sec).
+ Self  A58-HIS 8 :      81.21619846 in 4.2233 (sec).
+ Self  A58-HIS 9 :       5.02179755 in 4.1999 (sec).
+ Self  A58-HIS 10:     500.55195170 in 4.3727 (sec).
+ Self  A58-HID 11:   40745.05227342 in 4.1234 (sec).
+ Self  A58-HID 12:    5279.60672368 in 4.5750 (sec).
+ Self  A58-HID 13:     -23.73641414 in 4.2383 (sec).
+ Self  A58-HID 14:     -23.85180133 in 4.3656 (sec).
+ Self  A58-HID 15:     -15.58578432 in 4.4332 (sec).
+ Self  A58-HID 16:      47.82244182 in 4.2625 (sec).
+ Self  A58-HID 17:      -7.02853831 in 4.2044 (sec).
+ Self  A58-HID 18:     397.95455289 in 4.1441 (sec).
+ Self  A58-HIE 19:   67745.44885322 in 3.9256 (sec).
+ Self  A58-HIE 20:    5200.22769856 in 4.1640 (sec).
+ Self  A58-HIE 21:     -21.90117567 in 4.3407 (sec).
+ Self  A58-HIE 22:     -25.66713674 in 4.2820 (sec).
+ Self  A58-HIE 23:     -21.02960296 in 4.5768 (sec).
+ Self  A58-HIE 24:      73.60674655 in 4.5382 (sec).
+ Self  A58-HIE 25:     -10.43684976 in 4.4518 (sec).
+ Self  A58-HIE 26:     105.67327733 in 4.2088 (sec).
+ Self  A68-GLU 0 :     -10.46657486 in 4.3841 (sec).
+ Self  A68-GLH 1 :      57.52755403 in 4.3348 (sec).
+ Self  A68-GLH 2 :     575.65318873 in 4.2028 (sec).
+ Self  A68-GLH 3 :    2453.49898875 in 4.3437 (sec).
+ Self  A68-GLH 4 :      53.36423542 in 4.4251 (sec).
+ Self  A68-GLH 5 :      51.32845079 in 4.5479 (sec).
+ Self  A68-GLH 6 :     108.44280378 in 4.8462 (sec).
+ Self  A68-GLH 7 :   12244.03064261 in 4.5436 (sec).
+ Self  A68-GLH 8 :     198.59929670 in 4.6210 (sec).
+ Self  A68-GLH 9 :     207.41347968 in 4.6144 (sec).
+ Self  A68-GLH 10:     336.87726580 in 3.8027 (sec).
+ Self  A68-GLH 11:    3881.25555902 in 3.7187 (sec).
+ Self  A68-GLH 12:      55.96332066 in 3.8454 (sec).
+ Self  A68-GLH 13:      54.44906288 in 3.8134 (sec).
+ Self  A68-GLH 14:     666.23702425 in 3.5513 (sec).
+ Self  A68-GLH 15:   13346.91336936 in 3.7267 (sec).
+ Self  A68-GLH 16:     201.56887447 in 3.6933 (sec).
+ Self  A68-GLH 17:     209.81320094 in 4.0929 (sec).
+ Self  A68-GLH 18:     507.89138576 in 4.4341 (sec).
+ Self  A68-GLH 19:    2162.43510978 in 3.9528 (sec).
+ Self  A68-GLH 20:      57.31159701 in 3.7965 (sec).
+ Self  A68-GLH 21:      55.07088896 in 3.9801 (sec).
+ Self  A68-GLH 22:     112.35342387 in 3.7945 (sec).
+ Self  A68-GLH 23:   11445.48782242 in 3.8891 (sec).
+ Self  A68-GLH 24:     202.20367403 in 3.6663 (sec).
+ Self  A68-GLH 25:     211.25345546 in 3.8291 (sec).
+ Self  A68-GLH 26:     355.11896148 in 3.8957 (sec).
+ Self  A68-GLH 27:    3885.92982902 in 3.6497 (sec).
+ Self  A68-GLH 28:      74.03581877 in 3.6504 (sec).
+ Self  A68-GLH 29:      72.69331717 in 3.7947 (sec).
+ Self  A68-GLH 30:     157.40916545 in 3.9329 (sec).
+ Self  A68-GLH 31:   13193.87482643 in 3.9821 (sec).
+ Self  A68-GLH 32:     219.72977849 in 3.9116 (sec).
+ Self  A68-GLH 33:     224.42692004 in 3.7840 (sec).
+ Self  A68-GLU 34:     350.66314854 in 3.3591 (sec).
+ Self  A68-GLU 35:    3469.64716946 in 3.7563 (sec).
+ Self  A68-GLU 36:     -10.45768324 in 3.7551 (sec).
+ Self  A68-GLU 37:     -10.03023859 in 3.5752 (sec).
+ Self  A68-GLU 38:      67.10210744 in 3.5520 (sec).
+ Self  A68-GLU 39:   12289.64565280 in 3.3914 (sec).
+ Self  A68-GLU 40:     135.88681758 in 3.4390 (sec).
+ Self  A68-GLU 41:     141.20016006 in 3.5312 (sec).
+ Self  A71-ASP 0 :     -18.93698812 in 3.4538 (sec).
+ Self  A71-ASH 1 :      57.18882334 in 3.5443 (sec).
+ Self  A71-ASH 2 :      61.90453673 in 3.5246 (sec).
+ Self  A71-ASH 3 :      63.52553455 in 3.4835 (sec).
+ Self  A71-ASH 4 :      53.83610499 in 3.5233 (sec).
+ Self  A71-ASH 5 :      53.12434564 in 3.4053 (sec).
+ Self  A71-ASH 6 :      53.91448251 in 3.5326 (sec).
+ Self  A71-ASH 7 :      93.41805071 in 3.4722 (sec).
+ Self  A71-ASH 8 :      81.62237509 in 3.5048 (sec).
+ Self  A71-ASH 9 :      58.71087094 in 3.8396 (sec).
+ Self  A71-ASH 10:      53.02814396 in 3.7776 (sec).
+ Self  A71-ASH 11:      69.98267998 in 3.8662 (sec).
+ Self  A71-ASH 12:      67.15836303 in 3.7749 (sec).
+ Self  A71-ASH 13:      69.40241896 in 3.7869 (sec).
+ Self  A71-ASH 14:      58.93078776 in 4.0298 (sec).
+ Self  A71-ASH 15:      59.32753318 in 3.6390 (sec).
+ Self  A71-ASH 16:      59.02735850 in 3.7325 (sec).
+ Self  A71-ASH 17:     215.20340119 in 3.6646 (sec).
+ Self  A71-ASH 18:     194.92898040 in 3.7776 (sec).
+ Self  A71-ASH 19:      92.13219730 in 3.6278 (sec).
+ Self  A71-ASH 20:      58.46776643 in 3.4826 (sec).
+ Self  A71-ASH 21:      98.13065104 in 3.6516 (sec).
+ Self  A71-ASP 22:      -6.70386736 in 3.7033 (sec).
+ Self  A71-ASP 23:      -4.82518897 in 3.5056 (sec).
+ Self  A71-ASP 24:     -18.19802913 in 3.3350 (sec).
+ Self  A71-ASP 25:     -18.92466497 in 3.5600 (sec).
+ Self  A71-ASP 26:     -11.12049495 in 3.5272 (sec).
+ Self  A80-ASP 0 :     -17.74984948 in 3.5527 (sec).
+ Self  A80-ASH 1 :      64.60461379 in 3.2033 (sec).
+ Self  A80-ASH 2 :     247.88977487 in 3.3382 (sec).
+ Self  A80-ASH 3 :     614.63728988 in 3.1880 (sec).
+ Self  A80-ASH 4 :      72.00727751 in 3.2644 (sec).
+ Self  A80-ASH 5 :      58.18103759 in 3.5320 (sec).
+ Self  A80-ASH 6 :      53.77426811 in 3.5171 (sec).
+ Self  A80-ASH 7 :     414.31504804 in 3.3896 (sec).
+ Self  A80-ASH 8 :     266.83640530 in 3.2958 (sec).
+ Self  A80-ASH 9 :     104.87676827 in 3.7872 (sec).
+ Self  A80-ASH 10:      56.67850190 in 4.1817 (sec).
+ Self  A80-ASH 11:      58.06877935 in 3.9634 (sec).
+ Self  A80-ASH 12:     190.10359402 in 4.1421 (sec).
+ Self  A80-ASH 13:     197.92836023 in 3.9178 (sec).
+ Self  A80-ASH 14:      77.21340979 in 4.1333 (sec).
+ Self  A80-ASH 15:      64.28353822 in 4.1835 (sec).
+ Self  A80-ASH 16:      59.01576551 in 4.1983 (sec).
+ Self  A80-ASH 17:     822.24798478 in 4.2687 (sec).
+ Self  A80-ASH 18:     665.97537883 in 4.1431 (sec).
+ Self  A80-ASH 19:     106.60311043 in 4.0598 (sec).
+ Self  A80-ASH 20:      61.80118010 in 4.4835 (sec).
+ Self  A80-ASH 21:      79.83962228 in 4.1817 (sec).
+ Self  A80-ASP 22:     139.09333150 in 4.2094 (sec).
+ Self  A80-ASP 23:     137.58031117 in 4.2726 (sec).
+ Self  A80-ASP 24:       5.93379408 in 4.4274 (sec).
+ Self  A80-ASP 25:     -15.84134051 in 4.5294 (sec).
+ Self  A80-ASP 26:     -13.00020291 in 4.5631 (sec).
+ Self  A90-CYS 0 :       2.04864120 in 4.4646 (sec).
+ Self  A90-CYD 1 :      -0.16850007 in 4.4019 (sec).
+ Self  A90-CYS 2 :      21.67229781 in 4.5564 (sec).
+ Self  A90-CYS 3 :       2.79978035 in 4.5759 (sec).
+ Self  A90-CYS 4 :     124.16058724 in 4.6147 (sec).
+ Self  A90-CYS 5 :      21.67229781 in 4.5347 (sec).
+ Self  A90-CYS 6 :       2.79978035 in 4.1546 (sec).
+ Self  A90-CYS 7 :     124.16058724 in 4.4517 (sec).
+ Self  A90-CYD 8 :      24.08281107 in 4.8436 (sec).
+ Self  A90-CYD 9 :       1.00228258 in 4.5497 (sec).
+ Self  A90-CYD 10:     153.37927659 in 4.9049 (sec).
+ Self  A91-GLU 0 :      -8.45097039 in 4.3559 (sec).
+ Self  A91-GLH 1 :      57.73578665 in 4.3850 (sec).
+ Self  A91-GLH 2 :   16173.69792160 in 4.7071 (sec).
+ Self  A91-GLH 3 :   72966.87110042 in 4.2198 (sec).
+ Self  A91-GLH 4 :     988.45411602 in 4.3303 (sec).
+ Self  A91-GLH 5 :    9269.72804978 in 3.6882 (sec).
+ Self  A91-GLH 6 :   28844.03321951 in 3.5218 (sec).
+ Self  A91-GLH 7 :    1750.95968424 in 3.5151 (sec).
+ Self  A91-GLH 8 :      53.75405475 in 3.4908 (sec).
+ Self  A91-GLH 9 :      56.54585636 in 3.2093 (sec).
+ Self  A91-GLH 10:    3071.46784758 in 3.3219 (sec).
+ Self  A91-GLH 11:    6813.90589053 in 3.2201 (sec).
+ Self  A91-GLH 12:    1069.53941242 in 3.1823 (sec).
+ Self  A91-GLH 13:    3460.38672665 in 3.4198 (sec).
+ Self  A91-GLH 14:   55875.91516058 in 3.1392 (sec).
+ Self  A91-GLH 15:    5361.90416069 in 3.3140 (sec).
+ Self  A91-GLH 16:      58.31583187 in 4.1652 (sec).
+ Self  A91-GLH 17:      61.09829207 in 4.1638 (sec).
