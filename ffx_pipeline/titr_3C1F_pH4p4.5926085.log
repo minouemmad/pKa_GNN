@@ -1,0 +1,1124 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Titration pH 4.4 started: Mon May  4 07:02:12 CDT 2026 ===
+  Copy already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C1F/3C1F_pH4.4.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6947  April 2026 
+        Git Revision  519408079905b3dd4b967041b75b836f63fb563f 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2025
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Mon May 04 07:02:43 CDT 2026
+ Process ID 1275 on argon-itf-bx54-13.hpc.
+
+ Command line arguments:
+ [ManyBody, --tR, --pH, 4.4, --oT, -T, --kPH, 3.0, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C1F/3C1F_pH4.4.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C1F/3C1F_pH4.4.pdb]
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C1F/titrate.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 3C1F_pH4.4.pdb
+
+ Assigning atom types for 1 chains.
+ Amino acid chain A
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   49.3 A).
+
+ Bonded Terms
+  Bonds:                                   2124
+  Angles:                                  3863
+  Stretch-Bends:                           3388
+  Out-of-Plane Bends:                      1203
+  Torsions:                                5636
+  Pi-Orbital Torsions:                      225
+  Torsion-Torsions:                           9
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                  9.000
+
+ Opened 3C1F_pH4.4.pdb in 0.984 sec.
+
+ System Resources
+  Total CPU time:          17.45 (sec)
+  System load average:      1.17
+  Open file handles:         146 of  81920 allowed
+  System memory:           43785 MB free out of  44520 MB
+  System swap space:        1793 MB free out of   2053 MB
+  JVM memory:               4029 MB free out of   4096 MB
+
+ Adding titration hydrogen to : /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C1F/3C1F_pH4.4.pdb
+
+ Reading 3C1F_pH4.4.pdb
+
+ Assigning atom types for 1 chains.
+ Amino acid chain A
+ Renumbering PDB file due to built atoms (2123 vs 2106)
+ Total number of atoms: 2123
+
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   49.3 A).
+
+ Bonded Terms
+  Bonds:                                   2141
+  Angles:                                  3880
+  Stretch-Bends:                           3388
+  Out-of-Plane Bends:                      1203
+  Torsions:                                5670
+  Pi-Orbital Torsions:                      225
+  Torsion-Torsions:                           9
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 26.000
+ Temperature: 298.150000
+
+ Energy restart file: 3C1F_pH4.4.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood  -3819.32233206      0.154
+ Cavitation             1318.17905637      0.103
+ Dispersion             -820.55901454      0.209
+
+ Computed Potential Energy
+  Bond Stretching            261.42399701         2141        0.001 ( 0.01759)
+  Angle Bending              418.23780281         3880        0.004 ( 2.61806)
+  Stretch-Bend                -3.50960391         3388        0.004
+  Out-of-Plane Bend           17.79634532         1203        0.002
+  Torsional Angle            143.69690768         5670        0.006
+  Pi-Orbital Torsion          15.96838121          225        0.000
+  Torsion-Torsion            -47.98487368            9        0.000
+  Van der Waals              473.79433415      2246482        0.089
+  Atomic Multipoles         1421.05942831      2246482
+  Polarization              -189.76514956      2246482        1.428
+  Solvation                -3321.70229023      2254626
+  Total Potential           -810.98472090  (Kcal/mole)        1.534 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A    2-HIS -177.017   60.039    0.000    0.000
+ A    3-LYS  -71.511  154.480 -162.346 -176.289
+ A    4-GLH  -60.966 -168.962   70.203    0.000
+ A   10-LYS -177.005  179.995 -179.999  179.984
+ A   13-ASH   72.562   13.631    0.000    0.000
+ A   15-ASH   62.551   16.750    0.000    0.000
+ A   18-LYS -160.708   93.065 -158.536  170.874
+ A   22-LYS  -67.183 -177.017  164.998  178.105
+ A   34-ASH -169.607   56.492    0.000    0.000
+ A   37-GLH  -65.618  -62.380  -31.327    0.000
+ A   40-GLH  -68.190  173.994   -3.929    0.000
+ A   41-LYS -173.968   64.129 -166.656  -71.136
+ A   45-GLH  -67.603   63.083   28.359    0.000
+ A   51-LYS  175.962 -174.565  168.174   59.209
+ A   52-LYS -177.336  162.131  171.042  173.507
+ A   55-GLH  -70.128  173.532   -8.831    0.000
+ A   58-LYS  -61.567  151.440  169.581  -71.454
+ A   59-LYS   77.392  169.819  167.357 -178.351
+ A   61-GLH  -68.832  174.546  -50.678    0.000
+ A   63-GLH -179.117 -172.318   59.584    0.000
+ A   65-ASH -152.425  -24.606    0.000    0.000
+ A   66-LYS  -62.260  -61.458  -61.781  -70.977
+ A   71-ASH   66.552    9.400    0.000    0.000
+ A   72-LYS   68.979 -167.239  168.973  163.962
+ A   83-ASH  -69.013   -8.797    0.000    0.000
+ A   85-LYS  -64.634 -174.215  179.221  178.806
+ A   89-GLH -173.465 -173.795    8.346    0.000
+ A   92-LYS  -58.075  -56.370  -52.339  -59.609
+ A   98-LYS  -53.627 -173.601 -164.026  175.058
+ A  104-LYS -177.008  179.980 -179.986 -179.958
+ A  109-HIS  -59.213  -41.997    0.000    0.000
+ A  110-GLH  179.209  178.460    8.663    0.000
+ A  115-LYS -176.995  179.986  179.969 -179.974
+ A  117-GLH -165.724 -176.659 -100.360    0.000
+ A  121-LYS -157.584 -178.494  -53.088 -174.777
+ A  122-LYS -177.014  179.980 -179.998 -179.969
+ A  123-GLH  -62.309  163.841   -0.680    0.000
+ A  124-LYS  -53.372  -58.421 -157.609  -54.474
+
+ Rotamer Library:     Richardson
+ Algorithm:           ALL
+ Goldstein Criteria:  true
+ Three-Body Energies: true
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.010 sec
+ Pairwise distance matrix:               280.278 sec
+
+ Beginning Energy   -1814.96255394
+
+     Residue  Nrot
+   1   A2-HIS   27
+   2   A3-LYS   56
+   3   A4-GLH   42
+   4  A10-LYS   56
+   5  A13-ASH   27
+   6  A15-ASH   27
+   7  A18-LYS   56
+   8  A22-LYS   56
+   9  A34-ASH   27
+  10  A37-GLH   42
+  11  A40-GLH   42
+  12  A41-LYS   56
+  13  A45-GLH   42
+  14  A51-LYS   56
+  15  A52-LYS   56
+  16  A55-GLH   42
+  17  A58-LYS   56
+  18  A59-LYS   56
+  19  A61-GLH   42
+  20  A63-GLH   42
+  21  A65-ASH   27
+  22  A66-LYS   56
+  23  A71-ASH   27
+  24  A72-LYS   56
+  25  A83-ASH   27
+  26  A85-LYS   56
+  27  A89-GLH   42
+  28  A92-LYS   56
+  29  A98-LYS   56
+  30 A104-LYS   56
+  31 A109-HIS   27
+  32 A110-GLH   42
+  33 A115-LYS   56
+  34 A117-GLH   42
+  35 A121-LYS   56
+  36 A122-LYS   56
+  37 A123-GLH   42
+  38 A124-LYS   56
+
+ Backbone energy:     -581.02275616
+
+ Loaded self energies from restart file.
+  Rotamer ( A2-HID, 1) self-energy       0.12241533 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HIS, 5) self-energy      -2.24507171 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,11) self-energy      -0.88552336 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,12) self-energy      -0.83604378 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,13) self-energy      22.64950801 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,14) self-energy      18.50776938 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,15) self-energy      -1.67594401 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,16) self-energy      -0.75041130 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,17) self-energy      18.24571035 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HID,18) self-energy       0.55969080 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HIE,21) self-energy      19.24450386 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HIE,22) self-energy      10.94457278 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A2-HIE,25) self-energy      14.37825076 pruned by ( A2-HIS, 7)     -28.91703443.
+  Rotamer ( A3-LYD, 1) self-energy      95.19158285 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 2) self-energy      97.53005009 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 3) self-energy      96.15267335 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 4) self-energy      95.21589383 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 5) self-energy      97.50620710 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 6) self-energy      94.56866781 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 7) self-energy    6220.25683044 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 8) self-energy   18021.89917027 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD, 9) self-energy     977.92128118 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,10) self-energy      91.21591087 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,11) self-energy      89.95580308 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,12) self-energy     164.56517097 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,13) self-energy      95.13583708 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,14) self-energy     102.26672791 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,15) self-energy      94.35420326 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,16) self-energy     173.68044015 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,17) self-energy     933.49579880 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,18) self-energy     138.92355027 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,19) self-energy      96.17430593 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,20) self-energy      98.67197775 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,21) self-energy      98.80912138 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,22) self-energy     274.97284753 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,23) self-energy      95.37457759 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,24) self-energy      98.08991463 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,25) self-energy     775.85935661 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,26) self-energy   25965.12003628 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,27) self-energy     765.63750042 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYD,28) self-energy    2061.59297154 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,30) self-energy     169.97552875 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,34) self-energy    6141.37722339 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,35) self-energy   18216.89641033 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,36) self-energy     876.05355458 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,39) self-energy      66.22386217 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,43) self-energy      78.20896374 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,44) self-energy     820.83027158 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,45) self-energy      27.28436090 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,49) self-energy     195.40742817 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,52) self-energy     660.36356163 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,53) self-energy   26305.55867753 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,54) self-energy     649.02155044 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A3-LYS,55) self-energy    1986.34450270 pruned by ( A3-LYS,38)     -26.41916825.
+  Rotamer ( A4-GLH, 2) self-energy     203.62067581 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH, 3) self-energy     405.83218639 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH, 4) self-energy      21.23925200 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH, 5) self-energy      38.49379838 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH, 6) self-energy      23.31638256 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,10) self-energy     124.40873332 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,11) self-energy     299.59441147 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,12) self-energy      16.83309363 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,13) self-energy      98.91582078 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,14) self-energy      39.82482104 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,18) self-energy     236.66481734 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,19) self-energy     418.87642589 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,20) self-energy      25.62355741 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,21) self-energy      42.44076784 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,22) self-energy      26.69137486 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,26) self-energy     133.08032914 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,27) self-energy     319.92392746 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,28) self-energy      34.91490420 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,29) self-energy      82.57749144 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,30) self-energy      67.09832743 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,31) self-energy      37.56334619 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLH,32) self-energy      28.41268818 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLU,34) self-energy     206.26663923 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLU,35) self-energy     308.57402357 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLU,37) self-energy      45.64722960 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer ( A4-GLU,38) self-energy      34.87050798 pruned by ( A4-GLU, 0)      -9.72238047.
+  Rotamer (A10-LYD, 1) self-energy      96.63733829 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 2) self-energy      97.65274049 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 3) self-energy     196.43681664 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 4) self-energy      96.43055439 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 5) self-energy      97.95455548 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 6) self-energy     101.44774914 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 7) self-energy     109.93784874 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 8) self-energy      98.58441092 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD, 9) self-energy     100.40451365 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,10) self-energy     192.69214420 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,11) self-energy      99.52286691 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,12) self-energy      97.54301948 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,13) self-energy      96.64108061 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,14) self-energy      99.22356670 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,15) self-energy      98.31740499 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,16) self-energy     100.72073457 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,17) self-energy     327.31401170 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,18) self-energy     152.48459364 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,19) self-energy     107.65836754 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,20) self-energy     108.59703019 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,21) self-energy     106.03005405 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,22) self-energy     107.96225282 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,23) self-energy     107.87601108 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,24) self-energy     160.98302400 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,25) self-energy     114.98655826 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,26) self-energy     113.98786722 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,27) self-energy     118.71860046 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYD,28) self-energy     115.71416236 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYS,37) self-energy      80.02699480 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYS,44) self-energy     212.90328776 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYS,45) self-energy      40.69669324 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A10-LYS,51) self-energy      46.42493350 pruned by (A10-LYS,40)     -20.32976295.
+  Rotamer (A13-ASH, 4) self-energy      73.26051655 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH, 5) self-energy      36.21266072 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH, 7) self-energy      19.99594179 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH, 9) self-energy     165.26390644 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,10) self-energy      26.95577593 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,11) self-energy      18.88866871 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,14) self-energy      78.20701806 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,15) self-energy      42.28753941 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,17) self-energy      47.19092359 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,18) self-energy      46.93027982 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,19) self-energy     203.91845579 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,20) self-energy      39.09364033 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASH,21) self-energy      51.43835480 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASP,24) self-energy      79.21994730 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A13-ASP,25) self-energy      35.47775655 pruned by (A13-ASP, 0)      -9.91735894.
+  Rotamer (A15-ASH, 4) self-energy     460.36106634 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH, 5) self-energy     512.70591819 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH, 6) self-energy    1800.34858852 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH, 9) self-energy     575.53521470 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,10) self-energy     310.78727029 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,11) self-energy     307.98902624 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,13) self-energy      17.60716340 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,14) self-energy     196.38605530 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,15) self-energy     375.62054105 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,16) self-energy     619.93334930 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,17) self-energy      25.54654828 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,18) self-energy      22.41680359 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,19) self-energy     299.60529534 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,20) self-energy     284.52485171 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASH,21) self-energy     321.75288107 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASP,24) self-energy     182.40067748 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASP,25) self-energy     514.81103503 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A15-ASP,26) self-energy     314.86191681 pruned by (A15-ASP, 0)     -13.28857991.
+  Rotamer (A18-LYD, 1) self-energy      99.15491358 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 2) self-energy     153.86784310 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 3) self-energy     781.47386604 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 4) self-energy     273.72996459 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 5) self-energy     620.45206418 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 6) self-energy     414.88071837 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 7) self-energy     245.57878733 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 8) self-energy     112.88113729 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD, 9) self-energy     113.10618714 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,10) self-energy   34381.91577763 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,11) self-energy     378.17732906 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,12) self-energy     109.72191944 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,13) self-energy     105.99997136 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,14) self-energy     298.29769096 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,15) self-energy     101.79920101 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,16) self-energy     104.10837016 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,17) self-energy    1162.77855276 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,18) self-energy     175.99297199 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,19) self-energy     131.06454879 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,20) self-energy     147.94410104 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,21) self-energy     129.73650032 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,22) self-energy     131.45265345 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,23) self-energy     128.48702174 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,24) self-energy     157.38921950 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,25) self-energy     286.98366162 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,26) self-energy  218047.17948469 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,27) self-energy    1523.23156713 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYD,28) self-energy     149.70373824 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,29) self-energy      36.95689075 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,31) self-energy     157.73651569 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,32) self-energy     506.80417583 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,33) self-energy     296.71254851 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,34) self-energy     186.19722911 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,35) self-energy       6.82634508 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,37) self-energy   34533.21488166 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,38) self-energy     260.81166580 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,41) self-energy     398.92238516 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,44) self-energy    1049.60152693 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,45) self-energy      64.92114773 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,46) self-energy      14.73280654 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,47) self-energy      54.30942379 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,48) self-energy      13.34015095 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,49) self-energy      15.15974724 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,50) self-energy      12.20863567 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,51) self-energy      44.27435079 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,52) self-energy     171.71720288 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,53) self-energy  166451.73285148 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,54) self-energy    1433.12185548 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A18-LYS,55) self-energy      33.68800347 pruned by (A18-LYS, 0)     -18.19922890.
+  Rotamer (A22-LYD, 1) self-energy      92.62446338 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 2) self-energy     198.66642277 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 3) self-energy     103.60344662 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 4) self-energy     103.35987138 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 5) self-energy     144.72364217 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 6) self-energy     104.03805629 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 7) self-energy     103.77250620 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 8) self-energy     102.86783005 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD, 9) self-energy     104.69013228 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,10) self-energy     103.55553862 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,11) self-energy     102.35464792 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,12) self-energy     101.77176585 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,13) self-energy     100.74523281 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,14) self-energy     102.53544869 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,15) self-energy     102.43102235 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,16) self-energy     104.81770237 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,17) self-energy     111.60524643 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,18) self-energy     140.12227543 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,19) self-energy      95.47369238 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,20) self-energy     304.24334629 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,21) self-energy      95.62490779 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,22) self-energy      97.04284411 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,23) self-energy     149.93410378 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,24) self-energy    1643.77405814 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,25) self-energy      96.42710959 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,26) self-energy      96.03353559 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,27) self-energy      97.15338509 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYD,28) self-energy      98.01400752 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYS,29) self-energy      84.28081612 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYS,32) self-energy      72.59994633 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYS,45) self-energy      28.55454968 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYS,47) self-energy     191.82747102 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYS,50) self-energy      35.90457621 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A22-LYS,51) self-energy    1765.40382710 pruned by (A22-LYS, 0)     -23.20960406.
+  Rotamer (A34-ASH, 2) self-energy      31.29072366 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH, 3) self-energy      88.55851841 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH, 6) self-energy      71.11600972 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH, 7) self-energy      75.01482274 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH, 8) self-energy      86.18323753 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,11) self-energy     148.19507055 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,12) self-energy      36.15438926 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,13) self-energy     111.94696074 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,16) self-energy      62.39713356 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,17) self-energy     216.09569169 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,18) self-energy     599.05885316 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,19) self-energy      20.98932657 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASH,21) self-energy     129.05783846 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASP,22) self-energy      19.61654005 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASP,23) self-energy      43.59209325 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A34-ASP,26) self-energy      89.53492255 pruned by (A34-ASP, 0)     -14.14321242.
+  Rotamer (A37-GLH, 6) self-energy      42.00810607 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,11) self-energy      52.13737500 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,14) self-energy     184.39693922 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,22) self-energy      41.48338238 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,26) self-energy      16.90331789 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,27) self-energy      95.91404404 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,28) self-energy      21.65626411 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,29) self-energy      19.58316334 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,30) self-energy      72.11173083 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,31) self-energy      36.91995841 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLH,32) self-energy      15.78569375 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A37-GLU,38) self-energy      34.91904204 pruned by (A37-GLU, 0)     -10.31171633.
+  Rotamer (A40-GLH, 2) self-energy    3539.54611181 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH, 3) self-energy    2332.46565662 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH, 6) self-energy      89.71340640 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH, 7) self-energy      19.97084147 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,10) self-energy    1291.82383102 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,11) self-energy    2088.35475417 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,14) self-energy     115.37401624 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,15) self-energy      81.74368337 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,18) self-energy    3385.43562493 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,19) self-energy    2198.70100059 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,22) self-energy      94.42304180 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,23) self-energy      23.50462165 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,26) self-energy    1309.80580049 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,27) self-energy    2053.31256611 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,28) self-energy      26.32841598 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,29) self-energy      25.21901501 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,30) self-energy     122.42288457 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLH,31) self-energy      89.82501776 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLU,34) self-energy    1656.77445458 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLU,35) self-energy    1995.65028121 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLU,38) self-energy     119.36845296 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A40-GLU,39) self-energy      24.76387788 pruned by (A40-GLU, 0)      -8.20873647.
+  Rotamer (A41-LYD, 1) self-energy      95.70960212 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 2) self-energy      99.29665196 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 3) self-energy      98.75837790 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 4) self-energy      97.74364157 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 5) self-energy      99.62811374 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 6) self-energy      99.43578283 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 7) self-energy     101.96526425 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 8) self-energy      97.41787119 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD, 9) self-energy      99.14946941 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,10) self-energy     211.08213243 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,11) self-energy      99.63313332 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,12) self-energy     102.67084864 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,13) self-energy     102.08994718 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,14) self-energy     343.51247061 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,15) self-energy      97.61110056 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,16) self-energy      99.99576490 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,17) self-energy     110.99276556 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,18) self-energy     142.58014444 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,19) self-energy      97.94832826 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,20) self-energy      97.34325655 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,21) self-energy      96.38087256 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,22) self-energy      98.27212065 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,23) self-energy      98.00251178 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,24) self-energy     100.45962469 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,25) self-energy      99.48208775 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,26) self-energy      98.55792978 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,27) self-energy     100.41670854 pruned by (A41-LYS, 0)     -22.00679638.
+  Rotamer (A41-LYD,28) self-energy     100.27928836 pruned by (A41-LYS, 0)     -22.00679638.
+
+ Number of self energies: 1249
+ Backbone energy:     -581.02275616
+
+ Self  A41-LYS 35:     -19.62556173 in 2.0272 (sec).
+ Self  A41-LYS 36:     -17.71846415 in 2.0177 (sec).
+ Self  A41-LYS 37:     114.73295152 in 1.9405 (sec).
+ Self  A41-LYS 38:     -17.27514508 in 1.9076 (sec).
+ Self  A41-LYS 39:     -13.04230289 in 1.9237 (sec).
+ Self  A41-LYS 40:     -15.06511217 in 1.7694 (sec).
+ Self  A41-LYS 41:     297.12984847 in 1.8833 (sec).
+ Self  A41-LYS 42:     -19.57619427 in 1.9283 (sec).
+ Self  A41-LYS 43:     -17.07155535 in 1.9783 (sec).
+ Self  A41-LYS 44:      -3.45381081 in 1.8150 (sec).
+ Self  A41-LYS 45:      30.27521029 in 1.9418 (sec).
+ Self  A41-LYS 46:     -19.09077788 in 1.9571 (sec).
+ Self  A41-LYS 47:     -18.50234583 in 1.8849 (sec).
+ Self  A41-LYS 48:     -20.77067630 in 1.9051 (sec).
+ Self  A41-LYS 49:     -18.62934961 in 1.6823 (sec).
+ Self  A41-LYS 50:     -18.96010152 in 1.7188 (sec).
+ Self  A41-LYS 51:     -16.15606159 in 1.7250 (sec).
+ Self  A41-LYS 52:     -16.44611369 in 1.6073 (sec).
+ Self  A41-LYS 53:     -18.49851776 in 1.6705 (sec).
+ Self  A41-LYS 54:     -16.21537404 in 1.4690 (sec).
+ Self  A41-LYS 55:     -16.49757445 in 1.5393 (sec).
+ Self  A45-GLU 0 :      -6.58004961 in 1.5055 (sec).
+ Self  A45-GLH 1 :       4.30043559 in 1.6513 (sec).
+ Self  A45-GLH 2 :     973.73412271 in 1.6135 (sec).
+ Self  A45-GLH 3 :  349417.80858112 in 1.5392 (sec).
+ Self  A45-GLH 4 :       2.65104425 in 1.6903 (sec).
+ Self  A45-GLH 5 :      13.56374609 in 1.5393 (sec).
+ Self  A45-GLH 6 :    5550.40781038 in 1.5302 (sec).
+ Self  A45-GLH 7 :       7.42500104 in 1.5583 (sec).
+ Self  A45-GLH 8 :       3.36567299 in 1.5275 (sec).
+ Self  A45-GLH 9 :      -1.78929497 in 1.5161 (sec).
+ Self  A45-GLH 10:     549.78072099 in 1.4887 (sec).
+ Self  A45-GLH 11:    2841.38182292 in 1.4915 (sec).
+ Self  A45-GLH 12:       5.11572675 in 1.5241 (sec).
+ Self  A45-GLH 13:      28.30986744 in 1.5357 (sec).
+ Self  A45-GLH 14:    1996.76746363 in 1.3818 (sec).
+ Self  A45-GLH 15:      36.11295237 in 1.4076 (sec).
+ Self  A45-GLH 16:       4.53814676 in 1.2638 (sec).
+ Self  A45-GLH 17:       0.83138178 in 1.3976 (sec).
+ Self  A45-GLH 18:    2814.46168500 in 1.4256 (sec).
+ Self  A45-GLH 19:    3071.94805450 in 1.3393 (sec).
+ Self  A45-GLH 20:       6.92973998 in 1.3243 (sec).
+ Self  A45-GLH 21:      15.77785808 in 1.3543 (sec).
+ Self  A45-GLH 22:    4960.86221007 in 1.3592 (sec).
+ Self  A45-GLH 23:      10.93151612 in 1.4254 (sec).
+ Self  A45-GLH 24:       7.01380257 in 1.3333 (sec).
+ Self  A45-GLH 25:       2.78485754 in 1.3761 (sec).
+ Self  A45-GLH 26:     562.52241623 in 1.4820 (sec).
+ Self  A45-GLH 27:    2887.78277680 in 1.4443 (sec).
+ Self  A45-GLH 28:      23.35557353 in 1.4594 (sec).
+ Self  A45-GLH 29:      40.59997461 in 1.5083 (sec).
+ Self  A45-GLH 30:    1567.54687405 in 1.5462 (sec).
+ Self  A45-GLH 31:      58.58358064 in 1.5451 (sec).
+ Self  A45-GLH 32:      22.08517499 in 1.5039 (sec).
+ Self  A45-GLH 33:      15.65446741 in 1.4541 (sec).
+ Self  A45-GLU 34:     614.60682742 in 1.6616 (sec).
+ Self  A45-GLU 35:    2429.91823355 in 1.6892 (sec).
+ Self  A45-GLU 36:      -0.36135253 in 1.5541 (sec).
+ Self  A45-GLU 37:      20.73025697 in 1.4616 (sec).
+ Self  A45-GLU 38:    7276.21583035 in 1.3955 (sec).
+ Self  A45-GLU 39:       6.36609259 in 1.3966 (sec).
+ Self  A45-GLU 40:       6.40222465 in 1.3581 (sec).
+ Self  A45-GLU 41:      -4.81510546 in 1.4614 (sec).
+ Self  A51-LYS 0 :     -21.64767362 in 1.4981 (sec).
+ Self  A51-LYD 1 :      95.59943979 in 1.4881 (sec).
+ Self  A51-LYD 2 :     251.18860456 in 1.4250 (sec).
+ Self  A51-LYD 3 :    1251.57990992 in 1.5377 (sec).
+ Self  A51-LYD 4 :    1256.45203297 in 1.4800 (sec).
+ Self  A51-LYD 5 :   44062.46202136 in 1.5219 (sec).
+ Self  A51-LYD 6 :     249.89510357 in 1.3956 (sec).
+ Self  A51-LYD 7 :     323.95909063 in 1.4623 (sec).
+ Self  A51-LYD 8 :     335.19643910 in 1.5309 (sec).
+ Self  A51-LYD 9 :     325.75582357 in 1.5542 (sec).
+ Self  A51-LYD 10:     100.53232955 in 1.4986 (sec).
+ Self  A51-LYD 11:      99.66901565 in 1.4634 (sec).
+ Self  A51-LYD 12:      97.48027863 in 1.4097 (sec).
+ Self  A51-LYD 13:      97.36249471 in 1.4311 (sec).
+ Self  A51-LYD 14:      98.72807775 in 1.4171 (sec).
+ Self  A51-LYD 15:      99.78219415 in 1.4559 (sec).
+ Self  A51-LYD 16:     135.59182433 in 1.4621 (sec).
+ Self  A51-LYD 17:     283.85713059 in 1.3747 (sec).
+ Self  A51-LYD 18:     187.03960787 in 1.3896 (sec).
+ Self  A51-LYD 19:     142.34329185 in 1.3779 (sec).
+ Self  A51-LYD 20:     409.51622331 in 1.3636 (sec).
+ Self  A51-LYD 21:     142.77785392 in 1.3706 (sec).
+ Self  A51-LYD 22:     149.31383201 in 1.4046 (sec).
+ Self  A51-LYD 23:     174.74461732 in 1.5102 (sec).
+ Self  A51-LYD 24:     665.09784130 in 1.5172 (sec).
+ Self  A51-LYD 25:    6510.89006131 in 1.4771 (sec).
+ Self  A51-LYD 26:   10177.54715389 in 1.4513 (sec).
+ Self  A51-LYD 27:    6533.18279155 in 1.4395 (sec).
+ Self  A51-LYD 28:    9877.13676064 in 1.3677 (sec).
+ Self  A51-LYS 29:     137.92172980 in 1.4566 (sec).
+ Self  A51-LYS 30:      52.19779127 in 1.3972 (sec).
+ Self  A51-LYS 31:    1143.06104353 in 1.4687 (sec).
+ Self  A51-LYS 32:   45030.42445753 in 1.4426 (sec).
+ Self  A51-LYS 33:     134.49743020 in 1.4328 (sec).
+ Self  A51-LYS 34:     208.64274689 in 1.4507 (sec).
+ Self  A51-LYS 35:     222.81606361 in 1.3691 (sec).
+ Self  A51-LYS 36:     209.52321510 in 1.4486 (sec).
+ Self  A51-LYS 37:     -14.57085156 in 1.4951 (sec).
+ Self  A51-LYS 38:     -16.84024283 in 1.5724 (sec).
+ Self  A51-LYS 39:     -17.66706410 in 1.4475 (sec).
+ Self  A51-LYS 40:     -19.53269370 in 1.5932 (sec).
+ Self  A51-LYS 41:     -17.91256237 in 1.7967 (sec).
+ Self  A51-LYS 42:     -16.52751668 in 1.8993 (sec).
+ Self  A51-LYS 43:      19.71114478 in 1.9813 (sec).
+ Self  A51-LYS 44:     171.82351247 in 1.7515 (sec).
+ Self  A51-LYS 45:      75.71054538 in 1.8754 (sec).
+ Self  A51-LYS 46:      26.59146766 in 1.7027 (sec).
+ Self  A51-LYS 47:     305.35833268 in 1.8473 (sec).
+ Self  A51-LYS 48:      27.70604362 in 1.7854 (sec).
+ Self  A51-LYS 49:      34.32310146 in 1.7857 (sec).
+ Self  A51-LYS 50:      60.76800828 in 1.9406 (sec).
+ Self  A51-LYS 51:     651.78689194 in 1.8020 (sec).
+ Self  A51-LYS 52:    6404.10489235 in 1.8831 (sec).
+ Self  A51-LYS 53:   10417.74749965 in 1.7961 (sec).
+ Self  A51-LYS 54:    6429.37628848 in 1.8397 (sec).
+ Self  A51-LYS 55:   10188.26811868 in 1.7146 (sec).
+ Self  A52-LYS 0 :     -23.05091662 in 1.8119 (sec).
+ Self  A52-LYD 1 :      94.31184714 in 1.8453 (sec).
+ Self  A52-LYD 2 :     112.87253812 in 1.8851 (sec).
+ Self  A52-LYD 3 :     177.86860598 in 1.8943 (sec).
+ Self  A52-LYD 4 :     170.04730515 in 1.8916 (sec).
+ Self  A52-LYD 5 :    5931.09993099 in 1.7293 (sec).
+ Self  A52-LYD 6 :     110.07871403 in 1.8088 (sec).
+ Self  A52-LYD 7 :  172299.25502121 in 1.9435 (sec).
+ Self  A52-LYD 8 :    1265.30851894 in 1.9001 (sec).
+ Self  A52-LYD 9 :    1218.99930738 in 1.9056 (sec).
+ Self  A52-LYD 10:      98.09464241 in 1.4658 (sec).
+ Self  A52-LYD 11:      96.97188762 in 1.6378 (sec).
+ Self  A52-LYD 12:      95.60729637 in 1.7666 (sec).
+ Self  A52-LYD 13:      95.24583416 in 1.9006 (sec).
+ Self  A52-LYD 14:      99.76813982 in 1.8564 (sec).
+ Self  A52-LYD 15:      96.92475730 in 1.9031 (sec).
+ Self  A52-LYD 16:      99.28524598 in 1.9018 (sec).
+ Self  A52-LYD 17:     118.51213511 in 1.9350 (sec).
+ Self  A52-LYD 18:     144.25514837 in 1.8498 (sec).
+ Self  A52-LYD 19:      99.34261161 in 1.8996 (sec).
+ Self  A52-LYD 20:     103.30599356 in 1.9541 (sec).
+ Self  A52-LYD 21:      97.70167976 in 1.9914 (sec).
+ Self  A52-LYD 22:      99.58645262 in 1.8938 (sec).
+ Self  A52-LYD 23:     101.85510516 in 2.0009 (sec).
+ Self  A52-LYD 24:     199.57801779 in 2.0575 (sec).
+ Self  A52-LYD 25:     103.02401058 in 1.9768 (sec).
+ Self  A52-LYD 26:     102.09896533 in 1.9029 (sec).
+ Self  A52-LYD 27:     103.49121369 in 1.8788 (sec).
+ Self  A52-LYD 28:     103.83630531 in 2.0015 (sec).
+ Self  A52-LYS 29:      -2.84226825 in 1.9761 (sec).
+ Self  A52-LYS 30:     -15.70207363 in 1.7016 (sec).
+ Self  A52-LYS 31:      54.88664695 in 1.5843 (sec).
+ Self  A52-LYS 32:    5855.11931907 in 1.8675 (sec).
+ Self  A52-LYS 33:      -6.25714529 in 1.9938 (sec).
+ Self  A52-LYS 34:  171396.57906101 in 1.9599 (sec).
+ Self  A52-LYS 35:    1146.78283124 in 2.0241 (sec).
+ Self  A52-LYS 36:    1098.54136806 in 1.9818 (sec).
+ Self  A52-LYS 37:     -16.98550846 in 1.9532 (sec).
+ Self  A52-LYS 38:     -19.75125644 in 1.9888 (sec).
+ Self  A52-LYS 39:     -16.91467739 in 1.9501 (sec).
+ Self  A52-LYS 40:     -21.52052283 in 1.9846 (sec).
+ Self  A52-LYS 41:     -16.03965536 in 1.8953 (sec).
+ Self  A52-LYS 42:     -19.86979427 in 2.0200 (sec).
+ Self  A52-LYS 43:     -17.29555746 in 1.9347 (sec).
+ Self  A52-LYS 44:       4.36058378 in 1.9875 (sec).
+ Self  A52-LYS 45:      32.42227605 in 1.9621 (sec).
+ Self  A52-LYS 46:     -17.23178357 in 1.8929 (sec).
+ Self  A52-LYS 47:     -11.75729985 in 2.0748 (sec).
+ Self  A52-LYS 48:     -18.96443775 in 1.9144 (sec).
+ Self  A52-LYS 49:     -16.97848239 in 2.0620 (sec).
+ Self  A52-LYS 50:     -14.42552648 in 1.9946 (sec).
+ Self  A52-LYS 51:      86.13325524 in 2.0951 (sec).
+ Self  A52-LYS 52:     -12.98365339 in 1.4797 (sec).
+ Self  A52-LYS 53:     -15.18735226 in 1.4122 (sec).
+ Self  A52-LYS 54:     -13.37772664 in 1.4570 (sec).
+ Self  A52-LYS 55:     -13.08583947 in 1.4375 (sec).
+ Self  A55-GLU 0 :      -8.48805731 in 1.4712 (sec).
+ Self  A55-GLH 1 :      -2.38930558 in 1.4894 (sec).
+ Self  A55-GLH 2 :      15.82893763 in 1.4213 (sec).
+ Self  A55-GLH 3 :   57803.81991052 in 1.4101 (sec).
+ Self  A55-GLH 4 :       2.00721035 in 1.4651 (sec).
+ Self  A55-GLH 5 :      -1.81696309 in 1.4917 (sec).
+ Self  A55-GLH 6 :       4.02377500 in 1.5369 (sec).
+ Self  A55-GLH 7 :    7988.44585600 in 1.5063 (sec).
+ Self  A55-GLH 8 :      -5.99319353 in 1.5232 (sec).
+ Self  A55-GLH 9 :     297.23773480 in 1.8716 (sec).
+ Self  A55-GLH 10:      12.47798368 in 1.9961 (sec).
+ Self  A55-GLH 11:   13989.72933179 in 1.5911 (sec).
+ Self  A55-GLH 12:       5.65055333 in 1.3836 (sec).
+ Self  A55-GLH 13:       1.12974032 in 1.4255 (sec).
+ Self  A55-GLH 14:      17.82557413 in 1.3819 (sec).
+ Self  A55-GLH 15:   36423.93185407 in 1.4829 (sec).
+ Self  A55-GLH 16:      -2.53018372 in 1.7987 (sec).
+ Self  A55-GLH 17:     446.05091451 in 1.8496 (sec).
+ Self  A55-GLH 18:     117.15083168 in 1.9222 (sec).
+ Self  A55-GLH 19:   57047.41243083 in 1.8314 (sec).
+ Self  A55-GLH 20:       5.89068260 in 1.9697 (sec).
+ Self  A55-GLH 21:       1.89015132 in 1.8483 (sec).
+ Self  A55-GLH 22:       7.99340889 in 2.0545 (sec).
+ Self  A55-GLH 23:    7966.05389631 in 1.9458 (sec).
+ Self  A55-GLH 24:      -1.89652120 in 2.0143 (sec).
+ Self  A55-GLH 25:     323.24380833 in 2.0379 (sec).
+ Self  A55-GLH 26:      30.88285551 in 1.9518 (sec).
+ Self  A55-GLH 27:   13017.29372949 in 1.9791 (sec).
+ Self  A55-GLH 28:      23.49648596 in 1.8443 (sec).
+ Self  A55-GLH 29:      18.69769458 in 2.0180 (sec).
+ Self  A55-GLH 30:      43.26605234 in 1.9242 (sec).
+ Self  A55-GLH 31:    5398.43128466 in 1.8206 (sec).
+ Self  A55-GLH 32:      15.51402523 in 1.8651 (sec).
+ Self  A55-GLH 33:     460.32219567 in 1.8410 (sec).
+ Self  A55-GLU 34:      13.48172307 in 1.8349 (sec).
+ Self  A55-GLU 35:   45837.13240552 in 1.9263 (sec).
+ Self  A55-GLU 36:       0.69626040 in 1.9606 (sec).
+ Self  A55-GLU 37:      -1.96332846 in 2.0314 (sec).
+ Self  A55-GLU 38:       5.82822719 in 1.8564 (sec).
+ Self  A55-GLU 39:   10917.78685366 in 1.8092 (sec).
+ Self  A55-GLU 40:      -6.77481158 in 1.8280 (sec).
+ Self  A55-GLU 41:     720.40138192 in 1.8540 (sec).
+ Self  A58-LYS 0 :     -22.56864169 in 1.9016 (sec).
+ Self  A58-LYD 1 :      94.91087477 in 1.7574 (sec).
+ Self  A58-LYD 2 :      98.78204459 in 1.7596 (sec).
+ Self  A58-LYD 3 :      97.51889557 in 1.8565 (sec).
+ Self  A58-LYD 4 :      97.27037337 in 1.9553 (sec).
+ Self  A58-LYD 5 :      98.47958220 in 2.0070 (sec).
+ Self  A58-LYD 6 :      99.00579311 in 1.9586 (sec).
+ Self  A58-LYD 7 :      96.65067117 in 2.0477 (sec).
+ Self  A58-LYD 8 :      95.88475499 in 1.9953 (sec).
+ Self  A58-LYD 9 :      97.73627858 in 2.1060 (sec).
+ Self  A58-LYD 10:      96.40626020 in 1.9082 (sec).
+ Self  A58-LYD 11:      95.23538235 in 1.8598 (sec).
+ Self  A58-LYD 12:      94.65003726 in 1.8285 (sec).
+ Self  A58-LYD 13:      93.66667987 in 1.8966 (sec).
+ Self  A58-LYD 14:      95.55581677 in 1.8885 (sec).
+ Self  A58-LYD 15:      95.28083109 in 1.8592 (sec).
+ Self  A58-LYD 16:      97.65124978 in 1.8264 (sec).
+ Self  A58-LYD 17:     108.53069901 in 1.9101 (sec).
+ Self  A58-LYD 18:     140.44187977 in 1.7986 (sec).
+ Self  A58-LYD 19:      95.56716250 in 1.8881 (sec).
+ Self  A58-LYD 20:      95.04728182 in 1.9661 (sec).
+ Self  A58-LYD 21:      94.02368986 in 1.8869 (sec).
+ Self  A58-LYD 22:      95.89882429 in 1.8261 (sec).
+ Self  A58-LYD 23:      95.38844356 in 1.7057 (sec).
+ Self  A58-LYD 24:      97.23204848 in 1.9074 (sec).
+ Self  A58-LYD 25:      96.60035522 in 1.8241 (sec).
+ Self  A58-LYD 26:      95.65883452 in 1.9473 (sec).
+ Self  A58-LYD 27:      97.41150744 in 1.8367 (sec).
+ Self  A58-LYD 28:      97.35844345 in 1.9089 (sec).
+ Self  A58-LYS 29:     -18.09272596 in 1.8948 (sec).
+ Self  A58-LYS 30:     -18.35229341 in 1.8489 (sec).
+ Self  A58-LYS 31:     -19.82374168 in 1.9028 (sec).
+ Self  A58-LYS 32:     -18.16139290 in 1.8434 (sec).
+ Self  A58-LYS 33:     -17.98700290 in 1.8367 (sec).
+ Self  A58-LYS 34:     -19.51899288 in 1.7674 (sec).
+ Self  A58-LYS 35:     -21.44358466 in 1.9111 (sec).
+ Self  A58-LYS 36:     -19.31354948 in 1.9416 (sec).
+ Self  A58-LYS 37:     -19.10254465 in 1.8254 (sec).
+ Self  A58-LYS 38:     -21.64734792 in 1.8723 (sec).
+ Self  A58-LYS 39:     -21.44623181 in 1.9057 (sec).
+ Self  A58-LYS 40:     -23.54156513 in 1.9541 (sec).
+ Self  A58-LYS 41:     -21.33587227 in 1.9862 (sec).
+ Self  A58-LYS 42:     -21.65905501 in 1.8358 (sec).
+ Self  A58-LYS 43:     -19.27955312 in 1.5119 (sec).
+ Self  A58-LYS 44:      -6.00069599 in 1.4922 (sec).
+ Self  A58-LYS 45:      28.03172290 in 1.5734 (sec).
+ Self  A58-LYS 46:     -21.30095378 in 1.4877 (sec).
+ Self  A58-LYS 47:     -20.98621662 in 1.4187 (sec).
+ Self  A58-LYS 48:     -23.04047865 in 1.4756 (sec).
+ Self  A58-LYS 49:     -20.99941807 in 1.6323 (sec).
+ Self  A58-LYS 50:     -21.39261466 in 1.9890 (sec).
+ Self  A58-LYS 51:     -19.47020976 in 1.8726 (sec).
+ Self  A58-LYS 52:     -19.39797313 in 1.8598 (sec).
+ Self  A58-LYS 53:     -21.51881355 in 1.8221 (sec).
+ Self  A58-LYS 54:     -19.64504704 in 1.7892 (sec).
+ Self  A58-LYS 55:     -19.59836288 in 1.8088 (sec).
+ Self  A59-LYS 0 :     -23.98695012 in 1.8056 (sec).
+ Self  A59-LYD 1 :      93.35326822 in 1.7973 (sec).
+ Self  A59-LYD 2 :      95.04059436 in 1.8524 (sec).
+ Self  A59-LYD 3 :      93.12114530 in 1.8429 (sec).
+ Self  A59-LYD 4 :      93.31242526 in 1.7673 (sec).
+ Self  A59-LYD 5 :      95.22873405 in 1.6983 (sec).
+ Self  A59-LYD 6 :      93.63195858 in 1.7355 (sec).
+ Self  A59-LYD 7 :     208.45678273 in 1.7569 (sec).
+ Self  A59-LYD 8 :     151.31424209 in 1.8097 (sec).
+ Self  A59-LYD 9 :     134.84163943 in 1.8621 (sec).
+ Self  A59-LYD 10:      92.10268982 in 1.8231 (sec).
+ Self  A59-LYD 11:      92.44219175 in 1.7577 (sec).
+ Self  A59-LYD 12:     130.58378543 in 1.9414 (sec).
+ Self  A59-LYD 13:      91.40235634 in 1.7942 (sec).
+ Self  A59-LYD 14:      91.51008616 in 1.9323 (sec).
+ Self  A59-LYD 15:      93.71778851 in 1.8390 (sec).
+ Self  A59-LYD 16:      96.03011712 in 1.8298 (sec).
+ Self  A59-LYD 17:     119.85724649 in 1.7492 (sec).
+ Self  A59-LYD 18:     139.71853770 in 1.8084 (sec).
+ Self  A59-LYD 19:      95.14826148 in 1.9104 (sec).
+ Self  A59-LYD 20:      94.55361967 in 1.8331 (sec).
+ Self  A59-LYD 21:      93.54711082 in 1.8880 (sec).
+ Self  A59-LYD 22:      95.41452632 in 1.8404 (sec).
+ Self  A59-LYD 23:      95.12806745 in 1.9690 (sec).
+ Self  A59-LYD 24:      97.55421106 in 1.9470 (sec).
+ Self  A59-LYD 25:      96.96400191 in 1.9718 (sec).
+ Self  A59-LYD 26:      95.99490334 in 1.9472 (sec).
+ Self  A59-LYD 27:      97.99484695 in 1.9688 (sec).
+ Self  A59-LYD 28:      97.89381182 in 1.9897 (sec).
+ Self  A59-LYS 29:     -21.52550823 in 1.9599 (sec).
+ Self  A59-LYS 30:     -18.88215165 in 1.6444 (sec).
+ Self  A59-LYS 31:     -23.38033041 in 1.9300 (sec).
+ Self  A59-LYS 32:     -21.04150095 in 1.8029 (sec).
+ Self  A59-LYS 33:     -22.93641373 in 1.8191 (sec).
+ Self  A59-LYS 34:     107.22904611 in 1.7434 (sec).
+ Self  A59-LYS 35:      38.37441623 in 1.8128 (sec).
+ Self  A59-LYS 36:      20.41757244 in 1.7885 (sec).
+ Self  A59-LYS 37:     -22.62881439 in 1.9786 (sec).
+ Self  A59-LYS 38:     -24.07556783 in 1.8891 (sec).
+ Self  A59-LYS 39:      15.69770240 in 1.9709 (sec).
+ Self  A59-LYS 40:     -25.25286630 in 2.0178 (sec).
+ Self  A59-LYS 41:     -24.76249474 in 1.7167 (sec).
+ Self  A59-LYS 42:     -22.89423445 in 1.8404 (sec).
+ Self  A59-LYS 43:     -20.47567304 in 1.8308 (sec).
+ Self  A59-LYS 44:       5.32381748 in 1.8211 (sec).
+ Self  A59-LYS 45:      27.74541892 in 1.8446 (sec).
+ Self  A59-LYS 46:     -21.29659729 in 1.9956 (sec).
+ Self  A59-LYS 47:     -21.04755646 in 1.8449 (sec).
+ Self  A59-LYS 48:     -23.14827542 in 1.8305 (sec).
+ Self  A59-LYS 49:     -21.09675722 in 1.8968 (sec).
+ Self  A59-LYS 50:     -21.31636211 in 1.8482 (sec).
+ Self  A59-LYS 51:     -18.87265486 in 1.8801 (sec).
+ Self  A59-LYS 52:     -18.97006397 in 1.8707 (sec).
+ Self  A59-LYS 53:     -21.04964372 in 1.7773 (sec).
+ Self  A59-LYS 54:     -19.37287529 in 1.7908 (sec).
+ Self  A59-LYS 55:     -18.60050005 in 1.7516 (sec).
+ Self  A61-GLU 0 :      -8.99078245 in 1.7660 (sec).
+ Self  A61-GLH 1 :      -2.07304127 in 1.7015 (sec).
+ Self  A61-GLH 2 :     105.12589023 in 1.7983 (sec).
+ Self  A61-GLH 3 :    4208.34704363 in 1.7941 (sec).
+ Self  A61-GLH 4 :    1337.46512347 in 1.7772 (sec).
+ Self  A61-GLH 5 :      58.62502290 in 1.7672 (sec).
+ Self  A61-GLH 6 :     141.70730766 in 1.8211 (sec).
+ Self  A61-GLH 7 :      -4.00778907 in 1.7360 (sec).
+ Self  A61-GLH 8 :      -7.78491397 in 1.7454 (sec).
+ Self  A61-GLH 9 :      -0.67116860 in 1.7318 (sec).
+ Self  A61-GLH 10:      68.61080819 in 1.7464 (sec).
+ Self  A61-GLH 11:    2051.47071207 in 1.7953 (sec).
+ Self  A61-GLH 12:     420.82056902 in 1.8131 (sec).
+ Self  A61-GLH 13:      28.17796465 in 1.7169 (sec).
+ Self  A61-GLH 14:      68.27401243 in 1.6717 (sec).
+ Self  A61-GLH 15:       1.69555049 in 1.7186 (sec).
+ Self  A61-GLH 16:      -4.32649552 in 1.7123 (sec).
+ Self  A61-GLH 17:      27.33310466 in 1.8151 (sec).
+ Self  A61-GLH 18:     366.91782558 in 1.8237 (sec).
+ Self  A61-GLH 19:    6993.43397464 in 1.7623 (sec).
+ Self  A61-GLH 20:    1179.61741256 in 1.6997 (sec).
+ Self  A61-GLH 21:     171.61560418 in 1.7710 (sec).
+ Self  A61-GLH 22:     189.75327181 in 1.7709 (sec).
+ Self  A61-GLH 23:      -0.68630426 in 1.7769 (sec).
+ Self  A61-GLH 24:      -4.06942488 in 1.7948 (sec).
+ Self  A61-GLH 25:       3.55864696 in 1.7647 (sec).
+ Self  A61-GLH 26:      87.19369569 in 1.7174 (sec).
+ Self  A61-GLH 27:    2079.26318334 in 1.7715 (sec).
+ Self  A61-GLH 28:     435.75862352 in 1.8023 (sec).
+ Self  A61-GLH 29:      46.05712703 in 1.8356 (sec).
+ Self  A61-GLH 30:      92.81805578 in 1.7684 (sec).
+ Self  A61-GLH 31:      32.71574512 in 1.7476 (sec).
+ Self  A61-GLH 32:      13.96152360 in 1.7608 (sec).
+ Self  A61-GLH 33:      24.13610726 in 1.8381 (sec).
+ Self  A61-GLU 34:      76.51456232 in 1.8758 (sec).
+ Self  A61-GLU 35:    3757.36834995 in 1.7980 (sec).
+ Self  A61-GLU 36:     570.14771624 in 1.8331 (sec).
+ Self  A61-GLU 37:      45.39027649 in 1.8517 (sec).
+ Self  A61-GLU 38:      75.69928941 in 1.7743 (sec).
+ Self  A61-GLU 39:      -6.98039139 in 1.8896 (sec).
+ Self  A61-GLU 40:      -9.15299499 in 1.8157 (sec).
+ Self  A61-GLU 41:      -0.44131149 in 1.8074 (sec).
+ Self  A63-GLU 0 :      -7.76093299 in 1.8791 (sec).
+ Self  A63-GLH 1 :       0.81507470 in 1.9706 (sec).
+ Self  A63-GLH 2 :     466.31618861 in 2.0071 (sec).
+ Self  A63-GLH 3 :    1054.22423336 in 1.9742 (sec).
+ Self  A63-GLH 4 :     487.16429590 in 1.8845 (sec).
+ Self  A63-GLH 5 :       5.03349234 in 2.0796 (sec).
+ Self  A63-GLH 6 :    1297.95879299 in 1.7930 (sec).
+ Self  A63-GLH 7 :      57.43393580 in 1.3499 (sec).
+ Self  A63-GLH 8 :      53.15553947 in 1.5040 (sec).
+ Self  A63-GLH 9 :   84792.67272025 in 1.3882 (sec).
+ Self  A63-GLH 10:     457.41665180 in 1.5078 (sec).
+ Self  A63-GLH 11:    1387.98414175 in 1.5068 (sec).
+ Self  A63-GLH 12:     451.65853048 in 1.5409 (sec).
+ Self  A63-GLH 13:      49.59398679 in 1.5006 (sec).
+ Self  A63-GLH 14:     259.52508653 in 1.4769 (sec).
+ Self  A63-GLH 15:     126.54767441 in 1.3852 (sec).
+ Self  A63-GLH 16:      41.11100456 in 1.5885 (sec).
+ Self  A63-GLH 17:   61679.05142946 in 1.4646 (sec).
+ Self  A63-GLH 18:     613.53013887 in 1.4525 (sec).
+ Self  A63-GLH 19:    2527.73282781 in 1.4810 (sec).
+ Self  A63-GLH 20:     325.88640214 in 1.4844 (sec).
+ Self  A63-GLH 21:      35.75756331 in 1.4181 (sec).
+ Self  A63-GLH 22:     227.36455676 in 1.5392 (sec).
+ Self  A63-GLH 23:      59.63081016 in 1.4860 (sec).
+ Self  A63-GLH 24:      56.58695795 in 1.5018 (sec).
+ Self  A63-GLH 25:    5527.31482948 in 1.6181 (sec).
+ Self  A63-GLH 26:     452.02592192 in 1.5458 (sec).
+ Self  A63-GLH 27:    1390.40015726 in 1.4590 (sec).
+ Self  A63-GLH 28:     191.97822438 in 1.5116 (sec).
+ Self  A63-GLH 29:      47.36533421 in 1.4723 (sec).
+ Self  A63-GLH 30:     172.78951362 in 1.4214 (sec).
+ Self  A63-GLH 31:     117.91333299 in 1.3553 (sec).
+ Self  A63-GLH 32:      55.87310432 in 1.3483 (sec).
+ Self  A63-GLH 33:   61155.97275644 in 1.3255 (sec).
+ Self  A63-GLU 34:     461.48860157 in 1.2407 (sec).
+ Self  A63-GLU 35:    1363.89064118 in 1.4443 (sec).
+ Self  A63-GLU 36:     328.69261633 in 1.2794 (sec).
+ Self  A63-GLU 37:       4.31152379 in 1.3637 (sec).
+ Self  A63-GLU 38:     201.66216357 in 1.3784 (sec).
+ Self  A63-GLU 39:      68.79834606 in 1.3682 (sec).
+ Self  A63-GLU 40:      62.40980107 in 1.4524 (sec).
+ Self  A63-GLU 41:   61179.80642056 in 1.3481 (sec).
+ Self  A65-ASP 0 :      -9.43257124 in 1.4210 (sec).
+ Self  A65-ASH 1 :      21.17720047 in 1.4518 (sec).
+ Self  A65-ASH 2 :      58.63159848 in 1.4894 (sec).
+ Self  A65-ASH 3 :     124.20334003 in 1.3850 (sec).
+ Self  A65-ASH 4 :     121.33431756 in 1.4498 (sec).
+ Self  A65-ASH 5 :      81.12990951 in 1.4668 (sec).
+ Self  A65-ASH 6 :     310.46959330 in 1.3557 (sec).
+ Self  A65-ASH 7 :      83.98352408 in 1.3314 (sec).
+ Self  A65-ASH 8 :     278.70843334 in 1.3974 (sec).
+ Self  A65-ASH 9 :      54.69830944 in 1.5386 (sec).
+ Self  A65-ASH 10:      60.61933068 in 1.6080 (sec).
+ Self  A65-ASH 11:     206.66195332 in 1.3071 (sec).
+ Self  A65-ASH 12:      60.80508221 in 1.3877 (sec).
+ Self  A65-ASH 13:     160.42298727 in 1.3068 (sec).
+ Self  A65-ASH 14:     127.44593986 in 1.4046 (sec).
+ Self  A65-ASH 15:      83.24087178 in 1.4379 (sec).
+ Self  A65-ASH 16:     227.05420192 in 1.3334 (sec).
+ Self  A65-ASH 17:      97.75678780 in 1.4144 (sec).
+ Self  A65-ASH 18:     131.60875122 in 1.3733 (sec).
+ Self  A65-ASH 19:      94.17875623 in 1.4075 (sec).
+ Self  A65-ASH 20:      57.34934129 in 1.4328 (sec).
+ Self  A65-ASH 21:     159.04753940 in 1.5213 (sec).
+ Self  A65-ASP 22:      57.30818452 in 1.4919 (sec).
+ Self  A65-ASP 23:     102.03343831 in 1.3986 (sec).
+ Self  A65-ASP 24:      51.31152189 in 1.4073 (sec).
+ Self  A65-ASP 25:      74.73331496 in 1.4702 (sec).
+ Self  A65-ASP 26:     274.69642807 in 1.5065 (sec).
+ Self  A66-LYS 0 :     -22.12460565 in 1.4250 (sec).
+ Self  A66-LYD 1 :      94.18101952 in 1.4655 (sec).
+ Self  A66-LYD 2 :     101.39846928 in 1.4966 (sec).
+ Self  A66-LYD 3 :     342.86561698 in 1.3352 (sec).
+ Self  A66-LYD 4 :     116.11262894 in 1.3740 (sec).
+ Self  A66-LYD 5 :     121.35564573 in 1.3474 (sec).
+ Self  A66-LYD 6 :     101.37504148 in 1.2322 (sec).
+ Self  A66-LYD 7 :      98.29327194 in 1.4699 (sec).
+ Self  A66-LYD 8 :      97.39980264 in 1.4367 (sec).
+ Self  A66-LYD 9 :      99.25841533 in 1.3924 (sec).
+ Self  A66-LYD 10:      97.91285179 in 1.4724 (sec).
+ Self  A66-LYD 11:      96.80840205 in 1.4081 (sec).
+ Self  A66-LYD 12:      96.13726203 in 1.4565 (sec).
+ Self  A66-LYD 13:      95.15219687 in 1.2536 (sec).
+ Self  A66-LYD 14:      97.03187370 in 1.4085 (sec).
+ Self  A66-LYD 15:      96.82297053 in 1.4439 (sec).
+ Self  A66-LYD 16:      99.21892280 in 1.4401 (sec).
+ Self  A66-LYD 17:     122.05566594 in 1.3792 (sec).
+ Self  A66-LYD 18:     140.10229207 in 1.3212 (sec).
+ Self  A66-LYD 19:      95.26202315 in 1.2922 (sec).
+ Self  A66-LYD 20:      94.31521297 in 1.3308 (sec).
+ Self  A66-LYD 21:      93.88245770 in 1.4296 (sec).
+ Self  A66-LYD 22:      95.93319351 in 1.3097 (sec).
+ Self  A66-LYD 23:      95.33444355 in 1.3896 (sec).
+ Self  A66-LYD 24:      99.79309858 in 1.2615 (sec).
+ Self  A66-LYD 25:      98.84087086 in 1.2743 (sec).
+ Self  A66-LYD 26:      98.12683182 in 1.3644 (sec).
+ Self  A66-LYD 27:     206.48852166 in 1.3828 (sec).
+ Self  A66-LYD 28:      97.23906309 in 1.2323 (sec).
+ Self  A66-LYS 29:     -13.97859159 in 1.4197 (sec).
+ Self  A66-LYS 30:     -16.61377839 in 1.3083 (sec).
+ Self  A66-LYS 31:       0.93042088 in 1.2764 (sec).
+ Self  A66-LYS 32:       7.34643135 in 1.2563 (sec).
+ Self  A66-LYS 33:     -14.23871325 in 1.2657 (sec).
+ Self  A66-LYS 34:     -17.10622225 in 1.3410 (sec).
+ Self  A66-LYS 35:     -18.67383062 in 1.3477 (sec).
+ Self  A66-LYS 36:     -16.65293525 in 1.3115 (sec).
+ Self  A66-LYS 37:     -16.75489003 in 1.2442 (sec).
+ Self  A66-LYS 38:     -19.23205248 in 1.3071 (sec).
+ Self  A66-LYS 39:     -19.07181079 in 1.4030 (sec).
+ Self  A66-LYS 40:     -21.23598080 in 1.3277 (sec).
+ Self  A66-LYS 41:     -19.12310343 in 1.3242 (sec).
+ Self  A66-LYS 42:     -19.14131630 in 1.2384 (sec).
+ Self  A66-LYS 43:     -16.66827985 in 1.3031 (sec).
+ Self  A66-LYS 44:       9.86367783 in 1.2326 (sec).
+ Self  A66-LYS 45:      28.61726682 in 1.2969 (sec).
+ Self  A66-LYS 46:     -20.57377282 in 1.3677 (sec).
+ Self  A66-LYS 47:     -18.96544431 in 1.3290 (sec).
+ Self  A66-LYS 48:     -21.89992442 in 1.3168 (sec).
+ Self  A66-LYS 49:     -19.36588902 in 1.2798 (sec).
+ Self  A66-LYS 50:     -20.38548087 in 1.2294 (sec).
+ Self  A66-LYS 51:     -15.79726304 in 1.3117 (sec).
+ Self  A66-LYS 52:     -15.00851399 in 1.3983 (sec).
+ Self  A66-LYS 53:     -16.84424105 in 1.2877 (sec).
+ Self  A66-LYS 54:     106.37398691 in 1.3008 (sec).
+ Self  A66-LYS 55:     -18.42814180 in 1.3946 (sec).
+ Self  A71-ASP 0 :     -13.21105924 in 1.3608 (sec).
+ Self  A71-ASH 1 :      52.04013307 in 1.3381 (sec).
+ Self  A71-ASH 2 :      22.44627411 in 1.3970 (sec).
+ Self  A71-ASH 3 :      23.86967737 in 1.4414 (sec).
+ Self  A71-ASH 4 :      70.26364540 in 1.5476 (sec).
