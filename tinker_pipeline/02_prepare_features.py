@@ -44,10 +44,10 @@ except ImportError:
 
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-PDB_DIR  = "data/fixed_pdbs"
-MANIFEST = "data/manifest.csv"
+PDB_DIR  = os.environ.get("PAPER_PDB_DIR",  "data/fixed_pdbs")
+MANIFEST = os.environ.get("PAPER_MANIFEST", "data/manifest.csv")
 # Separate output root so paper-exact outputs don't clobber existing Feature files
-FEAT_DIR  = "Graph_pKa/Features_Paper"
+FEAT_DIR  = os.environ.get("PAPER_FEAT_DIR", "Graph_pKa/Features_Paper")
 NODE_DIR  = os.path.join(FEAT_DIR, "Node_Feature_Vectors")
 ADJ_DIR   = os.path.join(FEAT_DIR, "Adjacency_Matrices/With_Self_Loop")
 
@@ -131,6 +131,28 @@ def parse_uind(path: str) -> dict[int, tuple[float, float, float]]:
     return dipoles
 
 
+def parse_uperm(path: str) -> dict[int, tuple[float, float, float, float]]:
+    """Parse FFX .uperm permanent-multipole file.
+
+    Format per atom row: <serial> <name> <q> <dx> <dy> <dz> <Qxx> <Qyy> <Qzz> <Qxy> <Qxz> <Qyz>
+    Returns {serial: (q, dx, dy, dz)} (monopole + permanent dipole).
+    """
+    out: dict[int, tuple[float, float, float, float]] = {}
+    with open(path) as fh:
+        for line in fh:
+            parts = line.split()
+            if len(parts) < 6 or not parts[0].lstrip("-").isdigit():
+                continue
+            try:
+                serial = int(parts[0])
+                q = float(parts[2])
+                dx, dy, dz = float(parts[3]), float(parts[4]), float(parts[5])
+                out[serial] = (q, dx, dy, dz)
+            except (ValueError, IndexError):
+                continue
+    return out
+
+
 # ════════════════════════════════════════════════════════════════════════════
 # Atom classification
 # ════════════════════════════════════════════════════════════════════════════
@@ -168,7 +190,13 @@ def build_local_frame(ca: np.ndarray, c: np.ndarray, o: np.ndarray):
 
 
 def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
-    """Add recalculated_x/y/z; rotate Dipole_X/Y/Z into local frame."""
+    """Add recalculated_x/y/z; rotate Dipole_X/Y/Z into local frame.
+
+    Also preserves lab-frame copies of the dipoles (needed for rotation-
+    invariant edge features such as the AMOEBA charge-dipole and dipole-
+    dipole interaction terms).  Lab-frame copies are written to columns
+    `Dipole_lab_X/Y/Z` and `PermDipole_lab_X/Y/Z`.
+    """
     df = df.reset_index(drop=True)
     rx = np.full(len(df), np.nan)
     ry = np.full(len(df), np.nan)
@@ -176,9 +204,22 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
 
     has_dipoles = all(c in df.columns for c in ("Dipole_X", "Dipole_Y", "Dipole_Z"))
     if has_dipoles:
+        # Preserve lab-frame copies BEFORE rotation
+        df["Dipole_lab_X"] = df["Dipole_X"].astype(float)
+        df["Dipole_lab_Y"] = df["Dipole_Y"].astype(float)
+        df["Dipole_lab_Z"] = df["Dipole_Z"].astype(float)
         ldx = np.full(len(df), np.nan)
         ldy = np.full(len(df), np.nan)
         ldz = np.full(len(df), np.nan)
+
+    has_perm = all(c in df.columns for c in ("PermDipole_X", "PermDipole_Y", "PermDipole_Z"))
+    if has_perm:
+        df["PermDipole_lab_X"] = df["PermDipole_X"].astype(float)
+        df["PermDipole_lab_Y"] = df["PermDipole_Y"].astype(float)
+        df["PermDipole_lab_Z"] = df["PermDipole_Z"].astype(float)
+        pdx = np.full(len(df), np.nan)
+        pdy = np.full(len(df), np.nan)
+        pdz = np.full(len(df), np.nan)
 
     for (chain, resseq), res_idx in df.groupby(["chain", "resseq"]).groups.items():
         res_rows = df.loc[res_idx]
@@ -204,6 +245,12 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
                     dl = R.T @ dv
                     ldx[pos], ldy[pos], ldz[pos] = dl
 
+            if has_perm:
+                pv = np.array([row.PermDipole_X, row.PermDipole_Y, row.PermDipole_Z])
+                if not np.any(np.isnan(pv)):
+                    pl = R.T @ pv
+                    pdx[pos], pdy[pos], pdz[pos] = pl
+
     df["recalculated_x"] = rx
     df["recalculated_y"] = ry
     df["recalculated_z"] = rz
@@ -212,6 +259,94 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
         df["Dipole_X"] = ldx
         df["Dipole_Y"] = ldy
         df["Dipole_Z"] = ldz
+
+    if has_perm:
+        df["PermDipole_X"] = pdx
+        df["PermDipole_Y"] = pdy
+        df["PermDipole_Z"] = pdz
+
+    return df
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# Rotation-invariant dipole scalars
+# ════════════════════════════════════════════════════════════════════════════
+
+def compute_dipole_invariants(df: pd.DataFrame, cutoff: float = 9.0) -> pd.DataFrame:
+    """Add rotation-invariant scalar features derived from the (lab-frame)
+    induced and permanent dipoles.  These replace the raw dipole components
+    as node features, since a non-equivariant GAT cannot interpret raw
+    components in a per-residue local frame.
+
+    For each atom i we compute (per dipole μ ∈ {induced, permanent}):
+
+        ‖μ_i‖                                — magnitude
+        μ̂_i · ẑ_local                       — alignment with backbone normal
+        μ_i · E_i                            — Coulomb-field projection,
+                                                the polarisation-energy
+                                                contribution
+
+    where E_i = Σ_{j heavy, j≠i, |r_ij|<cutoff} q_j (r_j-r_i) / |r_ij|^3
+    is the Coulomb field at i from neighbouring atomic charges.
+    """
+    from scipy.spatial import cKDTree
+
+    df = df.reset_index(drop=True)
+    n  = len(df)
+
+    have_lab_ind  = all(c in df.columns for c in ("Dipole_lab_X","Dipole_lab_Y","Dipole_lab_Z"))
+    have_lab_perm = all(c in df.columns for c in ("PermDipole_lab_X","PermDipole_lab_Y","PermDipole_lab_Z"))
+    have_charge   = "atomic_charge" in df.columns
+
+    coords = df[["x","y","z"]].to_numpy(dtype=float)
+
+    # --- z-axis alignment uses local-frame dipoles (Dipole_Z is z-component
+    #     in the per-residue local frame after compute_local_frame_coords).
+    eps = 1e-12
+    if have_lab_ind:
+        mu_lab = df[["Dipole_lab_X","Dipole_lab_Y","Dipole_lab_Z"]].to_numpy(dtype=float)
+        df["Dipole_norm"] = np.linalg.norm(mu_lab, axis=1)
+        if all(c in df.columns for c in ("Dipole_X","Dipole_Y","Dipole_Z")):
+            mu_loc = df[["Dipole_X","Dipole_Y","Dipole_Z"]].to_numpy(dtype=float)
+            mag = np.linalg.norm(mu_loc, axis=1)
+            df["Dipole_align_z"] = np.where(mag > eps, mu_loc[:,2] / np.maximum(mag, eps), 0.0)
+        else:
+            df["Dipole_align_z"] = 0.0
+    if have_lab_perm:
+        pmu_lab = df[["PermDipole_lab_X","PermDipole_lab_Y","PermDipole_lab_Z"]].to_numpy(dtype=float)
+        df["PermDipole_norm"] = np.linalg.norm(pmu_lab, axis=1)
+        if all(c in df.columns for c in ("PermDipole_X","PermDipole_Y","PermDipole_Z")):
+            pmu_loc = df[["PermDipole_X","PermDipole_Y","PermDipole_Z"]].to_numpy(dtype=float)
+            mag = np.linalg.norm(pmu_loc, axis=1)
+            df["PermDipole_align_z"] = np.where(mag > eps, pmu_loc[:,2] / np.maximum(mag, eps), 0.0)
+        else:
+            df["PermDipole_align_z"] = 0.0
+
+    # --- Coulomb field projection (uses lab-frame dipoles & charges)
+    if have_charge and (have_lab_ind or have_lab_perm) and n > 1:
+        q = df["atomic_charge"].to_numpy(dtype=float)
+        tree  = cKDTree(coords)
+        pairs = tree.query_pairs(r=cutoff, output_type="ndarray")  # (M,2) i<j
+        E = np.zeros_like(coords)
+        if pairs.size:
+            i_idx = pairs[:,0]; j_idx = pairs[:,1]
+            r_ij = coords[j_idx] - coords[i_idx]                     # j relative to i
+            d2   = np.einsum("ij,ij->i", r_ij, r_ij)
+            d3   = np.maximum(d2, eps) ** 1.5
+            # contribution of j to E_i: q_j (r_j - r_i)/|r_ij|^3
+            contrib = (r_ij.T / d3).T
+            np.add.at(E, i_idx,  contrib * q[j_idx, None])
+            # contribution of i to E_j: q_i (r_i - r_j)/|r_ij|^3 = -contrib * q_i
+            np.add.at(E, j_idx, -contrib * q[i_idx, None])
+        if have_lab_ind:
+            df["Dipole_field_proj"] = np.einsum("ij,ij->i", mu_lab, E)
+        if have_lab_perm:
+            df["PermDipole_field_proj"] = np.einsum("ij,ij->i", pmu_lab, E)
+    else:
+        if have_lab_ind:
+            df["Dipole_field_proj"] = 0.0
+        if have_lab_perm:
+            df["PermDipole_field_proj"] = 0.0
 
     return df
 
@@ -315,16 +450,18 @@ def build_adjacency_matrix(res_df: pd.DataFrame) -> pd.DataFrame:
 # Find completed FFX jobs
 # ════════════════════════════════════════════════════════════════════════════
 
-def find_completed_jobs(pdb_dir: str) -> list[tuple[str, str, str]]:
+def find_completed_jobs(pdb_dir: str) -> list[tuple[str, str, str, str | None]]:
     d = Path(pdb_dir)
-    jobs: list[tuple[str, str, str]] = []
+    jobs: list[tuple[str, str, str, str | None]] = []
     for uind in sorted(d.glob("*/*_final.uind")):
         pdb_id   = uind.parent.name
         pdb_path = uind.parent / f"{pdb_id}_final.pdb"
         if not pdb_path.exists():
             log.warning(f"  {pdb_id}: .uind found but .pdb missing – skipping")
             continue
-        jobs.append((pdb_id, str(pdb_path), str(uind)))
+        uperm = uind.parent / f"{pdb_id}_final.uperm"
+        uperm_path = str(uperm) if uperm.exists() else None
+        jobs.append((pdb_id, str(pdb_path), str(uind), uperm_path))
     return jobs
 
 
@@ -358,7 +495,7 @@ def main() -> None:
 
     all_frames: list[pd.DataFrame] = []
 
-    for pdb_id, pdb_path, uind_path in jobs:
+    for pdb_id, pdb_path, uind_path, uperm_path in jobs:
         log.info(f"Processing {pdb_id}")
 
         df = parse_pdb(pdb_path)
@@ -366,13 +503,40 @@ def main() -> None:
             log.warning(f"  {pdb_id}: empty PDB – skipping")
             continue
 
-        # Induced dipoles
+        # Induced dipoles  (Tinker .uind files for these jobs contain only
+        # frame headers — no per-atom induced dipoles.  Zero-fill in that
+        # case so downstream feature columns stay numeric.)
         dipoles = parse_uind(uind_path)
-        df["Dipole_X"] = df["serial"].map(lambda s: dipoles.get(s, (np.nan,)*3)[0])
-        df["Dipole_Y"] = df["serial"].map(lambda s: dipoles.get(s, (np.nan,)*3)[1])
-        df["Dipole_Z"] = df["serial"].map(lambda s: dipoles.get(s, (np.nan,)*3)[2])
-        n_matched = df["serial"].isin(dipoles).sum()
-        log.info(f"  Matched {n_matched}/{len(df)} atoms to dipole entries")
+        if not dipoles:
+            log.warning(f"  {pdb_id}: no dipoles parsed from {os.path.basename(uind_path)} — zero-filling")
+            df["Dipole_X"] = 0.0
+            df["Dipole_Y"] = 0.0
+            df["Dipole_Z"] = 0.0
+        else:
+            df["Dipole_X"] = df["serial"].map(lambda s: dipoles.get(s, (0.0,)*3)[0])
+            df["Dipole_Y"] = df["serial"].map(lambda s: dipoles.get(s, (0.0,)*3)[1])
+            df["Dipole_Z"] = df["serial"].map(lambda s: dipoles.get(s, (0.0,)*3)[2])
+            n_matched = df["serial"].isin(dipoles).sum()
+            log.info(f"  Matched {n_matched}/{len(df)} atoms to dipole entries")
+
+        # Permanent multipole: monopole charge + permanent dipole (lab frame)
+        if uperm_path:
+            uperm = parse_uperm(uperm_path)
+        else:
+            uperm = {}
+        if uperm:
+            df["atomic_charge"] = df["serial"].map(lambda s: uperm.get(s, (0.0,)*4)[0])
+            df["PermDipole_X"]  = df["serial"].map(lambda s: uperm.get(s, (0.0,)*4)[1])
+            df["PermDipole_Y"]  = df["serial"].map(lambda s: uperm.get(s, (0.0,)*4)[2])
+            df["PermDipole_Z"]  = df["serial"].map(lambda s: uperm.get(s, (0.0,)*4)[3])
+            n_uperm = df["serial"].isin(uperm).sum()
+            log.info(f"  Matched {n_uperm}/{len(df)} atoms to .uperm entries")
+        else:
+            log.warning(f"  {pdb_id}: no .uperm — zero-filling atomic_charge")
+            df["atomic_charge"] = 0.0
+            df["PermDipole_X"]  = 0.0
+            df["PermDipole_Y"]  = 0.0
+            df["PermDipole_Z"]  = 0.0
 
         # Atom classification
         df["bb_sc"]      = df["name"].apply(classify_backbone_sidechain)
@@ -380,6 +544,12 @@ def main() -> None:
 
         # Local frame
         df = compute_local_frame_coords(df)
+
+        # Rotation-invariant dipole scalars (must follow local-frame step
+        # because z-alignment uses local-frame dipole z-component, but
+        # field projection uses lab-frame dipoles — both are present at
+        # this point thanks to compute_local_frame_coords preserving copies)
+        df = compute_dipole_invariants(df)
 
         # Neighbour counts
         log.info(f"  Computing neighbour counts…")
@@ -430,15 +600,34 @@ def main() -> None:
 
     # Feature columns in paper-exact order
     # (matches original PKAD_Data column ordering, with dipoles instead of atomic_charge)
+    # Notes on additions:
+    #   • {Induced,Perm}Dipole_{norm,align_z,field_proj} — rotation-invariant
+    #     scalar replacements for the raw 3-vector dipole components.
+    #   • {x,y,z}_lab and {Induced,Perm}Dipole_lab_{X,Y,Z} are HELPER columns
+    #     consumed by 03_create_datasets.py to build physical edge features
+    #     (charge-dipole / dipole-dipole AMOEBA terms).  03 strips them from
+    #     `data.x` so they are never used as raw node features.
     base_feature_cols = (
         residue_ohe_cols                          # 4 cols
         + ["atom_label"]                          # 1  (→ 9-class OHE downstream)
         + ["recalculated_x", "recalculated_y", "recalculated_z"]   # 3
         + ["Dipole_X", "Dipole_Y", "Dipole_Z"]   # 3  (local-frame induced dipoles)
+        + ["atomic_charge"]                       # 1  (AMOEBA permanent monopole)
+        + ["PermDipole_X", "PermDipole_Y", "PermDipole_Z"]   # 3 (local-frame permanent dipoles)
+        + ["Dipole_norm", "Dipole_align_z", "Dipole_field_proj"]              # 3 (invariants)
+        + ["PermDipole_norm", "PermDipole_align_z", "PermDipole_field_proj"]  # 3 (invariants)
         + ["Number of H-Bonds as donor", "Number of H-Bonds as acceptor"]  # 2
         + ["SASA_Value"]                          # 1
-        # Total non-OHE = 4+1+3+3+2+1 = 14; after 9-class OHE of atom_label → 26
+        # Helper columns for edge features (always dropped from data.x by 03)
+        + ["x_lab", "y_lab", "z_lab"]                                                  # 3
+        + ["Dipole_lab_X", "Dipole_lab_Y", "Dipole_lab_Z"]                             # 3
+        + ["PermDipole_lab_X", "PermDipole_lab_Y", "PermDipole_lab_Z"]                 # 3
     )
+
+    # Materialise lab-frame coord helper columns from the parsed PDB coords
+    full_df["x_lab"] = full_df["x"].astype(float)
+    full_df["y_lab"] = full_df["y"].astype(float)
+    full_df["z_lab"] = full_df["z"].astype(float)
 
     n_adj_saved  = 0
     n_feat_saved = 0
