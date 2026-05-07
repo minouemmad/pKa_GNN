@@ -49,7 +49,8 @@ from sklearn.model_selection import KFold
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from torch_geometric.data import Data  # noqa: F401
 from torch_geometric.loader import DataLoader
-from torch_geometric.nn import GATv2Conv, global_mean_pool
+from torch_geometric.nn import GATv2Conv, global_mean_pool, global_add_pool
+from torch_geometric.nn.aggr import AttentionalAggregation
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 DATASET_DIR = Path("Graph_pKa/Features_Paper/Datasets")
@@ -79,20 +80,58 @@ class GATModelPaper(torch.nn.Module):
     Matches the architecture reported as GAT_1 (best performing) in the paper.
     No edge features, no multiple GNN layers, no batch normalisation.
     """
-    def __init__(self, input_dim: int, hidden_channels: int, heads: int, dropout: float):
+    def __init__(self, input_dim: int, hidden_channels: int, heads: int, dropout: float,
+                 readout: str = "mean", num_layers: int = 1, edge_dim: int | None = None):
         super().__init__()
-        print(f"GATModelPaper: input_dim={input_dim}, hidden={hidden_channels}, heads={heads}")
-        self.conv1   = GATv2Conv(input_dim, hidden_channels, heads=heads,
-                                 concat=True, add_self_loops=False)
+        print(f"GATModelPaper: input_dim={input_dim}, hidden={hidden_channels}, "
+              f"heads={heads}, readout={readout}, num_layers={num_layers}, edge_dim={edge_dim}")
+        self.num_layers = num_layers
+        self.edge_dim = edge_dim
+        self.convs = torch.nn.ModuleList()
+        # Layer 1: input_dim → hidden*heads
+        self.convs.append(GATv2Conv(input_dim, hidden_channels, heads=heads,
+                                    concat=True, add_self_loops=False, edge_dim=edge_dim))
+        # Subsequent layers: hidden*heads → hidden*heads (concat outputs again)
+        for _ in range(num_layers - 1):
+            self.convs.append(GATv2Conv(hidden_channels * heads, hidden_channels,
+                                        heads=heads, concat=True, add_self_loops=False,
+                                        edge_dim=edge_dim))
         self.dropout = torch.nn.Dropout(dropout)
-        self.pool    = global_mean_pool
-        self.out     = torch.nn.Linear(hidden_channels * heads, 1)
+        self.readout = readout
+        node_dim = hidden_channels * heads
+        if readout == "mean":
+            self.pool = global_mean_pool
+        elif readout == "attention":
+            gate_nn = torch.nn.Sequential(
+                torch.nn.Linear(node_dim, node_dim // 2),
+                torch.nn.ReLU(),
+                torch.nn.Linear(node_dim // 2, 1),
+            )
+            self.pool = AttentionalAggregation(gate_nn)
+        elif readout == "target_atom":
+            self.pool = None  # masked-mean is computed inline using data.target_mask
+        else:
+            raise ValueError(f"Unknown readout: {readout}")
+        self.out = torch.nn.Linear(node_dim, 1)
 
     def forward(self, data):
-        x = self.conv1(data.x, data.edge_index)
-        x = F.relu(x)
+        x = data.x
+        edge_attr = getattr(data, "edge_attr", None) if self.edge_dim else None
+        for i, conv in enumerate(self.convs):
+            x = conv(x, data.edge_index, edge_attr=edge_attr)
+            x = F.relu(x)
+            if i < len(self.convs) - 1:
+                x = self.dropout(x)
         x = self.dropout(x)
-        x = self.pool(x, data.batch)
+        if self.readout == "mean":
+            x = self.pool(x, data.batch)
+        elif self.readout == "attention":
+            x = self.pool(x, index=data.batch)
+        else:  # target_atom
+            mask = data.target_mask.view(-1, 1)
+            num   = global_add_pool(x * mask, data.batch)
+            denom = global_add_pool(mask,    data.batch).clamp(min=1.0)
+            x = num / denom
         return self.out(x)
 
 
@@ -210,7 +249,9 @@ def train_dataset(
         train_loader = DataLoader(train_data, batch_size=args.batch, shuffle=True)
         val_loader   = DataLoader(val_data,   batch_size=args.batch, shuffle=False)
 
-        model     = GATModelPaper(input_dim, args.hidden, args.heads, args.dropout)
+        model     = GATModelPaper(input_dim, args.hidden, args.heads, args.dropout,
+                                  readout=args.readout, num_layers=args.num_layers,
+                                  edge_dim=args.edge_dim)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         _loss_map = {"MSE": torch.nn.MSELoss(), "L1": torch.nn.L1Loss(),
                      "SmoothL1": torch.nn.SmoothL1Loss(beta=0.5)}
@@ -286,6 +327,13 @@ def main() -> None:
     parser.add_argument("--dataset",  type=str,   default="all",
                         help="PKL index to train on: 0-4 or 'all'")
     parser.add_argument("--seed",     type=int,   default=42)
+    parser.add_argument("--readout",  type=str,   default="mean",
+                        choices=["mean", "attention", "target_atom"],
+                        help="Graph readout: 'mean' (paper), 'attention', or 'target_atom' (protonating site)")
+    parser.add_argument("--num-layers", type=int, default=1,
+                        help="Number of stacked GATv2Conv layers (default: 1, paper)")
+    parser.add_argument("--edge-dim", type=int, default=None,
+                        help="If set, use edge_attr with this many features per edge (e.g. 4 for dipole-augmented edges)")
     parser.add_argument("--dataset-dir", type=Path, default=DATASET_DIR,
                         help="Directory containing data_list_*.pkl")
     parser.add_argument("--results-dir", type=Path, default=RESULTS_DIR,

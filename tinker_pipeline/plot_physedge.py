@@ -1,0 +1,178 @@
+"""
+plot_physedge.py
+
+Generate presentation-quality plots from the PhysEdge sweep:
+  1. Per-variant MAE box/strip plot across (seed, fold) pairs
+  2. ΔMAE vs Charge baseline with paired Wilcoxon p-value annotations
+  3. Predicted vs True scatter for the best variant (best seed)
+  4. Permutation importance bar charts
+"""
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+VARIANT_ORDER = ["Charge", "Invariant", "PhysEdge", "InvariantPhysEdge"]
+VARIANT_LABELS = {
+    "Charge":             "Charge\n(paper)",
+    "Invariant":          "+Invariant\nDipole scalars",
+    "PhysEdge":           "+Physical edges\n(qq, qd, dd)",
+    "InvariantPhysEdge":  "+Invariants\n+PhysEdges",
+}
+PALETTE = {
+    "Charge":             "#7f7f7f",
+    "Invariant":          "#1f77b4",
+    "PhysEdge":           "#2ca02c",
+    "InvariantPhysEdge":  "#d62728",
+}
+
+
+def plot_box(perfold: pd.DataFrame, summary: pd.DataFrame, out: Path) -> None:
+    fig, ax = plt.subplots(figsize=(8.5, 5))
+    variants = [v for v in VARIANT_ORDER if v in perfold["variant"].unique()]
+    data = [perfold.loc[perfold["variant"] == v, "MAE"].values for v in variants]
+    pos = np.arange(len(variants))
+    box = ax.boxplot(data, positions=pos, widths=0.55, patch_artist=True,
+                     showmeans=True, meanprops=dict(marker="D", markerfacecolor="white",
+                                                    markeredgecolor="black", markersize=6),
+                     medianprops=dict(color="black", linewidth=1.5))
+    for patch, v in zip(box["boxes"], variants):
+        patch.set_facecolor(PALETTE.get(v, "#888"))
+        patch.set_alpha(0.55)
+    for i, (v, vals) in enumerate(zip(variants, data)):
+        jitter = (np.random.default_rng(0).random(len(vals)) - 0.5) * 0.18
+        ax.scatter(np.full_like(vals, i, dtype=float) + jitter, vals,
+                   s=10, alpha=0.35, color=PALETTE.get(v, "#222"), edgecolors="none")
+    ax.set_xticks(pos)
+    ax.set_xticklabels([VARIANT_LABELS.get(v, v) for v in variants], fontsize=10)
+    ax.set_ylabel("Per-fold MAE  (pKa units)", fontsize=11)
+    ax.set_title(f"FFX 138-PDB rotopt set, radius 9 Å — physics-aware features\n"
+                 f"{summary['n_seeds'].iloc[0]} seeds × 10 folds = "
+                 f"{summary['n_folds'].iloc[0]} per variant", fontsize=11)
+    ax.grid(True, axis="y", alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(out, dpi=180)
+    print(f"Wrote {out}")
+    plt.close(fig)
+
+
+def plot_delta(summary: pd.DataFrame, out: Path) -> None:
+    fig, ax = plt.subplots(figsize=(8.5, 4.0))
+    s = summary[summary["variant"] != "Charge"].copy()
+    s = s.sort_values("mean_delta_MAE")
+    pos = np.arange(len(s))
+    colors = [PALETTE.get(v, "#888") for v in s["variant"]]
+    ax.barh(pos, s["mean_delta_MAE"], color=colors, alpha=0.85, edgecolor="black")
+    ax.axvline(0, color="black", linewidth=0.8)
+    for i, (_, row) in enumerate(s.iterrows()):
+        p = row["wilcoxon_p"]
+        sig = "***" if p < 0.001 else "**" if p < 0.01 else "*" if p < 0.05 else "ns"
+        x = row["mean_delta_MAE"]
+        ax.text(x + (0.0008 if x >= 0 else -0.0008), i,
+                f"Δ={x:+.4f}  p={p:.3g} {sig}",
+                va="center", ha="left" if x >= 0 else "right", fontsize=9)
+    ax.set_yticks(pos)
+    ax.set_yticklabels([VARIANT_LABELS.get(v, v).replace("\n", " ") for v in s["variant"]])
+    ax.set_xlabel("ΔMAE  vs  Charge baseline   (negative = better)", fontsize=11)
+    ax.set_title("Paired Wilcoxon test across (seed, fold) pairs", fontsize=11)
+    ax.grid(True, axis="x", alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(out, dpi=180)
+    print(f"Wrote {out}")
+    plt.close(fig)
+
+
+def plot_scatter(results_dir: Path, variant: str, seed: int, ds_idx: int, out: Path) -> None:
+    csv = results_dir / f"Training_{variant}_seed{seed}" / "predictions" / f"dataset_{ds_idx}_all_folds.csv"
+    if not csv.exists():
+        print(f"  scatter: missing {csv}")
+        return
+    df = pd.read_csv(csv)
+    fig, ax = plt.subplots(figsize=(5.5, 5.5))
+    lo = float(min(df["True_pKa"].min(), df["Predicted_pKa"].min())) - 0.5
+    hi = float(max(df["True_pKa"].max(), df["Predicted_pKa"].max())) + 0.5
+    ax.plot([lo, hi], [lo, hi], color="black", linewidth=1, linestyle="--", alpha=0.6)
+    ax.scatter(df["True_pKa"], df["Predicted_pKa"], s=18, alpha=0.55,
+               color=PALETTE.get(variant, "#1f77b4"), edgecolors="none")
+    mae = (df["Predicted_pKa"] - df["True_pKa"]).abs().mean()
+    rmse = float(np.sqrt(((df["Predicted_pKa"] - df["True_pKa"]) ** 2).mean()))
+    r = float(np.corrcoef(df["True_pKa"], df["Predicted_pKa"])[0, 1])
+    ax.set_xlabel("Experimental pKa", fontsize=11)
+    ax.set_ylabel("Predicted pKa", fontsize=11)
+    ax.set_title(f"{variant}  seed={seed}\n"
+                 f"MAE={mae:.3f}   RMSE={rmse:.3f}   R={r:.3f}   N={len(df)}",
+                 fontsize=11)
+    ax.set_xlim(lo, hi); ax.set_ylim(lo, hi)
+    ax.grid(True, alpha=0.3)
+    ax.set_aspect("equal")
+    fig.tight_layout()
+    fig.savefig(out, dpi=180)
+    print(f"Wrote {out}")
+    plt.close(fig)
+
+
+def plot_perm_importance(perm_csv: Path, out: Path, variant: str) -> None:
+    if not perm_csv.exists():
+        print(f"  perm-importance: missing {perm_csv}")
+        return
+    df = pd.read_csv(perm_csv).sort_values("delta_MAE", ascending=True)
+    fig, ax = plt.subplots(figsize=(8, max(3, 0.45 * len(df) + 1)))
+    pos = np.arange(len(df))
+    colors = ["#d62728" if d > 0.01 else "#7f7f7f" for d in df["delta_MAE"]]
+    ax.barh(pos, df["delta_MAE"], color=colors, alpha=0.85, edgecolor="black")
+    ax.axvline(0, color="black", linewidth=0.8)
+    for i, (_, row) in enumerate(df.iterrows()):
+        x = row["delta_MAE"]
+        ax.text(x + 0.001, i, f"{x:+.3f}", va="center", fontsize=9)
+    ax.set_yticks(pos)
+    ax.set_yticklabels(df["feature"])
+    ax.set_xlabel("ΔMAE on shuffle  (larger = more important)", fontsize=11)
+    ax.set_title(f"Permutation importance — {variant}", fontsize=11)
+    ax.grid(True, axis="x", alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(out, dpi=180)
+    print(f"Wrote {out}")
+    plt.close(fig)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--results-dir", type=Path,
+                    default=Path("Graph_pKa/Net_FFX138_PhysEdge"))
+    ap.add_argument("--ds-idx", type=int, default=2)
+    args = ap.parse_args()
+
+    perfold = pd.read_csv(args.results_dir / "sweep_physedge_138_perfold.csv")
+    summary = pd.read_csv(args.results_dir / "sweep_physedge_138_summary.csv")
+    plots = args.results_dir / "plots"
+    plots.mkdir(parents=True, exist_ok=True)
+
+    plot_box(perfold, summary, plots / "01_mae_box.png")
+    plot_delta(summary, plots / "02_delta_vs_charge.png")
+
+    best_variant = summary.iloc[0]["variant"]
+    best_pf = perfold[perfold["variant"] == best_variant]
+    if not best_pf.empty:
+        best_seed = int(best_pf.groupby("seed")["MAE"].mean().idxmin())
+        plot_scatter(args.results_dir, best_variant, best_seed, args.ds_idx,
+                     plots / f"03_scatter_{best_variant}_seed{best_seed}.png")
+
+    cg_pf = perfold[perfold["variant"] == "Charge"]
+    if not cg_pf.empty:
+        cg_seed = int(cg_pf.groupby("seed")["MAE"].mean().idxmin())
+        plot_scatter(args.results_dir, "Charge", cg_seed, args.ds_idx,
+                     plots / f"04_scatter_Charge_seed{cg_seed}.png")
+
+    for perm in sorted(args.results_dir.glob("perm_importance_*.csv")):
+        name = perm.stem.replace("perm_importance_", "")
+        plot_perm_importance(perm, plots / f"05_perm_importance_{name}.png", name)
+
+
+if __name__ == "__main__":
+    main()

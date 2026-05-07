@@ -118,6 +118,12 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
         # Node features
         nf = pd.read_csv(feat_path, header=0)
 
+        # Diagnostic: shuffle dipole rows within this graph to break atom-dipole alignment
+        if os.environ.get("SHUFFLE_DIPOLES", "") and all(c in nf.columns for c in ("Dipole_X","Dipole_Y","Dipole_Z")):
+            rng = np.random.default_rng(abs(hash(stem)) % (2**32))
+            perm = rng.permutation(len(nf))
+            nf[["Dipole_X","Dipole_Y","Dipole_Z"]] = nf[["Dipole_X","Dipole_Y","Dipole_Z"]].values[perm]
+
         if "atom_label" not in nf.columns:
             log.warning(f"  {stem}: missing 'atom_label' – skipping")
             skipped_bad += 1
@@ -147,16 +153,148 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
         atom_label_oh = F.one_hot(atom_labels, num_classes=NUM_ATOM_LABEL_CLASSES).float()
 
         cols_to_drop  = [c for c in [pka_col, "atom_label"] if c in nf.columns]
+        # Always drop lab-frame helper columns from node features `data.x`.
+        # These are kept in the CSV solely so that the edge-feature blocks
+        # below can read rotation-correct (lab-frame) dipoles and coords.
+        HELPER_COLS = (
+            "x_lab", "y_lab", "z_lab",
+            "Dipole_lab_X", "Dipole_lab_Y", "Dipole_lab_Z",
+            "PermDipole_lab_X", "PermDipole_lab_Y", "PermDipole_lab_Z",
+        )
+        for c in HELPER_COLS:
+            if c in nf.columns and c not in cols_to_drop:
+                cols_to_drop.append(c)
+        # Optionally drop additional columns (e.g. Dipole_X/Y/Z) via env var
+        extra_drop = os.environ.get("DROP_FEATURE_COLS", "")
+        if extra_drop:
+            for c in [s.strip() for s in extra_drop.split(",") if s.strip()]:
+                if c in nf.columns and c not in cols_to_drop:
+                    cols_to_drop.append(c)
         numeric_feats = nf.drop(columns=cols_to_drop).select_dtypes(include=[np.number])
         feat_tensor   = torch.tensor(numeric_feats.values, dtype=torch.float)
         feat_tensor   = torch.cat([feat_tensor, atom_label_oh], dim=1)
+
+        # Mask: 1.0 on the residue's protonating atom(s), 0.0 elsewhere.
+        # Asp/Glu (residue_label 0/1)  → sidechain O   (atom_label 8)
+        # His/Lys (residue_label 2/3)  → sidechain N   (atom_label 6)
+        target_atom_label = 8 if residue_label in (0, 1) else 6
+        target_mask = (atom_labels == target_atom_label).float()
 
         data = Data(
             x             = feat_tensor,
             edge_index    = edge_index,
             y             = pka_tensor,
             residue_label = residue_label,
+            target_mask   = target_mask,
         )
+
+        # Optional edge features. Multiple orthogonal feature blocks can be
+        # enabled independently or together via env vars; the resulting
+        # edge_attr is a concatenation along dim=1.
+        #
+        # EDGE_DIPOLE_FEATURES=1   →  [‖r‖, r̂·μ_i, r̂·μ_j, μ_i·μ_j]   (4 dims)
+        #     (uses LOCAL-frame dipoles — kept for back-compat with earlier sweeps)
+        # COULOMB_EDGE=1           →  [‖r‖, q_i*q_j/‖r‖]                (2 dims)
+        # CHARGE_DIPOLE_EDGE=1     →  [φ_qd_ind, φ_qd_perm]             (2 dims)
+        # DIPOLE_DIPOLE_EDGE=1     →  [φ_dd_ind, φ_dd_perm]             (2 dims)
+        #     Charge-dipole and dipole-dipole AMOEBA terms; rotation-invariant
+        #     scalars built from LAB-FRAME dipoles + lab-frame coordinates:
+        #         φ_qd_ij = ( q_i (r̂·μ_j) - q_j (r̂·μ_i) ) / ‖r‖²
+        #         φ_dd_ij = ( μ_i·μ_j - 3 (r̂·μ_i)(r̂·μ_j) ) / ‖r‖³
+        edge_blocks: list[torch.Tensor] = []
+        if edge_index.numel() > 0:
+            src, dst = edge_index[0], edge_index[1]
+            have_pos = all(c in nf.columns for c in ("recalculated_x","recalculated_y","recalculated_z"))
+            have_lab_pos = all(c in nf.columns for c in ("x_lab","y_lab","z_lab"))
+            if have_pos:
+                pos = torch.tensor(nf[["recalculated_x","recalculated_y","recalculated_z"]].values,
+                                   dtype=torch.float)
+                r_ij = pos[dst] - pos[src]
+                r_norm = r_ij.norm(dim=1, keepdim=True)
+                non_self = (r_norm.squeeze(1) > 1e-6)
+                r_hat = torch.zeros_like(r_ij)
+                r_hat[non_self] = r_ij[non_self] / r_norm[non_self]
+            else:
+                r_norm = None
+                r_hat = None
+                non_self = None
+
+            # Lab-frame quantities for physical (rotation-invariant) edges
+            if have_lab_pos:
+                pos_lab = torch.tensor(nf[["x_lab","y_lab","z_lab"]].values, dtype=torch.float)
+                rL_ij = pos_lab[dst] - pos_lab[src]
+                rL_norm = rL_ij.norm(dim=1, keepdim=True)                         # (E,1)
+                rL_non_self = (rL_norm.squeeze(1) > 1e-6)
+                rL_hat = torch.zeros_like(rL_ij)
+                rL_hat[rL_non_self] = rL_ij[rL_non_self] / rL_norm[rL_non_self]   # (E,3)
+                rL_norm_s = rL_norm.squeeze(1)
+                inv_r2 = torch.zeros_like(rL_norm_s)
+                inv_r3 = torch.zeros_like(rL_norm_s)
+                inv_r2[rL_non_self] = 1.0 / (rL_norm_s[rL_non_self] ** 2)
+                inv_r3[rL_non_self] = 1.0 / (rL_norm_s[rL_non_self] ** 3)
+            else:
+                rL_hat = None; rL_norm_s = None; inv_r2 = None; inv_r3 = None
+                rL_non_self = None
+
+            if os.environ.get("EDGE_DIPOLE_FEATURES", "") and have_pos \
+               and all(c in nf.columns for c in ("Dipole_X","Dipole_Y","Dipole_Z")):
+                mu = torch.tensor(nf[["Dipole_X","Dipole_Y","Dipole_Z"]].values, dtype=torch.float)
+                mu_i = mu[src]; mu_j = mu[dst]
+                edge_blocks.append(torch.stack([
+                    r_norm.squeeze(1),
+                    (r_hat * mu_i).sum(dim=1),
+                    (r_hat * mu_j).sum(dim=1),
+                    (mu_i * mu_j).sum(dim=1),
+                ], dim=1))
+
+            if os.environ.get("COULOMB_EDGE", "") and have_pos and "atomic_charge" in nf.columns:
+                q = torch.tensor(nf["atomic_charge"].values, dtype=torch.float)
+                q_pair = q[src] * q[dst]
+                # Coulomb-like q_i q_j / ‖r‖; zero on self-loops (r=0)
+                inv_r = torch.zeros_like(r_norm.squeeze(1))
+                inv_r[non_self] = 1.0 / r_norm.squeeze(1)[non_self]
+                edge_blocks.append(torch.stack([
+                    r_norm.squeeze(1),
+                    q_pair * inv_r,
+                ], dim=1))
+
+            # ---- AMOEBA charge-dipole term (rotation-invariant, lab frame) ----
+            need_qd = os.environ.get("CHARGE_DIPOLE_EDGE", "")
+            if need_qd and have_lab_pos and "atomic_charge" in nf.columns:
+                q = torch.tensor(nf["atomic_charge"].values, dtype=torch.float)
+                qd_blocks: list[torch.Tensor] = []
+                for prefix in ("Dipole_lab_", "PermDipole_lab_"):
+                    cols = [f"{prefix}X", f"{prefix}Y", f"{prefix}Z"]
+                    if all(c in nf.columns for c in cols):
+                        mu = torch.tensor(nf[cols].values, dtype=torch.float)
+                        rh_mu_i = (rL_hat * mu[src]).sum(dim=1)
+                        rh_mu_j = (rL_hat * mu[dst]).sum(dim=1)
+                        phi_qd  = (q[src] * rh_mu_j - q[dst] * rh_mu_i) * inv_r2
+                        qd_blocks.append(phi_qd)
+                    else:
+                        qd_blocks.append(torch.zeros(edge_index.size(1)))
+                edge_blocks.append(torch.stack(qd_blocks, dim=1))
+
+            # ---- AMOEBA dipole-dipole term (rotation-invariant, lab frame) ----
+            need_dd = os.environ.get("DIPOLE_DIPOLE_EDGE", "")
+            if need_dd and have_lab_pos:
+                dd_blocks: list[torch.Tensor] = []
+                for prefix in ("Dipole_lab_", "PermDipole_lab_"):
+                    cols = [f"{prefix}X", f"{prefix}Y", f"{prefix}Z"]
+                    if all(c in nf.columns for c in cols):
+                        mu = torch.tensor(nf[cols].values, dtype=torch.float)
+                        mu_i = mu[src]; mu_j = mu[dst]
+                        rh_mu_i = (rL_hat * mu_i).sum(dim=1)
+                        rh_mu_j = (rL_hat * mu_j).sum(dim=1)
+                        phi_dd  = ((mu_i * mu_j).sum(dim=1) - 3.0 * rh_mu_i * rh_mu_j) * inv_r3
+                        dd_blocks.append(phi_dd)
+                    else:
+                        dd_blocks.append(torch.zeros(edge_index.size(1)))
+                edge_blocks.append(torch.stack(dd_blocks, dim=1))
+
+        if edge_blocks:
+            data.edge_attr = torch.cat(edge_blocks, dim=1)
+
         data.PDB_ID         = pdb_id
         data.Chain_ID       = chain
         data.Residue_Number = resseq
@@ -186,7 +324,8 @@ def main(feat_dir: Path, adj_subdir: str, node_subdir: str, out_dir: Path) -> No
             continue
 
         input_dim = dl[0].x.shape[1]
-        log.info(f"  input_dim = {input_dim}  (expected 26 for paper-exact)")
+        edge_dim  = dl[0].edge_attr.shape[1] if getattr(dl[0], "edge_attr", None) is not None else 0
+        log.info(f"  input_dim = {input_dim}  edge_dim = {edge_dim}")
 
         pkl_path = out_dir / f"data_list_{idx}.pkl"
         with open(pkl_path, "wb") as fh:
