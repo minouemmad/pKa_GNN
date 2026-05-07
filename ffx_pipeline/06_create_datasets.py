@@ -46,6 +46,7 @@ import argparse
 import logging
 import os
 import pickle
+import re
 from pathlib import Path
 
 import numpy as np
@@ -54,12 +55,15 @@ import torch
 import torch.nn.functional as F
 from torch_geometric.data import Data
 
-# ── Configuration ─────────────────────────────────────────────────────────────
-FEAT_DIR   = Path("Graph_pKa/Features")
-ADJ_DIR    = FEAT_DIR / "Adjacency_Matrices" / "With_Self_Loop"
-NODE_DIR   = FEAT_DIR / "Node_Feature_Vectors"
-OUT_DIR    = FEAT_DIR / "Datasets"
-RADII      = [7, 8, 9, 10, 11]
+# ── Configuration ───────────────────────────────────────────────────────────────
+DEFAULT_FEAT_DIR = Path("Graph_pKa/Features")  # legacy fallback when --mode not given
+RADII            = [7, 8, 9, 10, 11]
+
+# Stem pattern with optional per-pH suffix produced by 05_prepare_features.py
+# Example stems:
+#   '135L_A_35.Aspartate'              (rotopt mode, no pH)
+#   '135L_A_35.Aspartate__pH3.94'      (titrate mode, pH appended)
+_PH_SUFFIX_RE = re.compile(r"__pH(?P<ph>-?\d+(?:\.\d+)?)$")
 
 # Must match 04_prepare_features.py
 NUM_ATOM_LABEL_CLASSES = 10   # labels 0-9; 9 = sidechain S (CYS)
@@ -71,12 +75,23 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
 
 
-def parse_stem(stem: str) -> tuple[str, str, int, str]:
-    """Parse '{PDB}_{chain}_{resseq}.{ResName}' → (pdb_id, chain, resseq, res_name).
+def parse_stem(stem: str) -> tuple[str, str, int, str, float | None]:
+    """Parse a feature-CSV stem into (pdb_id, chain, resseq, res_name, pH).
 
-    Splits on the last '.' to separate the residue full-name, then on the
-    last '_' to separate the residue number, leaving '{PDB}_{chain}'.
+    Stem formats produced by 05_prepare_features.py::
+
+        rotopt : '{PDB}_{chain}_{resseq}.{ResName}'
+        titrate: '{PDB}_{chain}_{resseq}.{ResName}__pH{pH}'
+
+    pH is None for rotopt-mode stems.
     """
+    # Strip optional pH suffix
+    m  = _PH_SUFFIX_RE.search(stem)
+    ph: float | None = None
+    if m:
+        ph    = float(m.group("ph"))
+        stem  = stem[: m.start()]
+
     dot_idx = stem.rfind(".")
     if dot_idx == -1:
         raise ValueError(f"Cannot parse stem (no '.'): {stem!r}")
@@ -95,7 +110,7 @@ def parse_stem(stem: str) -> tuple[str, str, int, str]:
     pdb_id    = id_chain[:under2]           # e.g. '2FWF'
     chain     = id_chain[under2 + 1:]       # e.g. 'A'
 
-    return pdb_id, chain, resseq, res_name
+    return pdb_id, chain, resseq, res_name, ph
 
 
 def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
@@ -121,7 +136,7 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
             continue
 
         try:
-            pdb_id, chain, resseq, res_name = parse_stem(stem)
+            pdb_id, chain, resseq, res_name, ph = parse_stem(stem)
         except ValueError as exc:
             log.warning(f"  Skipping {stem}: {exc}")
             skipped_bad += 1
@@ -189,6 +204,10 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
         data.Chain_ID       = chain
         data.Residue_Number = resseq
         data.Residue_Name   = res_name
+        # pH is a per-graph scalar (NaN for rotopt mode).  Stored as a tensor so
+        # PyG batches it correctly via DataLoader.
+        data.pH = torch.tensor([float(ph) if ph is not None else float("nan")],
+                               dtype=torch.float)
 
         data_list.append(data)
 
@@ -227,10 +246,24 @@ def main(feat_dir: Path, out_dir: Path) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Build PyG datasets from 04_prepare_features output")
-    parser.add_argument("--feat-dir", type=Path, default=FEAT_DIR,
-                        help="Path to Graph_pKa/Features (default: %(default)s)")
-    parser.add_argument("--out-dir",  type=Path, default=OUT_DIR,
-                        help="Output directory for .pkl files (default: %(default)s)")
+    parser = argparse.ArgumentParser(description="Build PyG datasets from 05_prepare_features output")
+    parser.add_argument("--mode", choices=["rotopt", "titrate"], default=None,
+                        help="If set, derives --feat-dir as Graph_pKa/Features_{mode} and "
+                             "--out-dir as Graph_pKa/Features_{mode}/Datasets.")
+    parser.add_argument("--feat-dir", type=Path, default=None,
+                        help="Override feature directory (default depends on --mode)")
+    parser.add_argument("--out-dir",  type=Path, default=None,
+                        help="Output directory for .pkl files (default: <feat-dir>/Datasets)")
     args = parser.parse_args()
-    main(args.feat_dir, args.out_dir)
+
+    if args.feat_dir is not None:
+        feat_dir = args.feat_dir
+    elif args.mode is not None:
+        feat_dir = Path(f"Graph_pKa/Features_{args.mode}")
+    else:
+        feat_dir = DEFAULT_FEAT_DIR
+    out_dir = args.out_dir if args.out_dir is not None else feat_dir / "Datasets"
+
+    log.info(f"Feature dir : {feat_dir}")
+    log.info(f"Output dir  : {out_dir}")
+    main(feat_dir, out_dir)

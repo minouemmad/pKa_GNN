@@ -1,0 +1,45 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N grid_search_ffx_rotopt
+#$ -j y
+#$ -q UI,MS
+#$ -pe smp 60
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=168:00:00
+#$ -S /bin/bash
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+echo "CPU slots    : $NSLOTS"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=/Dedicated/schnieders/maemmad/miniconda3/envs/pka_gnn/bin/python
+
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_rotopt
+DATASET_DIR=$FEAT_DIR/Datasets
+RESULTS_DIR=Graph_pKa/Results/Grid_Search_FFX_rotopt
+PDB_DIR=ffx_pipeline/data/fixed_pdbs
+MANIFEST=data/manifest.csv
+
+echo ""
+echo "=== 05_prepare_features.py --mode rotopt (rotamer PDBs + induced dipoles) ==="
+$PYTHON ffx_pipeline/05_prepare_features.py --mode rotopt \
+    --pdb-dir "$PDB_DIR" --manifest "$MANIFEST" --feat-dir "$FEAT_DIR"
+
+echo ""
+echo "=== 06_create_datasets.py --mode rotopt ==="
+$PYTHON ffx_pipeline/06_create_datasets.py --mode rotopt \
+    --feat-dir "$FEAT_DIR" --out-dir "$DATASET_DIR"
+
+echo ""
+echo "=== 08_grid_search.py (rotopt + induced dipoles) ==="
+$PYTHON ffx_pipeline/08_grid_search.py \
+    --dataset-dir "$DATASET_DIR" \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"

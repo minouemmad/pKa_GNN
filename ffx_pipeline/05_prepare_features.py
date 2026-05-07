@@ -44,8 +44,13 @@ NOTE: The existing create_data.py / Predict.py assume num_classes=9 (labels 0-8)
 
 from __future__ import annotations
 
+import argparse
+import contextlib
 import logging
 import os
+import re
+import shutil
+import tempfile
 from collections import defaultdict
 from pathlib import Path
 
@@ -74,13 +79,32 @@ except ImportError:
 # ── Configuration ─────────────────────────────────────────────────────────────
 PDB_DIR  = "data/fixed_pdbs"
 MANIFEST = "data/manifest.csv"
-FEAT_DIR  = "Graph_pKa/Features"
-NODE_DIR  = os.path.join(FEAT_DIR, "Node_Feature_Vectors")
-ADJ_DIR   = os.path.join(FEAT_DIR, "Adjacency_Matrices/With_Self_Loop")
-BOND_DIR  = os.path.join(FEAT_DIR, "Edge_Features")
+# Mode-aware feature directory; final value set in main() once --mode is parsed.
+FEAT_DIR_DEFAULT = "Graph_pKa/Features"   # legacy fallback
 
 RADII           = [7, 8, 9, 10, 11]
 TARGET_RESIDUES = {"ASP", "GLU", "HIS", "LYS", "CYS", "TYR"}
+
+# Default pH list for titration mode (mirrors 03_run_ffx_minimize.py / TITRATION_PHS)
+DEFAULT_PHS = [3.94, 4.4, 6.45, 8.55]
+
+# Atoms whose presence signals the protonated form of a titratable sidechain.
+# Used to compute the per-residue `is_protonated` scalar feature.  Atom names follow
+# AMOEBA / standard PDB conventions; the function checks ANY of these names.
+_PROTONATION_DETECTOR = {
+    # ASP protonated (ASH) carries an extra H on OD1 or OD2
+    "ASP": ("HD1", "HD2"),
+    # GLU protonated (GLH) carries an extra H on OE1 or OE2
+    "GLU": ("HE1", "HE2"),
+    # HIS doubly protonated (HIP) has both HD1 (on ND1) and HE2 (on NE2)
+    "HIS": ("HD1", "HE2"),   # treated specially below (both required)
+    # LYS NH3+ has three HZ; deprotonated LYN keeps two
+    "LYS": ("HZ3",),
+    # CYS thiol has HG; CYM does not
+    "CYS": ("HG", "HG1"),
+    # TYR phenol has HH; deprotonated TYD does not
+    "TYR": ("HH",),
+}
 
 # Ordered list for 6-class residue one-hot encoding (matches paper exactly).
 # Atoms from non-target residues (environment) get all-zero encoding.
@@ -134,6 +158,31 @@ ATOM_LABEL_MAP: dict[tuple[str, str], int] = {
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
+
+
+@contextlib.contextmanager
+def _ensure_pdb_extension(path: str):
+    """Yield a path that ends with '.pdb'.
+
+    FFX titration outputs use suffixes like '.pdb_3' which MDAnalysis and
+    mdtraj refuse to read because their format detection is extension-based.
+    If *path* already ends with '.pdb' we yield it unchanged; otherwise we
+    copy the file to a temp '.pdb' file and yield that, deleting it on exit.
+    """
+    p = Path(path)
+    if p.suffix.lower() == ".pdb":
+        yield str(p)
+        return
+    fd, tmp = tempfile.mkstemp(suffix=".pdb", prefix=f"{p.stem}_")
+    os.close(fd)
+    try:
+        shutil.copyfile(p, tmp)
+        yield tmp
+    finally:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -526,97 +575,110 @@ def build_edge_features(res_df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ════════════════════════════════════════════════════════════════════════════
-# Locate completed FFX jobs
+# Protonation-state detection
 # ════════════════════════════════════════════════════════════════════════════
 
-def find_completed_jobs(pdb_dir: str) -> list[tuple[str, str, str, str | None]]:
-    """Return a list of (pdb_id, pdb_path, uind_path, uperm_path) for every
-    protein that has at least one .uind file in its per-protein subdirectory.
+def detect_protonation(
+    df: pd.DataFrame,
+) -> dict[tuple[str, int], int]:
+    """Return {(chain, resseq): is_protonated} for every titratable residue.
 
-    uperm_path is None when the .uperm file does not exist (Step 5 not yet run).
-
-    Preferred layout (after running 04_organize_ffx_output.py):
-        {pdb_dir}/{PDB}/{PDB}_final.pdb   – final minimized geometry
-        {pdb_dir}/{PDB}/{PDB}_final.uind  – AMOEBA induced dipoles
-        {pdb_dir}/{PDB}/{PDB}_final.uperm – AMOEBA permanent multipoles (optional)
-
-    Fallback: if the preferred names are absent the function searches for any
-    .uind in the folder, then resolves the companion .pdb by replacing the
-    .uind suffix.  Intermediate files (s1a/s1b, rotamer, coarse, input) are
-    excluded when choosing a PDB fallback.
+    Detection is by atom-name presence (AMOEBA-CpHMD writes canonical residue
+    names; protonation state is encoded only by which polar hydrogens exist).
+    HIS is special: requires *both* HD1 and HE2 to be considered fully
+    protonated (HIP); HID/HIE both map to 0.
+    Non-titratable residues are absent from the returned dict.
     """
-    # Suffixes that mark intermediate / partial FFX stages – never use as the
-    # main geometry for feature generation.
-    _SKIP_SUFFIXES = ("_s1a", "_s1b", "_rotamer", "_coarse", "_input")
+    out: dict[tuple[str, int], int] = {}
+    for (chain, resseq, resname), grp in df.groupby(["chain", "resseq", "resname"]):
+        if resname not in _PROTONATION_DETECTOR:
+            continue
+        atoms_present = set(grp["name"].tolist())
+        detector = _PROTONATION_DETECTOR[resname]
+        if resname == "HIS":
+            is_prot = int(("HD1" in atoms_present) and ("HE2" in atoms_present))
+        else:
+            is_prot = int(any(a in atoms_present for a in detector))
+        out[(chain, int(resseq))] = is_prot
+    return out
 
+
+# ════════════════════════════════════════════════════════════════════════════
+# Locate completed FFX jobs (mode-aware)
+# ════════════════════════════════════════════════════════════════════════════
+
+def _find_pdb_3(folder: Path, base: str) -> Path | None:
+    """Find the most-advanced titration PDB for a given base stem.
+
+    Looks for `{base}.pdb_3` first (preferred — full pipeline run including
+    final Minimize after titration ManyBody), then falls back to `.pdb_4`
+    (rare; observed when extra rounds were needed) or `.pdb_2` (titration
+    ManyBody only, no final Minimize).
+    """
+    for ext in ("pdb_3", "pdb_4", "pdb_2"):
+        p = folder / f"{base}.{ext}"
+        if p.exists():
+            return p
+    return None
+
+
+def find_completed_jobs(
+    pdb_dir: str,
+    mode: str,
+    phs: list[float],
+) -> list[tuple[str, str, str, str | None, float | None]]:
+    """Return [(pdb_id, pdb_path, uind, uperm_or_None, pH_or_None), ...].
+
+    mode == 'rotopt':
+        Looks for {pdb}_rot.pdb + {pdb}_input.uind + {pdb}_input.uperm.
+        pH is None.  One record per PDB.
+
+    mode == 'titrate':
+        For each pH p in *phs* looks for {pdb}_pH{p}.pdb_3 (or .pdb_4 / .pdb_2 fallback)
+        + {pdb}_pH{p}.uind + {pdb}_pH{p}.uperm.
+        Up to len(phs) records per PDB; missing pHs are silently skipped.
+
+    Records missing the required uind file are dropped with a debug log.
+    """
     d = Path(pdb_dir)
-    jobs: list[tuple[str, str, str, str | None]] = []
+    jobs: list[tuple[str, str, str, str | None, float | None]] = []
 
     for folder in sorted(d.iterdir()):
         if not folder.is_dir():
             continue
-
         pdb_id = folder.name
 
-        # ── 1. Pick the best .uind file ──────────────────────────────────
-        preferred_uind = folder / f"{pdb_id}_final.uind"
-        if preferred_uind.exists():
-            uind = preferred_uind
-        else:
-            candidates = sorted(folder.glob("*.uind"))
-            if not candidates:
-                continue          # no minimisation output yet
-            # Prefer names with "final" in them, otherwise take the last one
-            # (alphabetically last tends to be the most advanced step).
-            final_candidates = [u for u in candidates if "final" in u.stem]
-            uind = final_candidates[-1] if final_candidates else candidates[-1]
-            log.info(
-                f"  {pdb_id}: preferred _final.uind absent; "
-                f"using {uind.name} as fallback"
-            )
+        if mode == "rotopt":
+            pdb_path  = folder / f"{pdb_id}_rot.pdb"
+            uind      = folder / f"{pdb_id}_input.uind"
+            uperm     = folder / f"{pdb_id}_input.uperm"
+            if not pdb_path.exists() or not uind.exists():
+                log.debug(f"  {pdb_id}: rotopt files missing — skipping")
+                continue
+            jobs.append((
+                pdb_id, str(pdb_path), str(uind),
+                str(uperm) if uperm.exists() else None,
+                None,
+            ))
 
-        # ── 2. Pick the best .pdb file ───────────────────────────────────
-        preferred_pdb = folder / f"{pdb_id}_final.pdb"
-        if preferred_pdb.exists():
-            pdb_path = preferred_pdb
-        else:
-            # Try the sibling pdb of the chosen uind first
-            sibling_pdb = uind.with_suffix(".pdb")
-            if sibling_pdb.exists():
-                pdb_path = sibling_pdb
-            else:
-                # Search all pdbs, excluding known intermediate files
-                all_pdbs = [
-                    p for p in sorted(folder.glob("*.pdb"))
-                    if not any(p.stem.endswith(s) for s in _SKIP_SUFFIXES)
-                ]
-                if not all_pdbs:
-                    log.warning(
-                        f"  {pdb_id}: .uind found ({uind.name}) but no "
-                        f"usable .pdb in folder – skipping"
-                    )
+        elif mode == "titrate":
+            for ph in phs:
+                ph_str = str(ph)
+                base   = f"{pdb_id}_pH{ph_str}"
+                pdb_path = _find_pdb_3(folder, base)
+                uind     = folder / f"{base}.uind"
+                uperm    = folder / f"{base}.uperm"
+                if pdb_path is None or not uind.exists():
+                    log.debug(f"  {pdb_id} pH {ph}: missing pdb_3 or .uind — skipping")
                     continue
-                # Prefer names with "final" in them
-                final_pdbs = [p for p in all_pdbs if "final" in p.stem]
-                pdb_path = final_pdbs[-1] if final_pdbs else all_pdbs[-1]
-            log.info(
-                f"  {pdb_id}: preferred _final.pdb absent; "
-                f"using {pdb_path.name} as fallback"
-            )
+                jobs.append((
+                    pdb_id, str(pdb_path), str(uind),
+                    str(uperm) if uperm.exists() else None,
+                    float(ph),
+                ))
 
-        # ── 3. uperm (optional) ──────────────────────────────────────────
-        uperm_path = folder / f"{pdb_id}_final.uperm"
-        if not uperm_path.exists():
-            # Try sibling uperm next to the chosen uind
-            sibling_uperm = uind.with_suffix(".uperm")
-            uperm_path = sibling_uperm if sibling_uperm.exists() else uperm_path
-
-        jobs.append((
-            pdb_id,
-            str(pdb_path),
-            str(uind),
-            str(uperm_path) if uperm_path.exists() else None,
-        ))
+        else:
+            raise ValueError(f"Unknown mode: {mode!r}")
 
     return jobs
 
@@ -626,13 +688,40 @@ def find_completed_jobs(pdb_dir: str) -> list[tuple[str, str, str, str | None]]:
 # ════════════════════════════════════════════════════════════════════════════
 
 def main() -> None:
-    os.makedirs(ADJ_DIR,  exist_ok=True)
-    os.makedirs(BOND_DIR, exist_ok=True)
+    parser = argparse.ArgumentParser(description="FFX → GNN feature builder (mode-aware)")
+    parser.add_argument("--mode", choices=["rotopt", "titrate"], default="titrate",
+                        help="rotopt = single rotamer-optimised structure per PDB; "
+                             "titrate = per-pH titration outputs (pdb_3 + .uind + .uperm)")
+    parser.add_argument("--phs", type=float, nargs="+", default=DEFAULT_PHS,
+                        help="pH values to look for in titrate mode (ignored in rotopt)")
+    parser.add_argument("--pdb-dir", default=PDB_DIR,
+                        help=f"Per-protein FFX output directory (default: {PDB_DIR})")
+    parser.add_argument("--manifest", default=MANIFEST,
+                        help=f"PKAD-R manifest CSV (default: {MANIFEST})")
+    parser.add_argument("--feat-dir", default=None,
+                        help="Override feature output directory "
+                             "(default: Graph_pKa/Features_{mode})")
+    args = parser.parse_args()
+
+    mode  = args.mode
+    phs   = list(args.phs) if mode == "titrate" else []
+    feat_dir = args.feat_dir or f"Graph_pKa/Features_{mode}"
+    node_dir = os.path.join(feat_dir, "Node_Feature_Vectors")
+    adj_dir  = os.path.join(feat_dir, "Adjacency_Matrices/With_Self_Loop")
+    bond_dir = os.path.join(feat_dir, "Edge_Features")
+
+    log.info(f"Mode       : {mode}")
+    if mode == "titrate":
+        log.info(f"pH values  : {phs}")
+    log.info(f"Feature dir: {feat_dir}")
+
+    os.makedirs(adj_dir,  exist_ok=True)
+    os.makedirs(bond_dir, exist_ok=True)
     for r in RADII:
-        os.makedirs(os.path.join(NODE_DIR, str(r)), exist_ok=True)
+        os.makedirs(os.path.join(node_dir, str(r)), exist_ok=True)
 
     # ── Load pKa labels ──────────────────────────────────────────────────────
-    manifest = pd.read_csv(MANIFEST)
+    manifest = pd.read_csv(args.manifest)
     # Build {(PDB, chain, res_id, res_name) → pka}
     pka_lookup: dict[tuple[str, str, int, str], float] = {
         (
@@ -643,20 +732,21 @@ def main() -> None:
         ): float(row.pka)
         for _, row in manifest.iterrows()
     }
-    log.info(f"Loaded {len(pka_lookup)} pKa entries from {MANIFEST}")
+    log.info(f"Loaded {len(pka_lookup)} pKa entries from {args.manifest}")
 
     # ── Discover completed FFX jobs ──────────────────────────────────────────
-    jobs = find_completed_jobs(PDB_DIR)
+    jobs = find_completed_jobs(args.pdb_dir, mode, phs)
     if not jobs:
-        log.error(f"No completed minimisations found in {PDB_DIR}.")
+        log.error(f"No completed {mode} jobs found in {args.pdb_dir}.")
         return
-    log.info(f"Found {len(jobs)} completed job(s): {[j[0] for j in jobs]}")
+    log.info(f"Found {len(jobs)} completed job record(s)")
 
     # ── Per-protein processing  (collect raw data for global normalisation) ──
     all_frames: list[pd.DataFrame] = []
 
-    for pdb_id, pdb_path, uind_path, uperm_path in jobs:
-        log.info(f"Processing {pdb_id}  ({Path(pdb_path).name})")
+    for pdb_id, pdb_path, uind_path, uperm_path, ph in jobs:
+        ph_tag = f" pH {ph}" if ph is not None else ""
+        log.info(f"Processing {pdb_id}{ph_tag}  ({Path(pdb_path).name})")
 
         # 1. Parse PDB
         df = parse_pdb(pdb_path)
@@ -703,7 +793,8 @@ def main() -> None:
         # 5. Neighbourhood atom counts
         log.info(f"  Computing neighbour counts…")
         try:
-            nbr_df = compute_neighbor_counts(pdb_path, df)
+            with _ensure_pdb_extension(pdb_path) as pdb_for_tools:
+                nbr_df = compute_neighbor_counts(pdb_for_tools, df)
             df = df.merge(nbr_df, on="serial", how="left")
         except Exception as exc:
             log.warning(f"  Neighbour counts failed ({exc}); inserting zeros.")
@@ -713,11 +804,23 @@ def main() -> None:
 
         # 6. H-bonds and SASA
         log.info(f"  Computing H-bonds and SASA…")
-        hb_df = compute_hbonds_sasa(pdb_path, len(df))
+        with _ensure_pdb_extension(pdb_path) as pdb_for_tools:
+            hb_df = compute_hbonds_sasa(pdb_for_tools, len(df))
         df = df.merge(hb_df, on="serial", how="left")
+
+        # 6b. Per-residue protonation state (broadcast to every atom in residue)
+        prot_map = detect_protonation(df)
+        df["is_protonated"] = df.apply(
+            lambda r: prot_map.get((r["chain"], int(r["resseq"])), 0),
+            axis=1,
+        ).astype(float)
+
+        # 6c. pH column — broadcast scalar to every atom (NaN in rotopt mode)
+        df["pH"] = float(ph) if ph is not None else np.nan
 
         # 7. Tag protein
         df["pdb_id"] = pdb_id.upper()
+        df["_ph"]    = ph         # internal grouping key (None for rotopt)
 
         all_frames.append(df)
         log.info(f"  {pdb_id}: {len(df)} atoms processed")
@@ -770,14 +873,19 @@ def main() -> None:
         "Number of H-Bonds as donor",
         "Number of H-Bonds as acceptor",
         "SASA_Value",
+        "is_protonated",
+        "pH",
     ]
 
     n_adj_saved  = 0
     n_feat_saved = 0
     n_skipped    = 0
 
-    for (pdb_id, chain, resseq, resname), res_df in full_df.groupby(
-        ["pdb_id", "chain", "resseq", "resname"], sort=False
+    # Group by (pdb, ph, chain, resseq, resname) so titrate mode produces one set
+    # of files per (residue, pH).  In rotopt mode `_ph` is None and behaves like
+    # a single-bucket group key.
+    for (pdb_id, ph_key, chain, resseq, resname), res_df in full_df.groupby(
+        ["pdb_id", "_ph", "chain", "resseq", "resname"], sort=False, dropna=False
     ):
         if resname not in TARGET_RESIDUES:
             continue
@@ -789,17 +897,22 @@ def main() -> None:
             continue
 
         full_name = AMINO_ACID_3_TO_FULL.get(resname, resname)
-        stem      = f"{pdb_id}_{chain}_{resseq}.{full_name}"
+        if ph_key is None or (isinstance(ph_key, float) and np.isnan(ph_key)):
+            stem = f"{pdb_id}_{chain}_{resseq}.{full_name}"
+        else:
+            # Per-pH stem suffix; double-underscore separator is parsed by
+            # 06_create_datasets.py to recover the pH value.
+            stem = f"{pdb_id}_{chain}_{resseq}.{full_name}__pH{ph_key}"
 
         # Adjacency matrix (uses original x/y/z, not local-frame coords)
         adj_df   = build_adjacency_matrix(res_df)
-        adj_path = os.path.join(ADJ_DIR, f"{stem}_adjacency.csv")
+        adj_path = os.path.join(adj_dir, f"{stem}_adjacency.csv")
         adj_df.to_csv(adj_path)
         n_adj_saved += 1
 
         # Edge features (local-frame displacement vectors + distance)
         bond_df   = build_edge_features(res_df)
-        bond_path = os.path.join(BOND_DIR, f"{stem}_bonds.csv")
+        bond_path = os.path.join(bond_dir, f"{stem}_bonds.csv")
         bond_df.to_csv(bond_path, index=False)
 
         # Node feature vector  — one file per radius
@@ -815,14 +928,14 @@ def main() -> None:
             feat_df  = res_df[avail].copy()
             feat_df["Expt. pKa"] = pka
 
-            out_path = os.path.join(NODE_DIR, str(radius), f"{stem}.csv")
+            out_path = os.path.join(node_dir, str(radius), f"{stem}.csv")
             feat_df.to_csv(out_path, index=False)
             n_feat_saved += 1
 
     log.info(f"Done.")
-    log.info(f"  Adjacency matrices saved : {n_adj_saved}  → {ADJ_DIR}")
-    log.info(f"  Edge feature files saved : {n_adj_saved}  → {BOND_DIR}")
-    log.info(f"  Node feature files saved : {n_feat_saved} → {NODE_DIR}")
+    log.info(f"  Adjacency matrices saved : {n_adj_saved}  → {adj_dir}")
+    log.info(f"  Edge feature files saved : {n_adj_saved}  → {bond_dir}")
+    log.info(f"  Node feature files saved : {n_feat_saved} → {node_dir}")
     log.info(f"  Residues skipped (no pKa in manifest): {n_skipped}")
 
 
