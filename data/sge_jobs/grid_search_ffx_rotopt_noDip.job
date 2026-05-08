@@ -1,0 +1,50 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N grid_search_ffx_rotopt_noDip
+#$ -j y
+#$ -q UI,MS
+#$ -pe smp 60
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=168:00:00
+#$ -S /bin/bash
+
+# Rotopt grid search WITHOUT induced dipoles (baseline features only).
+# 1) Build a no-dipole copy of the rotopt datasets if it doesn't exist
+# 2) Run 08_grid_search.py against that ablated dataset dir
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+echo "CPU slots    : $NSLOTS"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=/Dedicated/schnieders/maemmad/miniconda3/envs/pka_gnn/bin/python
+
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_rotopt
+SRC_DATASETS=$FEAT_DIR/Datasets
+DST_DATASETS=Graph_pKa/Features_rotopt_noDip/Datasets
+RESULTS_DIR=Graph_pKa/Results/Grid_Search_FFX_rotopt_noDip
+
+if [ ! -f "$DST_DATASETS/data_list_2.pkl" ]; then
+    echo ""
+    echo "=== ablate_datasets.py --ablate induced_dipoles ==="
+    $PYTHON ffx_pipeline/ablate_datasets.py \
+        --src-dir  "$SRC_DATASETS" \
+        --dst-dir  "$DST_DATASETS" \
+        --feat-dir "$FEAT_DIR" \
+        --ablate induced_dipoles
+else
+    echo "Ablated datasets already present in $DST_DATASETS — skipping rebuild."
+fi
+
+echo ""
+echo "=== 08_grid_search.py (rotopt, no induced dipoles) ==="
+$PYTHON ffx_pipeline/08_grid_search.py \
+    --dataset-dir "$DST_DATASETS" \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"
