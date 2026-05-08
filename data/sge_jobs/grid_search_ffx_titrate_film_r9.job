@@ -1,0 +1,53 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N grid_search_ffx_titrate_film_r9
+#$ -j y
+#$ -q UI,MS
+#$ -pe smp 60
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=168:00:00
+#$ -S /bin/bash
+
+# FiLM-conditioned titrate grid search restricted to the radius that won the
+# rotopt grid search (dataset_idx=2 → 9 Å).  720 HP combos × 1 radius fits in
+# the 168 h slot easily.
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+echo "CPU slots    : $NSLOTS"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=/Dedicated/schnieders/maemmad/miniconda3/envs/pka_gnn/bin/python
+
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_titrate
+DATASET_DIR=$FEAT_DIR/Datasets
+RESULTS_DIR=Graph_pKa/Results/Grid_Search_FFX_titrate_film_r9
+PDB_DIR=ffx_pipeline/data/fixed_pdbs
+MANIFEST=data/manifest.csv
+
+# Build features/datasets only if the radius-9 pkl is missing
+if [ ! -f "$DATASET_DIR/data_list_2.pkl" ]; then
+    echo ""
+    echo "=== 05_prepare_features.py --mode titrate ==="
+    $PYTHON ffx_pipeline/05_prepare_features.py --mode titrate \
+        --pdb-dir "$PDB_DIR" --manifest "$MANIFEST" --feat-dir "$FEAT_DIR"
+
+    echo ""
+    echo "=== 06_create_datasets.py --mode titrate ==="
+    $PYTHON ffx_pipeline/06_create_datasets.py --mode titrate \
+        --feat-dir "$FEAT_DIR" --out-dir "$DATASET_DIR"
+fi
+
+echo ""
+echo "=== 08b_grid_search_film.py  (titrate FiLM, radius 9 Å only) ==="
+$PYTHON ffx_pipeline/08b_grid_search_film.py \
+    --dataset 2 \
+    --dataset-dir "$DATASET_DIR" \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"

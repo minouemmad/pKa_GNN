@@ -1,0 +1,55 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N train_ffx_titrate_film
+#$ -j y
+#$ -q UI,MS
+#$ -pe smp 16
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=72:00:00
+#$ -S /bin/bash
+
+# Single training run: FiLM-conditioned GAT on titration data with induced
+# dipoles.  Builds Features_titrate from whatever PDBs currently have all four
+# pH .uind files, then trains 07_train.py --arch film with default
+# hyperparameters and 10-fold residue-grouped CV.
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+echo "CPU slots    : $NSLOTS"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=/Dedicated/schnieders/maemmad/miniconda3/envs/pka_gnn/bin/python
+
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_titrate
+DATASET_DIR=$FEAT_DIR/Datasets
+RESULTS_DIR=Graph_pKa/Results/Train_FFX_titrate_film
+PDB_DIR=ffx_pipeline/data/fixed_pdbs
+MANIFEST=data/manifest.csv
+
+echo ""
+echo "=== 05_prepare_features.py --mode titrate (rotamer + induced dipoles per pH) ==="
+$PYTHON ffx_pipeline/05_prepare_features.py --mode titrate \
+    --pdb-dir "$PDB_DIR" --manifest "$MANIFEST" --feat-dir "$FEAT_DIR"
+
+echo ""
+echo "=== 06_create_datasets.py --mode titrate ==="
+$PYTHON ffx_pipeline/06_create_datasets.py --mode titrate \
+    --feat-dir "$FEAT_DIR" --out-dir "$DATASET_DIR"
+
+echo ""
+echo "=== 07_train.py --arch film  (residue-grouped 10-fold CV) ==="
+$PYTHON ffx_pipeline/07_train.py \
+    --mode titrate \
+    --dataset-dir "$DATASET_DIR" \
+    --arch film \
+    --group-split residue \
+    --folds 10 \
+    --epochs 500 \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"

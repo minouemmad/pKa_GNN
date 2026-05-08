@@ -474,7 +474,12 @@ def train_dataset(
         model     = build_model(args.arch, input_dim, args)
         # Persist edge_dim for build_model on the args namespace
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
-        loss_fn   = torch.nn.SmoothL1Loss(beta=0.5)
+        if args.loss == "L1":
+            loss_fn = torch.nn.L1Loss()
+        elif args.loss == "MSE":
+            loss_fn = torch.nn.MSELoss()
+        else:
+            loss_fn = torch.nn.SmoothL1Loss(beta=0.5)
         model_path = model_dir / f"fold_{fold}.pth"
 
         fold_preds = train_one_fold(
@@ -569,6 +574,8 @@ def main() -> None:
                         help="pH bucket centres for multi_branch (default %(default)s)")
     parser.add_argument("--results-dir", type=Path, default=None,
                         help="Override output directory (default: auto-derived from flags)")
+    parser.add_argument("--loss", choices=["SmoothL1", "L1", "MSE"], default="SmoothL1",
+                        help="Loss function (default SmoothL1Loss(beta=0.5))")
     args = parser.parse_args()
 
     set_seed(args.seed)

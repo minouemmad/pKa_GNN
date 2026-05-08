@@ -1,0 +1,44 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N train_ffx_rotopt_best
+#$ -j y
+#$ -q UI,MS
+#$ -pe smp 16
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=24:00:00
+#$ -S /bin/bash
+
+# Final rotopt training run with best hyperparameters from
+# Graph_pKa/Results/Grid_Search_FFX_rotopt/best_result.csv
+#   dataset_idx=2  (radius 9 Å)
+#   hidden=32  heads=6  dropout=0.3  lr=0.06  batch=16  loss=L1Loss
+# Note: 07_train.py uses SmoothL1Loss internally; the closest L1-flavoured
+# default is fine — if you want pure L1 add it explicitly to 07_train.py.
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=/Dedicated/schnieders/maemmad/miniconda3/envs/pka_gnn/bin/python
+
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_rotopt
+DATASET_DIR=$FEAT_DIR/Datasets
+RESULTS_DIR=Graph_pKa/Results/Train_FFX_rotopt_best
+
+echo ""
+echo "=== 07_train.py --mode rotopt --arch naive (best HPs, radius 9 Å) ==="
+$PYTHON ffx_pipeline/07_train.py \
+    --mode rotopt --arch naive \
+    --dataset-dir "$DATASET_DIR" \
+    --dataset 2 \
+    --hidden 32 --heads 6 --dropout 0.3 \
+    --lr 0.06 --batch 16 --loss L1 \
+    --folds 10 --epochs 500 --patience 20 \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"
