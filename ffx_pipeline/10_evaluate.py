@@ -343,7 +343,7 @@ def main() -> None:
 
     # ── 2. Merge baseline predictions ─────────────────────────────────────
     for name, path in args.baseline:
-        b = load_baseline(path, label=name).drop(columns=["res_code"])
+        b = load_baseline(path, label=name)
         before = len(merged)
         merged = merged.merge(b, on=KEY_COLS, how="left")
         n_present = merged[name].notna().sum()
