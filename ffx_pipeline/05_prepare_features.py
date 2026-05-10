@@ -88,6 +88,89 @@ TARGET_RESIDUES = {"ASP", "GLU", "HIS", "LYS", "CYS", "TYR"}
 # Default pH list for titration mode (mirrors 03_run_ffx_minimize.py / TITRATION_PHS)
 DEFAULT_PHS = [3.94, 4.4, 6.45, 8.55]
 
+# Maximum |offset| (in residues) considered when realigning manifest keys to
+# possibly-renumbered PDBs.  PDBFixer typically introduces shifts of -1 or -2
+# when N-terminal residues are added/removed; ±20 is a generous cap.
+_MAX_RENUMBER_OFFSET = 20
+
+
+def _augment_pka_lookup_with_offsets(
+    full_df: "pd.DataFrame",
+    manifest: "pd.DataFrame",
+    pka_lookup: dict,
+    log,
+) -> dict:
+    """Return a copy of ``pka_lookup`` with extra keys that account for
+    per-(pdb, chain) residue-numbering offsets between the manifest and the
+    parsed PDBs.  For each (pdb, chain) we choose the integer offset δ in
+    ``[-_MAX_RENUMBER_OFFSET, _MAX_RENUMBER_OFFSET]`` that maximises the
+    number of (manifest_res_id + δ, res_name) pairs found among the parsed
+    ionizable residues; δ=0 wins ties so correctly-numbered chains are
+    untouched.
+    """
+    aug = dict(pka_lookup)
+
+    pdb_residues = (
+        full_df[full_df["resname"].isin(TARGET_RESIDUES)]
+        .loc[:, ["pdb_id", "chain", "resseq", "resname"]]
+        .drop_duplicates()
+    )
+    if pdb_residues.empty:
+        return aug
+    pdb_residues = pdb_residues.assign(
+        pdb_id=pdb_residues["pdb_id"].astype(str).str.upper(),
+        chain=pdb_residues["chain"].astype(str),
+        resseq=pdb_residues["resseq"].astype(int),
+        resname=pdb_residues["resname"].astype(str).str.upper(),
+    )
+
+    man = manifest.copy()
+    man["pdb_id"]   = man["pdb_id"].astype(str).str.upper()
+    man["chain"]    = man["chain"].astype(str).str.strip()
+    man["res_id"]   = man["res_id"].astype(int)
+    man["res_name"] = man["res_name"].astype(str).str.upper()
+    man = man[man["res_name"].isin(TARGET_RESIDUES)]
+
+    n_recovered = 0
+    n_chains_shifted = 0
+    for (pdb_id, chain), g_man in man.groupby(["pdb_id", "chain"]):
+        g_pdb = pdb_residues[
+            (pdb_residues["pdb_id"] == pdb_id)
+            & (pdb_residues["chain"] == chain)
+        ]
+        if g_pdb.empty:
+            continue
+        pdb_set = set(zip(g_pdb["resseq"].tolist(),
+                          g_pdb["resname"].tolist()))
+        man_pairs = list(zip(g_man["res_id"].tolist(),
+                             g_man["res_name"].tolist()))
+
+        best_delta, best_hits = 0, -1
+        for delta in range(-_MAX_RENUMBER_OFFSET, _MAX_RENUMBER_OFFSET + 1):
+            hits = sum(((rid + delta), rn) in pdb_set
+                       for rid, rn in man_pairs)
+            if hits > best_hits or (hits == best_hits and delta == 0):
+                best_hits = hits
+                best_delta = delta
+
+        if best_delta == 0 or best_hits == 0:
+            continue
+
+        for rid, rn in man_pairs:
+            if ((rid + best_delta), rn) in pdb_set:
+                key_old = (pdb_id, chain, int(rid), rn)
+                key_new = (pdb_id, chain, int(rid + best_delta), rn)
+                if key_old in aug and key_new not in aug:
+                    aug[key_new] = aug[key_old]
+                    n_recovered += 1
+        n_chains_shifted += 1
+        log.info(f"  Renumbering offset detected for {pdb_id}/{chain}: "
+                 f"{best_delta:+d} (aligned {best_hits}/{len(man_pairs)} residues)")
+
+    log.info(f"Renumbering recovery: {n_recovered} pKa entries added across "
+             f"{n_chains_shifted} chain(s).")
+    return aug
+
 # Atoms whose presence signals the protonated form of a titratable sidechain.
 # Used to compute the per-residue `is_protonated` scalar feature.  Atom names follow
 # AMOEBA / standard PDB conventions; the function checks ANY of these names.
@@ -831,6 +914,17 @@ def main() -> None:
 
     full_df = pd.concat(all_frames, ignore_index=True)
     log.info(f"Total atoms across all proteins: {len(full_df)}")
+
+    # ── Per-(pdb, chain) numbering-offset recovery ───────────────────────────
+    # PDBFixer / OpenMM may renumber residues during 02_fix_structures.py
+    # (typically by a constant offset per chain), causing manifest keys built
+    # from raw-PDB numbering to miss every residue.  Detect the offset that
+    # aligns the most ionizable residues between manifest and parsed PDB on a
+    # per-(pdb, chain) basis, then add the shifted keys to pka_lookup.  δ=0
+    # wins ties so well-numbered chains are unaffected.
+    pka_lookup = _augment_pka_lookup_with_offsets(
+        full_df, manifest, pka_lookup, log
+    )
 
     # ── Global MinMax normalisation of neighbour counts ──────────────────────
     radius_feat_cols = [
