@@ -1,0 +1,1671 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Titration pH 6.45 started: Fri May  8 19:12:41 CDT 2026 ===
+  Copy already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2ZTA/2ZTA_pH6.45.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6947  April 2026 
+        Git Revision  519408079905b3dd4b967041b75b836f63fb563f 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2025
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Fri May 08 19:13:12 CDT 2026
+ Process ID 31950 on argon-itf-bx54-07.hpc.
+
+ Command line arguments:
+ [ManyBody, --tR, --pH, 6.45, --oT, -T, --kPH, 3.0, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2ZTA/2ZTA_pH6.45.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2ZTA/2ZTA_pH6.45.pdb]
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2ZTA/titrate.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 2ZTA_pH6.45.pdb
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   63.4 A).
+
+ Bonded Terms
+  Bonds:                                   1158
+  Angles:                                  2112
+  Stretch-Bends:                           1832
+  Out-of-Plane Bends:                       606
+  Torsions:                                3060
+  Pi-Orbital Torsions:                       92
+  Torsion-Torsions:                           2
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                  4.000
+
+ Opened 2ZTA_pH6.45.pdb in 0.904 sec.
+
+ System Resources
+  Total CPU time:          19.66 (sec)
+  System load average:     82.73
+  Open file handles:         146 of  81920 allowed
+  System memory:           43930 MB free out of  44520 MB
+  System swap space:        2046 MB free out of   2053 MB
+  JVM memory:               4048 MB free out of   4096 MB
+
+ Adding titration hydrogen to : /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/2ZTA/2ZTA_pH6.45.pdb
+
+ Reading 2ZTA_pH6.45.pdb
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Renumbering PDB file due to built atoms (1170 vs 1156)
+ Total number of atoms: 1170
+
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   63.4 A).
+
+ Bonded Terms
+  Bonds:                                   1172
+  Angles:                                  2126
+  Stretch-Bends:                           1832
+  Out-of-Plane Bends:                       606
+  Torsions:                                3088
+  Pi-Orbital Torsions:                       92
+  Torsion-Torsions:                           2
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 18.000
+ Temperature: 298.150000
+
+ Energy restart file: 2ZTA_pH6.45.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood  -2114.72245546      0.046
+ Cavitation              759.40619105      0.053
+ Dispersion             -552.65532580      0.126
+
+ Computed Potential Energy
+  Bond Stretching            172.57074237         1172        0.004 ( 0.01896)
+  Angle Bending              245.38602784         2126        0.003 ( 2.70032)
+  Stretch-Bend                -1.75744135         1832        0.002
+  Out-of-Plane Bend            8.87516216          606        0.001
+  Torsional Angle             76.64052902         3088        0.004
+  Pi-Orbital Torsion          15.53418850           92        0.000
+  Torsion-Torsion            -12.91895670            2        0.000
+  Van der Waals              266.24587905       680567        0.381
+  Atomic Multipoles          611.89749530       680567
+  Polarization               -81.42155932       680567        0.639
+  Solvation                -1907.97159022       685035
+  Total Potential           -606.91952334  (Kcal/mole)        1.034 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A    4-LYS -177.014  179.998 -179.963  -65.031
+ A    7-GLH  -68.575  162.550   -5.357    0.000
+ A    8-ASH  -54.671  -10.047    0.000    0.000
+ A    9-LYS -164.869   72.298 -164.093  167.749
+ A   11-GLH -176.985  -80.022  -24.975    0.000
+ A   12-GLH -177.869 -163.664   24.324    0.000
+ A   16-LYS  -67.001  179.991  180.000 -179.983
+ A   19-HIS -176.999   59.989    0.000    0.000
+ A   21-GLH  -69.132  171.601    4.808    0.000
+ A   23-GLH  -73.192  -67.010  -28.091    0.000
+ A   28-LYS  -63.326 -176.319  170.363  175.171
+ A   29-LYS -176.984 -179.987  179.970  179.960
+ A   33-GLH   68.587   95.312 -106.694    0.000
+
+ Rotamer Library:     Richardson
+ Algorithm:           ALL
+ Goldstein Criteria:  true
+ Three-Body Energies: true
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.008 sec
+ Pairwise distance matrix:               165.771 sec
+
+ Beginning Energy   -1245.64403313
+
+     Residue  Nrot
+   1   A4-LYS   56
+   2   A7-GLH   42
+   3   A8-ASH   27
+   4   A9-LYS   56
+   5  A11-GLH   42
+   6  A12-GLH   42
+   7  A16-LYS   56
+   8  A19-HIS   27
+   9  A21-GLH   42
+  10  A23-GLH   42
+  11  A28-LYS   56
+  12  A29-LYS   56
+  13  A33-GLH   42
+
+ Backbone energy:     -797.52701623
+
+ Loaded self energies from restart file.
+  Rotamer ( A4-LYD, 1) self-energy      33.83129198 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 2) self-energy      39.91953456 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 3) self-energy      38.88270837 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 4) self-energy      38.49522215 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 5) self-energy      49.02791731 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 6) self-energy      39.86735622 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 7) self-energy      33.33065898 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 8) self-energy      33.96823634 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD, 9) self-energy      35.90529673 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,10) self-energy      35.00801430 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,11) self-energy      34.04455630 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,12) self-energy      33.26823470 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,13) self-energy      32.30190322 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,14) self-energy      33.83294285 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,15) self-energy      33.95296139 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,16) self-energy      36.39596956 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,17) self-energy      47.86666305 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,18) self-energy      79.64531004 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,19) self-energy      34.73873129 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,20) self-energy      34.16662965 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,21) self-energy      33.18037030 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,22) self-energy      35.12615043 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,23) self-energy      35.07312089 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,24) self-energy      37.68311275 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,25) self-energy      35.98149149 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,26) self-energy      35.02981615 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,27) self-energy      36.96628491 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYD,28) self-energy      36.69169052 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A4-LYS,45) self-energy      32.49626748 pruned by ( A4-LYS,40)     -19.95831842.
+  Rotamer ( A7-GLH, 1) self-energy      13.36988462 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH, 2) self-energy      32.96469532 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH, 3) self-energy    4232.22668694 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH, 7) self-energy    3750.42893011 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH, 9) self-energy      61.49691279 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,10) self-energy      35.27349636 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,11) self-energy    1429.72026916 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,12) self-energy      14.97955953 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,13) self-energy      13.53046062 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,14) self-energy      21.27736113 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,15) self-energy    1664.76646010 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,17) self-energy      44.95771442 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,18) self-energy      45.91973705 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,19) self-energy    1176.72981029 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,20) self-energy      16.24676876 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,21) self-energy      14.26483834 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,22) self-energy      15.59782537 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,23) self-energy    3728.60591412 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,25) self-energy      67.29087561 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,26) self-energy      53.72464317 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,27) self-energy    1414.79220038 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,28) self-energy      33.04821205 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,29) self-energy      31.20896441 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,30) self-energy      51.23540004 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,31) self-energy     843.82828782 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,32) self-energy      30.54270912 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLH,33) self-energy      59.58657187 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLU,34) self-energy      17.94988684 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLU,35) self-energy    1409.44278388 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLU,39) self-energy    4303.25191814 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A7-GLU,41) self-energy      30.49924003 pruned by ( A7-GLU, 0)     -11.85168208.
+  Rotamer ( A8-ASH, 1) self-energy       9.24399447 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH, 2) self-energy     106.46447809 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH, 3) self-energy     130.45978195 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH, 4) self-energy      14.09792130 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH, 7) self-energy     101.66893565 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH, 8) self-energy      50.11146144 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH, 9) self-energy      20.01476064 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,11) self-energy       9.16878525 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,12) self-energy      98.46685389 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,13) self-energy      64.61971423 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,14) self-energy      19.27226029 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,15) self-energy      14.69204303 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,16) self-energy      10.63042179 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,17) self-energy     181.17660574 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,18) self-energy     116.82274275 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,19) self-energy      52.61696321 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,20) self-energy      13.57229540 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASH,21) self-energy      31.56085966 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASP,22) self-energy      97.05573732 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A8-ASP,23) self-energy      46.20250266 pruned by ( A8-ASP,25)     -16.50172494.
+  Rotamer ( A9-LYD, 1) self-energy      31.52749177 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 2) self-energy     213.47971195 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 3) self-energy    4144.90967562 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 4) self-energy   16110.52800850 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 5) self-energy    6034.62248799 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 6) self-energy    1147.46273509 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 7) self-energy     125.70226192 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 8) self-energy      36.19977845 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD, 9) self-energy      38.78939229 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,10) self-energy    9014.91488525 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,11) self-energy     305.14350142 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,12) self-energy     111.50148231 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,13) self-energy     134.15477953 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,14) self-energy    2188.55897576 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,15) self-energy      41.25146812 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,16) self-energy      43.74918054 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,17) self-energy      76.30782123 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,18) self-energy      87.51459691 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,19) self-energy      39.12754155 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,20) self-energy      56.65841053 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,21) self-energy      37.52486519 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,22) self-energy      39.49117456 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,23) self-energy      59.64572522 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,24) self-energy     279.70907907 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,25) self-energy      44.48564010 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,26) self-energy      43.58720574 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,27) self-energy      45.10848276 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYD,28) self-energy      44.92775677 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,29) self-energy     214.86894448 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,31) self-energy   16108.28834097 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,32) self-energy    6228.92135249 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,33) self-energy    1095.95176297 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,34) self-energy     116.31774207 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,37) self-energy    9129.87040778 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,38) self-energy     262.64580229 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,39) self-energy      60.54354249 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,40) self-energy      82.24845087 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,41) self-energy    7866.10762367 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,44) self-energy      26.89152298 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,45) self-energy      41.84938726 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,47) self-energy       8.92920060 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,50) self-energy       8.99594048 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer ( A9-LYS,51) self-energy     238.53518769 pruned by ( A9-LYS, 0)     -21.53119352.
+  Rotamer (A11-GLH, 1) self-energy      17.07103693 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH, 2) self-energy      84.44812409 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH, 3) self-energy  428523.43169630 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH, 7) self-energy    3479.37134072 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,10) self-energy      79.20378209 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,11) self-energy    3944.71144838 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,14) self-energy      20.22111237 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,15) self-energy    2676.92736029 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,18) self-energy     152.59894875 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,19) self-energy    3487.69905635 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,20) self-energy      16.78987127 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,22) self-energy      15.96000044 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,23) self-energy    3481.37592898 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,25) self-energy      16.07566577 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,26) self-energy      97.69008591 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,27) self-energy    3826.13988054 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,28) self-energy      33.60075547 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,29) self-energy      31.56664142 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,30) self-energy      49.77900058 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,31) self-energy     822.86538853 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,32) self-energy      30.83508707 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLH,33) self-energy      28.82116449 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLU,34) self-energy      86.26329447 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLU,35) self-energy    3752.18913438 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A11-GLU,39) self-energy    4260.89649273 pruned by (A11-GLU,41)      -9.25277377.
+  Rotamer (A12-GLH, 2) self-energy      71.73238494 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH, 3) self-energy    8228.56649204 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH, 7) self-energy    5180.15645550 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH, 9) self-energy      16.04509545 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,10) self-energy      74.78200313 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,11) self-energy    3090.18457522 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,14) self-energy      29.33730850 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,15) self-energy    1660.35878801 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,16) self-energy      16.64073967 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,17) self-energy      18.71004490 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,18) self-energy      95.63746859 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,19) self-energy    1688.96096108 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,20) self-energy      14.45892661 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,22) self-energy      14.52871091 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,23) self-energy    5168.12877318 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,24) self-energy      16.86277810 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,25) self-energy      20.30889676 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,26) self-energy      93.25890549 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,27) self-energy    3116.78688259 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,28) self-energy      31.27033596 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,29) self-energy      28.79107248 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,30) self-energy      54.34586120 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,31) self-energy    1215.20786982 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,32) self-energy      34.81989089 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLH,33) self-energy      33.39004784 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLU,34) self-energy      68.12849875 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLU,35) self-energy    2744.72852626 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A12-GLU,39) self-energy    5554.01923662 pruned by (A12-GLU, 0)     -10.61939625.
+  Rotamer (A16-LYD, 1) self-energy      30.38204726 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 2) self-energy     136.03929358 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 3) self-energy    2753.29204911 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 4) self-energy    4749.18277539 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 5) self-energy    3900.04974145 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 6) self-energy    1397.15467706 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 7) self-energy      54.28420579 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 8) self-energy      37.36409320 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD, 9) self-energy      41.26359380 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,10) self-energy  533721.66574351 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,11) self-energy    4448.08468909 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,12) self-energy      79.79919615 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,13) self-energy      80.51364347 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,14) self-energy     303.88977636 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,15) self-energy      57.37850431 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,16) self-energy      59.81522648 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,17) self-energy      46.48443823 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,18) self-energy      88.33454881 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,19) self-energy      32.76166175 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,20) self-energy      30.15679053 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,21) self-energy      30.38303583 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,22) self-energy      32.61904392 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,23) self-energy      39.16809624 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,24) self-energy      46.21419983 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,25) self-energy      34.23760005 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,26) self-energy      33.42018437 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,27) self-energy      35.14629303 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYD,28) self-energy      35.13379439 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,29) self-energy     104.59030759 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,31) self-energy    4703.14352533 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,32) self-energy    3919.76706676 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,33) self-energy    1332.47625367 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,34) self-energy       9.05971715 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,37) self-energy  532789.83572538 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,38) self-energy    4342.31877944 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,39) self-energy      28.22181699 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,40) self-energy      27.88677819 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,41) self-energy     356.91162451 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,42) self-energy       4.96834785 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,43) self-energy       7.26473494 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A16-LYS,45) self-energy      46.95051887 pruned by (A16-LYS,48)     -22.51890683.
+  Rotamer (A19-HIS, 3) self-energy     967.72776634 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HIS, 4) self-energy     657.03091590 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HIS,10) self-energy      67.61195488 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HID,11) self-energy     828.12271958 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HID,12) self-energy     653.81019244 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HID,18) self-energy      68.04938125 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HIE,19) self-energy     920.86082461 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HIE,20) self-energy     606.06253166 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A19-HIE,26) self-energy      -4.48683561 pruned by (A19-HIS, 7)     -30.40394598.
+  Rotamer (A21-GLH, 1) self-energy      14.51026051 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH, 2) self-energy     152.22883894 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH, 3) self-energy    7708.73307100 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH, 4) self-energy      13.95215241 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH, 6) self-energy      13.58650264 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH, 7) self-energy    3816.03116039 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH, 9) self-energy      78.63042162 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,10) self-energy     285.23692697 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,11) self-energy    4735.38998395 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,12) self-energy      16.43604767 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,13) self-energy      14.78782903 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,14) self-energy      21.15990767 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,15) self-energy    1303.41074127 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,17) self-energy      52.83104651 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,18) self-energy     154.66009228 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,19) self-energy    2717.54699854 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,20) self-energy      17.91762782 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,21) self-energy      15.27834089 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,22) self-energy      17.55942265 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,23) self-energy    3815.68247634 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,24) self-energy      13.45133640 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,25) self-energy      64.89264960 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,26) self-energy     303.41942398 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,27) self-energy    4670.09737945 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,28) self-energy      34.68313255 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,29) self-energy      32.45257790 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,30) self-energy      51.84376478 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,31) self-energy     779.15509188 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,32) self-energy      30.40910659 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLH,33) self-energy      67.52928947 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLU,34) self-energy     300.05383792 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLU,35) self-energy    3725.82451340 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLU,39) self-energy    4392.09388584 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A21-GLU,41) self-energy      42.75448569 pruned by (A21-GLU, 0)     -12.17259070.
+  Rotamer (A23-GLH, 1) self-energy      16.67149906 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH, 2) self-energy     650.18305566 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH, 3) self-energy   21411.89508139 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH, 4) self-energy      80.29618074 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH, 5) self-energy      20.42802387 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH, 6) self-energy    1336.99160346 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH, 7) self-energy     792.62275541 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,10) self-energy     888.21637839 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,11) self-energy    5451.91855711 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,12) self-energy      46.12799679 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,13) self-energy      30.67935072 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,14) self-energy    1145.67329732 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,15) self-energy     480.80330848 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,17) self-energy      25.11329622 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,18) self-energy     420.57420055 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,19) self-energy    3257.21408265 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,20) self-energy      49.89439659 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,21) self-energy      25.46651972 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,22) self-energy    1530.06897403 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,23) self-energy     795.24821341 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,25) self-energy      14.99372529 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,26) self-energy     906.65760148 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,27) self-energy    5299.49501348 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,28) self-energy      61.94946474 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,29) self-energy      47.49337994 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,30) self-energy    1052.89911416 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,31) self-energy     290.88554287 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,32) self-energy      30.43840668 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLH,33) self-energy      28.68610524 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLU,34) self-energy     869.67336049 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLU,35) self-energy    4155.30983963 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLU,36) self-energy      13.71154049 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLU,38) self-energy    1935.32719732 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A23-GLU,39) self-energy     945.41610642 pruned by (A23-GLU, 0)     -11.94392103.
+  Rotamer (A28-LYD, 1) self-energy      29.41756718 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 2) self-energy      40.71281295 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 3) self-energy      75.80563232 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 4) self-energy      70.07087668 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 5) self-energy   54079.34236670 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 6) self-energy      36.88399749 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 7) self-energy      35.35599476 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 8) self-energy      34.50455688 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD, 9) self-energy      36.63172955 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,10) self-energy      34.48962504 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,11) self-energy      33.28802944 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,12) self-energy      32.65258115 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,13) self-energy      31.67315047 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,14) self-energy      33.60775624 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,15) self-energy      33.36177384 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,16) self-energy      35.79861034 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,17) self-energy     279.50632386 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,18) self-energy      77.14690839 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,19) self-energy      32.26249122 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,20) self-energy     111.39230697 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,21) self-energy      31.26642766 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,22) self-energy      33.39887136 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,23) self-energy      47.66616835 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,24) self-energy     755.07777288 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,25) self-energy     124.44776962 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,26) self-energy     212.78367431 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,27) self-energy    1141.12378340 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYD,28) self-energy      36.02051253 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,31) self-energy      17.74551407 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,32) self-energy   53707.15884614 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,44) self-energy     230.00756586 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,45) self-energy      28.61912921 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,47) self-energy      70.56371603 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,51) self-energy     774.80872963 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,52) self-energy      72.48881831 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,53) self-energy     161.92394405 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A28-LYS,54) self-energy    1221.52529199 pruned by (A28-LYS, 0)     -24.78606858.
+  Rotamer (A29-LYD, 1) self-energy      32.09538290 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 2) self-energy     737.00241982 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 3) self-energy     300.67202615 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 4) self-energy     323.64919645 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 5) self-energy    3728.93379052 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 6) self-energy     210.53922834 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 7) self-energy      34.51570550 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 8) self-energy      34.31257129 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD, 9) self-energy      36.12805049 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,10) self-energy      34.76755847 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,11) self-energy      33.66664785 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,12) self-energy      33.13530540 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,13) self-energy      32.09463042 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,14) self-energy      34.01352339 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,15) self-energy      33.75235495 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,16) self-energy      36.15035569 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,17) self-energy      60.21272954 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,18) self-energy      80.78409226 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,19) self-energy      35.89806034 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,20) self-energy      35.80876436 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,21) self-energy      34.25305568 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,22) self-energy      36.17003174 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,23) self-energy      65.50490734 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,24) self-energy     188.33257257 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,25) self-energy      39.12134375 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,26) self-energy      38.21228407 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,27) self-energy      39.81078283 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYD,28) self-energy      39.91399149 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,29) self-energy     686.44557671 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,31) self-energy     270.96311613 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,32) self-energy    4014.08443884 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,33) self-energy     157.68310144 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,44) self-energy       9.75343392 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,45) self-energy      32.25712907 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,50) self-energy      13.66613590 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A29-LYS,51) self-energy     138.24604971 pruned by (A29-LYS,40)     -21.39682813.
+  Rotamer (A33-GLH, 3) self-energy      27.90439398 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH, 4) self-energy    1813.00713029 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH, 5) self-energy     228.57050950 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH, 6) self-energy    3626.61022157 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH, 7) self-energy      20.98575682 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH, 9) self-energy      38.20543874 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,11) self-energy      99.59936351 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,12) self-energy     559.76919197 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,13) self-energy     228.26410688 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,14) self-energy    2149.63394101 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,15) self-energy      26.25741752 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,17) self-energy      59.77599094 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,19) self-energy      31.63054184 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,20) self-energy    2502.78068851 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,21) self-energy     254.92056729 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,22) self-energy    6363.20817287 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,23) self-energy      24.62083677 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,25) self-energy      42.73617530 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,26) self-energy      33.12542959 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,27) self-energy     149.20013484 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,28) self-energy     584.98991542 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,29) self-energy     245.63853324 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,30) self-energy    2177.69746249 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,31) self-energy      62.19708740 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,32) self-energy      33.94439637 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLH,33) self-energy      75.05394137 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLU,36) self-energy     691.92477980 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLU,37) self-energy     204.56623710 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLU,38) self-energy    3800.37187725 pruned by (A33-GLU, 0)      -7.21945443.
+  Rotamer (A33-GLU,41) self-energy      28.99980548 pruned by (A33-GLU, 0)      -7.21945443.
+ Loaded 2-body energies from restart file.
+ Loaded trimer energies from restart file.
+
+ Number of self energies: 0
+ Backbone energy:     -797.52701623
+
+ Time for single energies:        1.246
+ Number of 2-body energies to calculate: 0
+ Time for 2-body energies:        0.01397
+ Number of 3-Body energies to calculate: 4565
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLH 5 :       0.00127319 at      1.555 Ang (1.438 Ang by residue) in 1.2317 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLH 6 :       0.00131714 at      1.555 Ang (1.438 Ang by residue) in 0.8512 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLH 8 :       0.00192242 at      1.548 Ang (1.438 Ang by residue) in 0.8237 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLH 12:       0.00112926 at      1.555 Ang (1.438 Ang by residue) in 0.9613 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLH 13:       0.00139135 at      1.555 Ang (1.438 Ang by residue) in 1.0554 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLH 21:       0.00127585 at      1.555 Ang (1.438 Ang by residue) in 0.9168 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLU 36:       0.00094225 at      1.555 Ang (1.438 Ang by residue) in 0.9632 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLU 37:       0.00117447 at      1.555 Ang (1.438 Ang by residue) in 0.6703 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLU 38:       0.00120299 at      1.555 Ang (1.438 Ang by residue) in 0.7304 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLU 40:       0.00187710 at      1.548 Ang (1.438 Ang by residue) in 0.8581 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 36,  A12-GLU 41:       0.00138589 at      1.550 Ang (1.438 Ang by residue) in 0.7661 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLU 0 :       0.00100930 at      1.555 Ang (1.438 Ang by residue) in 0.8981 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 1 :       0.00114889 at      1.555 Ang (1.438 Ang by residue) in 0.8791 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 4 :       0.00101324 at      1.555 Ang (1.438 Ang by residue) in 0.7747 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 5 :       0.00116750 at      1.555 Ang (1.438 Ang by residue) in 0.8712 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 6 :       0.00120353 at      1.555 Ang (1.438 Ang by residue) in 0.8851 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 8 :       0.00189512 at      1.548 Ang (1.438 Ang by residue) in 0.8846 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 12:       0.00103159 at      1.555 Ang (1.438 Ang by residue) in 0.7299 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 13:       0.00130913 at      1.555 Ang (1.438 Ang by residue) in 0.7569 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLH 21:       0.00116839 at      1.555 Ang (1.438 Ang by residue) in 0.7904 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLU 36:       0.00084798 at      1.555 Ang (1.438 Ang by residue) in 0.7643 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLU 37:       0.00105539 at      1.555 Ang (1.438 Ang by residue) in 0.7568 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLU 38:       0.00110474 at      1.555 Ang (1.438 Ang by residue) in 0.7550 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLU 40:       0.00178985 at      1.548 Ang (1.438 Ang by residue) in 0.7517 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 37,  A12-GLU 41:       0.00129353 at      1.550 Ang (1.438 Ang by residue) in 0.7182 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLU 0 :       0.00073616 at      1.555 Ang (1.438 Ang by residue) in 0.6716 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 1 :       0.00117420 at      1.555 Ang (1.438 Ang by residue) in 0.6860 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 4 :       0.00086186 at      1.555 Ang (1.438 Ang by residue) in 0.7201 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 5 :       0.00126643 at      1.555 Ang (1.438 Ang by residue) in 0.6821 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 6 :       0.00142276 at      1.555 Ang (1.438 Ang by residue) in 0.7084 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 8 :       0.00053430 at      1.548 Ang (1.438 Ang by residue) in 0.7188 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 12:       0.00091572 at      1.555 Ang (1.438 Ang by residue) in 0.7280 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 13:       0.00146243 at      1.555 Ang (1.438 Ang by residue) in 0.6733 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLH 21:       0.00126735 at      1.555 Ang (1.438 Ang by residue) in 0.8047 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLU 36:       0.00036524 at      1.555 Ang (1.438 Ang by residue) in 0.7497 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLU 37:       0.00090665 at      1.555 Ang (1.438 Ang by residue) in 0.7340 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLU 38:       0.00115613 at      1.555 Ang (1.438 Ang by residue) in 0.6619 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLU 40:      -0.00037660 at      1.548 Ang (1.438 Ang by residue) in 0.7642 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 38,  A12-GLU 41:      -0.00154822 at      1.550 Ang (1.438 Ang by residue) in 0.7455 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLU 0 :       0.00101941 at      1.555 Ang (1.438 Ang by residue) in 0.7360 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 1 :       0.00109374 at      1.555 Ang (1.438 Ang by residue) in 0.6919 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 4 :       0.00093881 at      1.555 Ang (1.438 Ang by residue) in 0.7240 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 5 :       0.00108949 at      1.555 Ang (1.438 Ang by residue) in 0.7472 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 6 :       0.00111262 at      1.555 Ang (1.438 Ang by residue) in 0.8190 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 8 :       0.00176944 at      1.548 Ang (1.438 Ang by residue) in 0.8915 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 12:       0.00095330 at      1.555 Ang (1.438 Ang by residue) in 0.7116 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 13:       0.00121347 at      1.555 Ang (1.438 Ang by residue) in 0.7085 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLH 21:       0.00109268 at      1.555 Ang (1.438 Ang by residue) in 0.7547 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLU 36:       0.00081564 at      1.555 Ang (1.438 Ang by residue) in 0.6671 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLU 37:       0.00102627 at      1.555 Ang (1.438 Ang by residue) in 0.7106 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLU 38:       0.00104653 at      1.555 Ang (1.438 Ang by residue) in 0.7887 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLU 40:       0.00168195 at      1.548 Ang (1.438 Ang by residue) in 0.6471 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 40,  A12-GLU 41:       0.00116916 at      1.550 Ang (1.438 Ang by residue) in 0.6338 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLU 0 :       0.00105260 at      1.555 Ang (1.438 Ang by residue) in 0.7167 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 1 :       0.00111817 at      1.555 Ang (1.438 Ang by residue) in 0.8064 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 4 :       0.00095938 at      1.555 Ang (1.438 Ang by residue) in 0.7270 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 5 :       0.00111668 at      1.555 Ang (1.438 Ang by residue) in 0.7084 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 6 :       0.00113739 at      1.555 Ang (1.438 Ang by residue) in 0.7772 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 8 :       0.00172929 at      1.548 Ang (1.438 Ang by residue) in 0.7418 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 12:       0.00097326 at      1.555 Ang (1.438 Ang by residue) in 0.6792 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 13:       0.00120960 at      1.555 Ang (1.438 Ang by residue) in 0.6961 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLH 21:       0.00112222 at      1.555 Ang (1.438 Ang by residue) in 0.6126 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLU 36:       0.00083441 at      1.555 Ang (1.438 Ang by residue) in 0.6366 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLU 37:       0.00106459 at      1.555 Ang (1.438 Ang by residue) in 0.6770 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLU 38:       0.00105117 at      1.555 Ang (1.438 Ang by residue) in 0.6506 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLU 40:       0.00169906 at      1.548 Ang (1.438 Ang by residue) in 0.6444 (sec).
+ 3-Body   A9-LYS 43,  A11-GLU 41,  A12-GLU 41:       0.00121463 at      1.550 Ang (1.438 Ang by residue) in 0.6388 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 0 :       0.01023785 at      1.912 Ang (1.624 Ang by residue) in 0.6735 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 30:       0.00631301 at      1.947 Ang (1.624 Ang by residue) in 0.6902 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 35:       0.00080726 at      1.952 Ang (1.624 Ang by residue) in 0.6275 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 36:       0.00083539 at      1.952 Ang (1.624 Ang by residue) in 0.6412 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 44:       0.00483805 at      1.916 Ang (1.624 Ang by residue) in 0.6297 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 46:       0.00209726 at      1.921 Ang (1.624 Ang by residue) in 0.6601 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 47:       0.03295734 at      1.775 Ang (1.624 Ang by residue) in 0.6295 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 48:       0.01023574 at      1.912 Ang (1.624 Ang by residue) in 0.7357 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 49:       0.00665893 at      1.917 Ang (1.624 Ang by residue) in 0.6415 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 50:       0.00746849 at      1.794 Ang (1.624 Ang by residue) in 0.7598 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 51:       0.03291818 at      1.611 Ang (1.624 Ang by residue) in 0.9554 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 52:       0.00463615 at      1.952 Ang (1.624 Ang by residue) in 1.1471 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 53:       0.00220307 at      1.952 Ang (1.624 Ang by residue) in 0.9994 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 54:       0.00563108 at      1.952 Ang (1.624 Ang by residue) in 1.0595 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 0 ,  A16-LYS 55:       0.00129494 at      1.952 Ang (1.624 Ang by residue) in 0.7596 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 0 :       0.00543609 at      1.912 Ang (1.624 Ang by residue) in 0.8679 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 30:       0.00377645 at      1.947 Ang (1.624 Ang by residue) in 0.8048 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 35:       0.00042586 at      1.952 Ang (1.624 Ang by residue) in 0.7025 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 36:       0.00041973 at      1.952 Ang (1.624 Ang by residue) in 0.7536 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 44:       0.00301966 at      1.916 Ang (1.624 Ang by residue) in 0.8314 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 46:       0.00084854 at      1.921 Ang (1.624 Ang by residue) in 0.8083 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 47:       0.02829423 at      1.775 Ang (1.624 Ang by residue) in 0.9231 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 48:       0.00543472 at      1.912 Ang (1.624 Ang by residue) in 0.8606 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 49:       0.00371894 at      1.917 Ang (1.624 Ang by residue) in 0.7832 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 50:       0.00429088 at      1.794 Ang (1.624 Ang by residue) in 0.8536 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 51:       0.03081022 at      1.611 Ang (1.624 Ang by residue) in 0.8422 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 52:       0.00260214 at      1.952 Ang (1.624 Ang by residue) in 0.7845 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 53:       0.00119808 at      1.952 Ang (1.624 Ang by residue) in 1.0133 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 54:       0.00400062 at      1.952 Ang (1.624 Ang by residue) in 0.7605 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 1 ,  A16-LYS 55:       0.00060895 at      1.952 Ang (1.624 Ang by residue) in 0.8154 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 0 :       0.00186819 at      1.912 Ang (1.624 Ang by residue) in 0.9047 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 30:       0.00221646 at      1.947 Ang (1.624 Ang by residue) in 0.7109 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 35:       0.00020732 at      1.952 Ang (1.624 Ang by residue) in 0.8310 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 36:       0.00017916 at      1.952 Ang (1.624 Ang by residue) in 0.8357 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 44:       0.00478907 at      1.866 Ang (1.624 Ang by residue) in 1.0136 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 46:       0.00042783 at      1.921 Ang (1.624 Ang by residue) in 0.9967 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 47:       0.01318880 at      1.777 Ang (1.624 Ang by residue) in 0.8251 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 48:       0.00186783 at      1.912 Ang (1.624 Ang by residue) in 0.7676 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 49:       0.00247922 at      1.915 Ang (1.624 Ang by residue) in 0.6829 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 50:       0.00244243 at      1.788 Ang (1.624 Ang by residue) in 0.7584 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 51:       0.01808433 at      1.610 Ang (1.624 Ang by residue) in 0.7576 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 52:       0.00216570 at      1.947 Ang (1.624 Ang by residue) in 0.6621 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 53:       0.00160881 at      1.949 Ang (1.624 Ang by residue) in 0.6496 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 54:       0.00892401 at      1.885 Ang (1.624 Ang by residue) in 0.7405 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 4 ,  A16-LYS 55:       0.00043867 at      1.952 Ang (1.624 Ang by residue) in 0.7015 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 0 :       0.00391356 at      1.912 Ang (1.624 Ang by residue) in 0.6121 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 30:       0.00312096 at      1.947 Ang (1.624 Ang by residue) in 0.7183 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 35:       0.00027814 at      1.952 Ang (1.624 Ang by residue) in 0.5742 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 36:       0.00025578 at      1.952 Ang (1.624 Ang by residue) in 0.6305 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 44:       0.00273924 at      1.916 Ang (1.624 Ang by residue) in 0.6299 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 46:       0.00053171 at      1.921 Ang (1.624 Ang by residue) in 0.6804 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 47:       0.02543567 at      1.775 Ang (1.624 Ang by residue) in 0.5944 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 48:       0.00391232 at      1.912 Ang (1.624 Ang by residue) in 0.6428 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 49:       0.00316494 at      1.917 Ang (1.624 Ang by residue) in 0.6563 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 50:       0.00318341 at      1.787 Ang (1.624 Ang by residue) in 0.6334 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 51:       0.02404984 at      1.606 Ang (1.624 Ang by residue) in 0.6683 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 52:       0.00212216 at      1.952 Ang (1.624 Ang by residue) in 0.6740 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 53:       0.00097528 at      1.952 Ang (1.624 Ang by residue) in 0.7178 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 54:       0.00384322 at      1.952 Ang (1.624 Ang by residue) in 0.6276 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 5 ,  A16-LYS 55:       0.00043294 at      1.952 Ang (1.624 Ang by residue) in 0.6467 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 0 :       0.01611388 at      1.829 Ang (1.624 Ang by residue) in 0.6464 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 30:       0.00728902 at      1.914 Ang (1.624 Ang by residue) in 0.6824 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 35:       0.00052036 at      1.952 Ang (1.624 Ang by residue) in 0.5864 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 36:       0.00054650 at      1.952 Ang (1.624 Ang by residue) in 0.5834 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 44:       0.00700104 at      1.916 Ang (1.624 Ang by residue) in 0.6335 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 46:      -0.00033518 at      1.873 Ang (1.624 Ang by residue) in 0.6587 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 47:       0.03827661 at      1.686 Ang (1.624 Ang by residue) in 0.5926 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 48:       0.01611236 at      1.829 Ang (1.624 Ang by residue) in 0.5575 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 49:       0.01039879 at      1.842 Ang (1.624 Ang by residue) in 0.6470 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 50:       0.02193044 at      1.734 Ang (1.624 Ang by residue) in 0.6366 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 51:       0.06440583 at      1.541 Ang (1.624 Ang by residue) in 0.5909 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 52:       0.00682935 at      1.943 Ang (1.624 Ang by residue) in 0.5989 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 53:       0.00203825 at      1.952 Ang (1.624 Ang by residue) in 0.6000 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 54:       0.00617801 at      1.952 Ang (1.624 Ang by residue) in 0.6227 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 6 ,  A16-LYS 55:       0.00096535 at      1.952 Ang (1.624 Ang by residue) in 0.6297 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 0 :       0.00090940 at      1.905 Ang (1.624 Ang by residue) in 0.6624 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 30:       0.00080245 at      1.941 Ang (1.624 Ang by residue) in 0.6582 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 35:       0.00019058 at      1.946 Ang (1.624 Ang by residue) in 0.6654 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 36:       0.00017043 at      1.946 Ang (1.624 Ang by residue) in 0.5973 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 44:       0.00094589 at      1.910 Ang (1.624 Ang by residue) in 0.6276 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 46:       0.00030787 at      1.915 Ang (1.624 Ang by residue) in 0.6228 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 47:       0.00469264 at      1.841 Ang (1.624 Ang by residue) in 0.6147 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 48:       0.00090929 at      1.906 Ang (1.624 Ang by residue) in 0.5978 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 49:       0.00085970 at      1.911 Ang (1.624 Ang by residue) in 0.5450 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 50:       0.00164906 at      1.799 Ang (1.624 Ang by residue) in 0.5859 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 51:       0.00977740 at      1.675 Ang (1.624 Ang by residue) in 0.6347 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 52:       0.00068379 at      1.946 Ang (1.624 Ang by residue) in 0.6379 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 53:       0.00051658 at      1.946 Ang (1.624 Ang by residue) in 0.6229 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 54:       0.00151038 at      1.946 Ang (1.624 Ang by residue) in 0.6259 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 8 ,  A16-LYS 55:       0.00031377 at      1.946 Ang (1.624 Ang by residue) in 0.6837 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 0 :       0.00178032 at      1.912 Ang (1.624 Ang by residue) in 0.6330 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 30:       0.00192787 at      1.947 Ang (1.624 Ang by residue) in 0.6033 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 35:       0.00019753 at      1.952 Ang (1.624 Ang by residue) in 0.5886 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 36:       0.00017108 at      1.952 Ang (1.624 Ang by residue) in 0.6339 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 44:       0.00390747 at      1.894 Ang (1.624 Ang by residue) in 0.6198 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 46:       0.00035350 at      1.921 Ang (1.624 Ang by residue) in 0.6298 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 47:       0.01268352 at      1.777 Ang (1.624 Ang by residue) in 0.6132 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 48:       0.00177985 at      1.912 Ang (1.624 Ang by residue) in 0.7053 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 49:       0.00226191 at      1.917 Ang (1.624 Ang by residue) in 0.5826 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 50:       0.00233456 at      1.788 Ang (1.624 Ang by residue) in 0.5923 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 51:       0.01768971 at      1.610 Ang (1.624 Ang by residue) in 0.6772 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 52:       0.00185398 at      1.952 Ang (1.624 Ang by residue) in 0.6242 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 53:       0.00139091 at      1.952 Ang (1.624 Ang by residue) in 0.5627 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 54:       0.00757756 at      1.943 Ang (1.624 Ang by residue) in 0.6950 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 12,  A16-LYS 55:       0.00038100 at      1.952 Ang (1.624 Ang by residue) in 0.6486 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 0 :       0.00427850 at      1.912 Ang (1.624 Ang by residue) in 0.6023 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 30:       0.00322785 at      1.947 Ang (1.624 Ang by residue) in 0.6499 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 35:       0.00028603 at      1.952 Ang (1.624 Ang by residue) in 0.6243 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 36:       0.00025870 at      1.952 Ang (1.624 Ang by residue) in 0.6339 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 44:       0.00285417 at      1.916 Ang (1.624 Ang by residue) in 0.6709 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 46:       0.00059540 at      1.921 Ang (1.624 Ang by residue) in 0.6004 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 47:       0.02614526 at      1.775 Ang (1.624 Ang by residue) in 0.6339 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 48:       0.00427724 at      1.912 Ang (1.624 Ang by residue) in 0.5964 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 49:       0.00340294 at      1.917 Ang (1.624 Ang by residue) in 0.5516 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 50:       0.00354326 at      1.787 Ang (1.624 Ang by residue) in 0.6418 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 51:       0.02595960 at      1.606 Ang (1.624 Ang by residue) in 0.5574 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 52:       0.00219851 at      1.952 Ang (1.624 Ang by residue) in 0.6172 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 53:       0.00104368 at      1.952 Ang (1.624 Ang by residue) in 0.5525 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 54:       0.00401253 at      1.952 Ang (1.624 Ang by residue) in 0.6579 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 13,  A16-LYS 55:       0.00047324 at      1.952 Ang (1.624 Ang by residue) in 0.6188 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 0 :       0.00295064 at      1.895 Ang (1.624 Ang by residue) in 0.5487 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 30:       0.00309427 at      1.947 Ang (1.624 Ang by residue) in 0.6035 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 35:       0.00026162 at      1.952 Ang (1.624 Ang by residue) in 0.6029 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 36:       0.00023949 at      1.952 Ang (1.624 Ang by residue) in 0.5748 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 44:       0.00179363 at      1.916 Ang (1.624 Ang by residue) in 0.5798 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 46:       0.00027654 at      1.921 Ang (1.624 Ang by residue) in 0.6504 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 47:       0.02529154 at      1.734 Ang (1.624 Ang by residue) in 0.6750 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 48:       0.00294950 at      1.895 Ang (1.624 Ang by residue) in 0.6962 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 49:       0.00188347 at      1.903 Ang (1.624 Ang by residue) in 0.5686 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 50:       0.00310936 at      1.787 Ang (1.624 Ang by residue) in 0.6010 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 51:       0.02424657 at      1.606 Ang (1.624 Ang by residue) in 0.6377 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 52:       0.00194680 at      1.952 Ang (1.624 Ang by residue) in 0.5754 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 53:       0.00070301 at      1.952 Ang (1.624 Ang by residue) in 0.5301 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 54:       0.00364281 at      1.952 Ang (1.624 Ang by residue) in 0.5586 (sec).
+ 3-Body   A9-LYS 43,  A12-GLH 21,  A16-LYS 55:       0.00030599 at      1.952 Ang (1.624 Ang by residue) in 0.5814 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 0 :       0.00103004 at      1.912 Ang (1.624 Ang by residue) in 0.5451 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 30:       0.00210980 at      1.947 Ang (1.624 Ang by residue) in 0.5715 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 35:       0.00033333 at      1.952 Ang (1.624 Ang by residue) in 0.5119 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 36:       0.00030894 at      1.952 Ang (1.624 Ang by residue) in 0.5652 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 44:       0.00536574 at      1.886 Ang (1.624 Ang by residue) in 0.5841 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 46:       0.00042256 at      1.921 Ang (1.624 Ang by residue) in 0.5958 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 47:       0.00835677 at      1.777 Ang (1.624 Ang by residue) in 0.6563 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 48:       0.00102992 at      1.912 Ang (1.624 Ang by residue) in 0.6228 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 49:       0.00197033 at      1.917 Ang (1.624 Ang by residue) in 0.5636 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 50:       0.00115235 at      1.788 Ang (1.624 Ang by residue) in 0.5931 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 51:       0.01404878 at      1.610 Ang (1.624 Ang by residue) in 0.6199 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 52:       0.00257903 at      1.952 Ang (1.624 Ang by residue) in 0.5641 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 53:       0.00220203 at      1.952 Ang (1.624 Ang by residue) in 0.5833 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 54:       0.01080539 at      1.943 Ang (1.624 Ang by residue) in 0.5640 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 36,  A16-LYS 55:       0.00064002 at      1.952 Ang (1.624 Ang by residue) in 0.5675 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 0 :       0.00716410 at      1.912 Ang (1.624 Ang by residue) in 0.5533 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 30:       0.00491015 at      1.947 Ang (1.624 Ang by residue) in 0.6160 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 35:       0.00053994 at      1.952 Ang (1.624 Ang by residue) in 0.6228 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 36:       0.00053589 at      1.952 Ang (1.624 Ang by residue) in 0.5825 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 44:       0.00397790 at      1.916 Ang (1.624 Ang by residue) in 0.6117 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 46:       0.00139754 at      1.921 Ang (1.624 Ang by residue) in 0.6327 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 47:       0.02863041 at      1.775 Ang (1.624 Ang by residue) in 0.6284 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 48:       0.00716235 at      1.912 Ang (1.624 Ang by residue) in 0.5844 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 49:       0.00520535 at      1.917 Ang (1.624 Ang by residue) in 0.5990 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 50:       0.00518133 at      1.787 Ang (1.624 Ang by residue) in 0.5723 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 51:       0.02564686 at      1.606 Ang (1.624 Ang by residue) in 0.6150 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 52:       0.00354076 at      1.952 Ang (1.624 Ang by residue) in 0.6017 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 53:       0.00171250 at      1.952 Ang (1.624 Ang by residue) in 0.6902 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 54:       0.00497042 at      1.952 Ang (1.624 Ang by residue) in 0.6269 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 37,  A16-LYS 55:       0.00093299 at      1.952 Ang (1.624 Ang by residue) in 0.6195 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 0 :       0.03535182 at      1.842 Ang (1.624 Ang by residue) in 0.5127 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 30:       0.01687625 at      1.938 Ang (1.624 Ang by residue) in 0.5832 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 35:       0.00181104 at      1.952 Ang (1.624 Ang by residue) in 0.5957 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 36:       0.00190627 at      1.952 Ang (1.624 Ang by residue) in 0.5776 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 44:       0.01601870 at      1.909 Ang (1.624 Ang by residue) in 0.5792 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 46:       0.01544639 at      1.892 Ang (1.624 Ang by residue) in 0.5527 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 47:       0.05350375 at      1.695 Ang (1.624 Ang by residue) in 0.5375 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 48:       0.03534948 at      1.842 Ang (1.624 Ang by residue) in 0.6066 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 49:       0.03079683 at      1.854 Ang (1.624 Ang by residue) in 0.5432 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 50:       0.03374652 at      1.729 Ang (1.624 Ang by residue) in 0.5179 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 51:       0.07453338 at      1.530 Ang (1.624 Ang by residue) in 0.5475 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 52:       0.01505841 at      1.952 Ang (1.624 Ang by residue) in 0.5700 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 53:       0.00835944 at      1.952 Ang (1.624 Ang by residue) in 0.5902 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 54:       0.01370321 at      1.952 Ang (1.624 Ang by residue) in 0.6035 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 38,  A16-LYS 55:       0.00663018 at      1.952 Ang (1.624 Ang by residue) in 0.5245 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 0 :       0.00131949 at      1.905 Ang (1.624 Ang by residue) in 0.5603 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 30:       0.00117472 at      1.941 Ang (1.624 Ang by residue) in 0.5693 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 35:       0.00034051 at      1.946 Ang (1.624 Ang by residue) in 0.5614 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 36:       0.00031858 at      1.946 Ang (1.624 Ang by residue) in 0.5363 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 44:       0.00127914 at      1.910 Ang (1.624 Ang by residue) in 0.5801 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 46:       0.00053717 at      1.915 Ang (1.624 Ang by residue) in 0.5380 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 47:       0.00505262 at      1.841 Ang (1.624 Ang by residue) in 0.5321 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 48:       0.00131937 at      1.906 Ang (1.624 Ang by residue) in 0.5917 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 49:       0.00120316 at      1.911 Ang (1.624 Ang by residue) in 0.6273 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 50:       0.00195467 at      1.799 Ang (1.624 Ang by residue) in 0.5694 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 51:       0.00962243 at      1.675 Ang (1.624 Ang by residue) in 0.6437 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 52:       0.00104328 at      1.946 Ang (1.624 Ang by residue) in 0.6706 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 53:       0.00080580 at      1.946 Ang (1.624 Ang by residue) in 0.5642 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 54:       0.00187208 at      1.946 Ang (1.624 Ang by residue) in 0.6603 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 40,  A16-LYS 55:       0.00052492 at      1.946 Ang (1.624 Ang by residue) in 0.6010 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 0 :       0.00048579 at      1.907 Ang (1.624 Ang by residue) in 0.6230 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 30:       0.00061927 at      1.943 Ang (1.624 Ang by residue) in 0.6781 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 35:       0.00021999 at      1.947 Ang (1.624 Ang by residue) in 0.6061 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 36:       0.00019474 at      1.947 Ang (1.624 Ang by residue) in 0.6270 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 44:       0.00089688 at      1.911 Ang (1.624 Ang by residue) in 0.5672 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 46:       0.00024382 at      1.917 Ang (1.624 Ang by residue) in 0.6143 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 47:       0.00258083 at      1.842 Ang (1.624 Ang by residue) in 0.5865 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 48:       0.00048576 at      1.907 Ang (1.624 Ang by residue) in 0.5834 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 49:       0.00062998 at      1.912 Ang (1.624 Ang by residue) in 0.5557 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 50:       0.00077495 at      1.801 Ang (1.624 Ang by residue) in 0.5967 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 51:       0.00559287 at      1.677 Ang (1.624 Ang by residue) in 0.5603 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 52:       0.00061601 at      1.947 Ang (1.624 Ang by residue) in 0.5586 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 53:       0.00057821 at      1.947 Ang (1.624 Ang by residue) in 0.6208 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 54:       0.00165187 at      1.947 Ang (1.624 Ang by residue) in 0.6136 (sec).
+ 3-Body   A9-LYS 43,  A12-GLU 41,  A16-LYS 55:       0.00034496 at      1.947 Ang (1.624 Ang by residue) in 0.5963 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLU 0 :       0.00074136 at      1.555 Ang (1.438 Ang by residue) in 0.6488 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 1 :       0.00105195 at      1.555 Ang (1.438 Ang by residue) in 0.6055 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 4 :       0.00081612 at      1.555 Ang (1.438 Ang by residue) in 0.6070 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 5 :       0.00102702 at      1.555 Ang (1.438 Ang by residue) in 0.6254 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 6 :       0.00118416 at      1.555 Ang (1.438 Ang by residue) in 0.6246 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 8 :       0.00089848 at      1.548 Ang (1.438 Ang by residue) in 0.6537 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 12:       0.00086890 at      1.555 Ang (1.438 Ang by residue) in 0.6260 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 13:       0.00123168 at      1.555 Ang (1.438 Ang by residue) in 0.5454 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLH 21:       0.00102864 at      1.555 Ang (1.438 Ang by residue) in 0.6623 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLU 36:       0.00038889 at      1.555 Ang (1.438 Ang by residue) in 0.6554 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLU 37:       0.00070286 at      1.555 Ang (1.438 Ang by residue) in 0.5649 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLU 38:       0.00095447 at      1.555 Ang (1.438 Ang by residue) in 0.5813 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLU 40:       0.00004703 at      1.548 Ang (1.438 Ang by residue) in 0.6078 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 0 ,  A12-GLU 41:      -0.00089839 at      1.550 Ang (1.438 Ang by residue) in 0.6255 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLU 0 :       0.00110975 at      1.555 Ang (1.438 Ang by residue) in 0.5654 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 1 :       0.00112810 at      1.555 Ang (1.438 Ang by residue) in 0.5955 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 4 :       0.00097998 at      1.555 Ang (1.438 Ang by residue) in 0.6162 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 5 :       0.00110402 at      1.555 Ang (1.438 Ang by residue) in 0.5696 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 6 :       0.00109807 at      1.555 Ang (1.438 Ang by residue) in 0.6225 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 8 :       0.00179203 at      1.548 Ang (1.438 Ang by residue) in 0.6786 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 12:       0.00099538 at      1.555 Ang (1.438 Ang by residue) in 0.6289 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 13:       0.00119547 at      1.555 Ang (1.438 Ang by residue) in 0.5754 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLH 21:       0.00110346 at      1.555 Ang (1.438 Ang by residue) in 0.6057 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLU 36:       0.00089869 at      1.555 Ang (1.438 Ang by residue) in 0.6120 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLU 37:       0.00108859 at      1.555 Ang (1.438 Ang by residue) in 0.6934 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLU 38:       0.00105311 at      1.555 Ang (1.438 Ang by residue) in 0.5850 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLU 40:       0.00190268 at      1.548 Ang (1.438 Ang by residue) in 0.6108 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 4 ,  A12-GLU 41:       0.00138163 at      1.550 Ang (1.438 Ang by residue) in 0.6318 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLU 0 :       0.00104562 at      1.555 Ang (1.438 Ang by residue) in 0.5668 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 1 :       0.00105816 at      1.555 Ang (1.438 Ang by residue) in 0.5513 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 4 :       0.00091206 at      1.555 Ang (1.438 Ang by residue) in 0.6007 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 5 :       0.00103500 at      1.555 Ang (1.438 Ang by residue) in 0.5870 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 6 :       0.00100941 at      1.555 Ang (1.438 Ang by residue) in 0.6661 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 8 :       0.00180817 at      1.548 Ang (1.438 Ang by residue) in 0.6320 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 12:       0.00092929 at      1.555 Ang (1.438 Ang by residue) in 0.6330 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 13:       0.00112903 at      1.555 Ang (1.438 Ang by residue) in 0.5419 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLH 21:       0.00103454 at      1.555 Ang (1.438 Ang by residue) in 0.6649 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLU 36:       0.00084033 at      1.555 Ang (1.438 Ang by residue) in 0.5844 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLU 37:       0.00102449 at      1.555 Ang (1.438 Ang by residue) in 0.6113 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLU 38:       0.00096935 at      1.555 Ang (1.438 Ang by residue) in 0.5269 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLU 40:       0.00189792 at      1.548 Ang (1.438 Ang by residue) in 0.5454 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 5 ,  A12-GLU 41:       0.00135653 at      1.550 Ang (1.438 Ang by residue) in 0.5207 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLU 0 :       0.00152956 at      1.555 Ang (1.438 Ang by residue) in 0.5240 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 1 :       0.00166766 at      1.555 Ang (1.438 Ang by residue) in 0.6105 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 4 :       0.00144712 at      1.555 Ang (1.438 Ang by residue) in 0.6622 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 5 :       0.00162787 at      1.555 Ang (1.438 Ang by residue) in 0.5854 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 6 :       0.00167435 at      1.555 Ang (1.438 Ang by residue) in 0.5858 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 8 :       0.00237467 at      1.548 Ang (1.438 Ang by residue) in 0.5916 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 12:       0.00149808 at      1.555 Ang (1.438 Ang by residue) in 0.6099 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 13:       0.00178664 at      1.555 Ang (1.438 Ang by residue) in 0.6964 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLH 21:       0.00162942 at      1.555 Ang (1.438 Ang by residue) in 0.6352 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLU 36:       0.00119793 at      1.555 Ang (1.438 Ang by residue) in 0.6250 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLU 37:       0.00148383 at      1.555 Ang (1.438 Ang by residue) in 0.6087 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLU 38:       0.00153719 at      1.555 Ang (1.438 Ang by residue) in 0.6655 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLU 40:       0.00197635 at      1.548 Ang (1.438 Ang by residue) in 0.6884 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 6 ,  A12-GLU 41:       0.00131377 at      1.550 Ang (1.438 Ang by residue) in 0.6542 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLU 0 :       0.00077407 at      1.555 Ang (1.438 Ang by residue) in 0.6498 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 1 :       0.00080338 at      1.555 Ang (1.438 Ang by residue) in 0.6162 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 4 :       0.00069126 at      1.555 Ang (1.438 Ang by residue) in 0.5947 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 5 :       0.00079456 at      1.555 Ang (1.438 Ang by residue) in 0.5945 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 6 :       0.00078185 at      1.555 Ang (1.438 Ang by residue) in 0.6216 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 8 :       0.00145589 at      1.548 Ang (1.438 Ang by residue) in 0.6063 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 12:       0.00070074 at      1.555 Ang (1.438 Ang by residue) in 0.6198 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 13:       0.00089259 at      1.555 Ang (1.438 Ang by residue) in 0.5778 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLH 21:       0.00079150 at      1.555 Ang (1.438 Ang by residue) in 0.6861 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLU 36:       0.00064564 at      1.555 Ang (1.438 Ang by residue) in 0.6936 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLU 37:       0.00077564 at      1.555 Ang (1.438 Ang by residue) in 0.5725 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLU 38:       0.00075002 at      1.555 Ang (1.438 Ang by residue) in 0.5854 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLU 40:       0.00146162 at      1.548 Ang (1.438 Ang by residue) in 0.6383 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 8 ,  A12-GLU 41:       0.00104432 at      1.550 Ang (1.438 Ang by residue) in 0.6175 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLU 0 :       0.00079349 at      1.555 Ang (1.438 Ang by residue) in 0.6475 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 1 :       0.00081788 at      1.555 Ang (1.438 Ang by residue) in 0.5672 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 4 :       0.00069963 at      1.555 Ang (1.438 Ang by residue) in 0.6033 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 5 :       0.00080608 at      1.555 Ang (1.438 Ang by residue) in 0.6634 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 6 :       0.00080134 at      1.555 Ang (1.438 Ang by residue) in 0.6047 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 8 :       0.00138792 at      1.548 Ang (1.438 Ang by residue) in 0.6331 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 12:       0.00070780 at      1.555 Ang (1.438 Ang by residue) in 0.6421 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 13:       0.00089588 at      1.555 Ang (1.438 Ang by residue) in 0.6201 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLH 21:       0.00080307 at      1.555 Ang (1.438 Ang by residue) in 0.5871 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLU 36:       0.00065440 at      1.555 Ang (1.438 Ang by residue) in 0.5670 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLU 37:       0.00079160 at      1.555 Ang (1.438 Ang by residue) in 0.5484 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLU 38:       0.00077221 at      1.555 Ang (1.438 Ang by residue) in 0.5723 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLU 40:       0.00142286 at      1.548 Ang (1.438 Ang by residue) in 0.5940 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 9 ,  A12-GLU 41:       0.00104553 at      1.550 Ang (1.438 Ang by residue) in 0.5695 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLU 0 :       0.00109774 at      1.555 Ang (1.438 Ang by residue) in 0.5657 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 1 :       0.00112131 at      1.555 Ang (1.438 Ang by residue) in 0.5315 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 4 :       0.00097364 at      1.555 Ang (1.438 Ang by residue) in 0.5962 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 5 :       0.00109756 at      1.555 Ang (1.438 Ang by residue) in 0.6276 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 6 :       0.00109344 at      1.555 Ang (1.438 Ang by residue) in 0.6153 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 8 :       0.00178635 at      1.548 Ang (1.438 Ang by residue) in 0.5818 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 12:       0.00098868 at      1.555 Ang (1.438 Ang by residue) in 0.5448 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 13:       0.00119508 at      1.555 Ang (1.438 Ang by residue) in 0.5815 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLH 21:       0.00109621 at      1.555 Ang (1.438 Ang by residue) in 0.5983 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLU 36:       0.00089255 at      1.555 Ang (1.438 Ang by residue) in 0.5811 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLU 37:       0.00107788 at      1.555 Ang (1.438 Ang by residue) in 0.6054 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLU 38:       0.00104800 at      1.555 Ang (1.438 Ang by residue) in 0.5975 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLU 40:       0.00189054 at      1.548 Ang (1.438 Ang by residue) in 0.5813 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 12,  A12-GLU 41:       0.00137189 at      1.550 Ang (1.438 Ang by residue) in 0.6420 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLU 0 :       0.00103441 at      1.555 Ang (1.438 Ang by residue) in 0.6793 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 1 :       0.00105296 at      1.555 Ang (1.438 Ang by residue) in 0.6254 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 4 :       0.00090667 at      1.555 Ang (1.438 Ang by residue) in 0.6161 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 5 :       0.00103356 at      1.555 Ang (1.438 Ang by residue) in 0.6878 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 6 :       0.00100550 at      1.555 Ang (1.438 Ang by residue) in 0.6254 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 8 :       0.00182432 at      1.548 Ang (1.438 Ang by residue) in 0.5351 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 12:       0.00092391 at      1.555 Ang (1.438 Ang by residue) in 0.6464 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 13:       0.00113080 at      1.555 Ang (1.438 Ang by residue) in 0.5785 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLH 21:       0.00103295 at      1.555 Ang (1.438 Ang by residue) in 0.5723 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLU 36:       0.00083333 at      1.555 Ang (1.438 Ang by residue) in 0.5528 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLU 37:       0.00102054 at      1.555 Ang (1.438 Ang by residue) in 0.6352 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLU 38:       0.00096068 at      1.555 Ang (1.438 Ang by residue) in 0.6064 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLU 40:       0.00191404 at      1.548 Ang (1.438 Ang by residue) in 0.5976 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 13,  A12-GLU 41:       0.00135334 at      1.550 Ang (1.438 Ang by residue) in 0.6186 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLU 0 :       0.00080395 at      1.555 Ang (1.438 Ang by residue) in 0.5567 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 1 :       0.00082214 at      1.555 Ang (1.438 Ang by residue) in 0.5758 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 4 :       0.00070213 at      1.555 Ang (1.438 Ang by residue) in 0.5680 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 5 :       0.00081432 at      1.555 Ang (1.438 Ang by residue) in 0.5698 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 6 :       0.00079113 at      1.555 Ang (1.438 Ang by residue) in 0.5363 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 8 :       0.00150688 at      1.548 Ang (1.438 Ang by residue) in 0.5475 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 12:       0.00071195 at      1.555 Ang (1.438 Ang by residue) in 0.5913 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 13:       0.00090654 at      1.555 Ang (1.438 Ang by residue) in 0.6280 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLH 21:       0.00081163 at      1.555 Ang (1.438 Ang by residue) in 0.5844 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLU 36:       0.00066222 at      1.555 Ang (1.438 Ang by residue) in 0.5753 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLU 37:       0.00080748 at      1.555 Ang (1.438 Ang by residue) in 0.6011 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLU 38:       0.00076283 at      1.555 Ang (1.438 Ang by residue) in 0.7196 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLU 40:       0.00153963 at      1.548 Ang (1.438 Ang by residue) in 0.5931 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 16,  A12-GLU 41:       0.00108869 at      1.550 Ang (1.438 Ang by residue) in 0.6140 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLU 0 :       0.00081956 at      1.555 Ang (1.438 Ang by residue) in 0.6026 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 1 :       0.00083598 at      1.555 Ang (1.438 Ang by residue) in 0.5380 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 4 :       0.00071304 at      1.555 Ang (1.438 Ang by residue) in 0.5955 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 5 :       0.00082252 at      1.555 Ang (1.438 Ang by residue) in 0.6209 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 6 :       0.00081496 at      1.555 Ang (1.438 Ang by residue) in 0.5911 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 8 :       0.00140238 at      1.548 Ang (1.438 Ang by residue) in 0.6080 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 12:       0.00072138 at      1.555 Ang (1.438 Ang by residue) in 0.6161 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 13:       0.00090594 at      1.555 Ang (1.438 Ang by residue) in 0.5889 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLH 21:       0.00082013 at      1.555 Ang (1.438 Ang by residue) in 0.5785 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLU 36:       0.00066835 at      1.555 Ang (1.438 Ang by residue) in 0.6153 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLU 37:       0.00081461 at      1.555 Ang (1.438 Ang by residue) in 0.5859 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLU 38:       0.00078767 at      1.555 Ang (1.438 Ang by residue) in 0.6060 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLU 40:       0.00145147 at      1.548 Ang (1.438 Ang by residue) in 0.5931 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 17,  A12-GLU 41:       0.00106566 at      1.550 Ang (1.438 Ang by residue) in 0.5740 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLU 0 :       0.00108525 at      1.555 Ang (1.438 Ang by residue) in 0.5895 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 1 :       0.00108904 at      1.555 Ang (1.438 Ang by residue) in 0.5533 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 4 :       0.00093736 at      1.555 Ang (1.438 Ang by residue) in 0.6177 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 5 :       0.00106197 at      1.555 Ang (1.438 Ang by residue) in 0.5878 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 6 :       0.00103506 at      1.555 Ang (1.438 Ang by residue) in 0.6142 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 8 :       0.00184360 at      1.548 Ang (1.438 Ang by residue) in 0.5826 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 12:       0.00095464 at      1.555 Ang (1.438 Ang by residue) in 0.5617 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 13:       0.00115513 at      1.555 Ang (1.438 Ang by residue) in 0.5911 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLH 21:       0.00106146 at      1.555 Ang (1.438 Ang by residue) in 0.5646 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLU 36:       0.00086949 at      1.555 Ang (1.438 Ang by residue) in 0.5699 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLU 37:       0.00105798 at      1.555 Ang (1.438 Ang by residue) in 0.5934 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLU 38:       0.00100114 at      1.555 Ang (1.438 Ang by residue) in 0.6654 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLU 40:       0.00194212 at      1.548 Ang (1.438 Ang by residue) in 0.5974 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 21,  A12-GLU 41:       0.00139789 at      1.550 Ang (1.438 Ang by residue) in 0.5769 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLU 0 :       0.00077701 at      1.555 Ang (1.438 Ang by residue) in 0.5678 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 1 :       0.00080671 at      1.555 Ang (1.438 Ang by residue) in 0.6745 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 4 :       0.00069226 at      1.555 Ang (1.438 Ang by residue) in 0.6558 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 5 :       0.00079526 at      1.555 Ang (1.438 Ang by residue) in 0.6334 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 6 :       0.00078521 at      1.555 Ang (1.438 Ang by residue) in 0.6592 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 8 :       0.00145879 at      1.548 Ang (1.438 Ang by residue) in 0.5422 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 12:       0.00070153 at      1.555 Ang (1.438 Ang by residue) in 0.5918 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 13:       0.00089818 at      1.555 Ang (1.438 Ang by residue) in 0.5330 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLH 21:       0.00079141 at      1.555 Ang (1.438 Ang by residue) in 0.6468 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLU 36:       0.00064730 at      1.555 Ang (1.438 Ang by residue) in 0.6163 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLU 37:       0.00077448 at      1.555 Ang (1.438 Ang by residue) in 0.5822 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLU 38:       0.00075665 at      1.555 Ang (1.438 Ang by residue) in 0.5352 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLU 40:       0.00145734 at      1.548 Ang (1.438 Ang by residue) in 0.5262 (sec).
+ 3-Body   A9-LYS 46,  A11-GLH 24,  A12-GLU 41:       0.00104401 at      1.550 Ang (1.438 Ang by residue) in 0.5871 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLU 0 :       0.00085592 at      1.555 Ang (1.438 Ang by residue) in 0.6182 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 1 :       0.00094199 at      1.555 Ang (1.438 Ang by residue) in 0.6234 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 4 :       0.00083934 at      1.555 Ang (1.438 Ang by residue) in 0.6192 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 5 :       0.00092893 at      1.555 Ang (1.438 Ang by residue) in 0.6141 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 6 :       0.00096528 at      1.555 Ang (1.438 Ang by residue) in 0.6647 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 8 :       0.00157125 at      1.548 Ang (1.438 Ang by residue) in 0.6091 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 12:       0.00085520 at      1.555 Ang (1.438 Ang by residue) in 0.5312 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 13:       0.00102615 at      1.555 Ang (1.438 Ang by residue) in 0.6248 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLH 21:       0.00093156 at      1.555 Ang (1.438 Ang by residue) in 0.5820 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLU 36:       0.00070729 at      1.555 Ang (1.438 Ang by residue) in 0.5364 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLU 37:       0.00084477 at      1.555 Ang (1.438 Ang by residue) in 0.6259 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLU 38:       0.00087538 at      1.555 Ang (1.438 Ang by residue) in 0.5977 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLU 40:       0.00150724 at      1.548 Ang (1.438 Ang by residue) in 0.5143 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 36,  A12-GLU 41:       0.00107847 at      1.550 Ang (1.438 Ang by residue) in 0.6454 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLU 0 :       0.00079677 at      1.555 Ang (1.438 Ang by residue) in 0.5943 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 1 :       0.00088145 at      1.555 Ang (1.438 Ang by residue) in 0.5883 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 4 :       0.00077594 at      1.555 Ang (1.438 Ang by residue) in 0.5670 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 5 :       0.00085874 at      1.555 Ang (1.438 Ang by residue) in 0.6284 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 6 :       0.00088785 at      1.555 Ang (1.438 Ang by residue) in 0.5895 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 8 :       0.00158620 at      1.548 Ang (1.438 Ang by residue) in 0.5272 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 12:       0.00079332 at      1.555 Ang (1.438 Ang by residue) in 0.5266 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 13:       0.00097363 at      1.555 Ang (1.438 Ang by residue) in 0.5671 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLH 21:       0.00086028 at      1.555 Ang (1.438 Ang by residue) in 0.5808 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLU 36:       0.00064593 at      1.555 Ang (1.438 Ang by residue) in 0.6246 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLU 37:       0.00076692 at      1.555 Ang (1.438 Ang by residue) in 0.6688 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLU 38:       0.00080853 at      1.555 Ang (1.438 Ang by residue) in 0.6151 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLU 40:       0.00146747 at      1.548 Ang (1.438 Ang by residue) in 0.6075 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 37,  A12-GLU 41:       0.00100487 at      1.550 Ang (1.438 Ang by residue) in 0.6147 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLU 0 :       0.00074245 at      1.555 Ang (1.438 Ang by residue) in 0.6251 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 1 :       0.00105301 at      1.555 Ang (1.438 Ang by residue) in 0.5460 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 4 :       0.00081688 at      1.555 Ang (1.438 Ang by residue) in 0.6114 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 5 :       0.00102805 at      1.555 Ang (1.438 Ang by residue) in 0.6548 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 6 :       0.00118505 at      1.555 Ang (1.438 Ang by residue) in 0.6480 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 8 :       0.00090113 at      1.548 Ang (1.438 Ang by residue) in 0.6477 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 12:       0.00086970 at      1.555 Ang (1.438 Ang by residue) in 0.6065 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 13:       0.00123287 at      1.555 Ang (1.438 Ang by residue) in 0.6292 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLH 21:       0.00102967 at      1.555 Ang (1.438 Ang by residue) in 0.6614 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLU 36:       0.00038958 at      1.555 Ang (1.438 Ang by residue) in 0.6144 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLU 37:       0.00070393 at      1.555 Ang (1.438 Ang by residue) in 0.6345 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLU 38:       0.00095533 at      1.555 Ang (1.438 Ang by residue) in 0.6593 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLU 40:       0.00005004 at      1.548 Ang (1.438 Ang by residue) in 0.6211 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 38,  A12-GLU 41:      -0.00089642 at      1.550 Ang (1.438 Ang by residue) in 0.6289 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLU 0 :       0.00078955 at      1.555 Ang (1.438 Ang by residue) in 0.6236 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 1 :       0.00082457 at      1.555 Ang (1.438 Ang by residue) in 0.5937 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 4 :       0.00070967 at      1.555 Ang (1.438 Ang by residue) in 0.5598 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 5 :       0.00079901 at      1.555 Ang (1.438 Ang by residue) in 0.5903 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 6 :       0.00081537 at      1.555 Ang (1.438 Ang by residue) in 0.6088 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 8 :       0.00150155 at      1.548 Ang (1.438 Ang by residue) in 0.6610 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 12:       0.00072340 at      1.555 Ang (1.438 Ang by residue) in 0.5394 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 13:       0.00088193 at      1.555 Ang (1.438 Ang by residue) in 0.6241 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLH 21:       0.00080285 at      1.555 Ang (1.438 Ang by residue) in 0.7474 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLU 36:       0.00061721 at      1.555 Ang (1.438 Ang by residue) in 0.6158 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLU 37:       0.00075409 at      1.555 Ang (1.438 Ang by residue) in 0.6468 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLU 38:       0.00076510 at      1.555 Ang (1.438 Ang by residue) in 0.7038 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLU 40:       0.00139268 at      1.548 Ang (1.438 Ang by residue) in 0.7358 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 40,  A12-GLU 41:       0.00092118 at      1.550 Ang (1.438 Ang by residue) in 0.7362 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLU 0 :       0.00078707 at      1.555 Ang (1.438 Ang by residue) in 0.6661 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 1 :       0.00082745 at      1.555 Ang (1.438 Ang by residue) in 0.9539 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 4 :       0.00071715 at      1.555 Ang (1.438 Ang by residue) in 0.8615 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 5 :       0.00081323 at      1.555 Ang (1.438 Ang by residue) in 0.7677 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 6 :       0.00082884 at      1.555 Ang (1.438 Ang by residue) in 0.7557 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 8 :       0.00142737 at      1.548 Ang (1.438 Ang by residue) in 0.7368 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 12:       0.00072947 at      1.555 Ang (1.438 Ang by residue) in 0.5992 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 13:       0.00087730 at      1.555 Ang (1.438 Ang by residue) in 0.5867 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLH 21:       0.00081855 at      1.555 Ang (1.438 Ang by residue) in 0.6008 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLU 36:       0.00062338 at      1.555 Ang (1.438 Ang by residue) in 0.5905 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLU 37:       0.00077344 at      1.555 Ang (1.438 Ang by residue) in 0.5964 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLU 38:       0.00076491 at      1.555 Ang (1.438 Ang by residue) in 0.6343 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLU 40:       0.00137872 at      1.548 Ang (1.438 Ang by residue) in 0.5592 (sec).
+ 3-Body   A9-LYS 46,  A11-GLU 41,  A12-GLU 41:       0.00095040 at      1.550 Ang (1.438 Ang by residue) in 0.5834 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 0 :       0.00501884 at      1.917 Ang (1.624 Ang by residue) in 0.5909 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 30:       0.00356324 at      1.947 Ang (1.624 Ang by residue) in 0.5919 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 35:       0.00047272 at      1.952 Ang (1.624 Ang by residue) in 0.5902 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 36:       0.00049787 at      1.952 Ang (1.624 Ang by residue) in 0.6216 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 44:       0.00267004 at      1.916 Ang (1.624 Ang by residue) in 0.6171 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 46:       0.00106081 at      1.921 Ang (1.624 Ang by residue) in 0.6993 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 47:       0.01686702 at      1.775 Ang (1.624 Ang by residue) in 0.6209 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 48:       0.00501788 at      1.917 Ang (1.624 Ang by residue) in 0.6436 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 49:       0.00327301 at      1.917 Ang (1.624 Ang by residue) in 0.6037 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 50:       0.00365837 at      1.795 Ang (1.624 Ang by residue) in 0.6048 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 51:       0.01735384 at      1.611 Ang (1.624 Ang by residue) in 0.6488 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 52:       0.00257839 at      1.952 Ang (1.624 Ang by residue) in 0.6108 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 53:       0.00116708 at      1.952 Ang (1.624 Ang by residue) in 0.6908 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 54:       0.00319850 at      1.952 Ang (1.624 Ang by residue) in 0.6141 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 0 ,  A16-LYS 55:       0.00067886 at      1.952 Ang (1.624 Ang by residue) in 0.5930 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 0 :       0.00304818 at      1.917 Ang (1.624 Ang by residue) in 0.5712 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 30:       0.00231085 at      1.947 Ang (1.624 Ang by residue) in 0.5576 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 35:       0.00024787 at      1.952 Ang (1.624 Ang by residue) in 0.6597 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 36:       0.00024917 at      1.952 Ang (1.624 Ang by residue) in 0.5780 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 44:       0.00183124 at      1.916 Ang (1.624 Ang by residue) in 0.6011 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 46:       0.00047167 at      1.921 Ang (1.624 Ang by residue) in 0.6092 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 47:       0.01568954 at      1.775 Ang (1.624 Ang by residue) in 0.5975 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 48:       0.00304742 at      1.917 Ang (1.624 Ang by residue) in 0.6603 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 49:       0.00213569 at      1.917 Ang (1.624 Ang by residue) in 0.5897 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 50:       0.00254894 at      1.795 Ang (1.624 Ang by residue) in 0.5923 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 51:       0.01797790 at      1.611 Ang (1.624 Ang by residue) in 0.5770 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 52:       0.00155622 at      1.952 Ang (1.624 Ang by residue) in 0.5998 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 53:       0.00067088 at      1.952 Ang (1.624 Ang by residue) in 0.5686 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 54:       0.00244322 at      1.952 Ang (1.624 Ang by residue) in 0.6176 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 1 ,  A16-LYS 55:       0.00032605 at      1.952 Ang (1.624 Ang by residue) in 0.6347 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 0 :       0.00138130 at      1.917 Ang (1.624 Ang by residue) in 0.5693 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 30:       0.00174386 at      1.947 Ang (1.624 Ang by residue) in 0.5342 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 35:       0.00015721 at      1.952 Ang (1.624 Ang by residue) in 0.6677 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 36:       0.00014022 at      1.952 Ang (1.624 Ang by residue) in 0.6361 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 44:       0.00355152 at      1.866 Ang (1.624 Ang by residue) in 0.7016 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 46:       0.00030068 at      1.921 Ang (1.624 Ang by residue) in 0.6662 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 47:       0.00959811 at      1.777 Ang (1.624 Ang by residue) in 0.5829 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 48:       0.00138102 at      1.917 Ang (1.624 Ang by residue) in 0.6384 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 49:       0.00180611 at      1.915 Ang (1.624 Ang by residue) in 0.6078 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 50:       0.00163586 at      1.789 Ang (1.624 Ang by residue) in 0.6647 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 51:       0.01236671 at      1.610 Ang (1.624 Ang by residue) in 0.5960 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 52:       0.00166518 at      1.947 Ang (1.624 Ang by residue) in 0.6047 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 53:       0.00120111 at      1.949 Ang (1.624 Ang by residue) in 0.5936 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 54:       0.00657801 at      1.885 Ang (1.624 Ang by residue) in 0.6050 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 4 ,  A16-LYS 55:       0.00031910 at      1.952 Ang (1.624 Ang by residue) in 0.6156 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 0 :       0.00263530 at      1.917 Ang (1.624 Ang by residue) in 0.6194 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 30:       0.00220507 at      1.947 Ang (1.624 Ang by residue) in 0.6265 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 35:       0.00020788 at      1.952 Ang (1.624 Ang by residue) in 0.5777 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 36:       0.00019971 at      1.952 Ang (1.624 Ang by residue) in 0.6150 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 44:       0.00188473 at      1.916 Ang (1.624 Ang by residue) in 0.6215 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 46:       0.00038509 at      1.921 Ang (1.624 Ang by residue) in 0.6384 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 47:       0.01615785 at      1.775 Ang (1.624 Ang by residue) in 0.6269 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 48:       0.00263450 at      1.917 Ang (1.624 Ang by residue) in 0.6321 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 49:       0.00212592 at      1.917 Ang (1.624 Ang by residue) in 0.6292 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 50:       0.00220751 at      1.788 Ang (1.624 Ang by residue) in 0.6070 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 51:       0.01567338 at      1.606 Ang (1.624 Ang by residue) in 0.6202 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 52:       0.00148971 at      1.952 Ang (1.624 Ang by residue) in 0.6317 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 53:       0.00066500 at      1.952 Ang (1.624 Ang by residue) in 0.6429 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 54:       0.00261283 at      1.952 Ang (1.624 Ang by residue) in 0.6765 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 5 ,  A16-LYS 55:       0.00030072 at      1.952 Ang (1.624 Ang by residue) in 0.7323 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 0 :       0.00896380 at      1.835 Ang (1.624 Ang by residue) in 0.6196 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 30:       0.00474294 at      1.914 Ang (1.624 Ang by residue) in 0.6055 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 35:       0.00028943 at      1.952 Ang (1.624 Ang by residue) in 0.6667 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 36:       0.00030637 at      1.952 Ang (1.624 Ang by residue) in 0.6099 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 44:       0.00428987 at      1.916 Ang (1.624 Ang by residue) in 0.6207 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 46:      -0.00097642 at      1.873 Ang (1.624 Ang by residue) in 0.6071 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 47:       0.02310453 at      1.686 Ang (1.624 Ang by residue) in 0.6702 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 48:       0.00896346 at      1.835 Ang (1.624 Ang by residue) in 0.6890 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 49:       0.00557415 at      1.842 Ang (1.624 Ang by residue) in 0.9401 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 50:       0.01128301 at      1.735 Ang (1.624 Ang by residue) in 0.8928 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 51:       0.03806814 at      1.541 Ang (1.624 Ang by residue) in 0.7760 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 52:       0.00440651 at      1.943 Ang (1.624 Ang by residue) in 1.1416 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 53:       0.00110977 at      1.952 Ang (1.624 Ang by residue) in 1.0606 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 54:       0.00387309 at      1.952 Ang (1.624 Ang by residue) in 0.8231 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 6 ,  A16-LYS 55:       0.00039345 at      1.952 Ang (1.624 Ang by residue) in 0.8924 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 0 :       0.00077126 at      1.911 Ang (1.624 Ang by residue) in 0.8365 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 30:       0.00065907 at      1.941 Ang (1.624 Ang by residue) in 0.7121 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 35:       0.00014737 at      1.946 Ang (1.624 Ang by residue) in 0.9283 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 36:       0.00013768 at      1.946 Ang (1.624 Ang by residue) in 0.7649 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 44:       0.00073189 at      1.910 Ang (1.624 Ang by residue) in 0.7060 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 46:       0.00025755 at      1.915 Ang (1.624 Ang by residue) in 0.8034 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 47:       0.00385345 at      1.841 Ang (1.624 Ang by residue) in 1.4269 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 48:       0.00077115 at      1.911 Ang (1.624 Ang by residue) in 1.2232 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 49:       0.00068703 at      1.911 Ang (1.624 Ang by residue) in 0.8798 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 50:       0.00129161 at      1.799 Ang (1.624 Ang by residue) in 1.3825 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 51:       0.00745598 at      1.675 Ang (1.624 Ang by residue) in 1.2104 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 52:       0.00054639 at      1.946 Ang (1.624 Ang by residue) in 1.1342 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 53:       0.00038939 at      1.946 Ang (1.624 Ang by residue) in 1.3627 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 54:       0.00112333 at      1.946 Ang (1.624 Ang by residue) in 1.0506 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 8 ,  A16-LYS 55:       0.00023751 at      1.946 Ang (1.624 Ang by residue) in 1.3986 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 0 :       0.00131423 at      1.917 Ang (1.624 Ang by residue) in 1.4150 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 30:       0.00151522 at      1.947 Ang (1.624 Ang by residue) in 1.5769 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 35:       0.00014897 at      1.952 Ang (1.624 Ang by residue) in 1.5767 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 36:       0.00013310 at      1.952 Ang (1.624 Ang by residue) in 1.4661 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 44:       0.00288272 at      1.894 Ang (1.624 Ang by residue) in 1.3867 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 46:       0.00024500 at      1.921 Ang (1.624 Ang by residue) in 1.7958 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 47:       0.00925252 at      1.777 Ang (1.624 Ang by residue) in 1.7790 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 48:       0.00131387 at      1.917 Ang (1.624 Ang by residue) in 1.1658 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 49:       0.00163673 at      1.917 Ang (1.624 Ang by residue) in 1.0726 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 50:       0.00156870 at      1.789 Ang (1.624 Ang by residue) in 1.5484 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 51:       0.01215477 at      1.610 Ang (1.624 Ang by residue) in 1.0753 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 52:       0.00141996 at      1.952 Ang (1.624 Ang by residue) in 1.1947 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 53:       0.00103145 at      1.952 Ang (1.624 Ang by residue) in 1.1888 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 54:       0.00555961 at      1.943 Ang (1.624 Ang by residue) in 1.0686 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 12,  A16-LYS 55:       0.00027264 at      1.952 Ang (1.624 Ang by residue) in 0.9351 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 0 :       0.00271278 at      1.917 Ang (1.624 Ang by residue) in 1.0558 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 30:       0.00212935 at      1.947 Ang (1.624 Ang by residue) in 0.6762 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 35:       0.00016532 at      1.952 Ang (1.624 Ang by residue) in 0.6967 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 36:       0.00015138 at      1.952 Ang (1.624 Ang by residue) in 0.8200 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 44:       0.00183432 at      1.916 Ang (1.624 Ang by residue) in 0.6870 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 46:       0.00033838 at      1.921 Ang (1.624 Ang by residue) in 0.8474 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 47:       0.01615200 at      1.775 Ang (1.624 Ang by residue) in 0.8127 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 48:       0.00271197 at      1.917 Ang (1.624 Ang by residue) in 0.6695 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 49:       0.00213913 at      1.917 Ang (1.624 Ang by residue) in 0.6486 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 50:       0.00227723 at      1.788 Ang (1.624 Ang by residue) in 0.7663 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 51:       0.01651707 at      1.606 Ang (1.624 Ang by residue) in 0.7778 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 52:       0.00141506 at      1.952 Ang (1.624 Ang by residue) in 0.8433 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 53:       0.00061866 at      1.952 Ang (1.624 Ang by residue) in 0.7487 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 54:       0.00258732 at      1.952 Ang (1.624 Ang by residue) in 1.0445 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 13,  A16-LYS 55:       0.00025945 at      1.952 Ang (1.624 Ang by residue) in 0.8343 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 0 :       0.00201458 at      1.900 Ang (1.624 Ang by residue) in 0.6827 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 30:       0.00215609 at      1.947 Ang (1.624 Ang by residue) in 0.7552 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 35:       0.00019701 at      1.952 Ang (1.624 Ang by residue) in 0.9345 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 36:       0.00018925 at      1.952 Ang (1.624 Ang by residue) in 0.8884 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 44:       0.00119791 at      1.916 Ang (1.624 Ang by residue) in 0.7078 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 46:       0.00022128 at      1.921 Ang (1.624 Ang by residue) in 0.7341 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 47:       0.01619468 at      1.734 Ang (1.624 Ang by residue) in 0.7784 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 48:       0.00201381 at      1.900 Ang (1.624 Ang by residue) in 0.6541 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 49:       0.00126461 at      1.903 Ang (1.624 Ang by residue) in 0.6281 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 50:       0.00218511 at      1.788 Ang (1.624 Ang by residue) in 0.5933 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 51:       0.01584206 at      1.606 Ang (1.624 Ang by residue) in 0.6437 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 52:       0.00134985 at      1.952 Ang (1.624 Ang by residue) in 0.5848 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 53:       0.00046619 at      1.952 Ang (1.624 Ang by residue) in 0.6310 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 54:       0.00245547 at      1.952 Ang (1.624 Ang by residue) in 0.6265 (sec).
+ 3-Body   A9-LYS 46,  A12-GLH 21,  A16-LYS 55:       0.00021203 at      1.952 Ang (1.624 Ang by residue) in 0.7051 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 0 :       0.00095070 at      1.917 Ang (1.624 Ang by residue) in 0.7102 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 30:       0.00169545 at      1.947 Ang (1.624 Ang by residue) in 0.7288 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 35:       0.00025760 at      1.952 Ang (1.624 Ang by residue) in 0.6211 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 36:       0.00024317 at      1.952 Ang (1.624 Ang by residue) in 0.6521 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 44:       0.00394454 at      1.886 Ang (1.624 Ang by residue) in 0.7007 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 46:       0.00035429 at      1.921 Ang (1.624 Ang by residue) in 0.6702 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 47:       0.00655050 at      1.777 Ang (1.624 Ang by residue) in 0.6577 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 48:       0.00095055 at      1.917 Ang (1.624 Ang by residue) in 0.6125 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 49:       0.00157024 at      1.917 Ang (1.624 Ang by residue) in 0.8792 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 50:       0.00093586 at      1.789 Ang (1.624 Ang by residue) in 0.8862 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 51:       0.00989232 at      1.610 Ang (1.624 Ang by residue) in 0.8099 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 52:       0.00198732 at      1.952 Ang (1.624 Ang by residue) in 0.6702 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 53:       0.00164613 at      1.952 Ang (1.624 Ang by residue) in 0.6633 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 54:       0.00786918 at      1.943 Ang (1.624 Ang by residue) in 0.9186 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 36,  A16-LYS 55:       0.00048698 at      1.952 Ang (1.624 Ang by residue) in 1.1936 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 0 :       0.00424888 at      1.917 Ang (1.624 Ang by residue) in 0.7274 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 30:       0.00324063 at      1.947 Ang (1.624 Ang by residue) in 0.8405 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 35:       0.00039570 at      1.952 Ang (1.624 Ang by residue) in 0.7273 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 36:       0.00040305 at      1.952 Ang (1.624 Ang by residue) in 0.7748 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 44:       0.00255252 at      1.916 Ang (1.624 Ang by residue) in 0.9384 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 46:       0.00086279 at      1.921 Ang (1.624 Ang by residue) in 1.1690 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 47:       0.01711155 at      1.775 Ang (1.624 Ang by residue) in 1.3467 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 48:       0.00424786 at      1.917 Ang (1.624 Ang by residue) in 0.7890 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 49:       0.00309018 at      1.917 Ang (1.624 Ang by residue) in 0.8030 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 50:       0.00301758 at      1.788 Ang (1.624 Ang by residue) in 0.9325 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 51:       0.01523655 at      1.606 Ang (1.624 Ang by residue) in 0.8247 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 52:       0.00232146 at      1.952 Ang (1.624 Ang by residue) in 0.7436 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 53:       0.00109872 at      1.952 Ang (1.624 Ang by residue) in 0.7307 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 54:       0.00323840 at      1.952 Ang (1.624 Ang by residue) in 0.7303 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 37,  A16-LYS 55:       0.00060703 at      1.952 Ang (1.624 Ang by residue) in 0.7290 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 0 :       0.02061752 at      1.848 Ang (1.624 Ang by residue) in 0.6123 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 30:       0.01073359 at      1.938 Ang (1.624 Ang by residue) in 0.6754 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 35:       0.00109870 at      1.952 Ang (1.624 Ang by residue) in 0.8097 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 36:       0.00115509 at      1.952 Ang (1.624 Ang by residue) in 0.8005 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 44:       0.00941125 at      1.909 Ang (1.624 Ang by residue) in 0.7850 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 46:       0.00903318 at      1.892 Ang (1.624 Ang by residue) in 0.9885 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 47:       0.03302905 at      1.695 Ang (1.624 Ang by residue) in 0.8334 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 48:       0.02061650 at      1.848 Ang (1.624 Ang by residue) in 0.6757 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 49:       0.01841037 at      1.854 Ang (1.624 Ang by residue) in 0.6282 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 50:       0.01829718 at      1.729 Ang (1.624 Ang by residue) in 0.6065 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 51:       0.04497031 at      1.530 Ang (1.624 Ang by residue) in 0.7623 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 52:       0.00939997 at      1.952 Ang (1.624 Ang by residue) in 0.7617 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 53:       0.00499220 at      1.952 Ang (1.624 Ang by residue) in 0.6294 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 54:       0.00829911 at      1.952 Ang (1.624 Ang by residue) in 0.8664 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 38,  A16-LYS 55:       0.00393189 at      1.952 Ang (1.624 Ang by residue) in 0.7799 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 0 :       0.00123476 at      1.911 Ang (1.624 Ang by residue) in 0.6883 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 30:       0.00108017 at      1.941 Ang (1.624 Ang by residue) in 0.7543 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 35:       0.00031191 at      1.946 Ang (1.624 Ang by residue) in 0.7174 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 36:       0.00030618 at      1.946 Ang (1.624 Ang by residue) in 0.6951 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 44:       0.00108063 at      1.910 Ang (1.624 Ang by residue) in 0.6861 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 46:       0.00050344 at      1.915 Ang (1.624 Ang by residue) in 0.9527 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 47:       0.00448452 at      1.841 Ang (1.624 Ang by residue) in 0.7595 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 48:       0.00123463 at      1.911 Ang (1.624 Ang by residue) in 0.6196 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 49:       0.00105039 at      1.911 Ang (1.624 Ang by residue) in 0.7056 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 50:       0.00166670 at      1.799 Ang (1.624 Ang by residue) in 0.8488 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 51:       0.00775510 at      1.675 Ang (1.624 Ang by residue) in 0.7377 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 52:       0.00092878 at      1.946 Ang (1.624 Ang by residue) in 0.7303 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 53:       0.00067401 at      1.946 Ang (1.624 Ang by residue) in 0.7825 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 54:       0.00153189 at      1.946 Ang (1.624 Ang by residue) in 0.6987 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 40,  A16-LYS 55:       0.00044864 at      1.946 Ang (1.624 Ang by residue) in 0.8937 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 0 :       0.00042411 at      1.912 Ang (1.624 Ang by residue) in 0.8151 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 30:       0.00051385 at      1.943 Ang (1.624 Ang by residue) in 0.7476 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 35:       0.00017687 at      1.947 Ang (1.624 Ang by residue) in 0.9200 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 36:       0.00015971 at      1.947 Ang (1.624 Ang by residue) in 0.7051 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 44:       0.00071024 at      1.911 Ang (1.624 Ang by residue) in 0.7484 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 46:       0.00020705 at      1.917 Ang (1.624 Ang by residue) in 0.6087 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 47:       0.00216194 at      1.842 Ang (1.624 Ang by residue) in 0.7450 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 48:       0.00042407 at      1.912 Ang (1.624 Ang by residue) in 0.7890 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 49:       0.00051716 at      1.912 Ang (1.624 Ang by residue) in 0.7386 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 50:       0.00060728 at      1.801 Ang (1.624 Ang by residue) in 0.7955 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 51:       0.00418721 at      1.677 Ang (1.624 Ang by residue) in 0.8694 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 52:       0.00050391 at      1.947 Ang (1.624 Ang by residue) in 0.7345 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 53:       0.00046024 at      1.947 Ang (1.624 Ang by residue) in 0.6706 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 54:       0.00127165 at      1.947 Ang (1.624 Ang by residue) in 0.6909 (sec).
+ 3-Body   A9-LYS 46,  A12-GLU 41,  A16-LYS 55:       0.00027615 at      1.947 Ang (1.624 Ang by residue) in 0.7804 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLU 0 :       0.00081235 at      1.555 Ang (1.438 Ang by residue) in 0.8505 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 1 :       0.00111857 at      1.555 Ang (1.438 Ang by residue) in 0.7345 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 4 :       0.00092346 at      1.555 Ang (1.438 Ang by residue) in 0.8572 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 5 :       0.00108859 at      1.555 Ang (1.438 Ang by residue) in 0.7547 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 6 :       0.00125327 at      1.555 Ang (1.438 Ang by residue) in 0.7529 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 8 :       0.00096645 at      1.548 Ang (1.438 Ang by residue) in 0.6744 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 12:       0.00097335 at      1.555 Ang (1.438 Ang by residue) in 0.7337 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 13:       0.00129150 at      1.555 Ang (1.438 Ang by residue) in 0.7162 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLH 21:       0.00109163 at      1.555 Ang (1.438 Ang by residue) in 0.8088 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLU 36:       0.00051526 at      1.555 Ang (1.438 Ang by residue) in 0.7205 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLU 37:       0.00076619 at      1.555 Ang (1.438 Ang by residue) in 0.7997 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLU 38:       0.00101494 at      1.555 Ang (1.438 Ang by residue) in 0.7658 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLU 40:       0.00016361 at      1.548 Ang (1.438 Ang by residue) in 0.7479 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 0 ,  A12-GLU 41:      -0.00069821 at      1.550 Ang (1.438 Ang by residue) in 0.6907 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLU 0 :       0.00106353 at      1.555 Ang (1.438 Ang by residue) in 0.6692 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 1 :       0.00108815 at      1.555 Ang (1.438 Ang by residue) in 0.6233 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 4 :       0.00095796 at      1.555 Ang (1.438 Ang by residue) in 0.5984 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 5 :       0.00107108 at      1.555 Ang (1.438 Ang by residue) in 0.7026 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 6 :       0.00105652 at      1.555 Ang (1.438 Ang by residue) in 0.8008 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 8 :       0.00176333 at      1.548 Ang (1.438 Ang by residue) in 0.6550 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 12:       0.00097245 at      1.555 Ang (1.438 Ang by residue) in 0.6914 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 13:       0.00115927 at      1.555 Ang (1.438 Ang by residue) in 0.7931 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLH 21:       0.00107107 at      1.555 Ang (1.438 Ang by residue) in 0.6366 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLU 36:       0.00088006 at      1.555 Ang (1.438 Ang by residue) in 0.7099 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLU 37:       0.00105248 at      1.555 Ang (1.438 Ang by residue) in 0.6993 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLU 38:       0.00100055 at      1.555 Ang (1.438 Ang by residue) in 0.7052 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLU 40:       0.00188227 at      1.548 Ang (1.438 Ang by residue) in 0.6515 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 4 ,  A12-GLU 41:       0.00136415 at      1.550 Ang (1.438 Ang by residue) in 0.6243 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLU 0 :       0.00100240 at      1.555 Ang (1.438 Ang by residue) in 0.6428 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 1 :       0.00102118 at      1.555 Ang (1.438 Ang by residue) in 0.7731 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 4 :       0.00089186 at      1.555 Ang (1.438 Ang by residue) in 0.7455 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 5 :       0.00100465 at      1.555 Ang (1.438 Ang by residue) in 0.7137 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 6 :       0.00097202 at      1.555 Ang (1.438 Ang by residue) in 0.7417 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 8 :       0.00178021 at      1.548 Ang (1.438 Ang by residue) in 0.7715 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 12:       0.00090833 at      1.555 Ang (1.438 Ang by residue) in 0.8198 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 13:       0.00109532 at      1.555 Ang (1.438 Ang by residue) in 0.7557 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLH 21:       0.00100490 at      1.555 Ang (1.438 Ang by residue) in 0.9525 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLU 36:       0.00082219 at      1.555 Ang (1.438 Ang by residue) in 0.7928 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLU 37:       0.00099082 at      1.555 Ang (1.438 Ang by residue) in 0.7700 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLU 38:       0.00092091 at      1.555 Ang (1.438 Ang by residue) in 0.7381 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLU 40:       0.00187985 at      1.548 Ang (1.438 Ang by residue) in 0.7165 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 5 ,  A12-GLU 41:       0.00133814 at      1.550 Ang (1.438 Ang by residue) in 0.7469 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLU 0 :       0.00149682 at      1.555 Ang (1.438 Ang by residue) in 0.7076 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 1 :       0.00164108 at      1.555 Ang (1.438 Ang by residue) in 0.6392 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 4 :       0.00145824 at      1.555 Ang (1.438 Ang by residue) in 0.8533 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 5 :       0.00161013 at      1.555 Ang (1.438 Ang by residue) in 0.6848 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 6 :       0.00164456 at      1.555 Ang (1.438 Ang by residue) in 0.6834 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 8 :       0.00237007 at      1.548 Ang (1.438 Ang by residue) in 0.7901 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 12:       0.00150635 at      1.555 Ang (1.438 Ang by residue) in 0.7028 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 13:       0.00176394 at      1.555 Ang (1.438 Ang by residue) in 0.7517 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLH 21:       0.00161254 at      1.555 Ang (1.438 Ang by residue) in 0.7891 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLU 36:       0.00122101 at      1.555 Ang (1.438 Ang by residue) in 0.6986 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLU 37:       0.00146383 at      1.555 Ang (1.438 Ang by residue) in 0.6588 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLU 38:       0.00149073 at      1.555 Ang (1.438 Ang by residue) in 0.7362 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLU 40:       0.00201593 at      1.548 Ang (1.438 Ang by residue) in 0.6343 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 6 ,  A12-GLU 41:       0.00139247 at      1.550 Ang (1.438 Ang by residue) in 0.6559 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLU 0 :       0.00075119 at      1.555 Ang (1.438 Ang by residue) in 0.6542 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 1 :       0.00078499 at      1.555 Ang (1.438 Ang by residue) in 0.7346 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 4 :       0.00068569 at      1.555 Ang (1.438 Ang by residue) in 0.7354 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 5 :       0.00078024 at      1.555 Ang (1.438 Ang by residue) in 0.6507 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 6 :       0.00076489 at      1.555 Ang (1.438 Ang by residue) in 0.7704 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 8 :       0.00144107 at      1.548 Ang (1.438 Ang by residue) in 1.0492 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 12:       0.00069488 at      1.555 Ang (1.438 Ang by residue) in 0.7185 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 13:       0.00087591 at      1.555 Ang (1.438 Ang by residue) in 0.6682 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLH 21:       0.00077790 at      1.555 Ang (1.438 Ang by residue) in 0.7900 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLU 36:       0.00064065 at      1.555 Ang (1.438 Ang by residue) in 0.9261 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLU 37:       0.00075830 at      1.555 Ang (1.438 Ang by residue) in 1.1875 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLU 38:       0.00072486 at      1.555 Ang (1.438 Ang by residue) in 1.0061 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLU 40:       0.00145059 at      1.548 Ang (1.438 Ang by residue) in 1.2370 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 8 ,  A12-GLU 41:       0.00103584 at      1.550 Ang (1.438 Ang by residue) in 0.7650 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLU 0 :       0.00076765 at      1.555 Ang (1.438 Ang by residue) in 0.7987 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 1 :       0.00079661 at      1.555 Ang (1.438 Ang by residue) in 0.6932 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 4 :       0.00069176 at      1.555 Ang (1.438 Ang by residue) in 0.7265 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 5 :       0.00078920 at      1.555 Ang (1.438 Ang by residue) in 0.9427 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 6 :       0.00078116 at      1.555 Ang (1.438 Ang by residue) in 0.7467 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 8 :       0.00136946 at      1.548 Ang (1.438 Ang by residue) in 0.7510 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 12:       0.00069946 at      1.555 Ang (1.438 Ang by residue) in 0.7560 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 13:       0.00087660 at      1.555 Ang (1.438 Ang by residue) in 0.7182 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLH 21:       0.00078681 at      1.555 Ang (1.438 Ang by residue) in 0.7008 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLU 36:       0.00064760 at      1.555 Ang (1.438 Ang by residue) in 0.6674 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLU 37:       0.00077178 at      1.555 Ang (1.438 Ang by residue) in 0.8825 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLU 38:       0.00074393 at      1.555 Ang (1.438 Ang by residue) in 0.7984 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLU 40:       0.00140791 at      1.548 Ang (1.438 Ang by residue) in 0.8128 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 9 ,  A12-GLU 41:       0.00103413 at      1.550 Ang (1.438 Ang by residue) in 0.7557 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLU 0 :       0.00105307 at      1.555 Ang (1.438 Ang by residue) in 0.7061 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 1 :       0.00108246 at      1.555 Ang (1.438 Ang by residue) in 0.6698 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 4 :       0.00095245 at      1.555 Ang (1.438 Ang by residue) in 0.7431 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 5 :       0.00106551 at      1.555 Ang (1.438 Ang by residue) in 0.6335 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 6 :       0.00105283 at      1.555 Ang (1.438 Ang by residue) in 0.6327 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 8 :       0.00175867 at      1.548 Ang (1.438 Ang by residue) in 0.6925 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 12:       0.00096661 at      1.555 Ang (1.438 Ang by residue) in 0.7088 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 13:       0.00115968 at      1.555 Ang (1.438 Ang by residue) in 0.7890 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLH 21:       0.00106470 at      1.555 Ang (1.438 Ang by residue) in 0.7555 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLU 36:       0.00087477 at      1.555 Ang (1.438 Ang by residue) in 0.7137 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLU 37:       0.00104290 at      1.555 Ang (1.438 Ang by residue) in 0.7037 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLU 38:       0.00099662 at      1.555 Ang (1.438 Ang by residue) in 0.6369 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLU 40:       0.00187120 at      1.548 Ang (1.438 Ang by residue) in 0.7086 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 12,  A12-GLU 41:       0.00135520 at      1.550 Ang (1.438 Ang by residue) in 0.6293 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLU 0 :       0.00099063 at      1.555 Ang (1.438 Ang by residue) in 0.6233 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 1 :       0.00101553 at      1.555 Ang (1.438 Ang by residue) in 0.5157 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 4 :       0.00088682 at      1.555 Ang (1.438 Ang by residue) in 0.5737 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 5 :       0.00100268 at      1.555 Ang (1.438 Ang by residue) in 0.7506 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 6 :       0.00096830 at      1.555 Ang (1.438 Ang by residue) in 0.7307 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 8 :       0.00179413 at      1.548 Ang (1.438 Ang by residue) in 0.6382 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 12:       0.00090323 at      1.555 Ang (1.438 Ang by residue) in 0.6372 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 13:       0.00109656 at      1.555 Ang (1.438 Ang by residue) in 0.6633 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLH 21:       0.00100279 at      1.555 Ang (1.438 Ang by residue) in 0.7967 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLU 36:       0.00081555 at      1.555 Ang (1.438 Ang by residue) in 0.7328 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLU 37:       0.00098612 at      1.555 Ang (1.438 Ang by residue) in 0.6603 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLU 38:       0.00091256 at      1.555 Ang (1.438 Ang by residue) in 0.7061 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLU 40:       0.00189395 at      1.548 Ang (1.438 Ang by residue) in 0.6232 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 13,  A12-GLU 41:       0.00133413 at      1.550 Ang (1.438 Ang by residue) in 0.6394 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLU 0 :       0.00077706 at      1.555 Ang (1.438 Ang by residue) in 0.6366 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 1 :       0.00080045 at      1.555 Ang (1.438 Ang by residue) in 0.6281 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 4 :       0.00069448 at      1.555 Ang (1.438 Ang by residue) in 0.6834 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 5 :       0.00079731 at      1.555 Ang (1.438 Ang by residue) in 0.6342 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 6 :       0.00077175 at      1.555 Ang (1.438 Ang by residue) in 0.7001 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 8 :       0.00148798 at      1.548 Ang (1.438 Ang by residue) in 0.6709 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 12:       0.00070386 at      1.555 Ang (1.438 Ang by residue) in 0.6759 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 13:       0.00088698 at      1.555 Ang (1.438 Ang by residue) in 0.6092 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLH 21:       0.00079537 at      1.555 Ang (1.438 Ang by residue) in 0.7271 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLU 36:       0.00065512 at      1.555 Ang (1.438 Ang by residue) in 0.7028 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLU 37:       0.00078710 at      1.555 Ang (1.438 Ang by residue) in 0.6944 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLU 38:       0.00073497 at      1.555 Ang (1.438 Ang by residue) in 0.6373 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLU 40:       0.00152437 at      1.548 Ang (1.438 Ang by residue) in 0.6998 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 16,  A12-GLU 41:       0.00107665 at      1.550 Ang (1.438 Ang by residue) in 0.6222 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLU 0 :       0.00079156 at      1.555 Ang (1.438 Ang by residue) in 0.6374 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 1 :       0.00081326 at      1.555 Ang (1.438 Ang by residue) in 0.7088 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 4 :       0.00070440 at      1.555 Ang (1.438 Ang by residue) in 0.6244 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 5 :       0.00080474 at      1.555 Ang (1.438 Ang by residue) in 0.6451 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 6 :       0.00079339 at      1.555 Ang (1.438 Ang by residue) in 0.6459 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 8 :       0.00138357 at      1.548 Ang (1.438 Ang by residue) in 0.6670 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 12:       0.00071226 at      1.555 Ang (1.438 Ang by residue) in 0.7019 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 13:       0.00088580 at      1.555 Ang (1.438 Ang by residue) in 0.6283 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLH 21:       0.00080297 at      1.555 Ang (1.438 Ang by residue) in 0.7833 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLU 36:       0.00066073 at      1.555 Ang (1.438 Ang by residue) in 0.6860 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLU 37:       0.00079357 at      1.555 Ang (1.438 Ang by residue) in 0.6610 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLU 38:       0.00075743 at      1.555 Ang (1.438 Ang by residue) in 0.6247 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLU 40:       0.00143612 at      1.548 Ang (1.438 Ang by residue) in 0.6814 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 17,  A12-GLU 41:       0.00105390 at      1.550 Ang (1.438 Ang by residue) in 0.6783 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLU 0 :       0.00104057 at      1.555 Ang (1.438 Ang by residue) in 0.7306 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 1 :       0.00105081 at      1.555 Ang (1.438 Ang by residue) in 0.7072 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 4 :       0.00091609 at      1.555 Ang (1.438 Ang by residue) in 0.6850 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 5 :       0.00103114 at      1.555 Ang (1.438 Ang by residue) in 0.6203 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 6 :       0.00099571 at      1.555 Ang (1.438 Ang by residue) in 0.7081 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 8 :       0.00181742 at      1.548 Ang (1.438 Ang by residue) in 0.6734 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 12:       0.00093272 at      1.555 Ang (1.438 Ang by residue) in 0.6602 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 13:       0.00112070 at      1.555 Ang (1.438 Ang by residue) in 0.6522 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLH 21:       0.00103133 at      1.555 Ang (1.438 Ang by residue) in 0.5859 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLU 36:       0.00085025 at      1.555 Ang (1.438 Ang by residue) in 0.5802 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLU 37:       0.00102397 at      1.555 Ang (1.438 Ang by residue) in 0.7198 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLU 38:       0.00095018 at      1.555 Ang (1.438 Ang by residue) in 0.6676 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLU 40:       0.00192620 at      1.548 Ang (1.438 Ang by residue) in 0.7090 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 21,  A12-GLU 41:       0.00138033 at      1.550 Ang (1.438 Ang by residue) in 0.6691 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLU 0 :       0.00075637 at      1.555 Ang (1.438 Ang by residue) in 0.6204 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 1 :       0.00078983 at      1.555 Ang (1.438 Ang by residue) in 0.7281 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 4 :       0.00068772 at      1.555 Ang (1.438 Ang by residue) in 0.5744 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 5 :       0.00078251 at      1.555 Ang (1.438 Ang by residue) in 0.5914 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 6 :       0.00076903 at      1.555 Ang (1.438 Ang by residue) in 0.6302 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 8 :       0.00144708 at      1.548 Ang (1.438 Ang by residue) in 0.5965 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 12:       0.00069678 at      1.555 Ang (1.438 Ang by residue) in 0.6041 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 13:       0.00088278 at      1.555 Ang (1.438 Ang by residue) in 0.5718 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLH 21:       0.00077943 at      1.555 Ang (1.438 Ang by residue) in 0.6487 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLU 36:       0.00064355 at      1.555 Ang (1.438 Ang by residue) in 0.6256 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLU 37:       0.00075942 at      1.555 Ang (1.438 Ang by residue) in 0.6077 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLU 38:       0.00073233 at      1.555 Ang (1.438 Ang by residue) in 0.6231 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLU 40:       0.00145012 at      1.548 Ang (1.438 Ang by residue) in 0.6073 (sec).
+ 3-Body   A9-LYS 48,  A11-GLH 24,  A12-GLU 41:       0.00103776 at      1.550 Ang (1.438 Ang by residue) in 0.7117 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLU 0 :       0.00083648 at      1.555 Ang (1.438 Ang by residue) in 0.5982 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 1 :       0.00092413 at      1.555 Ang (1.438 Ang by residue) in 0.6486 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 4 :       0.00083268 at      1.555 Ang (1.438 Ang by residue) in 0.6345 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 5 :       0.00091051 at      1.555 Ang (1.438 Ang by residue) in 0.6344 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 6 :       0.00094719 at      1.555 Ang (1.438 Ang by residue) in 0.6290 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 8 :       0.00154724 at      1.548 Ang (1.438 Ang by residue) in 0.6257 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 12:       0.00084739 at      1.555 Ang (1.438 Ang by residue) in 0.6100 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 13:       0.00100631 at      1.555 Ang (1.438 Ang by residue) in 0.5438 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLH 21:       0.00091381 at      1.555 Ang (1.438 Ang by residue) in 0.6204 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLU 36:       0.00070474 at      1.555 Ang (1.438 Ang by residue) in 0.6392 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLU 37:       0.00082450 at      1.555 Ang (1.438 Ang by residue) in 0.5714 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLU 38:       0.00085071 at      1.555 Ang (1.438 Ang by residue) in 0.5559 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLU 40:       0.00149084 at      1.548 Ang (1.438 Ang by residue) in 0.6221 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 36,  A12-GLU 41:       0.00107240 at      1.550 Ang (1.438 Ang by residue) in 0.5880 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLU 0 :       0.00079186 at      1.555 Ang (1.438 Ang by residue) in 0.5858 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 1 :       0.00087635 at      1.555 Ang (1.438 Ang by residue) in 0.5422 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 4 :       0.00077919 at      1.555 Ang (1.438 Ang by residue) in 0.5531 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 5 :       0.00085275 at      1.555 Ang (1.438 Ang by residue) in 0.5976 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 6 :       0.00088067 at      1.555 Ang (1.438 Ang by residue) in 0.6030 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 8 :       0.00157772 at      1.548 Ang (1.438 Ang by residue) in 0.5859 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 12:       0.00079618 at      1.555 Ang (1.438 Ang by residue) in 0.5870 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 13:       0.00096572 at      1.555 Ang (1.438 Ang by residue) in 0.6154 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLH 21:       0.00085525 at      1.555 Ang (1.438 Ang by residue) in 0.5771 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLU 36:       0.00065234 at      1.555 Ang (1.438 Ang by residue) in 0.5409 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLU 37:       0.00076067 at      1.555 Ang (1.438 Ang by residue) in 0.6178 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLU 38:       0.00079419 at      1.555 Ang (1.438 Ang by residue) in 0.5815 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLU 40:       0.00147136 at      1.548 Ang (1.438 Ang by residue) in 0.5967 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 37,  A12-GLU 41:       0.00101104 at      1.550 Ang (1.438 Ang by residue) in 0.5833 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLU 0 :       0.00081338 at      1.555 Ang (1.438 Ang by residue) in 0.6068 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 1 :       0.00111959 at      1.555 Ang (1.438 Ang by residue) in 0.5850 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 4 :       0.00092420 at      1.555 Ang (1.438 Ang by residue) in 0.5898 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 5 :       0.00108957 at      1.555 Ang (1.438 Ang by residue) in 0.5806 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 6 :       0.00125411 at      1.555 Ang (1.438 Ang by residue) in 0.6543 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 8 :       0.00096901 at      1.548 Ang (1.438 Ang by residue) in 0.5374 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 12:       0.00097411 at      1.555 Ang (1.438 Ang by residue) in 0.6207 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 13:       0.00129264 at      1.555 Ang (1.438 Ang by residue) in 0.5654 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLH 21:       0.00109262 at      1.555 Ang (1.438 Ang by residue) in 0.6287 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLU 36:       0.00051592 at      1.555 Ang (1.438 Ang by residue) in 0.5204 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLU 37:       0.00076721 at      1.555 Ang (1.438 Ang by residue) in 0.5855 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLU 38:       0.00101575 at      1.555 Ang (1.438 Ang by residue) in 0.5889 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLU 40:       0.00016654 at      1.548 Ang (1.438 Ang by residue) in 0.6397 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 38,  A12-GLU 41:      -0.00069635 at      1.550 Ang (1.438 Ang by residue) in 0.6020 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLU 0 :       0.00078108 at      1.555 Ang (1.438 Ang by residue) in 0.6280 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 1 :       0.00081736 at      1.555 Ang (1.438 Ang by residue) in 0.5758 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 4 :       0.00071004 at      1.555 Ang (1.438 Ang by residue) in 0.6169 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 5 :       0.00079239 at      1.555 Ang (1.438 Ang by residue) in 0.6404 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 6 :       0.00080647 at      1.555 Ang (1.438 Ang by residue) in 0.6055 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 8 :       0.00149767 at      1.548 Ang (1.438 Ang by residue) in 0.5956 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 12:       0.00072366 at      1.555 Ang (1.438 Ang by residue) in 0.6186 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 13:       0.00087368 at      1.555 Ang (1.438 Ang by residue) in 0.6366 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLH 21:       0.00079719 at      1.555 Ang (1.438 Ang by residue) in 0.6938 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLU 36:       0.00061957 at      1.555 Ang (1.438 Ang by residue) in 0.6078 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLU 37:       0.00074670 at      1.555 Ang (1.438 Ang by residue) in 0.6253 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLU 38:       0.00074868 at      1.555 Ang (1.438 Ang by residue) in 0.6031 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLU 40:       0.00139666 at      1.548 Ang (1.438 Ang by residue) in 0.5884 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 40,  A12-GLU 41:       0.00092618 at      1.550 Ang (1.438 Ang by residue) in 0.6519 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLU 0 :       0.00076547 at      1.555 Ang (1.438 Ang by residue) in 0.6209 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 1 :       0.00080937 at      1.555 Ang (1.438 Ang by residue) in 0.6387 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 4 :       0.00070961 at      1.555 Ang (1.438 Ang by residue) in 0.6342 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 5 :       0.00079585 at      1.555 Ang (1.438 Ang by residue) in 0.5890 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 6 :       0.00081140 at      1.555 Ang (1.438 Ang by residue) in 0.6446 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 8 :       0.00140600 at      1.548 Ang (1.438 Ang by residue) in 0.6052 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 12:       0.00072124 at      1.555 Ang (1.438 Ang by residue) in 0.6192 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 13:       0.00085914 at      1.555 Ang (1.438 Ang by residue) in 0.5795 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLH 21:       0.00080174 at      1.555 Ang (1.438 Ang by residue) in 0.6212 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLU 36:       0.00061806 at      1.555 Ang (1.438 Ang by residue) in 0.6462 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLU 37:       0.00075304 at      1.555 Ang (1.438 Ang by residue) in 0.5641 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLU 38:       0.00074056 at      1.555 Ang (1.438 Ang by residue) in 0.6460 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLU 40:       0.00136172 at      1.548 Ang (1.438 Ang by residue) in 0.6167 (sec).
+ 3-Body   A9-LYS 48,  A11-GLU 41,  A12-GLU 41:       0.00094222 at      1.550 Ang (1.438 Ang by residue) in 0.5741 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 0 :       0.00493562 at      1.917 Ang (1.624 Ang by residue) in 0.6401 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 30:       0.00343280 at      1.947 Ang (1.624 Ang by residue) in 0.6097 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 35:       0.00045795 at      1.952 Ang (1.624 Ang by residue) in 0.5835 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 36:       0.00048721 at      1.952 Ang (1.624 Ang by residue) in 0.6661 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 44:       0.00255671 at      1.916 Ang (1.624 Ang by residue) in 0.5889 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 46:       0.00103924 at      1.921 Ang (1.624 Ang by residue) in 0.6383 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 47:       0.01680696 at      1.775 Ang (1.624 Ang by residue) in 0.5467 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 48:       0.00493469 at      1.917 Ang (1.624 Ang by residue) in 0.6006 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 49:       0.00314970 at      1.917 Ang (1.624 Ang by residue) in 0.5482 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 50:       0.00376531 at      1.795 Ang (1.624 Ang by residue) in 0.5508 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 51:       0.01762746 at      1.611 Ang (1.624 Ang by residue) in 0.5939 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 52:       0.00246794 at      1.952 Ang (1.624 Ang by residue) in 0.5812 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 53:       0.00110404 at      1.952 Ang (1.624 Ang by residue) in 0.5523 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 54:       0.00299926 at      1.952 Ang (1.624 Ang by residue) in 0.6486 (sec).
+ 3-Body   A9-LYS 48,  A12-GLU 0 ,  A16-LYS 55:       0.00065421 at      1.952 Ang (1.624 Ang by residue) in 0.6132 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 0 :       0.00310632 at      1.917 Ang (1.624 Ang by residue) in 0.6197 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 30:       0.00227688 at      1.947 Ang (1.624 Ang by residue) in 0.6212 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 35:       0.00025118 at      1.952 Ang (1.624 Ang by residue) in 0.5676 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 36:       0.00025804 at      1.952 Ang (1.624 Ang by residue) in 0.5572 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 44:       0.00179769 at      1.916 Ang (1.624 Ang by residue) in 0.6078 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 46:       0.00050060 at      1.921 Ang (1.624 Ang by residue) in 0.5762 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 47:       0.01573025 at      1.775 Ang (1.624 Ang by residue) in 0.5871 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 48:       0.00310557 at      1.917 Ang (1.624 Ang by residue) in 0.6086 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 49:       0.00211831 at      1.917 Ang (1.624 Ang by residue) in 0.6202 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 50:       0.00267651 at      1.795 Ang (1.624 Ang by residue) in 0.5985 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 51:       0.01810597 at      1.611 Ang (1.624 Ang by residue) in 0.6164 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 52:       0.00153108 at      1.952 Ang (1.624 Ang by residue) in 0.5670 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 53:       0.00065370 at      1.952 Ang (1.624 Ang by residue) in 0.5887 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 54:       0.00232201 at      1.952 Ang (1.624 Ang by residue) in 0.6320 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 1 ,  A16-LYS 55:       0.00033321 at      1.952 Ang (1.624 Ang by residue) in 0.6037 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 4 ,  A16-LYS 0 :       0.00161494 at      1.917 Ang (1.624 Ang by residue) in 0.6025 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 4 ,  A16-LYS 30:       0.00181789 at      1.947 Ang (1.624 Ang by residue) in 0.5807 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 4 ,  A16-LYS 35:       0.00016754 at      1.952 Ang (1.624 Ang by residue) in 0.6126 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 4 ,  A16-LYS 36:       0.00015492 at      1.952 Ang (1.624 Ang by residue) in 0.5684 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 4 ,  A16-LYS 44:       0.00354137 at      1.866 Ang (1.624 Ang by residue) in 0.5409 (sec).
+ 3-Body   A9-LYS 48,  A12-GLH 4 ,  A16-LYS 46:       0.00034383 at      1.921 Ang (1.624 Ang by residue) in 0.5192 (sec).
