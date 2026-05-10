@@ -1002,18 +1002,14 @@ def main() -> None:
     for r in RADII:
         os.makedirs(os.path.join(node_dir, str(r)), exist_ok=True)
 
-    # ── Load pKa labels ──────────────────────────────────────────────────────
+    # ── Load pKa labels (with raw↔fixed renumbering alignment) ──────────────
     manifest = pd.read_csv(args.manifest)
-    # Build {(PDB, chain, res_id, res_name) → pka}
-    pka_lookup: dict[tuple[str, str, int, str], float] = {
-        (
-            str(row.pdb_id).upper(),
-            str(row.chain).strip(),
-            int(row.res_id),
-            str(row.res_name).upper(),
-        ): float(row.pka)
-        for _, row in manifest.iterrows()
-    }
+    pka_lookup = _build_pka_lookup_aligned(
+        manifest=manifest,
+        fixed_pdb_dir=Path(args.pdb_dir),
+        raw_pdb_dir=Path(args.raw_pdb_dir),
+        log=log,
+    )
     log.info(f"Loaded {len(pka_lookup)} pKa entries from {args.manifest}")
 
     # ── Discover completed FFX jobs ──────────────────────────────────────────
