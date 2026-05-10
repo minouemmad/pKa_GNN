@@ -1,0 +1,54 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N grid_search_ffx_rotopt_r10
+#$ -j y
+#$ -q UI,MS
+#$ -pe 128cpn 128 
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=24:00:00
+#$ -S /bin/bash
+
+conda activate /Dedicated/schnieders/programs/anaconda3/envs/mda_env
+
+# Rotopt + induced-dipole grid search restricted to the radius that won the
+# Sweep2_rot_withDip sweep (dataset_idx=3 -> 10 Å, mean_MAE=0.7115).
+# 2880 HP combos x 1 radius x 10 folds on 128 cores ~ a few hours.
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+echo "CPU slots    : $NSLOTS"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=python
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_rotopt
+DATASET_DIR=$FEAT_DIR/Datasets
+RESULTS_DIR=Graph_pKa/Results/Grid_Search_FFX_rotopt_r10
+PDB_DIR=ffx_pipeline/data/fixed_pdbs
+MANIFEST=data/manifest.csv
+
+# Build features/datasets only if the radius-10 pkl is missing
+if [ ! -f "$DATASET_DIR/data_list_3.pkl" ]; then
+    echo ""
+    echo "=== 05_prepare_features.py --mode rotopt ==="
+    $PYTHON ffx_pipeline/05_prepare_features.py --mode rotopt \
+        --pdb-dir "$PDB_DIR" --manifest "$MANIFEST" --feat-dir "$FEAT_DIR"
+
+    echo ""
+    echo "=== 06_create_datasets.py --mode rotopt ==="
+    $PYTHON ffx_pipeline/06_create_datasets.py --mode rotopt \
+        --feat-dir "$FEAT_DIR" --out-dir "$DATASET_DIR"
+fi
+
+echo ""
+echo "=== 08_grid_search.py  (rotopt + induced dipoles, radius 10 Å only) ==="
+$PYTHON ffx_pipeline/08_grid_search.py \
+    --dataset 3 \
+    --dataset-dir "$DATASET_DIR" \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"
