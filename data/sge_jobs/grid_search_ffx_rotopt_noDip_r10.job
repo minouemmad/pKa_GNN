@@ -1,0 +1,53 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N grid_search_ffx_rotopt_noDip_r10
+#$ -j y
+#$ -q UI,MS
+#$ -pe 128cpn 128
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=24:00:00
+#$ -S /bin/bash
+
+conda activate /Dedicated/schnieders/programs/anaconda3/envs/mda_env
+
+# Rotopt grid search WITHOUT induced dipoles, restricted to the radius that
+# won the Sweep2_rot_noDip sweep (dataset_idx=3 -> 10 Å, mean_MAE=0.7133).
+# 2880 HP combos x 1 radius x 10 folds on 128 cores ~ a few hours.
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+echo "CPU slots    : $NSLOTS"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=python
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_rotopt
+SRC_DATASETS=$FEAT_DIR/Datasets
+DST_DATASETS=Graph_pKa/Features_rotopt_noDip/Datasets
+RESULTS_DIR=Graph_pKa/Results/Grid_Search_FFX_rotopt_noDip_r10
+
+# Build the ablated (no induced dipoles) datasets if the radius-10 pkl is missing
+if [ ! -f "$DST_DATASETS/data_list_3.pkl" ]; then
+    echo ""
+    echo "=== ablate_datasets.py --ablate induced_dipoles ==="
+    $PYTHON ffx_pipeline/ablate_datasets.py \
+        --src-dir  "$SRC_DATASETS" \
+        --dst-dir  "$DST_DATASETS" \
+        --feat-dir "$FEAT_DIR" \
+        --ablate induced_dipoles
+else
+    echo "Ablated datasets already present in $DST_DATASETS — skipping rebuild."
+fi
+
+echo ""
+echo "=== 08_grid_search.py  (rotopt, no induced dipoles, radius 10 Å only) ==="
+$PYTHON ffx_pipeline/08_grid_search.py \
+    --dataset 3 \
+    --dataset-dir "$DST_DATASETS" \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"
