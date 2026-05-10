@@ -89,32 +89,153 @@ TARGET_RESIDUES = {"ASP", "GLU", "HIS", "LYS", "CYS", "TYR"}
 # Default pH list for titration mode (mirrors 03_run_ffx_minimize.py / TITRATION_PHS)
 DEFAULT_PHS = [3.94, 4.4, 6.45, 8.55]
 
+# Three-letter to one-letter amino acid code (for sequence alignment).
+_AA3_TO_1 = {
+    "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C",
+    "GLN": "Q", "GLU": "E", "GLY": "G", "HIS": "H", "ILE": "I",
+    "LEU": "L", "LYS": "K", "MET": "M", "PHE": "F", "PRO": "P",
+    "SER": "S", "THR": "T", "TRP": "W", "TYR": "Y", "VAL": "V",
+    # Common alt names mapped to their canonical 1-letter
+    "HID": "H", "HIE": "H", "HIP": "H",
+    "ASH": "D", "GLH": "E", "LYN": "K",
+    "CYM": "C", "CYX": "C", "TYD": "Y",
+    "MSE": "M", "SEC": "U", "PYL": "O",
+}
 
-def _read_chain_ionizable_sequence(pdb_path: "Path") -> dict[str, list[tuple[int, str]]]:
-    """Return ``{chain -> [(resseq, resname_upper), ...]}`` listing every
-    ionizable (TARGET_RESIDUES) residue in the order they appear in the file.
-    Lightweight reader (cols 17-26 of ATOM lines); does not require parsing
-    the full PDB into a DataFrame.
+
+def _read_chain_full_sequence(pdb_path: "Path") -> dict[str, list[tuple[int, str]]]:
+    """Return ``{chain -> [(resseq, resname_three_upper), ...]}`` listing every
+    standard residue in the order it appears in the file (one entry per
+    residue, anchored on CA atoms; first MODEL only; primary altloc only).
     """
     out: dict[str, list[tuple[int, str]]] = {}
-    seen: set[tuple[str, int]] = set()
+    seen: set[tuple[str, int, str]] = set()
     with open(pdb_path) as f:
         for line in f:
-            if not line.startswith("ATOM"):
+            if line.startswith("ENDMDL"):
+                break  # only first model for NMR ensembles
+            if not (line.startswith("ATOM") or line.startswith("HETATM")):
                 continue
             try:
-                resname = line[17:20].strip().upper()
-                chain   = line[21].strip() or " "
-                resseq  = int(line[22:26])
+                atom_name = line[12:16].strip()
+                altloc    = line[16:17]
+                resname   = line[17:20].strip().upper()
+                chain     = line[21:22]
+                resseq    = int(line[22:26])
+                icode     = line[26:27].strip()
             except (ValueError, IndexError):
                 continue
-            if resname not in TARGET_RESIDUES:
+            if atom_name != "CA":
                 continue
-            key = (chain, resseq)
+            if altloc not in (" ", "", "A"):
+                continue
+            if resname not in _AA3_TO_1:
+                continue
+            # Use chain id as-is (preserve blank chain "" → " ")
+            chain = chain if chain.strip() else " "
+            key = (chain, resseq, icode)
             if key in seen:
                 continue
             seen.add(key)
             out.setdefault(chain, []).append((resseq, resname))
+    return out
+
+
+def _read_chain_ionizable_sequence(pdb_path: "Path") -> dict[str, list[tuple[int, str]]]:
+    """Subset of ``_read_chain_full_sequence`` keeping only TARGET_RESIDUES.
+    Kept for backward compatibility (used by external diagnostics).
+    """
+    full = _read_chain_full_sequence(pdb_path)
+    return {ch: [(s, n) for s, n in seq if n in TARGET_RESIDUES]
+            for ch, seq in full.items()}
+
+
+def _needleman_wunsch_residue_map(
+    raw_seq: list[tuple[int, str]],
+    fix_seq: list[tuple[int, str]],
+) -> tuple[dict[int, int], float]:
+    """Global Needleman-Wunsch alignment between two residue sequences.
+    Each sequence is a list of ``(resseq, resname_three)``.
+
+    Returns ``(raw_resseq_to_fix_resseq, identity_fraction)`` where the
+    mapping contains only positions where the residue types match (a residue
+    type mismatch inside the alignment is conservatively dropped from the
+    map).  ``identity_fraction`` is matches / max(len_raw, len_fix).
+
+    Match=+2, mismatch=-1, gap=-2 (favours short gaps over long mismatches —
+    PDBFixer typically inserts contiguous missing-loop residues).
+    """
+    n, m = len(raw_seq), len(fix_seq)
+    if n == 0 or m == 0:
+        return {}, 0.0
+
+    MATCH, MISMATCH, GAP = 2, -1, -2
+    # Score matrix
+    H = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        H[i][0] = i * GAP
+    for j in range(1, m + 1):
+        H[0][j] = j * GAP
+    raw_one = [_AA3_TO_1.get(rn, "X") for _, rn in raw_seq]
+    fix_one = [_AA3_TO_1.get(rn, "X") for _, rn in fix_seq]
+    for i in range(1, n + 1):
+        ri = raw_one[i - 1]
+        for j in range(1, m + 1):
+            s = MATCH if ri == fix_one[j - 1] else MISMATCH
+            H[i][j] = max(H[i - 1][j - 1] + s,
+                          H[i - 1][j] + GAP,
+                          H[i][j - 1] + GAP)
+
+    # Traceback
+    mapping: dict[int, int] = {}
+    matches = 0
+    i, j = n, m
+    while i > 0 and j > 0:
+        s = MATCH if raw_one[i - 1] == fix_one[j - 1] else MISMATCH
+        if H[i][j] == H[i - 1][j - 1] + s:
+            if raw_one[i - 1] == fix_one[j - 1]:
+                mapping[raw_seq[i - 1][0]] = fix_seq[j - 1][0]
+                matches += 1
+            i -= 1
+            j -= 1
+        elif H[i][j] == H[i - 1][j] + GAP:
+            i -= 1
+        else:
+            j -= 1
+    identity = matches / max(n, m)
+    return mapping, identity
+
+
+def _match_chains(
+    raw_chains: dict[str, list[tuple[int, str]]],
+    fix_chains: dict[str, list[tuple[int, str]]],
+    min_identity: float = 0.7,
+) -> dict[str, tuple[str, dict[int, int]]]:
+    """Find the best fixed-chain partner for every raw chain, allowing
+    PDBFixer to have renamed the chain IDs (e.g. ``A,B → C,D`` or
+    ``H,L → A,B``).  Greedy assignment by NW identity, requires
+    ``identity >= min_identity`` (default 0.7).
+
+    Returns ``{raw_chain_id -> (fix_chain_id, raw_resseq->fix_resseq mapping)}``.
+    """
+    # Score every (raw, fix) pair once.
+    scores: list[tuple[float, str, str, dict[int, int]]] = []
+    for r_id, r_seq in raw_chains.items():
+        for f_id, f_seq in fix_chains.items():
+            mp, ident = _needleman_wunsch_residue_map(r_seq, f_seq)
+            if ident >= min_identity:
+                scores.append((ident, r_id, f_id, mp))
+    scores.sort(reverse=True)  # highest identity first
+
+    used_raw: set[str] = set()
+    used_fix: set[str] = set()
+    out: dict[str, tuple[str, dict[int, int]]] = {}
+    for ident, r_id, f_id, mp in scores:
+        if r_id in used_raw or f_id in used_fix:
+            continue
+        used_raw.add(r_id)
+        used_fix.add(f_id)
+        out[r_id] = (f_id, mp)
     return out
 
 
@@ -124,17 +245,19 @@ def _build_pka_lookup_aligned(
     raw_pdb_dir: "Path",
     log,
 ) -> dict[tuple[str, str, int, str], float]:
-    """Build ``{(pdb, chain, fixed_resseq, resname) -> pka}`` by aligning the
-    raw and fixed PDBs ordinally on their ionizable-residue subsequences.
+    """Build ``{(pdb, fixed_chain, fixed_resseq, resname) -> pka}`` by aligning
+    raw↔fixed PDBs with Needleman-Wunsch on their full CA-residue sequences.
 
-    PDBFixer with ``keepIds=False`` (the previous default) renumbers each chain
-    starting from 1, breaking direct manifest lookups.  Since PDBFixer
-    preserves residue order and does not rename the six titratable side chains,
-    the i-th ionizable residue in the raw chain corresponds 1:1 to the i-th
-    ionizable residue in the fixed chain.  We use that ordinal mapping to
-    translate manifest ``res_id`` (raw numbering) into the fixed PDB's
-    numbering.  When the per-chain ionizable counts or resname order disagree,
-    the chain is skipped (better to drop than mislabel).
+    PDBFixer (with ``keepIds=False``) may renumber and even rename chains, and
+    can insert missing residues between existing ones.  Direct ordinal
+    indexing breaks under any of those.  Instead we run NW per (raw_chain,
+    fixed_chain) pair, pick the best partner per raw chain (greedy on
+    identity, ≥0.7), and translate manifest ``res_id`` via the alignment.
+
+    Manifest entries whose chain or residue can't be mapped are kept as a
+    direct (raw_chain, raw_resseq) lookup; this gives the best possible
+    chance of recovering the residue if the fixed PDB happens to share the
+    same numbering (the common case when no missing residues were inserted).
     """
     fixed_pdb_dir = Path(fixed_pdb_dir)
     raw_pdb_dir   = Path(raw_pdb_dir)
@@ -147,10 +270,12 @@ def _build_pka_lookup_aligned(
     man = man[man["res_name"].isin(TARGET_RESIDUES)]
 
     pka_lookup: dict[tuple[str, str, int, str], float] = {}
-    n_kept = 0
-    n_translated = 0
-    n_unresolved = 0
-    n_chains_skipped = 0
+    n_direct = 0           # mapped to identical (chain, resseq)
+    n_translated = 0       # chain/resseq changed via alignment
+    n_fallback = 0         # no alignment available; manifest key used as-is
+    n_unresolved = 0       # alignment present but residue not in mapping
+    pdb_chain_renames = []
+    pdb_chain_skipped = []
 
     for pdb_id, gm in man.groupby("pdb_id"):
         # Locate raw and fixed PDB files for this protein.
@@ -179,53 +304,65 @@ def _build_pka_lookup_aligned(
             for _, row in gm.iterrows():
                 key = (pdb_id, row.chain, int(row.res_id), row.res_name)
                 pka_lookup[key] = float(row.pka)
-                n_kept += 1
+                n_fallback += 1
             continue
 
-        raw_chains   = _read_chain_ionizable_sequence(raw_path)
-        fixed_chains = _read_chain_ionizable_sequence(fixed_path)
+        raw_chains = _read_chain_full_sequence(raw_path)
+        fix_chains = _read_chain_full_sequence(fixed_path)
+        chain_map  = _match_chains(raw_chains, fix_chains)
 
-        # Translate per chain.
-        translated_any = False
         for chain, gm_chain in gm.groupby("chain"):
-            raw_list = raw_chains.get(chain, [])
-            fix_list = fixed_chains.get(chain, [])
-            same_count   = len(raw_list) == len(fix_list)
-            same_seq     = same_count and [n for _, n in raw_list] == [n for _, n in fix_list]
-            if not same_seq:
-                log.warning(
-                    f"  {pdb_id}/{chain}: ionizable-residue alignment failed "
-                    f"(raw={len(raw_list)}, fixed={len(fix_list)}); skipping {len(gm_chain)} manifest entries"
-                )
-                n_chains_skipped += 1
-                continue
-
-            raw_to_fixed = {(rseq, rname): fseq
-                            for (rseq, rname), (fseq, _) in zip(raw_list, fix_list)}
-            shifted = any(rseq != fseq for (rseq, _), (fseq, _) in zip(raw_list, fix_list))
-            if shifted:
-                log.info(f"  {pdb_id}/{chain}: renumbered (aligned {len(raw_list)} ionizable residues)")
+            partner = chain_map.get(chain)
+            if partner is None:
+                # Last-ditch fallback: same chain id present in fixed?
+                if chain in fix_chains:
+                    fix_chain = chain
+                    raw_to_fix = {s: s for s, _ in raw_chains.get(chain, [])}
+                else:
+                    pdb_chain_skipped.append(f"{pdb_id}/{chain}")
+                    for _, row in gm_chain.iterrows():
+                        # Keep direct manifest key in case downstream lookup
+                        # happens to match (it usually won't, but no worse
+                        # than dropping).
+                        key = (pdb_id, row.chain, int(row.res_id), row.res_name)
+                        pka_lookup[key] = float(row.pka)
+                        n_fallback += 1
+                    continue
+            else:
+                fix_chain, raw_to_fix = partner
+                if fix_chain != chain:
+                    pdb_chain_renames.append(f"{pdb_id}: {chain}→{fix_chain}")
 
             for _, row in gm_chain.iterrows():
-                fseq = raw_to_fixed.get((int(row.res_id), row.res_name))
+                rseq = int(row.res_id)
+                fseq = raw_to_fix.get(rseq)
                 if fseq is None:
+                    # Residue not in alignment (e.g. raw has it but it was
+                    # dropped by PDBFixer).  Still record the manifest key
+                    # under the new chain id so the original numbering may
+                    # match if no renumbering happened.
+                    key = (pdb_id, fix_chain, rseq, row.res_name)
+                    pka_lookup[key] = float(row.pka)
                     n_unresolved += 1
                     continue
-                key = (pdb_id, row.chain, int(fseq), row.res_name)
+                key = (pdb_id, fix_chain, int(fseq), row.res_name)
                 pka_lookup[key] = float(row.pka)
-                if int(fseq) != int(row.res_id):
-                    n_translated += 1
+                if fix_chain == chain and int(fseq) == rseq:
+                    n_direct += 1
                 else:
-                    n_kept += 1
-                translated_any = True
+                    n_translated += 1
 
-        if not translated_any:
-            log.warning(f"  {pdb_id}: no manifest entries translated")
-
+    if pdb_chain_renames:
+        log.info(f"Chain renames detected: {', '.join(sorted(set(pdb_chain_renames))[:20])}"
+                 + (" ..." if len(set(pdb_chain_renames)) > 20 else ""))
+    if pdb_chain_skipped:
+        log.warning(f"Chains with no alignment partner (kept manifest keys as-is): "
+                    f"{', '.join(sorted(set(pdb_chain_skipped))[:20])}"
+                    + (" ..." if len(set(pdb_chain_skipped)) > 20 else ""))
     log.info(
         f"pka_lookup built: {len(pka_lookup)} entries "
-        f"({n_kept} unchanged, {n_translated} renumbered, "
-        f"{n_unresolved} unresolved, {n_chains_skipped} chain(s) skipped)."
+        f"(direct={n_direct}, renumbered={n_translated}, "
+        f"alignment-fallback={n_fallback}, unresolved-in-alignment={n_unresolved})."
     )
     return pka_lookup
 
