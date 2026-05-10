@@ -314,7 +314,10 @@ def fix_one(pdb_id, raw_path, fixed_path):
         fixer.topology.setPeriodicBoxVectors(None)
 
         with open(fixed_path, "w") as f:
-            PDBFile.writeFile(fixer.topology, fixer.positions, f)
+            # keepIds=True preserves the original residue numbering from the raw PDB.
+            # Default (False) renumbers each chain sequentially from 1, which
+            # invalidates manifest-based pKa lookups in 05_prepare_features.py.
+            PDBFile.writeFile(fixer.topology, fixer.positions, f, keepIds=True)
 
         log["status"] = "ok"
 

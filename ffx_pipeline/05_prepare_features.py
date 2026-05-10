@@ -77,8 +77,9 @@ except ImportError:
     )
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-PDB_DIR  = "data/fixed_pdbs"
-MANIFEST = "data/manifest.csv"
+PDB_DIR     = "data/fixed_pdbs"
+RAW_PDB_DIR = "data/raw_pdbs"
+MANIFEST    = "data/manifest.csv"
 # Mode-aware feature directory; final value set in main() once --mode is parsed.
 FEAT_DIR_DEFAULT = "Graph_pKa/Features"   # legacy fallback
 
@@ -88,41 +89,55 @@ TARGET_RESIDUES = {"ASP", "GLU", "HIS", "LYS", "CYS", "TYR"}
 # Default pH list for titration mode (mirrors 03_run_ffx_minimize.py / TITRATION_PHS)
 DEFAULT_PHS = [3.94, 4.4, 6.45, 8.55]
 
-# Maximum |offset| (in residues) considered when realigning manifest keys to
-# possibly-renumbered PDBs.  PDBFixer typically introduces shifts of -1 or -2
-# when N-terminal residues are added/removed; ±20 is a generous cap.
-_MAX_RENUMBER_OFFSET = 20
 
-
-def _augment_pka_lookup_with_offsets(
-    full_df: "pd.DataFrame",
-    manifest: "pd.DataFrame",
-    pka_lookup: dict,
-    log,
-) -> dict:
-    """Return a copy of ``pka_lookup`` with extra keys that account for
-    per-(pdb, chain) residue-numbering offsets between the manifest and the
-    parsed PDBs.  For each (pdb, chain) we choose the integer offset δ in
-    ``[-_MAX_RENUMBER_OFFSET, _MAX_RENUMBER_OFFSET]`` that maximises the
-    number of (manifest_res_id + δ, res_name) pairs found among the parsed
-    ionizable residues; δ=0 wins ties so correctly-numbered chains are
-    untouched.
+def _read_chain_ionizable_sequence(pdb_path: "Path") -> dict[str, list[tuple[int, str]]]:
+    """Return ``{chain -> [(resseq, resname_upper), ...]}`` listing every
+    ionizable (TARGET_RESIDUES) residue in the order they appear in the file.
+    Lightweight reader (cols 17-26 of ATOM lines); does not require parsing
+    the full PDB into a DataFrame.
     """
-    aug = dict(pka_lookup)
+    out: dict[str, list[tuple[int, str]]] = {}
+    seen: set[tuple[str, int]] = set()
+    with open(pdb_path) as f:
+        for line in f:
+            if not line.startswith("ATOM"):
+                continue
+            try:
+                resname = line[17:20].strip().upper()
+                chain   = line[21].strip() or " "
+                resseq  = int(line[22:26])
+            except (ValueError, IndexError):
+                continue
+            if resname not in TARGET_RESIDUES:
+                continue
+            key = (chain, resseq)
+            if key in seen:
+                continue
+            seen.add(key)
+            out.setdefault(chain, []).append((resseq, resname))
+    return out
 
-    pdb_residues = (
-        full_df[full_df["resname"].isin(TARGET_RESIDUES)]
-        .loc[:, ["pdb_id", "chain", "resseq", "resname"]]
-        .drop_duplicates()
-    )
-    if pdb_residues.empty:
-        return aug
-    pdb_residues = pdb_residues.assign(
-        pdb_id=pdb_residues["pdb_id"].astype(str).str.upper(),
-        chain=pdb_residues["chain"].astype(str),
-        resseq=pdb_residues["resseq"].astype(int),
-        resname=pdb_residues["resname"].astype(str).str.upper(),
-    )
+
+def _build_pka_lookup_aligned(
+    manifest: "pd.DataFrame",
+    fixed_pdb_dir: "Path",
+    raw_pdb_dir: "Path",
+    log,
+) -> dict[tuple[str, str, int, str], float]:
+    """Build ``{(pdb, chain, fixed_resseq, resname) -> pka}`` by aligning the
+    raw and fixed PDBs ordinally on their ionizable-residue subsequences.
+
+    PDBFixer with ``keepIds=False`` (the previous default) renumbers each chain
+    starting from 1, breaking direct manifest lookups.  Since PDBFixer
+    preserves residue order and does not rename the six titratable side chains,
+    the i-th ionizable residue in the raw chain corresponds 1:1 to the i-th
+    ionizable residue in the fixed chain.  We use that ordinal mapping to
+    translate manifest ``res_id`` (raw numbering) into the fixed PDB's
+    numbering.  When the per-chain ionizable counts or resname order disagree,
+    the chain is skipped (better to drop than mislabel).
+    """
+    fixed_pdb_dir = Path(fixed_pdb_dir)
+    raw_pdb_dir   = Path(raw_pdb_dir)
 
     man = manifest.copy()
     man["pdb_id"]   = man["pdb_id"].astype(str).str.upper()
@@ -131,45 +146,88 @@ def _augment_pka_lookup_with_offsets(
     man["res_name"] = man["res_name"].astype(str).str.upper()
     man = man[man["res_name"].isin(TARGET_RESIDUES)]
 
-    n_recovered = 0
-    n_chains_shifted = 0
-    for (pdb_id, chain), g_man in man.groupby(["pdb_id", "chain"]):
-        g_pdb = pdb_residues[
-            (pdb_residues["pdb_id"] == pdb_id)
-            & (pdb_residues["chain"] == chain)
-        ]
-        if g_pdb.empty:
+    pka_lookup: dict[tuple[str, str, int, str], float] = {}
+    n_kept = 0
+    n_translated = 0
+    n_unresolved = 0
+    n_chains_skipped = 0
+
+    for pdb_id, gm in man.groupby("pdb_id"):
+        # Locate raw and fixed PDB files for this protein.
+        raw_path = None
+        for cand in (raw_pdb_dir / f"{pdb_id}.pdb",
+                     raw_pdb_dir / f"{pdb_id.lower()}.pdb",
+                     raw_pdb_dir / f"{pdb_id.upper()}.pdb"):
+            if cand.exists():
+                raw_path = cand
+                break
+
+        fix_dir = fixed_pdb_dir / pdb_id
+        fixed_path = None
+        if fix_dir.is_dir():
+            cands  = [fix_dir / f"{pdb_id}_rot.pdb"]
+            cands += sorted(fix_dir.glob(f"{pdb_id}_pH*.pdb_3"))
+            cands += sorted(fix_dir.glob(f"{pdb_id}_pH*.pdb_2"))
+            cands += sorted(fix_dir.glob(f"{pdb_id}_input.pdb"))
+            for cand in cands:
+                if cand.exists():
+                    fixed_path = cand
+                    break
+
+        if raw_path is None or fixed_path is None:
+            # No alignment possible — fall back to direct manifest numbering.
+            for _, row in gm.iterrows():
+                key = (pdb_id, row.chain, int(row.res_id), row.res_name)
+                pka_lookup[key] = float(row.pka)
+                n_kept += 1
             continue
-        pdb_set = set(zip(g_pdb["resseq"].tolist(),
-                          g_pdb["resname"].tolist()))
-        man_pairs = list(zip(g_man["res_id"].tolist(),
-                             g_man["res_name"].tolist()))
 
-        best_delta, best_hits = 0, -1
-        for delta in range(-_MAX_RENUMBER_OFFSET, _MAX_RENUMBER_OFFSET + 1):
-            hits = sum(((rid + delta), rn) in pdb_set
-                       for rid, rn in man_pairs)
-            if hits > best_hits or (hits == best_hits and delta == 0):
-                best_hits = hits
-                best_delta = delta
+        raw_chains   = _read_chain_ionizable_sequence(raw_path)
+        fixed_chains = _read_chain_ionizable_sequence(fixed_path)
 
-        if best_delta == 0 or best_hits == 0:
-            continue
+        # Translate per chain.
+        translated_any = False
+        for chain, gm_chain in gm.groupby("chain"):
+            raw_list = raw_chains.get(chain, [])
+            fix_list = fixed_chains.get(chain, [])
+            same_count   = len(raw_list) == len(fix_list)
+            same_seq     = same_count and [n for _, n in raw_list] == [n for _, n in fix_list]
+            if not same_seq:
+                log.warning(
+                    f"  {pdb_id}/{chain}: ionizable-residue alignment failed "
+                    f"(raw={len(raw_list)}, fixed={len(fix_list)}); skipping {len(gm_chain)} manifest entries"
+                )
+                n_chains_skipped += 1
+                continue
 
-        for rid, rn in man_pairs:
-            if ((rid + best_delta), rn) in pdb_set:
-                key_old = (pdb_id, chain, int(rid), rn)
-                key_new = (pdb_id, chain, int(rid + best_delta), rn)
-                if key_old in aug and key_new not in aug:
-                    aug[key_new] = aug[key_old]
-                    n_recovered += 1
-        n_chains_shifted += 1
-        log.info(f"  Renumbering offset detected for {pdb_id}/{chain}: "
-                 f"{best_delta:+d} (aligned {best_hits}/{len(man_pairs)} residues)")
+            raw_to_fixed = {(rseq, rname): fseq
+                            for (rseq, rname), (fseq, _) in zip(raw_list, fix_list)}
+            shifted = any(rseq != fseq for (rseq, _), (fseq, _) in zip(raw_list, fix_list))
+            if shifted:
+                log.info(f"  {pdb_id}/{chain}: renumbered (aligned {len(raw_list)} ionizable residues)")
 
-    log.info(f"Renumbering recovery: {n_recovered} pKa entries added across "
-             f"{n_chains_shifted} chain(s).")
-    return aug
+            for _, row in gm_chain.iterrows():
+                fseq = raw_to_fixed.get((int(row.res_id), row.res_name))
+                if fseq is None:
+                    n_unresolved += 1
+                    continue
+                key = (pdb_id, row.chain, int(fseq), row.res_name)
+                pka_lookup[key] = float(row.pka)
+                if int(fseq) != int(row.res_id):
+                    n_translated += 1
+                else:
+                    n_kept += 1
+                translated_any = True
+
+        if not translated_any:
+            log.warning(f"  {pdb_id}: no manifest entries translated")
+
+    log.info(
+        f"pka_lookup built: {len(pka_lookup)} entries "
+        f"({n_kept} unchanged, {n_translated} renumbered, "
+        f"{n_unresolved} unresolved, {n_chains_skipped} chain(s) skipped)."
+    )
+    return pka_lookup
 
 # Atoms whose presence signals the protonated form of a titratable sidechain.
 # Used to compute the per-residue `is_protonated` scalar feature.  Atom names follow
@@ -779,6 +837,10 @@ def main() -> None:
                         help="pH values to look for in titrate mode (ignored in rotopt)")
     parser.add_argument("--pdb-dir", default=PDB_DIR,
                         help=f"Per-protein FFX output directory (default: {PDB_DIR})")
+    parser.add_argument("--raw-pdb-dir", default=RAW_PDB_DIR,
+                        help=f"Raw PDB directory used to align manifest residue "
+                             f"numbering to the (possibly renumbered) fixed PDBs "
+                             f"(default: {RAW_PDB_DIR})")
     parser.add_argument("--manifest", default=MANIFEST,
                         help=f"PKAD-R manifest CSV (default: {MANIFEST})")
     parser.add_argument("--feat-dir", default=None,
@@ -914,17 +976,6 @@ def main() -> None:
 
     full_df = pd.concat(all_frames, ignore_index=True)
     log.info(f"Total atoms across all proteins: {len(full_df)}")
-
-    # ── Per-(pdb, chain) numbering-offset recovery ───────────────────────────
-    # PDBFixer / OpenMM may renumber residues during 02_fix_structures.py
-    # (typically by a constant offset per chain), causing manifest keys built
-    # from raw-PDB numbering to miss every residue.  Detect the offset that
-    # aligns the most ionizable residues between manifest and parsed PDB on a
-    # per-(pdb, chain) basis, then add the shifted keys to pka_lookup.  δ=0
-    # wins ties so well-numbered chains are unaffected.
-    pka_lookup = _augment_pka_lookup_with_offsets(
-        full_df, manifest, pka_lookup, log
-    )
 
     # ── Global MinMax normalisation of neighbour counts ──────────────────────
     radius_feat_cols = [
