@@ -1,0 +1,59 @@
+#!/bin/bash
+#$ -V
+#$ -cwd
+#$ -N grid_search_ffx_titrate_film_r10_coarse
+#$ -j y
+#$ -q UI,MS
+#$ -pe smp 128
+#$ -o $JOB_NAME.$JOB_ID.log
+#$ -l h_rt=24:00:00
+#$ -S /bin/bash
+
+# Coarse FiLM-conditioned titrate grid search restricted to radius 10 Å
+# (the rotopt winner from Sweep2 / Grid_Search_FFX_rotopt_r10).
+#
+# Requires that 08b_grid_search_film.py has been edited to use the reduced
+# grid (96 combos, K_FOLDS=5) — see job comment for the exact values, or run
+# the full grid via grid_search_ffx_titrate_film_r9.job with --pe smp 128 and
+# h_rt=36:00:00 if you prefer to search the full space.
+
+conda activate /Dedicated/schnieders/programs/anaconda3/envs/mda_env
+
+echo "Job started  : $(date)"
+echo "Host         : $(hostname)"
+echo "Working dir  : $PWD"
+echo "CPU slots    : $NSLOTS"
+
+PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
+PYTHON=python
+
+cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
+
+FEAT_DIR=Graph_pKa/Features_titrate
+DATASET_DIR=$FEAT_DIR/Datasets
+RESULTS_DIR=Graph_pKa/Results/Grid_Search_FFX_titrate_film_r10_coarse
+PDB_DIR=ffx_pipeline/data/fixed_pdbs
+MANIFEST=data/manifest.csv
+
+# Build features/datasets only if the radius-10 pkl is missing
+if [ ! -f "$DATASET_DIR/data_list_3.pkl" ]; then
+    echo ""
+    echo "=== 05_prepare_features.py --mode titrate ==="
+    $PYTHON ffx_pipeline/05_prepare_features.py --mode titrate \
+        --pdb-dir "$PDB_DIR" --manifest "$MANIFEST" --feat-dir "$FEAT_DIR"
+
+    echo ""
+    echo "=== 06_create_datasets.py --mode titrate ==="
+    $PYTHON ffx_pipeline/06_create_datasets.py --mode titrate \
+        --feat-dir "$FEAT_DIR" --out-dir "$DATASET_DIR"
+fi
+
+echo ""
+echo "=== 08b_grid_search_film.py  (titrate FiLM, radius 10 Å, COARSE grid) ==="
+$PYTHON ffx_pipeline/08b_grid_search_film.py \
+    --dataset 3 \
+    --dataset-dir "$DATASET_DIR" \
+    --results-dir "$RESULTS_DIR"
+
+echo ""
+echo "Job finished : $(date)"
