@@ -9,6 +9,8 @@
 #$ -l h_rt=168:00:00
 #$ -S /bin/bash
 
+conda activate /Dedicated/schnieders/programs/anaconda3/envs/mda_env
+
 # FiLM-conditioned titrate grid search restricted to the radius that won the
 # rotopt grid search (dataset_idx=2 → 9 Å).  720 HP combos × 1 radius fits in
 # the 168 h slot easily.
@@ -19,7 +21,7 @@ echo "Working dir  : $PWD"
 echo "CPU slots    : $NSLOTS"
 
 PROJECT=/Dedicated/schnieders/maemmad/pKa_GNN
-PYTHON=/Dedicated/schnieders/maemmad/miniconda3/envs/pka_gnn/bin/python
+PYTHON=python
 
 cd "$PROJECT" || { echo "ERROR: cannot cd to $PROJECT"; exit 1; }
 
