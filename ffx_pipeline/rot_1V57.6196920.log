@@ -1,0 +1,644 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Rotamer job started: Wed Jun 17 17:16:13 CDT 2026 ===
+PDB: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1V57/1V57_input.pdb
+  Minimize output already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1V57/1V57_input.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6991  April 2026 
+        Git Revision  937dfd3f3a84d0dc91f73b0419518078a8c41842 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2026
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Wed Jun 17 17:16:44 CDT 2026
+ Process ID 57662 on argon-itf-bx54-13.hpc.
+
+ Command line arguments:
+ [ManyBody, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1V57/1V57_input.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1V57/1V57_input.pdb_2]
+
+ Parallel Java:
+ Comm(size=1,rank=0,backend[0]=0.0.0.0/0.0.0.0:0)
+ Scheduler localhost on port 20617.
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1V57/1V57_input.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 1V57_input.pdb_2
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =  122.8 A).
+
+ Bonded Terms
+  Bonds:                                   7702
+  Angles:                                 13996
+  Stretch-Bends:                          12340
+  Out-of-Plane Bends:                      4548
+  Torsions:                               20544
+  Pi-Orbital Torsions:                      910
+  Torsion-Torsions:                          36
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    1.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 20.000
+
+ Opened 1V57_input.pdb_2 in 2.299 sec.
+
+ System Resources
+  Total CPU time:          22.81 (sec)
+  System load average:     16.55
+  Open file handles:         146 of  81920 allowed
+  System memory:           43405 MB free out of  44520 MB
+  System swap space:        1439 MB free out of   2053 MB
+  JVM memory:               3850 MB free out of   4096 MB
+ Temperature: 298.150000
+
+ Energy restart file: 1V57_input.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood -10688.33139713      1.629
+ Cavitation             4813.27650100      1.267
+ Dispersion            -2967.66789778      1.847
+
+ Computed Potential Energy
+  Bond Stretching           1194.01672221         7702        0.005 ( 0.02349)
+  Angle Bending             2259.83694798        13996        0.013 ( 3.30400)
+  Stretch-Bend                69.07195091        12340        0.009
+  Out-of-Plane Bend           93.46524084         4548        0.002
+  Torsional Angle            374.53740103        20544        0.015
+  Pi-Orbital Torsion         141.51634059          910        0.000
+  Torsion-Torsion           -166.80812998           36        0.001
+  Van der Waals             1131.22500028     28884908        0.344
+  Atomic Multipoles       -11108.43857795     28884908
+  Polarization             -2435.06419080     28884908       21.336
+  Solvation                -8842.72279391     28914210
+  Total Potential         -17289.36408880  (Kcal/mole)       21.726 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A    1-GLU  166.813   70.456   99.701    0.000
+ A    2-GLU -175.111   40.040 -174.893    0.000
+ A    3-LEU -171.662   68.229    0.000    0.000
+ A    7-VAL -172.005    0.000    0.000    0.000
+ A    8-LYS -170.966  171.340 -179.240   56.093
+ A   10-ILE  -60.124  173.624    0.000    0.000
+ A   11-GLU  -66.789 -161.141  -69.033    0.000
+ A   12-LYS  -59.625  175.748  178.311 -179.813
+ A   13-GLN  -53.958  -67.957   50.747    0.000
+ A   15-ILE  -68.113  170.859    0.000    0.000
+ A   16-THR  -62.300  148.749    0.000    0.000
+ A   17-ILE  -67.469  179.258    0.000    0.000
+ A   18-ILE  -64.563  173.155    0.000    0.000
+ A   19-LYS   70.132 -175.436 -171.132  178.515
+ A   20-THR   62.468  161.064    0.000    0.000
+ A   21-PHE   68.376    0.000    0.000    0.000
+ A   22-ASP  -57.929    0.000    0.000    0.000
+ A   27-MET  -60.632 -175.173   92.679    0.000
+ A   28-LYS  -66.025 -172.516   75.159  -80.743
+ A   30-TYR  -58.750   80.911  -15.602    0.000
+ A   31-LEU -178.346   67.919    0.000    0.000
+ A   33-LYS  -65.746  177.699   65.511 -178.098
+ A   34-TYR  173.332   77.124   -7.574    0.000
+ A   35-GLN  -54.773 -173.673  -32.087    0.000
+ A   36-ASP  -49.748    0.000    0.000    0.000
+ A   37-MET  170.914  167.426   81.924    0.000
+ A   39-VAL  -56.322    0.000    0.000    0.000
+ A   40-THR   55.043  151.105    0.000    0.000
+ A   41-ILE  -57.303  162.925    0.000    0.000
+ A   42-TYR  -59.092   93.887   -8.896    0.000
+ A   43-LEU -174.157   70.220    0.000    0.000
+ A   44-THR   59.184  120.168    0.000    0.000
+ A   46-ASP   61.623    0.000    0.000    0.000
+ A   48-LYS  -51.002 -172.615 -175.776  -56.426
+ A   49-HIS  -56.541   74.067    0.000    0.000
+ A   51-ILE  -53.273  168.730    0.000    0.000
+ A   52-SER -174.376 -169.207    0.000    0.000
+ A   54-TYR  -55.484   84.093   -1.137    0.000
+ A   55-MET  179.850  175.073  -78.325    0.000
+ A   56-TYR  -68.889   77.241  -10.273    0.000
+ A   57-ASN   72.543   -5.640    0.000    0.000
+ A   58-GLU  -69.750  179.236  171.887    0.000
+ A   59-LYS  -64.308 -174.495  177.298 -178.310
+ A   61-GLU -179.617 -178.612  172.602    0.000
+ A   62-ASN -171.715  -19.997    0.000    0.000
+ A   63-LEU  -60.919 -177.795    0.000    0.000
+ A   64-SER  -62.946 -160.825    0.000    0.000
+ A   65-ASN  177.414 -136.354    0.000    0.000
+ A   66-THR  -59.998  170.495    0.000    0.000
+ A   67-LEU  178.594   63.373    0.000    0.000
+ A   68-ILE  -69.227  165.869    0.000    0.000
+ A   69-GLU  -61.362 -179.521  -23.898    0.000
+ A   70-LYS  179.753  177.827  175.421  -67.892
+ A   71-GLU  -64.233  -62.572  -64.258    0.000
+ A   72-ILE  -57.211  179.637    0.000    0.000
+ A   73-TYR  -54.165  145.925  -32.749    0.000
+ A   78-ARG  170.422 -178.477  168.977 -172.189
+ A   79-GLU -178.747  -75.182  -12.974    0.000
+ A   80-MET  -57.370  -69.701 -110.124    0.000
+ A   81-TRP -177.911 -104.228    0.000    0.000
+ A   82-GLN  -67.095  163.734   27.921    0.000
+ A   83-ARG  -69.275 -178.676   57.130 -158.074
+ A   84-MET  -67.177 -173.349  -73.188    0.000
+ A   85-GLU -173.869  -67.817  -36.028    0.000
+ A   86-GLN  -58.343  172.391  -38.039    0.000
+ A   87-SER  -64.652  173.908    0.000    0.000
+ A   88-HIS -170.980   72.353    0.000    0.000
+ A   89-TRP   42.906  -90.152    0.000    0.000
+ A   90-LEU  -54.804 -176.021    0.000    0.000
+ A   91-LEU -178.354   59.615    0.000    0.000
+ A   92-ASP  179.459    0.000    0.000    0.000
+ A   94-LYS  -62.334 -125.531  -62.291  171.396
+ A   95-LYS  -61.394 -179.584  178.412  -59.797
+ A   96-ASP   63.828    0.000    0.000    0.000
+ A   99-VAL -178.762    0.000    0.000    0.000
+ A  100-ILE  -61.470  170.715    0.000    0.000
+ A  101-VAL  176.348    0.000    0.000    0.000
+ A  102-TYR  -67.278   94.461  -24.782    0.000
+ A  103-VAL   58.544    0.000    0.000    0.000
+ A  104-PHE  -65.134    0.000    0.000    0.000
+ A  106-ASP -172.343    0.000    0.000    0.000
+ A  108-PHE  -61.894    0.000    0.000    0.000
+ A  109-CYS -176.945    0.000    0.000    0.000
+ A  111-TYR  -62.349  164.691    1.972    0.000
+ A  112-CYS  -74.371    0.000    0.000    0.000
+ A  113-LYS  -57.819  165.617  175.983   69.076
+ A  114-GLN  -60.049 -178.601 -149.638    0.000
+ A  115-PHE  174.405    0.000    0.000    0.000
+ A  116-TRP -173.255   87.809    0.000    0.000
+ A  117-GLN -169.343   67.064   58.176    0.000
+ A  118-GLN  -67.926 -174.530  -46.944    0.000
+ A  120-ARG  -66.496  -52.674   88.192 -166.558
+ A  122-TRP  -67.294  -86.122    0.000    0.000
+ A  123-VAL  177.657    0.000    0.000    0.000
+ A  124-ASP  -57.442    0.000    0.000    0.000
+ A  125-SER   67.751  173.247    0.000    0.000
+ A  127-LYS  -63.347  179.356 -177.832  179.019
+ A  128-VAL  175.008    0.000    0.000    0.000
+ A  129-GLN   56.196 -179.946  -69.713    0.000
+ A  130-LEU  -59.270 -176.994    0.000    0.000
+ A  131-ARG  -63.048 -173.029  175.599 -174.277
+ A  132-THR  -61.675  128.849    0.000    0.000
+ A  133-LEU  -63.163  170.671    0.000    0.000
+ A  134-LEU  -68.287  173.856    0.000    0.000
+ A  135-VAL  -60.373    0.000    0.000    0.000
+ A  137-VAL  -54.965    0.000    0.000    0.000
+ A  138-ILE  -58.539 -178.764    0.000    0.000
+ A  139-LYS  -59.552  -58.461 -179.613 -178.655
+ A  141-GLU -169.043   57.536   19.644    0.000
+ A  142-SER  -64.624 -111.861    0.000    0.000
+ A  145-THR  -60.903  169.893    0.000    0.000
+ A  149-ILE  -64.500  170.953    0.000    0.000
+ A  150-LEU  -67.065  174.129    0.000    0.000
+ A  152-SER   75.141 -100.506    0.000    0.000
+ A  153-LYS -141.537   71.270   60.357 -179.475
+ A  154-ASP -176.684    0.000    0.000    0.000
+ A  157-LYS -174.510 -179.533   66.691  179.623
+ A  158-THR  -65.623  162.675    0.000    0.000
+ A  159-TRP  176.786 -107.679    0.000    0.000
+ A  160-GLN  -69.933  166.161   35.738    0.000
+ A  161-GLN  -63.634  174.284  -54.532    0.000
+ A  162-TYR -172.067   85.550    4.303    0.000
+ A  163-GLU  -65.259  -62.645   80.665    0.000
+ A  165-SER   71.120 -166.086    0.000    0.000
+ A  168-LYS  -65.262  179.797  -73.637  -63.853
+ A  169-LEU  176.944   72.110    0.000    0.000
+ A  170-LYS  -62.763 -176.473  175.745  179.902
+ A  171-LEU  -61.202  170.799    0.000    0.000
+ A  172-ASN  -68.611  134.840    0.000    0.000
+ A  173-VAL -175.712    0.000    0.000    0.000
+ A  176-ASN   66.444  -82.971    0.000    0.000
+ A  177-VAL  179.910    0.000    0.000    0.000
+ A  178-SER   76.862  176.229    0.000    0.000
+ A  179-THR   57.232  143.624    0.000    0.000
+ A  180-GLU  175.856   54.342 -169.577    0.000
+ A  181-GLN  -68.822  148.721   23.647    0.000
+ A  182-MET -173.057   62.707   77.249    0.000
+ A  183-LYS  179.494  175.856  175.648  176.775
+ A  184-VAL  168.345    0.000    0.000    0.000
+ A  185-LEU  -62.713  170.971    0.000    0.000
+ A  186-SER  -63.245  176.795    0.000    0.000
+ A  187-ASP  -65.917    0.000    0.000    0.000
+ A  188-ASN  -65.746  -10.247    0.000    0.000
+ A  189-GLU  -73.959  150.528   20.876    0.000
+ A  190-LYS  176.424   64.334 -161.424  -46.187
+ A  191-LEU  177.698   55.679    0.000    0.000
+ A  192-MET -178.433  177.311   70.216    0.000
+ A  193-ASP -166.509    0.000    0.000    0.000
+ A  194-ASP  -63.961    0.000    0.000    0.000
+ A  195-LEU  -70.589  162.720    0.000    0.000
+ A  198-ASN  -59.553  151.791    0.000    0.000
+ A  199-VAL  171.055    0.000    0.000    0.000
+ A  200-THR   55.769  161.555    0.000    0.000
+ A  203-ILE  -53.039  162.527    0.000    0.000
+ A  204-TYR  -64.621   88.392  -30.573    0.000
+ A  205-TYR   63.275   99.272   -4.494    0.000
+ A  206-MET  -73.244  -69.346 -173.636    0.000
+ A  207-SER   80.241  160.973    0.000    0.000
+ A  208-LYS  -54.375  -64.411 -177.922  177.584
+ A  209-GLU  -57.883  -59.172  -43.693    0.000
+ A  210-ASN  -62.685  160.800    0.000    0.000
+ A  211-THR  -61.198  151.183    0.000    0.000
+ A  212-LEU -178.896   57.856    0.000    0.000
+ A  213-GLN  -54.481  -58.313    5.246    0.000
+ A  214-GLN  179.450 -166.000   72.297    0.000
+ A  216-VAL -171.380    0.000    0.000    0.000
+ A  218-LEU -174.551   59.787    0.000    0.000
+ A  220-ASP   61.033    0.000    0.000    0.000
+ A  221-GLN -163.874   56.060 -146.828    0.000
+ A  222-LYS  178.636  175.771 -179.631  179.047
+ A  223-THR  -57.840 -172.331    0.000    0.000
+ A  224-LEU  177.740   65.163    0.000    0.000
+ A  225-ASN  -76.485  -85.563    0.000    0.000
+ A  226-ILE  -66.501 -178.157    0.000    0.000
+ A  227-ILE  -63.274  167.362    0.000    0.000
+ A  228-MET  -52.100  -74.962  110.527    0.000
+ A  230-ASN -176.877   63.124    0.000    0.000
+ A  231-LYS  -76.896  -63.658 -174.259  -98.691
+ A  232-LEU  175.012   97.246    0.000    0.000
+ A  233-GLN   80.047 -168.253 -126.049    0.000
+ A  234-HIS  136.006  -13.204    0.000    0.000
+ A  235-HIS  -61.235  -37.077    0.000    0.000
+ A  236-HIS   84.830  157.546    0.000    0.000
+ A  237-HIS -152.798 -104.539    0.000    0.000
+ A  238-HIS -125.921  -19.569    0.000    0.000
+ A  239-HIS   91.668 -110.378    0.000    0.000
+ A  240-HIS  -82.360   50.329    0.000    0.000
+ A  241-HIS -144.994  127.496    0.000    0.000
+ B    1-GLU -110.481  159.328 -146.816    0.000
+ B    2-GLU   65.445 -174.098   65.690    0.000
+ B    3-LEU  -66.849  178.085    0.000    0.000
+ B    7-VAL -173.017    0.000    0.000    0.000
+ B    8-LYS  -60.834 -174.367   62.948   56.292
+ B   10-ILE  -59.270  172.355    0.000    0.000
+ B   11-GLU  -69.360 -162.972  -72.285    0.000
+ B   12-LYS  -63.377 -179.084  168.482   55.284
+ B   13-GLN  -61.113  -59.813  143.501    0.000
+ B   15-ILE  -62.804  178.375    0.000    0.000
+ B   16-THR  -57.820  148.415    0.000    0.000
+ B   17-ILE  -58.838  -56.231    0.000    0.000
+ B   18-ILE  -66.357  171.389    0.000    0.000
+ B   19-LYS   67.677  179.072 -174.830  174.450
+ B   20-THR   65.658  158.557    0.000    0.000
+ B   21-PHE   66.464    0.000    0.000    0.000
+ B   22-ASP  -67.723    0.000    0.000    0.000
+ B   27-MET  -60.802 -175.177   89.536    0.000
+ B   28-LYS -172.564  168.747 -171.123  178.139
+ B   30-TYR  -59.689   81.793   -7.492    0.000
+ B   31-LEU -177.578   70.890    0.000    0.000
+ B   33-LYS  -73.980 -173.693  174.986 -177.275
+ B   34-TYR  175.753   75.520   -3.949    0.000
+ B   35-GLN  -59.343 -170.436  -53.550    0.000
+ B   36-ASP -156.276    0.000    0.000    0.000
+ B   37-MET   91.884  145.043   59.206    0.000
+ B   39-VAL  -62.501    0.000    0.000    0.000
+ B   40-THR   54.238  150.512    0.000    0.000
+ B   41-ILE  -56.576  167.902    0.000    0.000
+ B   42-TYR  -60.289   94.165   -6.983    0.000
+ B   43-LEU -173.522   73.130    0.000    0.000
+ B   44-THR   63.219   98.473    0.000    0.000
+ B   46-ASP   57.175    0.000    0.000    0.000
+ B   48-LYS  -69.168 -167.076  174.065 -178.698
+ B   49-HIS  -55.537   76.235    0.000    0.000
+ B   51-ILE  -52.018  172.932    0.000    0.000
+ B   52-SER -173.098 -170.844    0.000    0.000
+ B   54-TYR  -54.677   83.886   -1.501    0.000
+ B   55-MET  178.088  176.263  -80.328    0.000
+ B   56-TYR  -69.561   75.193   -9.171    0.000
+ B   57-ASN   71.386    1.210    0.000    0.000
+ B   58-GLU  -63.085 -174.681  -46.204    0.000
+ B   59-LYS  -59.379 -176.265  178.227 -179.304
+ B   61-GLU -175.629 -175.007  -27.555    0.000
+ B   62-ASN -173.955  -19.941    0.000    0.000
+ B   63-LEU  -61.298 -174.540    0.000    0.000
+ B   64-SER  -62.706 -156.985    0.000    0.000
+ B   65-ASN  -74.470   22.520    0.000    0.000
+ B   66-THR  -60.739  168.661    0.000    0.000
+ B   67-LEU -175.972   73.701    0.000    0.000
+ B   68-ILE  -71.275  163.312    0.000    0.000
+ B   69-GLU  -64.046  158.313  173.657    0.000
+ B   70-LYS  179.299  176.328  172.938  176.608
+ B   71-GLU  -59.860  -58.201  -48.591    0.000
+ B   72-ILE  -57.226  177.310    0.000    0.000
+ B   73-TYR  -51.149  133.243  -18.067    0.000
+ B   78-ARG  -54.732 -161.522 -155.648   80.356
+ B   79-GLU  173.479   69.955   14.209    0.000
+ B   80-MET  -61.010  -52.121  -71.573    0.000
+ B   81-TRP -168.885 -111.037    0.000    0.000
+ B   82-GLN -171.928   62.308   32.427    0.000
+ B   83-ARG  -60.142  -57.259  172.293 -165.380
+ B   84-MET  -63.842 -174.133  -75.275    0.000
+ B   85-GLU -172.614  -68.388  -37.980    0.000
+ B   86-GLN  -63.174  175.046  174.043    0.000
+ B   87-SER  -67.132  162.071    0.000    0.000
+ B   88-HIS -172.155   93.582    0.000    0.000
+ B   89-TRP   45.990  -90.855    0.000    0.000
+ B   90-LEU  -57.210 -177.399    0.000    0.000
+ B   91-LEU -177.621   60.071    0.000    0.000
+ B   92-ASP  174.221    0.000    0.000    0.000
+ B   94-LYS  -68.183  -71.260 -173.658  173.634
+ B   95-LYS   68.199  179.364 -179.284 -179.555
+ B   96-ASP   62.978    0.000    0.000    0.000
+ B   99-VAL -179.210    0.000    0.000    0.000
+ B  100-ILE  -62.044  172.119    0.000    0.000
+ B  101-VAL  178.229    0.000    0.000    0.000
+ B  102-TYR  -71.003   92.660  -18.731    0.000
+ B  103-VAL  -56.708    0.000    0.000    0.000
+ B  104-PHE  -64.504    0.000    0.000    0.000
+ B  106-ASP -168.569    0.000    0.000    0.000
+ B  108-PHE  -57.105    0.000    0.000    0.000
+ B  109-CYS -178.105    0.000    0.000    0.000
+ B  111-TYR  -62.636  -22.979   -0.731    0.000
+ B  112-CYS  -78.760    0.000    0.000    0.000
+ B  113-LYS  -57.328  177.460  178.846   62.541
+ B  114-GLN  -65.619 -178.185   41.797    0.000
+ B  115-PHE  178.029    0.000    0.000    0.000
+ B  116-TRP  178.662   82.863    0.000    0.000
+ B  117-GLN -177.742   66.504   43.534    0.000
+ B  118-GLN  -68.035 -177.400  -51.710    0.000
+ B  120-ARG  -64.967  -49.298   88.265 -168.918
+ B  122-TRP  -67.117  -85.821    0.000    0.000
+ B  123-VAL  175.673    0.000    0.000    0.000
+ B  124-ASP  -53.285    0.000    0.000    0.000
+ B  125-SER   66.134 -169.629    0.000    0.000
+ B  127-LYS  -60.846  178.996 -175.493  179.671
+ B  128-VAL -178.067    0.000    0.000    0.000
+ B  129-GLN   56.608 -177.656  -69.596    0.000
+ B  130-LEU  -55.412 -175.039    0.000    0.000
+ B  131-ARG  -61.558 -171.411  173.677 -175.959
+ B  132-THR  -60.910  137.804    0.000    0.000
+ B  133-LEU  -63.753  168.010    0.000    0.000
+ B  134-LEU  -70.329  179.355    0.000    0.000
+ B  135-VAL  -61.419    0.000    0.000    0.000
+ B  137-VAL  -54.782    0.000    0.000    0.000
+ B  138-ILE  -55.713  -58.819    0.000    0.000
+ B  139-LYS  -61.364  -59.715 -175.318  177.632
+ B  141-GLU -179.781   53.937 -163.061    0.000
+ B  142-SER  -56.195 -111.673    0.000    0.000
+ B  145-THR  -60.891  175.813    0.000    0.000
+ B  149-ILE  -61.969  163.499    0.000    0.000
+ B  150-LEU  -62.037  170.822    0.000    0.000
+ B  152-SER   75.173 -110.884    0.000    0.000
+ B  153-LYS  -62.271  178.203  178.525  -60.438
+ B  154-ASP -173.488    0.000    0.000    0.000
+ B  157-LYS -171.718 -175.822 -171.223   66.553
+ B  158-THR  -62.679  172.622    0.000    0.000
+ B  159-TRP -179.461 -109.489    0.000    0.000
+ B  160-GLN  -69.115  -55.185  -62.974    0.000
+ B  161-GLN  -60.929  170.772  -37.590    0.000
+ B  162-TYR -169.204   85.044    1.761    0.000
+ B  163-GLU  -64.918  -63.101  -94.817    0.000
+ B  165-SER   73.038 -135.517    0.000    0.000
+ B  168-LYS  -58.626  177.417 -177.275 -177.697
+ B  169-LEU  179.400   73.752    0.000    0.000
+ B  170-LYS  -60.889 -179.749 -179.100  179.558
+ B  171-LEU  -60.938  174.211    0.000    0.000
+ B  172-ASN -146.108 -114.501    0.000    0.000
+ B  173-VAL -177.785    0.000    0.000    0.000
+ B  176-ASN   66.838  -82.470    0.000    0.000
+ B  177-VAL -175.984    0.000    0.000    0.000
+ B  178-SER   73.482  177.943    0.000    0.000
+ B  179-THR  -59.754  150.083    0.000    0.000
+ B  180-GLU  -51.265   84.299  -74.752    0.000
+ B  181-GLN  -67.423  148.880   22.112    0.000
+ B  182-MET  -61.429 -172.295  142.412    0.000
+ B  183-LYS  179.241  176.863  169.520   48.613
+ B  184-VAL  169.604    0.000    0.000    0.000
+ B  185-LEU  -60.382  173.390    0.000    0.000
+ B  186-SER -176.644 -171.340    0.000    0.000
+ B  187-ASP  -64.691    0.000    0.000    0.000
+ B  188-ASN  -63.388  -11.579    0.000    0.000
+ B  189-GLU  -70.298  163.068   21.968    0.000
+ B  190-LYS -176.507  167.132 -179.067   54.841
+ B  191-LEU  -67.432 -177.387    0.000    0.000
+ B  192-MET -174.540 -177.853 -178.800    0.000
+ B  193-ASP  -60.425    0.000    0.000    0.000
+ B  194-ASP  -63.595    0.000    0.000    0.000
+ B  195-LEU  -61.369  168.406    0.000    0.000
+ B  198-ASN -174.681 -159.116    0.000    0.000
+ B  199-VAL  176.971    0.000    0.000    0.000
+ B  200-THR   51.273  166.087    0.000    0.000
+ B  203-ILE  -53.525  160.899    0.000    0.000
+ B  204-TYR  -65.969   92.675  -23.191    0.000
+ B  205-TYR   61.426  103.371   -5.342    0.000
+ B  206-MET  -63.058  -65.919  -87.683    0.000
+ B  207-SER   74.376 -154.880    0.000    0.000
+ B  208-LYS  -60.025  175.520  178.296  179.539
+ B  209-GLU  -57.072   87.637  -53.224    0.000
+ B  210-ASN  -68.691  155.913    0.000    0.000
+ B  211-THR   56.538  171.475    0.000    0.000
+ B  212-LEU -173.164   64.582    0.000    0.000
+ B  213-GLN  -53.004  -50.251  -37.241    0.000
+ B  214-GLN  176.745 -164.222   56.046    0.000
+ B  216-VAL -171.882    0.000    0.000    0.000
+ B  218-LEU -173.568   61.010    0.000    0.000
+ B  220-ASP   65.129    0.000    0.000    0.000
+ B  221-GLN -158.408   68.484   43.121    0.000
+ B  222-LYS  179.714  175.308 -177.435  178.172
+ B  223-THR  -56.708 -169.411    0.000    0.000
+ B  224-LEU  176.038   64.593    0.000    0.000
+ B  225-ASN  -82.363 -107.070    0.000    0.000
+ B  226-ILE  -62.902  173.247    0.000    0.000
+ B  227-ILE  -63.146  166.267    0.000    0.000
+ B  228-MET  -53.924  -66.816  145.972    0.000
+ B  230-ASN -102.525   39.986    0.000    0.000
+ B  231-LYS   85.135   80.302  164.553 -157.669
+ B  232-LEU  162.562  -43.610    0.000    0.000
+ B  233-GLN   85.442  132.769  -43.308    0.000
+ B  234-HIS   81.225  134.190    0.000    0.000
+ B  235-HIS   72.241  122.187    0.000    0.000
+ B  236-HIS   19.879  131.975    0.000    0.000
+ B  237-HIS   98.003  173.845    0.000    0.000
+ B  238-HIS  111.012  -97.019    0.000    0.000
+ B  239-HIS  109.143   63.338    0.000    0.000
+ B  240-HIS  -32.805  115.759    0.000    0.000
+ B  241-HIS  113.250   39.609    0.000    0.000
+
+ Rotamer Library:     Richardson
+ Algorithm:           BOX
+ Goldstein Criteria:  true
+ Three-Body Energies: false
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.027 sec
+ Pairwise distance matrix:                17.656 sec
+ System is aperiodic: protein box generated over these coordinates (minX, maxX, minY, maxY, minZ, maxZ):
+ Aperiodic box dimensions: -8.014000,117.434000,-0.374000,73.117000,-15.777000,71.041000
+ Buffer size (included in dimensions): 8.000000
+
+ Number of fractional cells: 72 = 6 x 3 x 4
+ Optimizing cells 1 to 72
+
+ Iteration 1 of cell based optimization.
+ Optimization Cell  1 ( 1,  1,  1)
+  Cell is Empty
+  Fractional Coordinates:
+   A-axis 0.000 to 0.167
+   B-axis 0.000 to 0.333
+   C-axis 0.000 to 0.250
+ Empty box: no residues found.
+
+ Iteration 2 of cell based optimization.
+ Optimization Cell  2 ( 1,  1,  2)
+  Cell is Empty
+  Fractional Coordinates:
+   A-axis 0.000 to 0.167
+   B-axis 0.000 to 0.333
+   C-axis 0.250 to 0.500
+ Empty box: no residues found.
+
+ Iteration 3 of cell based optimization.
+ Optimization Cell  3 ( 1,  1,  3)
+  Cell is Empty
+  Fractional Coordinates:
+   A-axis 0.000 to 0.167
+   B-axis 0.000 to 0.333
+   C-axis 0.500 to 0.750
+ Empty box: no residues found.
+
+ Iteration 4 of cell based optimization.
+ Optimization Cell  4 ( 1,  1,  4)
+  Cell is Empty
+  Fractional Coordinates:
+   A-axis 0.000 to 0.167
+   B-axis 0.000 to 0.333
+   C-axis 0.750 to 1.000
+ Empty box: no residues found.
+
+ Iteration 5 of cell based optimization.
+ Optimization Cell  5 ( 1,  2,  1)
+  Cell is Empty
+  Fractional Coordinates:
+   A-axis 0.000 to 0.167
+   B-axis 0.333 to 0.667
+   C-axis 0.000 to 0.250
+ Empty box: no residues found.
+
+ Iteration 6 of cell based optimization.
+ Optimization Cell  6 ( 1,  2,  2)
+  4 Residues: 235-HIS ... 238-HIS
+  Fractional Coordinates:
+   A-axis 0.000 to 0.167
+   B-axis 0.333 to 0.667
+   C-axis 0.250 to 0.500
+
+ Beginning Energy  -17289.36408880
+
+     Residue  Nrot
+   1 A235-HIS    9
+   2 A236-HIS    9
+   3 A237-HIS    9
+   4 A238-HIS    9
+
+ Backbone energy:   -17090.31950744
+
+ Didnt find restart energies for Box 6: 0,1,1
+
+ Number of self energies: 36
+ Backbone energy:   -17090.31950744
+
+ Self A235-HIS 0 :     -47.13910853 in 18.6006 (sec).
+ Self A235-HIS 1 :     525.50332382 in 21.2658 (sec).
+ Self A235-HIS 2 :     243.40647961 in 20.6639 (sec).
+ Self A235-HIS 3 :   40134.25406347 in 20.2361 (sec).
+ Self A235-HIS 4 :     -22.37165208 in 19.3506 (sec).
+ Self A235-HIS 5 :     232.71111181 in 20.4249 (sec).
+ Self A235-HIS 6 :     -39.97341095 in 21.8561 (sec).
+ Self A235-HIS 7 :     -47.15866620 in 21.1724 (sec).
+ Self A235-HIS 8 :     -34.07190373 in 21.2511 (sec).
+ Self A236-HIS 0 :     -56.92909411 in 21.6732 (sec).
+ Self A236-HIS 1 :     501.38509498 in 20.4940 (sec).
+ Self A236-HIS 2 :     -33.80701715 in 20.7526 (sec).
+ Self A236-HIS 3 :     152.44996795 in 20.2275 (sec).
+ Self A236-HIS 4 :     -66.41540585 in 21.8274 (sec).
+ Self A236-HIS 5 :     -41.91162410 in 21.2202 (sec).
+ Self A236-HIS 6 :     -62.39853106 in 20.7520 (sec).
+ Self A236-HIS 7 :     -62.08122423 in 21.6035 (sec).
+ Self A236-HIS 8 :     -62.92981473 in 22.1908 (sec).

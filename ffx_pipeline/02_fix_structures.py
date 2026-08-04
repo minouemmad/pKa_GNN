@@ -33,7 +33,6 @@ FIXED_DIR = str(PIPELINE_ROOT / "data/fixed_pdbs")
 LOG_PATH  = str(PIPELINE_ROOT / "data/fix_log.csv")
 
 # Structures too broken to use — add PDB IDs here to skip them
-# e.g. EXCLUDE = {"3WU2", "7M2Z", "1XSN"}
 EXCLUDE = set()  # type: ignore[var-annotated]  # set[str], Python < 3.9 compat
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -41,13 +40,35 @@ EXCLUDE = set()  # type: ignore[var-annotated]  # set[str], Python < 3.9 compat
 # Residue names to rename to their nearest standard equivalent before PDBFixer.
 # PDBFixer's replaceNonstandardResidues() misses these.
 _RESIDUE_REMAP = {
-    "CSR": "CYS",   # cysteinesulfenic acid → cysteine (same backbone)
+    "CSR": "CYS",   # S-arsonocysteine → cysteine (SG is real sulfur; arsonate group dropped)
     "M3L": "LYS",   # N6,N6,N6-trimethyllysine → lysine
     "HSK": "SER",   # homoserine adduct → serine (closest backbone match)
     "MSE": "MET",   # selenomethionine (backup; PDBFixer usually handles this)
     "HSD": "HIS",   # CHARMM protonation variant
     "HSE": "HIS",
     "HSP": "HIS",
+}
+
+# Atom-level remapping applied when a residue is renamed via _RESIDUE_REMAP.
+# Key:   (original_resname, original_atom_name)
+# Value: new atom name string, or None to DROP the atom entirely.
+#
+# Drop atoms that have no equivalent in the target standard residue — keeping
+# them causes FFX "could not be assigned an atom type" crashes.
+_ATOM_REMAP = {
+    # CSR (S-arsonocysteine) → CYS
+    # SG already exists as the real cysteine sulfur in the raw PDB.
+    # The arsenic and its three arsonate oxygens have no CYS equivalents.
+    ("CSR", "AS"):  None,   # arsenic — drop
+    ("CSR", "O1"):  None,   # arsonate oxygen 1 — drop
+    ("CSR", "O2"):  None,   # arsonate oxygen 2 — drop
+    ("CSR", "O3"):  None,   # arsonate oxygen 3 — drop
+    # MSE (selenomethionine) → MET
+    ("MSE", "SE"):  "SD",   # selenium → methionine sulfur SD
+    # M3L (trimethyllysine) → LYS: trimethyl carbons on NZ have no LYS equivalent
+    ("M3L", "C3"):  None,
+    ("M3L", "C3A"): None,
+    ("M3L", "C3B"): None,
 }
 
 # Residue names to remove entirely — PDBFixer has no template and we can't
@@ -159,11 +180,15 @@ def preprocess_residues(pdb_path, out_path):
     """Remap fixable non-standard residues and strip unfixable ones.
 
     Also:
+    - Applies atom-level renaming/_ATOM_REMAP when a residue is remapped, so
+      that modified side-chain atoms get correct names and orphaned atoms with
+      no AMOEBA equivalent are dropped before PDBFixer sees them (prevents
+      "could not be assigned an atom type" crashes in FFX).
     - Strips _RESIDUE_STRIP names from SEQRES header lines so PDBFixer's
       findMissingResidues() never sees them (avoids KeyError on NH2 etc.).
     - Identifies chains where ALL coordinate records would be stripped and
       removes those chains entirely (avoids PDBFixer NoneType crash on empty
-      chains, e.g. DNA-only chains in nucleoprotein structures like 1XSN).
+      chains, e.g. DNA-only chains in nucleoprotein structures).
 
     Returns (remapped_list, stripped_list) for logging.
     Must be called AFTER strip_hydrogens so atom counts are meaningful.
@@ -193,35 +218,51 @@ def preprocess_residues(pdb_path, out_path):
         for line in f:
             rec = line[:6].strip()
 
-            # ── SEQRES: filter out stripped residue names token-by-token
+            # ── SEQRES: filter out stripped residue names token-by-token ─────
             if rec == "SEQRES" and len(line) > 11:
                 seqres_chain = line[11]
                 if seqres_chain in empty_chains:
-                    continue   # drop entire SEQRES line for empty chain
-                prefix   = line[:19]     # everything up to first residue position
+                    continue
+                prefix   = line[:19]
                 tokens   = line[19:].split()
                 filtered = [t for t in tokens if t not in _RESIDUE_STRIP]
                 if not filtered:
-                    continue   # whole line was stripped residues
-                # Reconstruct: each residue name is 4 chars wide (name + space)
+                    continue
                 lines_out.append(prefix + "".join("%-4s" % t for t in filtered).rstrip() + "\n")
                 continue
 
-            # ── Coordinate and annotation records for empty chains
+            # ── Drop all records belonging to entirely-stripped chains ────────
             if rec in ("ATOM", "HETATM", "TER", "ANISOU") and len(line) > 21:
                 chain = line[21]
                 if chain in empty_chains:
                     continue
 
             if rec in ("ATOM", "HETATM"):
-                resname = line[17:20].strip()
+                resname   = line[17:20].strip()
+                atom_name = line[12:16].strip()
+
+                # ── Entirely-stripped residue types ───────────────────────────
                 if resname in _RESIDUE_STRIP:
                     stripped.append(resname)
                     continue
+
+                # ── Remapped residue types ────────────────────────────────────
                 if resname in _RESIDUE_REMAP:
-                    new_name = _RESIDUE_REMAP[resname]
-                    remapped.append("%s->%s" % (resname, new_name))
-                    line = line[:17] + "%-3s" % new_name + line[20:]
+                    new_resname = _RESIDUE_REMAP[resname]
+
+                    # Atom-level handling: drop or rename non-standard atoms
+                    atom_key = (resname, atom_name)
+                    if atom_key in _ATOM_REMAP:
+                        new_atom = _ATOM_REMAP[atom_key]
+                        if new_atom is None:
+                            # No equivalent in target residue — drop to prevent
+                            # FFX "could not be assigned atom type" crash
+                            continue
+                        # Rename: atom name occupies cols 12-15 (4 chars)
+                        line = line[:12] + "%-4s" % new_atom + line[16:]
+
+                    remapped.append("%s->%s" % (resname, new_resname))
+                    line = line[:17] + "%-3s" % new_resname + line[20:]
 
             lines_out.append(line)
 
@@ -254,8 +295,6 @@ def fix_one(pdb_id, raw_path, fixed_path):
                 return log
 
         # ── Strip all hydrogens before PDBFixer ───────────────────────────────
-        # FFX/AMOEBA rebuilds H positions itself; PDBFixer-placed H atoms often
-        # carry PDB-convention names that don't match AMOEBA biotypes.
         noh_tmp = input_path.replace(".pdb", "_noh_tmp.pdb")
         n_heavy = strip_hydrogens(input_path, noh_tmp)
         if n_heavy == 0:
@@ -314,9 +353,7 @@ def fix_one(pdb_id, raw_path, fixed_path):
         fixer.topology.setPeriodicBoxVectors(None)
 
         with open(fixed_path, "w") as f:
-            # keepIds=True preserves the original residue numbering from the raw PDB.
-            # Default (False) renumbers each chain sequentially from 1, which
-            # invalidates manifest-based pKa lookups in 05_prepare_features.py.
+            # keepIds=True preserves original residue numbering from the raw PDB.
             PDBFile.writeFile(fixer.topology, fixer.positions, f, keepIds=True)
 
         log["status"] = "ok"
@@ -337,7 +374,7 @@ def main():
     os.makedirs(FIXED_DIR, exist_ok=True)
     raw_pdbs = sorted(
         p for p in Path(RAW_DIR).glob("*.pdb")
-        if "_tmp" not in p.name.lower()          # exclude leftover temp files
+        if "_tmp" not in p.name.lower()
     )
 
     if not raw_pdbs:
@@ -381,4 +418,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

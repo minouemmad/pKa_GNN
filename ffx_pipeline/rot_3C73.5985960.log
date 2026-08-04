@@ -1,0 +1,1732 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Rotamer job started: Mon May 11 11:11:11 CDT 2026 ===
+PDB: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C73/3C73_input.pdb
+  Minimize output already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C73/3C73_input.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+Job 1, node0
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6991  April 2026 
+        Git Revision  937dfd3f3a84d0dc91f73b0419518078a8c41842 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2026
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Mon May 11 11:11:43 CDT 2026
+ Process ID 24125 on argon-itf-bx51-10.hpc.
+
+ Command line arguments:
+ [ManyBody, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C73/3C73_input.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C73/3C73_input.pdb_2]
+
+ Parallel Java:
+ Comm(size=1,rank=0,backend[0]=/172.29.4.221:32781)
+ Scheduler localhost on port 20617.
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3C73/3C73_input.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 3C73_input.pdb_2
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   73.4 A).
+
+ Bonded Terms
+  Bonds:                                   4444
+  Angles:                                  8050
+  Stretch-Bends:                           7116
+  Out-of-Plane Bends:                      2664
+  Torsions:                               11808
+  Pi-Orbital Torsions:                      538
+  Torsion-Torsions:                          20
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    1.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                  2.000
+
+ Opened 3C73_input.pdb_2 in 2.08 sec.
+
+ System Resources
+  Total CPU time:          25.82 (sec)
+  System load average:      9.64
+  Open file handles:         149 of  81920 allowed
+  System memory:           93387 MB free out of  94320 MB
+  System swap space:        2053 MB free out of   2053 MB
+  JVM memory:                409 MB free out of    544 MB
+ Temperature: 298.150000
+
+ Energy restart file: 3C73_input.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood  -4928.85388548      0.716
+ Cavitation             2786.05326356      0.550
+ Dispersion            -1653.29111442      0.843
+
+ Computed Potential Energy
+  Bond Stretching            373.88883508         4444        0.007 ( 0.01582)
+  Angle Bending              989.50937077         8050        0.023 ( 2.80905)
+  Stretch-Bend                 5.34021137         7116        0.012
+  Out-of-Plane Bend           47.95673683         2664        0.001
+  Torsional Angle            260.17945755        11808        0.020
+  Pi-Orbital Torsion          83.30889623          538        0.000
+  Torsion-Torsion           -102.64502998           20        0.000
+  Van der Waals              600.78641797      9621361        0.971
+  Atomic Multipoles        -7920.05247730      9621361
+  Polarization             -1313.93959209      9621361       10.924
+  Solvation                -3796.09173634      9638245
+  Total Potential         -10771.75890992  (Kcal/mole)       11.959 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A    1-SER -174.715 -171.003    0.000    0.000
+ A    2-ASP -101.079    0.000    0.000    0.000
+ A    5-ASN -171.606   39.961    0.000    0.000
+ A    6-PHE   63.617    0.000    0.000    0.000
+ A    7-VAL -157.868    0.000    0.000    0.000
+ A    8-LEU  -71.285  179.743    0.000    0.000
+ A    9-GLU  -89.917  176.017  -61.116    0.000
+ A   10-ASP   80.736    0.000    0.000    0.000
+ A   11-THR   63.881  135.553    0.000    0.000
+ A   12-ASN  -57.598  -34.382    0.000    0.000
+ A   14-LYS -166.757 -132.117  141.902 -174.410
+ A   15-ARG  178.167 -153.112 -175.152  -93.865
+ A   16-ILE  -61.138 -178.468    0.000    0.000
+ A   17-GLU  178.575  170.280    5.256    0.000
+ A   18-LEU -175.982   65.604    0.000    0.000
+ A   19-SER   59.385  167.700    0.000    0.000
+ A   20-ASP  -59.043    0.000    0.000    0.000
+ A   21-LEU  -60.087  174.040    0.000    0.000
+ A   22-LYS -102.692  175.498 -175.071   76.694
+ A   24-LYS  -77.247  156.850  165.637  179.966
+ A   26-VAL -177.156    0.000    0.000    0.000
+ A   27-PHE -169.219    0.000    0.000    0.000
+ A   28-LEU  179.678   65.295    0.000    0.000
+ A   29-ASN  175.356 -109.197    0.000    0.000
+ A   30-PHE  -67.580    0.000    0.000    0.000
+ A   31-TRP   71.851  -84.653    0.000    0.000
+ A   33-THR   71.226  160.632    0.000    0.000
+ A   34-TRP   69.029   84.836    0.000    0.000
+ A   35-CYS  -60.131    0.000    0.000    0.000
+ A   36-GLU  -55.446  -53.404  -24.540    0.000
+ A   37-HIS  -69.768 -146.904    0.000    0.000
+ A   38-CYS  -55.745    0.000    0.000    0.000
+ A   39-LYS  -67.883  156.217  159.517  166.378
+ A   40-LYS  -66.259  164.882  166.229  171.877
+ A   41-GLU  -62.075  167.969   11.497    0.000
+ A   42-PHE  -84.537    0.000    0.000    0.000
+ A   44-TYR  -54.102  -21.426    0.017    0.000
+ A   45-MET  -71.734  161.763   55.292    0.000
+ A   47-ASN -162.244   54.238    0.000    0.000
+ A   48-GLN  -66.722  -60.167  -55.064    0.000
+ A   49-TYR -169.124   61.846  -22.363    0.000
+ A   50-LYS  -65.058  175.046  170.664   72.408
+ A   51-HIS -166.792  -90.126    0.000    0.000
+ A   52-PHE  -79.182    0.000    0.000    0.000
+ A   53-LYS  178.915 -172.897  161.939   57.482
+ A   54-SER   64.462  170.912    0.000    0.000
+ A   55-GLN  -36.833 -126.381  108.371    0.000
+ A   57-VAL -178.733    0.000    0.000    0.000
+ A   58-GLU -175.249   55.209  -80.092    0.000
+ A   59-ILE  -64.333  168.385    0.000    0.000
+ A   60-VAL  179.070    0.000    0.000    0.000
+ A   62-VAL -171.387    0.000    0.000    0.000
+ A   63-ASN  177.307  -97.739    0.000    0.000
+ A   64-VAL  -63.423    0.000    0.000    0.000
+ A   66-GLU  -63.189  177.667   92.945    0.000
+ A   67-SER   80.247 -174.212    0.000    0.000
+ A   68-LYS  -42.444 -164.010 -177.940 -159.039
+ A   69-ILE  -57.503   80.221    0.000    0.000
+ A   71-VAL  170.741    0.000    0.000    0.000
+ A   72-HIS  174.685  -97.357    0.000    0.000
+ A   73-ASN  -63.123  149.562    0.000    0.000
+ A   74-PHE -169.753    0.000    0.000    0.000
+ A   75-MET  -67.358  174.079   67.968    0.000
+ A   76-LYS  -75.324 -159.714  128.227  166.424
+ A   77-SER  -68.192 -165.743    0.000    0.000
+ A   78-TYR  -62.993  -75.196   -5.732    0.000
+ A   80-VAL  174.389    0.000    0.000    0.000
+ A   81-ASN   65.639  -12.971    0.000    0.000
+ A   82-PHE   48.307    0.000    0.000    0.000
+ A   84-VAL  172.313    0.000    0.000    0.000
+ A   85-VAL  -62.623    0.000    0.000    0.000
+ A   86-LEU  -51.213  157.830    0.000    0.000
+ A   87-ASP -176.201    0.000    0.000    0.000
+ A   88-THR   58.093  127.044    0.000    0.000
+ A   89-ASP  -65.685    0.000    0.000    0.000
+ A   90-ARG  -57.558  177.646   71.016  101.814
+ A   91-GLN  -22.352 -159.844  -45.121    0.000
+ A   92-VAL -175.385    0.000    0.000    0.000
+ A   93-LEU -175.076   60.728    0.000    0.000
+ A   94-ASP  -79.321    0.000    0.000    0.000
+ A   96-TYR  -81.844   80.614  -25.733    0.000
+ A   97-ASP -161.326    0.000    0.000    0.000
+ A   98-VAL  172.733    0.000    0.000    0.000
+ A   99-SER  172.489 -178.761    0.000    0.000
+ A  101-LEU  -76.821  167.233    0.000    0.000
+ A  103-THR  -51.861  159.536    0.000    0.000
+ A  104-THR  -61.461  139.855    0.000    0.000
+ A  105-PHE  -61.079    0.000    0.000    0.000
+ A  106-LEU  -59.215 -173.752    0.000    0.000
+ A  107-ILE  -62.162  165.426    0.000    0.000
+ A  108-ASN   72.438    2.570    0.000    0.000
+ A  110-GLU  -60.743   68.589   53.849    0.000
+ A  112-LYS  -50.770  -53.639  177.289   91.582
+ A  113-VAL -178.013    0.000    0.000    0.000
+ A  114-VAL  -53.610    0.000    0.000    0.000
+ A  115-LYS -142.817 -175.503 -140.786  -55.817
+ A  116-VAL -174.740    0.000    0.000    0.000
+ A  117-VAL -179.658    0.000    0.000    0.000
+ A  118-THR -167.521  137.192    0.000    0.000
+ A  120-THR  -72.744  157.833    0.000    0.000
+ A  121-MET  -67.704 -174.768  -77.273    0.000
+ A  122-THR   63.527  174.249    0.000    0.000
+ A  123-GLU -172.782  174.935   10.682    0.000
+ A  124-SER  -60.749 -176.053    0.000    0.000
+ A  125-MET  -69.405  161.008   74.238    0.000
+ A  126-ILE  -62.964  160.172    0.000    0.000
+ A  127-HIS -175.078  -87.106    0.000    0.000
+ A  128-ASP  -61.954    0.000    0.000    0.000
+ A  129-TYR  -63.828  -26.735    2.935    0.000
+ A  130-MET  -62.162 -178.159  172.363    0.000
+ A  131-ASN  -81.919  -34.103    0.000    0.000
+ A  132-LEU -170.968   58.564    0.000    0.000
+ A  133-ILE   60.196  176.213    0.000    0.000
+ A  134-LYS   85.344  157.377 -176.635  -96.931
+ A  137-GLU -131.833 -141.140   56.871    0.000
+ A  138-THR -172.030  125.676    0.000    0.000
+ A  139-SER  147.600  149.134    0.000    0.000
+ B    1-SER -158.346  169.428    0.000    0.000
+ B    2-ASP  -62.964    0.000    0.000    0.000
+ B    5-ASN -166.861   22.747    0.000    0.000
+ B    6-PHE   60.817    0.000    0.000    0.000
+ B    7-VAL  178.172    0.000    0.000    0.000
+ B    8-LEU  -66.605  177.079    0.000    0.000
+ B    9-GLU  -80.239  161.926  -46.952    0.000
+ B   10-ASP   73.744    0.000    0.000    0.000
+ B   11-THR   53.850  113.772    0.000    0.000
+ B   12-ASN  -62.731  -52.364    0.000    0.000
+ B   14-LYS -163.787 -170.998   93.948 -164.006
+ B   15-ARG  -74.599  169.396   82.777  -88.103
+ B   16-ILE  -62.688 -169.938    0.000    0.000
+ B   17-GLU -173.352  166.630   -3.769    0.000
+ B   18-LEU  177.396   65.244    0.000    0.000
+ B   19-SER   61.514  148.077    0.000    0.000
+ B   20-ASP  -70.094    0.000    0.000    0.000
+ B   21-LEU  -56.797  173.561    0.000    0.000
+ B   22-LYS  -82.561 -155.099 -176.239   75.310
+ B   24-LYS  -68.109 -166.360  171.409 -171.951
+ B   26-VAL -179.230    0.000    0.000    0.000
+ B   27-PHE -167.480    0.000    0.000    0.000
+ B   28-LEU -178.977   68.106    0.000    0.000
+ B   29-ASN  174.575 -112.975    0.000    0.000
+ B   30-PHE  -64.720    0.000    0.000    0.000
+ B   31-TRP   72.104  -76.710    0.000    0.000
+ B   33-THR   72.223  172.063    0.000    0.000
+ B   34-TRP   66.894   85.287    0.000    0.000
+ B   35-CYS  -54.845    0.000    0.000    0.000
+ B   36-GLU -160.925   61.517   13.945    0.000
+ B   37-HIS -156.750 -100.638    0.000    0.000
+ B   38-CYS  -70.711    0.000    0.000    0.000
+ B   39-LYS  -61.447  177.737  177.265  169.045
+ B   40-LYS  -54.746  -75.569 -149.302   65.074
+ B   41-GLU  -65.928  178.580    9.010    0.000
+ B   42-PHE  -86.066    0.000    0.000    0.000
+ B   44-TYR  -60.311  -24.395    6.750    0.000
+ B   45-MET  -71.353  161.908   60.690    0.000
+ B   47-ASN -158.347   44.373    0.000    0.000
+ B   48-GLN  -67.717  -63.031  -50.973    0.000
+ B   49-TYR -169.690   62.283  -17.207    0.000
+ B   50-LYS  -73.741  153.434  178.996  160.452
+ B   51-HIS  177.371   67.188    0.000    0.000
+ B   52-PHE  -68.633    0.000    0.000    0.000
+ B   53-LYS  179.754  170.985  168.397   46.941
+ B   54-SER   67.731  170.034    0.000    0.000
+ B   55-GLN  -62.598  -65.767  132.907    0.000
+ B   57-VAL  179.297    0.000    0.000    0.000
+ B   58-GLU -174.959   55.808  -78.585    0.000
+ B   59-ILE  -69.967  164.591    0.000    0.000
+ B   60-VAL -178.250    0.000    0.000    0.000
+ B   62-VAL -172.642    0.000    0.000    0.000
+ B   63-ASN  174.138 -101.987    0.000    0.000
+ B   64-VAL -179.992    0.000    0.000    0.000
+ B   66-GLU  -60.182 -176.650  102.088    0.000
+ B   67-SER   70.228 -165.489    0.000    0.000
+ B   68-LYS -158.192  178.227  170.557  157.857
+ B   69-ILE -167.923   67.598    0.000    0.000
+ B   71-VAL  173.898    0.000    0.000    0.000
+ B   72-HIS -102.891   78.484    0.000    0.000
+ B   73-ASN  -61.478  147.126    0.000    0.000
+ B   74-PHE -164.476    0.000    0.000    0.000
+ B   75-MET  -68.011  168.048   67.475    0.000
+ B   76-LYS -155.137   97.838 -112.663  -77.410
+ B   77-SER  -63.978 -174.151    0.000    0.000
+ B   78-TYR  -61.699  -68.245  -11.688    0.000
+ B   80-VAL  168.576    0.000    0.000    0.000
+ B   81-ASN   68.531  -12.593    0.000    0.000
+ B   82-PHE   49.424    0.000    0.000    0.000
+ B   84-VAL  176.966    0.000    0.000    0.000
+ B   85-VAL  -62.693    0.000    0.000    0.000
+ B   86-LEU  -58.407  177.936    0.000    0.000
+ B   87-ASP -176.033    0.000    0.000    0.000
+ B   88-THR   69.657  138.584    0.000    0.000
+ B   89-ASP -161.561    0.000    0.000    0.000
+ B   90-ARG  -60.933  164.928   43.432  109.298
+ B   91-GLN  -70.515  178.296   31.680    0.000
+ B   92-VAL -174.124    0.000    0.000    0.000
+ B   93-LEU  176.843   88.749    0.000    0.000
+ B   94-ASP  -57.829    0.000    0.000    0.000
+ B   96-TYR  -80.164   81.024   -8.681    0.000
+ B   97-ASP -169.709    0.000    0.000    0.000
+ B   98-VAL  176.424    0.000    0.000    0.000
+ B   99-SER  -68.722  179.843    0.000    0.000
+ B  101-LEU  -70.656 -178.591    0.000    0.000
+ B  103-THR  -77.835  144.602    0.000    0.000
+ B  104-THR  -63.043  140.925    0.000    0.000
+ B  105-PHE  -66.008    0.000    0.000    0.000
+ B  106-LEU  -59.962  173.997    0.000    0.000
+ B  107-ILE  -63.804  154.783    0.000    0.000
+ B  108-ASN   64.109   11.163    0.000    0.000
+ B  110-GLU  -45.899   77.852   37.814    0.000
+ B  112-LYS  -33.175  -63.596  166.838 -162.163
+ B  113-VAL  177.128    0.000    0.000    0.000
+ B  114-VAL  -52.082    0.000    0.000    0.000
+ B  115-LYS  174.684  131.198 -156.518  159.929
+ B  116-VAL -171.121    0.000    0.000    0.000
+ B  117-VAL  173.668    0.000    0.000    0.000
+ B  118-THR   59.372  159.387    0.000    0.000
+ B  120-THR  -80.161  145.946    0.000    0.000
+ B  121-MET  -60.642 -166.959  -79.326    0.000
+ B  122-THR   65.911  174.487    0.000    0.000
+ B  123-GLU -169.627  176.353    7.421    0.000
+ B  124-SER -173.738 -167.186    0.000    0.000
+ B  125-MET  -65.934  160.933   63.815    0.000
+ B  126-ILE  -71.724  157.653    0.000    0.000
+ B  127-HIS  172.285  -84.418    0.000    0.000
+ B  128-ASP  -67.097    0.000    0.000    0.000
+ B  129-TYR  -67.136  -34.829    8.070    0.000
+ B  130-MET  -64.112 -177.557  169.331    0.000
+ B  131-ASN -164.038   68.464    0.000    0.000
+ B  132-LEU  173.323   57.543    0.000    0.000
+ B  133-ILE   56.004  176.452    0.000    0.000
+ B  134-LYS   64.184  165.580 -173.304  173.134
+ B  137-GLU  -56.182  149.607   -7.771    0.000
+ B  138-THR  -54.875  174.486    0.000    0.000
+ B  139-SER  153.649  167.355    0.000    0.000
+
+ Rotamer Library:     Richardson
+ Algorithm:           BOX
+ Goldstein Criteria:  true
+ Three-Body Energies: false
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.025 sec
+ Pairwise distance matrix:                14.512 sec
+ System is aperiodic: protein box generated over these coordinates (minX, maxX, minY, maxY, minZ, maxZ):
+ Aperiodic box dimensions: -20.727000,42.853000,-16.865000,48.165000,-18.769000,52.244000
+ Buffer size (included in dimensions): 8.000000
+
+ Final cell out of range (28) -- reset to last cell.
+ Number of fractional cells: 27 = 3 x 3 x 3
+ Optimizing cells 1 to 27
+
+ Iteration 1 of cell based optimization.
+ Optimization Cell  1 ( 1,  1,  1)
+  32 Residues: 18-LEU ... 137-GLU
+  Fractional Coordinates:
+   A-axis 0.000 to 0.333
+   B-axis 0.000 to 0.333
+   C-axis 0.000 to 0.333
+
+ Beginning Energy  -10771.75890992
+
+     Residue  Nrot
+   1  A18-LEU    6
+   2  A19-SER   19
+   3  A20-ASP    6
+   4  A21-LEU    6
+   5  A22-LYS   28
+   6  A24-LYS   28
+   7  A26-VAL    4
+   8 A107-ILE    8
+   9 A108-ASN    8
+  10 A110-GLU    9
+  11 A133-ILE    8
+  12 A134-LYS   28
+  13  B45-MET   14
+  14  B48-GLN   10
+  15 B106-LEU    6
+  16 B114-VAL    4
+  17 B115-LYS   28
+  18 B121-MET   14
+  19 B122-THR   19
+  20 B123-GLU    9
+  21 B124-SER   19
+  22 B125-MET   14
+  23 B126-ILE    8
+  24 B127-HIS    9
+  25 B128-ASP    6
+  26 B129-TYR    9
+  27 B130-MET   14
+  28 B131-ASN    8
+  29 B132-LEU    6
+  30 B133-ILE    8
+  31 B134-LYS   28
+  32 B137-GLU    9
+
+ Backbone energy:    -9963.20637233
+
+ Didnt find restart energies for Box 1: 0,0,0
+
+ Number of self energies: 400
+ Backbone energy:    -9963.20637233
+
+ Self  A18-LEU 0 :       8.69352908 in 7.7995 (sec).
+ Self  A18-LEU 1 :    1718.25997584 in 7.8035 (sec).
+ Self  A18-LEU 2 :      11.62751724 in 7.7345 (sec).
+ Self  A18-LEU 3 :      15.27104193 in 7.8471 (sec).
+ Self  A18-LEU 4 :     625.62288014 in 8.1293 (sec).
+ Self  A18-LEU 5 :    7708.37440727 in 8.1613 (sec).
+ Self  A19-SER 0 :      -5.67868561 in 7.9711 (sec).
+ Self  A19-SER 1 :       8.10892696 in 8.0527 (sec).
+ Self  A19-SER 2 :      -0.90270567 in 7.6101 (sec).
+ Self  A19-SER 3 :      -3.87551001 in 7.8264 (sec).
+ Self  A19-SER 4 :      -4.41034380 in 7.7285 (sec).
+ Self  A19-SER 5 :       6.59021903 in 7.9893 (sec).
+ Self  A19-SER 6 :       0.00314936 in 7.8309 (sec).
+ Self  A19-SER 7 :       4.12696931 in 7.7916 (sec).
+ Self  A19-SER 8 :       2.64325253 in 7.6511 (sec).
+ Self  A19-SER 9 :       1.68124133 in 7.7859 (sec).
+ Self  A19-SER 10:       0.43352186 in 7.9362 (sec).
+ Self  A19-SER 11:       2.24686642 in 8.0053 (sec).
+ Self  A19-SER 12:       1.21271044 in 7.7868 (sec).
+ Self  A19-SER 13:       3.18099315 in 7.8058 (sec).
+ Self  A19-SER 14:       2.96648125 in 7.7806 (sec).
+ Self  A19-SER 15:       2.09927736 in 7.9404 (sec).
+ Self  A19-SER 16:      -3.30296010 in 7.5583 (sec).
+ Self  A19-SER 17:      -1.48453735 in 7.8938 (sec).
+ Self  A19-SER 18:      -3.13853282 in 7.9432 (sec).
+ Self  A20-ASP 0 :    -102.58276662 in 8.1323 (sec).
+ Self  A20-ASP 1 :      33.41740624 in 7.8120 (sec).
+ Self  A20-ASP 2 :     -46.31519119 in 7.7239 (sec).
+ Self  A20-ASP 3 :     -67.09862829 in 7.8290 (sec).
+ Self  A20-ASP 4 :     -95.25036156 in 7.8994 (sec).
+ Self  A20-ASP 5 :     -99.03367179 in 8.2447 (sec).
+ Self  A21-LEU 0 :       5.92329738 in 7.5973 (sec).
+ Self  A21-LEU 1 :     119.72617383 in 8.0528 (sec).
+ Self  A21-LEU 2 :      16.03897057 in 7.6703 (sec).
+ Self  A21-LEU 3 :      82.64840425 in 7.8137 (sec).
+ Self  A21-LEU 4 :      16.19205833 in 7.9277 (sec).
+ Self  A21-LEU 5 :       9.70393658 in 8.0098 (sec).
+ Self  A22-LYS 0 :     -46.73857002 in 7.6683 (sec).
+ Self  A22-LYS 1 :     -43.27992810 in 7.7945 (sec).
+ Self  A22-LYS 2 :     -49.16112307 in 7.5049 (sec).
+ Self  A22-LYS 3 :     -50.11725647 in 7.5776 (sec).
+ Self  A22-LYS 4 :     -47.84542953 in 7.5847 (sec).
+ Self  A22-LYS 5 :     -48.20685473 in 7.5847 (sec).
+ Self  A22-LYS 6 :    1333.54315751 in 7.7493 (sec).
+ Self  A22-LYS 7 :   30572.49246052 in 7.9358 (sec).
+ Self  A22-LYS 8 :    2253.26368701 in 7.5281 (sec).
+ Self  A22-LYS 9 :     -48.30678367 in 7.7124 (sec).
+ Self  A22-LYS 10:     -49.80699670 in 7.6044 (sec).
+ Self  A22-LYS 11:     -44.38116300 in 7.4869 (sec).
+ Self  A22-LYS 12:     -50.78140358 in 7.5507 (sec).
+ Self  A22-LYS 13:     -49.04447577 in 8.0236 (sec).
+ Self  A22-LYS 14:     -48.20922465 in 7.7354 (sec).
+ Self  A22-LYS 15:     -43.19620123 in 7.8246 (sec).
+ Self  A22-LYS 16:     -13.20555439 in 7.7410 (sec).
+ Self  A22-LYS 17:       4.95983823 in 7.6659 (sec).
+ Self  A22-LYS 18:     -45.68091239 in 7.7910 (sec).
+ Self  A22-LYS 19:     -23.98273178 in 7.8132 (sec).
+ Self  A22-LYS 20:     -47.55180618 in 7.9118 (sec).
+ Self  A22-LYS 21:     -45.14278792 in 7.8919 (sec).
+ Self  A22-LYS 22:     -42.32151571 in 8.2263 (sec).
+ Self  A22-LYS 23:     112.66085083 in 7.5454 (sec).
+ Self  A22-LYS 24:     -15.69844255 in 7.7710 (sec).
+ Self  A22-LYS 25:    1234.26912563 in 7.6479 (sec).
+ Self  A22-LYS 26:      -6.77350784 in 7.5087 (sec).
+ Self  A22-LYS 27:     901.66299991 in 7.3725 (sec).
+ Self  A24-LYS 0 :     -47.45784207 in 7.4517 (sec).
+ Self  A24-LYS 1 :      43.36970235 in 7.5287 (sec).
+ Self  A24-LYS 2 :     137.05281503 in 7.4974 (sec).
+ Self  A24-LYS 3 :     139.79730767 in 7.9590 (sec).
+ Self  A24-LYS 4 :    4493.77858727 in 8.3771 (sec).
+ Self  A24-LYS 5 :     837.13592657 in 6.9990 (sec).
+ Self  A24-LYS 6 :   46687.44584508 in 10.0612 (sec).
+ Self  A24-LYS 7 :   12100.38636227 in 9.7382 (sec).
+ Self  A24-LYS 8 :   10254.11901787 in 8.6794 (sec).
+ Self  A24-LYS 9 :    2069.52987640 in 7.5846 (sec).
+ Self  A24-LYS 10:    1650.02857999 in 7.9578 (sec).
+ Self  A24-LYS 11:    1104.25784223 in 8.1527 (sec).
+ Self  A24-LYS 12:    1152.24501786 in 7.7919 (sec).
+ Self  A24-LYS 13:   96552.36472560 in 9.1893 (sec).
+ Self  A24-LYS 14:     103.09209098 in 7.7270 (sec).
+ Self  A24-LYS 15:     149.14532203 in 7.7010 (sec).
+ Self  A24-LYS 16:     465.48876437 in 7.6859 (sec).
+ Self  A24-LYS 17:      35.68014364 in 7.5994 (sec).
+ Self  A24-LYS 18:     -43.17942247 in 7.7041 (sec).
+ Self  A24-LYS 19:     -27.81064589 in 7.6141 (sec).
+ Self  A24-LYS 20:     -47.82333297 in 7.8994 (sec).
+ Self  A24-LYS 21:     -43.51092608 in 7.6547 (sec).
+ Self  A24-LYS 22:     -46.02951734 in 7.7624 (sec).
+ Self  A24-LYS 23:     -44.28185504 in 7.8429 (sec).
+ Self  A24-LYS 24:     222.92040390 in 7.6558 (sec).
+ Self  A24-LYS 25:     225.08677062 in 7.6235 (sec).
+ Self  A24-LYS 26:    9863.70347723 in 7.9727 (sec).
+ Self  A24-LYS 27:  210662.35566473 in 8.3552 (sec).
+ Self  A26-VAL 0 :       7.87964274 in 7.9491 (sec).
+ Self  A26-VAL 1 :      11.45654293 in 7.7667 (sec).
+ Self  A26-VAL 2 :       9.65150060 in 7.9398 (sec).
+ Self  A26-VAL 3 :      11.14500933 in 7.5450 (sec).
+ Self A107-ILE 0 :      11.24927239 in 7.8381 (sec).
+ Self A107-ILE 1 :      43.25708915 in 8.0235 (sec).
+ Self A107-ILE 2 :      32.84867036 in 7.7334 (sec).
+ Self A107-ILE 3 :     119.19547249 in 7.7835 (sec).
+ Self A107-ILE 4 :      36.27110152 in 8.1909 (sec).
+ Self A107-ILE 5 :      17.51348852 in 7.6372 (sec).
+ Self A107-ILE 6 :      13.95832912 in 7.6631 (sec).
+ Self A107-ILE 7 :      64.21408449 in 7.6816 (sec).
+ Self A108-ASN 0 :     -35.84046885 in 7.7014 (sec).
+ Self A108-ASN 1 :     -29.48622599 in 7.7319 (sec).
+ Self A108-ASN 2 :     -19.88774754 in 7.5831 (sec).
+ Self A108-ASN 3 :    1277.96830838 in 7.7456 (sec).
+ Self A108-ASN 4 :     112.95105770 in 7.5637 (sec).
+ Self A108-ASN 5 :    1512.05854009 in 7.5752 (sec).
+ Self A108-ASN 6 :    1593.35789126 in 7.7364 (sec).
+ Self A108-ASN 7 :     316.40494329 in 7.4768 (sec).
+ Self A110-GLU 0 :     -97.54349345 in 7.4361 (sec).
+ Self A110-GLU 1 :     -84.36721750 in 7.9788 (sec).
+ Self A110-GLU 2 :     -79.60472312 in 7.5488 (sec).
+ Self A110-GLU 3 :     -91.32690912 in 7.4832 (sec).
+ Self A110-GLU 4 :     -90.69045338 in 7.7373 (sec).
+ Self A110-GLU 5 :     315.42120374 in 7.8083 (sec).
+ Self A110-GLU 6 :     -94.20040210 in 7.5724 (sec).
+ Self A110-GLU 7 :     -95.71528997 in 7.5648 (sec).
+ Self A110-GLU 8 :     -96.83186569 in 7.6321 (sec).
+ Self A133-ILE 0 :      12.89053123 in 7.8328 (sec).
+ Self A133-ILE 1 :      42.08973866 in 7.7806 (sec).
+ Self A133-ILE 2 :      16.47872330 in 7.6983 (sec).
+ Self A133-ILE 3 :   11155.95727168 in 7.7982 (sec).
+ Self A133-ILE 4 :  108781.11798690 in 7.6889 (sec).
+ Self A133-ILE 5 :     199.95287415 in 7.5640 (sec).
+ Self A133-ILE 6 :     246.10399982 in 7.5641 (sec).
+ Self A133-ILE 7 :     181.14277969 in 7.4776 (sec).
+ Self A134-LYS 0 :     -40.32995981 in 7.3678 (sec).
+ Self A134-LYS 1 :    2084.60888743 in 8.0528 (sec).
+ Self A134-LYS 2 :     -26.20611734 in 7.7884 (sec).
+ Self A134-LYS 3 :     -13.86434325 in 7.7209 (sec).
+ Self A134-LYS 4 :     136.91215628 in 7.7159 (sec).
+ Self A134-LYS 5 :      64.98919278 in 7.3255 (sec).
+ Self A134-LYS 6 :   11860.55326789 in 7.2976 (sec).
+ Self A134-LYS 7 :   17612.64562595 in 8.5260 (sec).
+ Self A134-LYS 8 :   14426.12777958 in 7.5407 (sec).
+ Self A134-LYS 9 :      47.32109198 in 6.7453 (sec).
+ Self A134-LYS 10:     181.79909790 in 6.1970 (sec).
+ Self A134-LYS 11:   15504.34544224 in 7.0305 (sec).
+ Self A134-LYS 12:    8298.01254651 in 6.8446 (sec).
+ Self A134-LYS 13:   38515.25010383 in 6.5067 (sec).
+ Self A134-LYS 14:     474.11117942 in 5.9588 (sec).
+ Self A134-LYS 15:     439.05210802 in 5.8976 (sec).
+ Self A134-LYS 16:   18789.45025934 in 7.4589 (sec).
+ Self A134-LYS 17:     987.22017767 in 7.1839 (sec).
+ Self A134-LYS 18:    1227.76539233 in 7.0996 (sec).
+ Self A134-LYS 19:   19989.64455513 in 7.7795 (sec).
+May 11, 2026 11:32:13 AM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException: SCF convergence failure: (   0.01364 >    0.01359)
+
+
+ Direct induced dipoles computed due to SCF failure.
+ Self A134-LYS 20:   99383.86818691 in 6.4193 (sec).
+ Self A134-LYS 21:   45453.24858535 in 8.7269 (sec).
+ Self A134-LYS 22:    8381.40049646 in 8.0418 (sec).
+ Self A134-LYS 23:    2650.95327739 in 7.6532 (sec).
+ Self A134-LYS 24:   58417.33926977 in 8.9068 (sec).
+ Self A134-LYS 25:   72216.72849667 in 10.2824 (sec).
+ Self A134-LYS 26:   50426.51861548 in 9.7158 (sec).
+ Self A134-LYS 27:   77101.31318533 in 9.0679 (sec).
+ Self  B45-MET 0 :      -0.72784045 in 7.5419 (sec).
+ Self  B45-MET 1 :     166.63006106 in 7.7048 (sec).
+ Self  B45-MET 2 :     523.65301966 in 7.3906 (sec).
+ Self  B45-MET 3 :     163.40634305 in 7.4681 (sec).
+ Self  B45-MET 4 :    2178.32591247 in 7.4896 (sec).
+ Self  B45-MET 5 :     424.41496341 in 7.5086 (sec).
+ Self  B45-MET 6 :    2235.00735393 in 6.5970 (sec).
+ Self  B45-MET 7 :      85.80146098 in 7.9868 (sec).
+ Self  B45-MET 8 :      30.73328046 in 7.7285 (sec).
+ Self  B45-MET 9 :      36.87949572 in 7.7370 (sec).
+ Self  B45-MET 10:      32.59719085 in 7.6804 (sec).
+ Self  B45-MET 11:       6.24947365 in 7.1861 (sec).
+ Self  B45-MET 12:     283.30520408 in 7.1505 (sec).
+ Self  B45-MET 13:      38.24966332 in 7.3140 (sec).
+ Self  B48-GLN 0 :     -29.30567034 in 8.0102 (sec).
+ Self  B48-GLN 1 :     -23.92491096 in 7.7700 (sec).
+ Self  B48-GLN 2 :   87803.89825112 in 7.9021 (sec).
+ Self  B48-GLN 3 :      81.08102036 in 7.8735 (sec).
+ Self  B48-GLN 4 :     240.76358931 in 7.6885 (sec).
+ Self  B48-GLN 5 :     163.09705352 in 8.1139 (sec).
+ Self  B48-GLN 6 :    2813.20304046 in 7.6328 (sec).
+ Self  B48-GLN 7 :      38.25695194 in 7.8015 (sec).
+ Self  B48-GLN 8 :     -27.96667877 in 7.4964 (sec).
+ Self  B48-GLN 9 :     -22.28239140 in 7.7774 (sec).
+ Self B106-LEU 0 :       6.42478975 in 7.6185 (sec).
+ Self B106-LEU 1 :      97.54714298 in 7.6206 (sec).
+ Self B106-LEU 2 :       7.35672195 in 7.6822 (sec).
+ Self B106-LEU 3 :      40.04420887 in 8.2477 (sec).
+ Self B106-LEU 4 :      22.68190110 in 7.7502 (sec).
+ Self B106-LEU 5 :       9.73845014 in 7.6672 (sec).
+ Self B114-VAL 0 :       9.45034394 in 7.6488 (sec).
+ Self B114-VAL 1 :      20.48137600 in 7.4706 (sec).
+ Self B114-VAL 2 :      17.31171543 in 7.7841 (sec).
+ Self B114-VAL 3 :      11.72317661 in 7.6072 (sec).
+ Self B115-LYS 0 :     -44.42575879 in 7.8383 (sec).
+ Self B115-LYS 1 :     -45.67910590 in 7.7406 (sec).
+ Self B115-LYS 2 :     -47.10584665 in 7.5951 (sec).
+ Self B115-LYS 3 :     -19.11302465 in 7.9259 (sec).
+ Self B115-LYS 4 :     -49.32586372 in 7.7956 (sec).
+ Self B115-LYS 5 :     -46.85049733 in 7.6646 (sec).
+ Self B115-LYS 6 :      -0.13213304 in 7.7829 (sec).
+ Self B115-LYS 7 :     -41.05365169 in 7.8420 (sec).
+ Self B115-LYS 8 :     -38.24917675 in 7.6785 (sec).
+ Self B115-LYS 9 :     219.35484235 in 7.8772 (sec).
+ Self B115-LYS 10:     -40.98596251 in 7.6867 (sec).
+ Self B115-LYS 11:     -33.21988797 in 7.6700 (sec).
+ Self B115-LYS 12:     -34.82014206 in 7.8519 (sec).
+ Self B115-LYS 13:     433.55867173 in 7.8871 (sec).
+ Self B115-LYS 14:      37.43118350 in 7.7400 (sec).
+ Self B115-LYS 15:      73.43108191 in 7.6901 (sec).
+ Self B115-LYS 16:   15350.06278820 in 9.2976 (sec).
+ Self B115-LYS 17:    2292.45257906 in 7.7618 (sec).
+ Self B115-LYS 18:    2242.99555282 in 7.7060 (sec).
+ Self B115-LYS 19:   54854.72198907 in 9.5531 (sec).
+ Self B115-LYS 20:   55045.57356199 in 9.1797 (sec).
+ Self B115-LYS 21:   76929.93525056 in 10.9794 (sec).
+ Self B115-LYS 22:   18820.71570845 in 7.8766 (sec).
+ Self B115-LYS 23:   18828.36170408 in 7.8626 (sec).
+ Self B115-LYS 24:   52933.25298725 in 10.7563 (sec).
+ Self B115-LYS 25:  164631.11950899 in 10.2051 (sec).
+ Self B115-LYS 26:    9417.91725910 in 8.5073 (sec).
+ Self B115-LYS 27:   53396.95415788 in 7.7247 (sec).
+ Self B121-MET 0 :       0.07779696 in 7.5158 (sec).
+ Self B121-MET 1 :      72.49853185 in 7.8677 (sec).
+ Self B121-MET 2 :      64.92189811 in 7.8611 (sec).
+ Self B121-MET 3 :       3.43525346 in 7.7710 (sec).
+ Self B121-MET 4 :     803.47750923 in 7.7433 (sec).
+ Self B121-MET 5 :       3.63414941 in 7.6212 (sec).
+ Self B121-MET 6 :    2618.68043694 in 7.6383 (sec).
+ Self B121-MET 7 :       4.25340604 in 7.7725 (sec).
+ Self B121-MET 8 :       0.05410788 in 7.6985 (sec).
+ Self B121-MET 9 :    1510.04480569 in 8.0099 (sec).
+ Self B121-MET 10:       5.29832364 in 7.8449 (sec).
+ Self B121-MET 11:      25.92740134 in 7.7235 (sec).
+ Self B121-MET 12:   12119.16804923 in 7.8838 (sec).
+ Self B121-MET 13:       1.06813249 in 7.7412 (sec).
+ Self B122-THR 0 :      -0.87981041 in 7.6550 (sec).
+ Self B122-THR 1 :       7.95056584 in 7.4975 (sec).
+ Self B122-THR 2 :       8.19140835 in 7.8417 (sec).
+ Self B122-THR 3 :       2.63360704 in 7.8201 (sec).
+ Self B122-THR 4 :       0.62131479 in 7.6485 (sec).
+ Self B122-THR 5 :       3.97368850 in 7.7099 (sec).
+ Self B122-THR 6 :       3.99942023 in 8.1382 (sec).
+ Self B122-THR 7 :      25.28793199 in 7.7835 (sec).
+ Self B122-THR 8 :      17.33218816 in 7.8049 (sec).
+ Self B122-THR 9 :      16.35402346 in 7.9161 (sec).
+ Self B122-THR 10:      17.13222126 in 7.6182 (sec).
+ Self B122-THR 11:      22.62707323 in 7.8922 (sec).
+ Self B122-THR 12:      21.99575485 in 7.6191 (sec).
+ Self B122-THR 13:      14.12850153 in 8.1551 (sec).
+ Self B122-THR 14:      12.17318542 in 7.7227 (sec).
+ Self B122-THR 15:      11.57985534 in 7.7298 (sec).
+ Self B122-THR 16:      12.12652770 in 7.7840 (sec).
+ Self B122-THR 17:      12.09875546 in 7.7472 (sec).
+ Self B122-THR 18:      15.30127219 in 7.6860 (sec).
+ Self B123-GLU 0 :    -107.07335267 in 7.7717 (sec).
+ Self B123-GLU 1 :     -96.52662680 in 7.5298 (sec).
+ Self B123-GLU 2 :     -89.94675450 in 7.8560 (sec).
+ Self B123-GLU 3 :     482.42482972 in 7.6155 (sec).
+ Self B123-GLU 4 :    -104.08230788 in 7.7325 (sec).
+ Self B123-GLU 5 :    -100.97553171 in 7.5823 (sec).
+ Self B123-GLU 6 :    6989.00745440 in 8.4200 (sec).
+ Self B123-GLU 7 :     968.82921764 in 7.8884 (sec).
+ Self B123-GLU 8 :   16693.27630210 in 8.5331 (sec).
+ Self B124-SER 0 :      -1.89090763 in 7.9933 (sec).
+ Self B124-SER 1 :      12.88979048 in 8.1494 (sec).
+ Self B124-SER 2 :       2.46759089 in 7.6983 (sec).
+ Self B124-SER 3 :      -2.17854213 in 7.7659 (sec).
+ Self B124-SER 4 :      -2.78393927 in 7.6100 (sec).
+ Self B124-SER 5 :       3.88733219 in 7.7530 (sec).
+ Self B124-SER 6 :      -1.03836657 in 7.4968 (sec).
+ Self B124-SER 7 :       4.34810850 in 7.6640 (sec).
+ Self B124-SER 8 :       1.63676944 in 7.9094 (sec).
+ Self B124-SER 9 :       0.29679080 in 7.7809 (sec).
+ Self B124-SER 10:      -0.97310005 in 7.7128 (sec).
+ Self B124-SER 11:       1.48886545 in 7.9862 (sec).
+ Self B124-SER 12:      -0.16342553 in 7.6006 (sec).
+ Self B124-SER 13:       3.41487958 in 7.9826 (sec).
+ Self B124-SER 14:       1.30564076 in 7.5333 (sec).
+ Self B124-SER 15:      -2.12920264 in 7.5964 (sec).
+ Self B124-SER 16:      -3.83289202 in 7.6903 (sec).
+ Self B124-SER 17:      -1.17359690 in 7.8519 (sec).
+ Self B124-SER 18:      -2.85672043 in 7.6558 (sec).
+ Self B125-MET 0 :      -3.04272989 in 7.6468 (sec).
+ Self B125-MET 1 :    1969.33227744 in 7.6862 (sec).
+ Self B125-MET 2 :     627.06749266 in 8.0585 (sec).
+ Self B125-MET 3 :       3.25122705 in 7.6790 (sec).
+ Self B125-MET 4 :       0.75351757 in 7.6155 (sec).
+ Self B125-MET 5 :      17.09706814 in 7.7471 (sec).
+ Self B125-MET 6 :       3.96394755 in 7.6951 (sec).
+ Self B125-MET 7 :       2.57531239 in 7.9130 (sec).
+ Self B125-MET 8 :       1.32550939 in 7.7032 (sec).
+ Self B125-MET 9 :       0.58723602 in 7.9605 (sec).
+ Self B125-MET 10:     225.55814010 in 7.8720 (sec).
+ Self B125-MET 11:       5.98456717 in 7.6858 (sec).
+ Self B125-MET 12:       2.76260078 in 7.9718 (sec).
+ Self B125-MET 13:       3.01634359 in 8.1752 (sec).
+ Self B126-ILE 0 :      11.88737634 in 7.7745 (sec).
+ Self B126-ILE 1 :      40.98720132 in 8.0556 (sec).
+ Self B126-ILE 2 :      66.49152068 in 8.4712 (sec).
+ Self B126-ILE 3 :      84.87305079 in 8.5714 (sec).
+ Self B126-ILE 4 :      40.33543995 in 8.1673 (sec).
+ Self B126-ILE 5 :      54.40852294 in 8.8583 (sec).
+ Self B126-ILE 6 :      15.12455446 in 8.3730 (sec).
+ Self B126-ILE 7 :      29.46160885 in 7.8749 (sec).
+ Self B127-HIS 0 :     -54.88550275 in 7.5948 (sec).
+ Self B127-HIS 1 :    2384.40793696 in 8.2107 (sec).
+ Self B127-HIS 2 :     854.68437081 in 7.8929 (sec).
+ Self B127-HIS 3 :     -28.26951125 in 7.9827 (sec).
+ Self B127-HIS 4 :     -54.69740381 in 7.7167 (sec).
+ Self B127-HIS 5 :     -39.28197785 in 8.0307 (sec).
+ Self B127-HIS 6 :     -31.67806859 in 7.6217 (sec).
+ Self B127-HIS 7 :     -54.09711196 in 7.5482 (sec).
+ Self B127-HIS 8 :     301.79081117 in 7.9000 (sec).
+ Self B128-ASP 0 :     -99.47150712 in 7.6148 (sec).
+ Self B128-ASP 1 :      48.06647785 in 7.7230 (sec).
+ Self B128-ASP 2 :     -34.20595385 in 7.5702 (sec).
+ Self B128-ASP 3 :     633.19153753 in 7.8333 (sec).
+ Self B128-ASP 4 :     295.28793758 in 7.8027 (sec).
+ Self B128-ASP 5 :     -97.58123881 in 7.7379 (sec).
+ Self B129-TYR 0 :     -11.75345214 in 7.4771 (sec).
+ Self B129-TYR 1 :  389680.26613780 in 9.4194 (sec).
+ Self B129-TYR 2 :  389677.47980045 in 9.0267 (sec).
+ Self B129-TYR 3 :     444.67165349 in 7.6972 (sec).
+ Self B129-TYR 4 :     418.66211896 in 7.8773 (sec).
+ Self B129-TYR 5 :      73.98385064 in 7.8807 (sec).
+ Self B129-TYR 6 :      73.31380338 in 7.7668 (sec).
+ Self B129-TYR 7 :      -6.65226595 in 8.0207 (sec).
+ Self B129-TYR 8 :      -7.43609692 in 8.1337 (sec).
+ Self B130-MET 0 :      -0.98784085 in 7.5906 (sec).
+ Self B130-MET 1 :     267.00591014 in 7.8548 (sec).
+ Self B130-MET 2 :   28243.79624020 in 10.1640 (sec).
+ Self B130-MET 3 :    1824.28148013 in 7.5583 (sec).
+ Self B130-MET 4 :  203373.26379750 in 8.4907 (sec).
+May 11, 2026 11:56:13 AM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException: SCF convergence failure: (   0.03113 >    0.03111)
+
+
+ Direct induced dipoles computed due to SCF failure.
+May 11, 2026 11:56:15 AM ffx.potential.nonbonded.ParticleMeshEwald selfConsistentField
+WARNING: ffx.potential.utils.EnergyException: SCF convergence failure: (   0.00724 >    0.00724)
+
+
+ Direct induced dipoles computed due to SCF failure.
+ Self B130-MET 5 :   54939.16599767 in 5.5003 (sec).
+ Self B130-MET 6 :  122623.35419712 in 8.8763 (sec).
+ Self B130-MET 7 :     655.81229152 in 7.7630 (sec).
+ Self B130-MET 8 :      63.39450517 in 7.6373 (sec).
+ Self B130-MET 9 :       0.15350997 in 7.7655 (sec).
+ Self B130-MET 10:       1.09057271 in 7.5204 (sec).
+ Self B130-MET 11:    8102.19959773 in 7.4730 (sec).
+ Self B130-MET 12:     199.48430036 in 7.7488 (sec).
+ Self B130-MET 13:    1173.31435562 in 7.6168 (sec).
+ Self B131-ASN 0 :     -39.41087215 in 7.5055 (sec).
+ Self B131-ASN 1 :     659.53943757 in 7.8224 (sec).
+ Self B131-ASN 2 :     598.78962070 in 7.6880 (sec).
+ Self B131-ASN 3 :     -28.07404210 in 7.9616 (sec).
+ Self B131-ASN 4 :     -34.27337114 in 7.9176 (sec).
+ Self B131-ASN 5 :      -6.81615653 in 7.7966 (sec).
+ Self B131-ASN 6 :      13.01212838 in 7.8818 (sec).
+ Self B131-ASN 7 :     -16.46520541 in 7.6808 (sec).
+ Self B132-LEU 0 :       8.49444399 in 7.8063 (sec).
+ Self B132-LEU 1 :     403.77892063 in 7.5791 (sec).
+ Self B132-LEU 2 :      16.24360322 in 7.8693 (sec).
+ Self B132-LEU 3 :      40.32143316 in 7.9439 (sec).
+ Self B132-LEU 4 :     545.53491887 in 7.7851 (sec).
+ Self B132-LEU 5 :    2763.48792426 in 7.7295 (sec).
+ Self B133-ILE 0 :      12.35219103 in 7.9610 (sec).
+ Self B133-ILE 1 :      43.28904200 in 7.7758 (sec).
+ Self B133-ILE 2 :      15.76104237 in 7.7783 (sec).
+ Self B133-ILE 3 :     822.03166508 in 7.7993 (sec).
+ Self B133-ILE 4 :    4842.03203191 in 8.2090 (sec).
+ Self B133-ILE 5 :      90.53257301 in 7.5969 (sec).
+ Self B133-ILE 6 :     107.31064307 in 7.8046 (sec).
+ Self B133-ILE 7 :      84.77618478 in 8.0289 (sec).
+ Self B134-LYS 0 :     -43.62716553 in 7.7745 (sec).
+ Self B134-LYS 1 :     245.87457548 in 7.6178 (sec).
+ Self B134-LYS 2 :     -42.98972808 in 8.0370 (sec).
+ Self B134-LYS 3 :     -43.46603209 in 7.8967 (sec).
+ Self B134-LYS 4 :     -26.68471423 in 8.1192 (sec).
+ Self B134-LYS 5 :      95.90345389 in 7.7280 (sec).
+ Self B134-LYS 6 :  123381.84016195 in 9.1857 (sec).
+ Self B134-LYS 7 :  149164.37632096 in 10.1057 (sec).
+ Self B134-LYS 8 :  130098.08192197 in 10.0908 (sec).
+ Self B134-LYS 9 :     626.14876846 in 7.5817 (sec).
+ Self B134-LYS 10:    1531.34808264 in 8.0009 (sec).
+ Self B134-LYS 11:    7016.89863726 in 9.4602 (sec).
+ Self B134-LYS 12:   11548.53463113 in 9.1514 (sec).
+ Self B134-LYS 13:     995.09486837 in 7.8208 (sec).
+ Self B134-LYS 14:    4550.95292660 in 8.5377 (sec).
+ Self B134-LYS 15:    4265.15170483 in 7.9463 (sec).
+ Self B134-LYS 16:    8899.75637299 in 8.4596 (sec).
+ Self B134-LYS 17:    3936.51288820 in 8.0214 (sec).
+ Self B134-LYS 18:    8792.26351240 in 8.5090 (sec).
+ Self B134-LYS 19:  281600.58170838 in 9.0550 (sec).
+ Self B134-LYS 20:  284587.03709640 in 10.1072 (sec).
+ Self B134-LYS 21:  281898.16535908 in 9.8253 (sec).
+ Self B134-LYS 22:    3721.06018050 in 8.0644 (sec).
+ Self B134-LYS 23:    3697.96710520 in 8.2185 (sec).
+ Self B134-LYS 24:   28132.20378903 in 9.9027 (sec).
+ Self B134-LYS 25:   54481.93417758 in 10.4779 (sec).
+ Self B134-LYS 26:   22922.72548911 in 9.4859 (sec).
+ Self B134-LYS 27:   17397.67082398 in 8.8896 (sec).
+ Self B137-GLU 0 :    -104.15729332 in 7.7009 (sec).
+ Self B137-GLU 1 :     -88.56071969 in 7.8090 (sec).
+ Self B137-GLU 2 :     -70.75954789 in 7.6891 (sec).
+ Self B137-GLU 3 :    -100.40083316 in 7.8181 (sec).
+ Self B137-GLU 4 :     -97.69771219 in 7.8312 (sec).
+ Self B137-GLU 5 :     -90.77710045 in 7.7038 (sec).
+ Self B137-GLU 6 :     -90.43407022 in 7.7074 (sec).
+ Self B137-GLU 7 :     -99.76358810 in 7.8574 (sec).
+ Self B137-GLU 8 :     -98.96044245 in 7.8195 (sec).
+  Rotamer (A18-LEU, 1) self-energy    1718.25997584 pruned by (A18-LEU, 0)       8.69352908.
+  Rotamer (A18-LEU, 4) self-energy     625.62288014 pruned by (A18-LEU, 0)       8.69352908.
+  Rotamer (A18-LEU, 5) self-energy    7708.37440727 pruned by (A18-LEU, 0)       8.69352908.
+  Rotamer (A20-ASP, 1) self-energy      33.41740624 pruned by (A20-ASP, 0)    -102.58276662.
+  Rotamer (A20-ASP, 2) self-energy     -46.31519119 pruned by (A20-ASP, 0)    -102.58276662.
+  Rotamer (A20-ASP, 3) self-energy     -67.09862829 pruned by (A20-ASP, 0)    -102.58276662.
+  Rotamer (A21-LEU, 1) self-energy     119.72617383 pruned by (A21-LEU, 0)       5.92329738.
+  Rotamer (A21-LEU, 3) self-energy      82.64840425 pruned by (A21-LEU, 0)       5.92329738.
+  Rotamer (A22-LYS, 6) self-energy    1333.54315751 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS, 7) self-energy   30572.49246052 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS, 8) self-energy    2253.26368701 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,16) self-energy     -13.20555439 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,17) self-energy       4.95983823 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,19) self-energy     -23.98273178 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,23) self-energy     112.66085083 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,24) self-energy     -15.69844255 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,25) self-energy    1234.26912563 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,26) self-energy      -6.77350784 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A22-LYS,27) self-energy     901.66299991 pruned by (A22-LYS,12)     -50.78140358.
+  Rotamer (A24-LYS, 1) self-energy      43.36970235 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 2) self-energy     137.05281503 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 3) self-energy     139.79730767 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 4) self-energy    4493.77858727 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 5) self-energy     837.13592657 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 6) self-energy   46687.44584508 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 7) self-energy   12100.38636227 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 8) self-energy   10254.11901787 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS, 9) self-energy    2069.52987640 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,10) self-energy    1650.02857999 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,11) self-energy    1104.25784223 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,12) self-energy    1152.24501786 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,13) self-energy   96552.36472560 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,14) self-energy     103.09209098 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,15) self-energy     149.14532203 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,16) self-energy     465.48876437 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,17) self-energy      35.68014364 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,24) self-energy     222.92040390 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,25) self-energy     225.08677062 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,26) self-energy    9863.70347723 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A24-LYS,27) self-energy  210662.35566473 pruned by (A24-LYS,20)     -47.82333297.
+  Rotamer (A107-ILE, 1) self-energy      43.25708915 pruned by (A107-ILE, 0)      11.24927239.
+  Rotamer (A107-ILE, 3) self-energy     119.19547249 pruned by (A107-ILE, 0)      11.24927239.
+  Rotamer (A107-ILE, 4) self-energy      36.27110152 pruned by (A107-ILE, 0)      11.24927239.
+  Rotamer (A107-ILE, 7) self-energy      64.21408449 pruned by (A107-ILE, 0)      11.24927239.
+  Rotamer (A108-ASN, 3) self-energy    1277.96830838 pruned by (A108-ASN, 0)     -35.84046885.
+  Rotamer (A108-ASN, 4) self-energy     112.95105770 pruned by (A108-ASN, 0)     -35.84046885.
+  Rotamer (A108-ASN, 5) self-energy    1512.05854009 pruned by (A108-ASN, 0)     -35.84046885.
+  Rotamer (A108-ASN, 6) self-energy    1593.35789126 pruned by (A108-ASN, 0)     -35.84046885.
+  Rotamer (A108-ASN, 7) self-energy     316.40494329 pruned by (A108-ASN, 0)     -35.84046885.
+  Rotamer (A110-GLU, 5) self-energy     315.42120374 pruned by (A110-GLU, 0)     -97.54349345.
+  Rotamer (A133-ILE, 1) self-energy      42.08973866 pruned by (A133-ILE, 0)      12.89053123.
+  Rotamer (A133-ILE, 3) self-energy   11155.95727168 pruned by (A133-ILE, 0)      12.89053123.
+  Rotamer (A133-ILE, 4) self-energy  108781.11798690 pruned by (A133-ILE, 0)      12.89053123.
+  Rotamer (A133-ILE, 5) self-energy     199.95287415 pruned by (A133-ILE, 0)      12.89053123.
+  Rotamer (A133-ILE, 6) self-energy     246.10399982 pruned by (A133-ILE, 0)      12.89053123.
+  Rotamer (A133-ILE, 7) self-energy     181.14277969 pruned by (A133-ILE, 0)      12.89053123.
+  Rotamer (A134-LYS, 1) self-energy    2084.60888743 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS, 3) self-energy     -13.86434325 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS, 4) self-energy     136.91215628 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS, 5) self-energy      64.98919278 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS, 6) self-energy   11860.55326789 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS, 7) self-energy   17612.64562595 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS, 8) self-energy   14426.12777958 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS, 9) self-energy      47.32109198 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,10) self-energy     181.79909790 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,11) self-energy   15504.34544224 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,12) self-energy    8298.01254651 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,13) self-energy   38515.25010383 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,14) self-energy     474.11117942 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,15) self-energy     439.05210802 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,16) self-energy   18789.45025934 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,17) self-energy     987.22017767 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,18) self-energy    1227.76539233 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,19) self-energy   19989.64455513 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,20) self-energy   99383.86818691 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,21) self-energy   45453.24858535 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,22) self-energy    8381.40049646 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,23) self-energy    2650.95327739 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,24) self-energy   58417.33926977 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,25) self-energy   72216.72849667 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,26) self-energy   50426.51861548 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (A134-LYS,27) self-energy   77101.31318533 pruned by (A134-LYS, 0)     -40.32995981.
+  Rotamer (B45-MET, 1) self-energy     166.63006106 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 2) self-energy     523.65301966 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 3) self-energy     163.40634305 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 4) self-energy    2178.32591247 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 5) self-energy     424.41496341 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 6) self-energy    2235.00735393 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 7) self-energy      85.80146098 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 8) self-energy      30.73328046 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET, 9) self-energy      36.87949572 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET,10) self-energy      32.59719085 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET,12) self-energy     283.30520408 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B45-MET,13) self-energy      38.24966332 pruned by (B45-MET, 0)      -0.72784045.
+  Rotamer (B48-GLN, 2) self-energy   87803.89825112 pruned by (B48-GLN, 0)     -29.30567034.
+  Rotamer (B48-GLN, 3) self-energy      81.08102036 pruned by (B48-GLN, 0)     -29.30567034.
+  Rotamer (B48-GLN, 4) self-energy     240.76358931 pruned by (B48-GLN, 0)     -29.30567034.
+  Rotamer (B48-GLN, 5) self-energy     163.09705352 pruned by (B48-GLN, 0)     -29.30567034.
+  Rotamer (B48-GLN, 6) self-energy    2813.20304046 pruned by (B48-GLN, 0)     -29.30567034.
+  Rotamer (B48-GLN, 7) self-energy      38.25695194 pruned by (B48-GLN, 0)     -29.30567034.
+  Rotamer (B106-LEU, 1) self-energy      97.54714298 pruned by (B106-LEU, 0)       6.42478975.
+  Rotamer (B106-LEU, 3) self-energy      40.04420887 pruned by (B106-LEU, 0)       6.42478975.
+  Rotamer (B115-LYS, 3) self-energy     -19.11302465 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS, 6) self-energy      -0.13213304 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS, 9) self-energy     219.35484235 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,13) self-energy     433.55867173 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,14) self-energy      37.43118350 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,15) self-energy      73.43108191 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,16) self-energy   15350.06278820 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,17) self-energy    2292.45257906 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,18) self-energy    2242.99555282 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,19) self-energy   54854.72198907 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,20) self-energy   55045.57356199 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,21) self-energy   76929.93525056 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,22) self-energy   18820.71570845 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,23) self-energy   18828.36170408 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,24) self-energy   52933.25298725 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,25) self-energy  164631.11950899 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,26) self-energy    9417.91725910 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B115-LYS,27) self-energy   53396.95415788 pruned by (B115-LYS, 4)     -49.32586372.
+  Rotamer (B121-MET, 1) self-energy      72.49853185 pruned by (B121-MET, 8)       0.05410788.
+  Rotamer (B121-MET, 2) self-energy      64.92189811 pruned by (B121-MET, 8)       0.05410788.
+  Rotamer (B121-MET, 4) self-energy     803.47750923 pruned by (B121-MET, 8)       0.05410788.
+  Rotamer (B121-MET, 6) self-energy    2618.68043694 pruned by (B121-MET, 8)       0.05410788.
+  Rotamer (B121-MET, 9) self-energy    1510.04480569 pruned by (B121-MET, 8)       0.05410788.
+  Rotamer (B121-MET,11) self-energy      25.92740134 pruned by (B121-MET, 8)       0.05410788.
+  Rotamer (B121-MET,12) self-energy   12119.16804923 pruned by (B121-MET, 8)       0.05410788.
+  Rotamer (B122-THR, 7) self-energy      25.28793199 pruned by (B122-THR, 0)      -0.87981041.
+  Rotamer (B123-GLU, 3) self-energy     482.42482972 pruned by (B123-GLU, 0)    -107.07335267.
+  Rotamer (B123-GLU, 6) self-energy    6989.00745440 pruned by (B123-GLU, 0)    -107.07335267.
+  Rotamer (B123-GLU, 7) self-energy     968.82921764 pruned by (B123-GLU, 0)    -107.07335267.
+  Rotamer (B123-GLU, 8) self-energy   16693.27630210 pruned by (B123-GLU, 0)    -107.07335267.
+  Rotamer (B125-MET, 1) self-energy    1969.33227744 pruned by (B125-MET, 0)      -3.04272989.
+  Rotamer (B125-MET, 2) self-energy     627.06749266 pruned by (B125-MET, 0)      -3.04272989.
+  Rotamer (B125-MET,10) self-energy     225.55814010 pruned by (B125-MET, 0)      -3.04272989.
+  Rotamer (B126-ILE, 1) self-energy      40.98720132 pruned by (B126-ILE, 0)      11.88737634.
+  Rotamer (B126-ILE, 2) self-energy      66.49152068 pruned by (B126-ILE, 0)      11.88737634.
+  Rotamer (B126-ILE, 3) self-energy      84.87305079 pruned by (B126-ILE, 0)      11.88737634.
+  Rotamer (B126-ILE, 4) self-energy      40.33543995 pruned by (B126-ILE, 0)      11.88737634.
+  Rotamer (B126-ILE, 5) self-energy      54.40852294 pruned by (B126-ILE, 0)      11.88737634.
+  Rotamer (B127-HIS, 1) self-energy    2384.40793696 pruned by (B127-HIS, 0)     -54.88550275.
+  Rotamer (B127-HIS, 2) self-energy     854.68437081 pruned by (B127-HIS, 0)     -54.88550275.
+  Rotamer (B127-HIS, 3) self-energy     -28.26951125 pruned by (B127-HIS, 0)     -54.88550275.
+  Rotamer (B127-HIS, 8) self-energy     301.79081117 pruned by (B127-HIS, 0)     -54.88550275.
+  Rotamer (B128-ASP, 1) self-energy      48.06647785 pruned by (B128-ASP, 0)     -99.47150712.
+  Rotamer (B128-ASP, 2) self-energy     -34.20595385 pruned by (B128-ASP, 0)     -99.47150712.
+  Rotamer (B128-ASP, 3) self-energy     633.19153753 pruned by (B128-ASP, 0)     -99.47150712.
+  Rotamer (B128-ASP, 4) self-energy     295.28793758 pruned by (B128-ASP, 0)     -99.47150712.
+  Rotamer (B129-TYR, 1) self-energy  389680.26613780 pruned by (B129-TYR, 0)     -11.75345214.
+  Rotamer (B129-TYR, 2) self-energy  389677.47980045 pruned by (B129-TYR, 0)     -11.75345214.
+  Rotamer (B129-TYR, 3) self-energy     444.67165349 pruned by (B129-TYR, 0)     -11.75345214.
+  Rotamer (B129-TYR, 4) self-energy     418.66211896 pruned by (B129-TYR, 0)     -11.75345214.
+  Rotamer (B129-TYR, 5) self-energy      73.98385064 pruned by (B129-TYR, 0)     -11.75345214.
+  Rotamer (B129-TYR, 6) self-energy      73.31380338 pruned by (B129-TYR, 0)     -11.75345214.
+  Rotamer (B130-MET, 1) self-energy     267.00591014 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET, 2) self-energy   28243.79624020 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET, 3) self-energy    1824.28148013 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET, 4) self-energy  203373.26379750 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET, 5) self-energy   54939.16599767 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET, 6) self-energy  122623.35419712 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET, 7) self-energy     655.81229152 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET, 8) self-energy      63.39450517 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET,11) self-energy    8102.19959773 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET,12) self-energy     199.48430036 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B130-MET,13) self-energy    1173.31435562 pruned by (B130-MET, 0)      -0.98784085.
+  Rotamer (B131-ASN, 1) self-energy     659.53943757 pruned by (B131-ASN, 0)     -39.41087215.
+  Rotamer (B131-ASN, 2) self-energy     598.78962070 pruned by (B131-ASN, 0)     -39.41087215.
+  Rotamer (B131-ASN, 5) self-energy      -6.81615653 pruned by (B131-ASN, 0)     -39.41087215.
+  Rotamer (B131-ASN, 6) self-energy      13.01212838 pruned by (B131-ASN, 0)     -39.41087215.
+  Rotamer (B132-LEU, 1) self-energy     403.77892063 pruned by (B132-LEU, 0)       8.49444399.
+  Rotamer (B132-LEU, 3) self-energy      40.32143316 pruned by (B132-LEU, 0)       8.49444399.
+  Rotamer (B132-LEU, 4) self-energy     545.53491887 pruned by (B132-LEU, 0)       8.49444399.
+  Rotamer (B132-LEU, 5) self-energy    2763.48792426 pruned by (B132-LEU, 0)       8.49444399.
+  Rotamer (B133-ILE, 1) self-energy      43.28904200 pruned by (B133-ILE, 0)      12.35219103.
+  Rotamer (B133-ILE, 3) self-energy     822.03166508 pruned by (B133-ILE, 0)      12.35219103.
+  Rotamer (B133-ILE, 4) self-energy    4842.03203191 pruned by (B133-ILE, 0)      12.35219103.
+  Rotamer (B133-ILE, 5) self-energy      90.53257301 pruned by (B133-ILE, 0)      12.35219103.
+  Rotamer (B133-ILE, 6) self-energy     107.31064307 pruned by (B133-ILE, 0)      12.35219103.
+  Rotamer (B133-ILE, 7) self-energy      84.77618478 pruned by (B133-ILE, 0)      12.35219103.
+  Rotamer (B134-LYS, 1) self-energy     245.87457548 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS, 5) self-energy      95.90345389 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS, 6) self-energy  123381.84016195 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS, 7) self-energy  149164.37632096 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS, 8) self-energy  130098.08192197 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS, 9) self-energy     626.14876846 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,10) self-energy    1531.34808264 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,11) self-energy    7016.89863726 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,12) self-energy   11548.53463113 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,13) self-energy     995.09486837 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,14) self-energy    4550.95292660 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,15) self-energy    4265.15170483 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,16) self-energy    8899.75637299 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,17) self-energy    3936.51288820 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,18) self-energy    8792.26351240 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,19) self-energy  281600.58170838 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,20) self-energy  284587.03709640 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,21) self-energy  281898.16535908 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,22) self-energy    3721.06018050 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,23) self-energy    3697.96710520 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,24) self-energy   28132.20378903 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,25) self-energy   54481.93417758 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,26) self-energy   22922.72548911 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B134-LYS,27) self-energy   17397.67082398 pruned by (B134-LYS, 0)     -43.62716553.
+  Rotamer (B137-GLU, 2) self-energy     -70.75954789 pruned by (B137-GLU, 0)    -104.15729332.
+ Time for single energies:         3165
+ Number of 2-body energies to calculate: 4596
+ Pair  A18-LEU 0 ,  A19-SER 0 :       0.11223067 at      1.354 A (1.354 A by res) in 7.3768 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 1 :       0.24562728 at      1.354 A (1.354 A by res) in 7.6282 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 2 :       0.15541453 at      1.354 A (1.354 A by res) in 7.6215 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 3 :       0.11399280 at      1.354 A (1.354 A by res) in 7.6519 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 4 :       0.11291674 at      1.354 A (1.354 A by res) in 7.4230 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 5 :       0.26379983 at      1.354 A (1.354 A by res) in 7.5317 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 6 :       0.16730433 at      1.354 A (1.354 A by res) in 7.2665 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 7 :       0.24346026 at      1.354 A (1.354 A by res) in 7.4212 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 8 :       0.21270467 at      1.354 A (1.354 A by res) in 7.3555 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 9 :       0.17987657 at      1.354 A (1.354 A by res) in 7.6521 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 10:       0.17226717 at      1.354 A (1.354 A by res) in 7.8385 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 11:       0.21493488 at      1.354 A (1.354 A by res) in 7.2342 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 12:       0.17839171 at      1.354 A (1.354 A by res) in 7.6059 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 13:       0.27800583 at      1.354 A (1.354 A by res) in 7.3365 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 14:       0.30338164 at      1.354 A (1.354 A by res) in 7.5745 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 15:       0.15810520 at      1.354 A (1.354 A by res) in 7.2647 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 16:       0.08558536 at      1.354 A (1.354 A by res) in 7.6268 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 17:       0.13552932 at      1.354 A (1.354 A by res) in 7.4229 (sec).
+ Pair  A18-LEU 0 ,  A19-SER 18:       0.08295223 at      1.354 A (1.354 A by res) in 7.4065 (sec).
+ Pair  A18-LEU 0 ,  A20-ASP 0 :       0.02188643 at      2.935 A (2.935 A by res) in 7.6407 (sec).
+ Pair  A18-LEU 0 ,  A20-ASP 4 :       0.01143281 at      2.935 A (2.935 A by res) in 7.7454 (sec).
+ Pair  A18-LEU 0 ,  A20-ASP 5 :       0.02887930 at      2.935 A (2.935 A by res) in 7.6425 (sec).
+ Pair  A18-LEU 0 ,  A21-LEU 0 :       0.34439068 at      2.111 A (0.557 A by res) in 7.2031 (sec).
+ Pair  A18-LEU 0 ,  A21-LEU 2 :       0.17859741 at      2.111 A (0.557 A by res) in 7.3366 (sec).
+ Pair  A18-LEU 0 ,  A21-LEU 4 :       0.23608732 at      2.111 A (0.557 A by res) in 7.2874 (sec).
+ Pair  A18-LEU 0 ,  A21-LEU 5 :       0.25918903 at      2.111 A (0.557 A by res) in 7.2862 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 0 :       0.07889527 at      3.742 A (2.226 A by res) in 7.2657 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 1 :       0.04939986 at      3.742 A (2.226 A by res) in 7.3371 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 2 :       0.03622654 at      3.742 A (2.226 A by res) in 7.3044 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 3 :       0.03546059 at      3.742 A (2.226 A by res) in 7.4608 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 4 :       0.05248190 at      3.742 A (2.226 A by res) in 7.6119 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 5 :       0.03303074 at      3.742 A (2.226 A by res) in 7.1472 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 9 :       0.03252538 at      3.742 A (2.226 A by res) in 7.9491 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 10:       0.03240023 at      3.742 A (2.226 A by res) in 7.5686 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 11:       0.03424529 at      3.742 A (2.226 A by res) in 7.5689 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 12:       0.03099688 at      3.742 A (2.226 A by res) in 7.5931 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 13:       0.03154429 at      3.742 A (2.226 A by res) in 7.2662 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 14:       0.03718819 at      3.742 A (2.226 A by res) in 7.6643 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 15:       0.04188043 at      3.742 A (2.226 A by res) in 7.3811 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 18:       0.04019273 at      3.742 A (2.226 A by res) in 7.2559 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 20:       0.06494447 at      3.742 A (2.226 A by res) in 7.4692 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 21:       0.08149184 at      3.742 A (2.226 A by res) in 7.6059 (sec).
+ Pair  A18-LEU 0 ,  A22-LYS 22:       0.06115727 at      3.742 A (2.226 A by res) in 7.4971 (sec).
+ Pair  A18-LEU 0 ,  A26-VAL 0 :       0.23172676 at      2.501 A (2.086 A by res) in 7.4356 (sec).
+ Pair  A18-LEU 0 ,  A26-VAL 1 :       0.72165993 at      2.086 A (2.086 A by res) in 7.4481 (sec).
+ Pair  A18-LEU 0 ,  A26-VAL 2 :       0.27376417 at      2.419 A (2.086 A by res) in 7.7452 (sec).
+ Pair  A18-LEU 0 ,  A26-VAL 3 :       0.63736783 at      2.109 A (2.086 A by res) in 7.3340 (sec).
+ Pair  A18-LEU 0 , A107-ILE 0 :       0.57680295 at      2.157 A (1.927 A by res) in 7.5823 (sec).
+ Pair  A18-LEU 0 , A107-ILE 2 :       2.52719578 at      1.927 A (1.927 A by res) in 7.6411 (sec).
+ Pair  A18-LEU 0 , A107-ILE 5 :       0.22801096 at      3.344 A (1.927 A by res) in 7.5201 (sec).
+ Pair  A18-LEU 0 , A107-ILE 6 :       0.50993899 at      2.222 A (1.927 A by res) in 7.6648 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 0 :       0.12013964 at      1.354 A (1.354 A by res) in 7.3239 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 1 :       0.26406630 at      1.354 A (1.354 A by res) in 7.4293 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 2 :       0.16722811 at      1.354 A (1.354 A by res) in 7.3486 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 3 :       0.12210671 at      1.354 A (1.354 A by res) in 7.4967 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 4 :       0.12039733 at      1.354 A (1.354 A by res) in 7.4145 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 5 :       0.28005306 at      1.354 A (1.354 A by res) in 7.4225 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 6 :       0.17651441 at      1.354 A (1.354 A by res) in 7.5964 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 7 :       0.26157993 at      1.354 A (1.354 A by res) in 7.4499 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 8 :       0.22821823 at      1.354 A (1.354 A by res) in 7.1367 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 9 :       0.19233298 at      1.354 A (1.354 A by res) in 7.3144 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 10:       0.18404266 at      1.354 A (1.354 A by res) in 7.3237 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 11:       0.23050451 at      1.354 A (1.354 A by res) in 7.4770 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 12:       0.19087832 at      1.354 A (1.354 A by res) in 7.3864 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 13:       0.29742465 at      1.354 A (1.354 A by res) in 7.6272 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 14:       0.31644695 at      1.354 A (1.354 A by res) in 7.4025 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 15:       0.16533464 at      1.354 A (1.354 A by res) in 7.3476 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 16:       0.09253021 at      1.354 A (1.354 A by res) in 7.5260 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 17:       0.14774540 at      1.354 A (1.354 A by res) in 7.2268 (sec).
+ Pair  A18-LEU 2 ,  A19-SER 18:       0.09071954 at      1.354 A (1.354 A by res) in 7.5277 (sec).
+ Pair  A18-LEU 2 ,  A20-ASP 0 :       0.02594312 at      2.935 A (2.935 A by res) in 7.4423 (sec).
+ Pair  A18-LEU 2 ,  A20-ASP 4 :       0.01368669 at      2.935 A (2.935 A by res) in 7.6713 (sec).
+ Pair  A18-LEU 2 ,  A20-ASP 5 :       0.03327157 at      2.935 A (2.935 A by res) in 7.4269 (sec).
+ Pair  A18-LEU 2 ,  A21-LEU 0 :       0.51304295 at      2.111 A (0.557 A by res) in 7.5059 (sec).
+ Pair  A18-LEU 2 ,  A21-LEU 2 :       0.13921473 at      2.111 A (0.557 A by res) in 7.5297 (sec).
+ Pair  A18-LEU 2 ,  A21-LEU 4 :       0.21940991 at      2.111 A (0.557 A by res) in 7.8828 (sec).
+ Pair  A18-LEU 2 ,  A21-LEU 5 :       0.23577903 at      2.111 A (0.557 A by res) in 7.5807 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 0 :       0.08346995 at      3.742 A (2.226 A by res) in 7.5445 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 1 :       0.05153309 at      3.742 A (2.226 A by res) in 7.4898 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 2 :       0.03740722 at      3.742 A (2.226 A by res) in 7.5578 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 3 :       0.03656755 at      3.742 A (2.226 A by res) in 7.2541 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 4 :       0.05496447 at      3.742 A (2.226 A by res) in 7.5447 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 5 :       0.03386065 at      3.742 A (2.226 A by res) in 7.5095 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 9 :       0.03335409 at      3.742 A (2.226 A by res) in 7.6826 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 10:       0.03320197 at      3.742 A (2.226 A by res) in 7.3359 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 11:       0.03496887 at      3.742 A (2.226 A by res) in 7.5982 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 12:       0.03164528 at      3.742 A (2.226 A by res) in 7.2683 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 13:       0.03226559 at      3.742 A (2.226 A by res) in 7.3267 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 14:       0.03814291 at      3.742 A (2.226 A by res) in 7.3916 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 15:       0.04301768 at      3.742 A (2.226 A by res) in 7.4497 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 18:       0.04145751 at      3.742 A (2.226 A by res) in 7.1380 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 20:       0.06831612 at      3.742 A (2.226 A by res) in 7.4753 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 21:       0.08625987 at      3.742 A (2.226 A by res) in 7.6512 (sec).
+ Pair  A18-LEU 2 ,  A22-LYS 22:       0.06438956 at      3.742 A (2.226 A by res) in 7.5935 (sec).
+ Pair  A18-LEU 2 ,  A26-VAL 0 :       0.19126795 at      2.480 A (2.086 A by res) in 7.3940 (sec).
+ Pair  A18-LEU 2 ,  A26-VAL 1 :       0.69905498 at      2.088 A (2.086 A by res) in 7.5267 (sec).
+ Pair  A18-LEU 2 ,  A26-VAL 2 :       0.22334892 at      2.421 A (2.086 A by res) in 7.2277 (sec).
+ Pair  A18-LEU 2 ,  A26-VAL 3 :       0.63074107 at      2.101 A (2.086 A by res) in 7.5565 (sec).
+ Pair  A18-LEU 2 , A107-ILE 0 :       0.80879804 at      2.059 A (1.927 A by res) in 7.7336 (sec).
+ Pair  A18-LEU 2 , A107-ILE 2 :       1.80482536 at      2.094 A (1.927 A by res) in 7.9982 (sec).
+ Pair  A18-LEU 2 , A107-ILE 5 :       0.26378302 at      3.316 A (1.927 A by res) in 7.6597 (sec).
+ Pair  A18-LEU 2 , A107-ILE 6 :       0.74967398 at      2.102 A (1.927 A by res) in 7.5853 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 0 :       0.17627694 at      1.354 A (1.354 A by res) in 7.5139 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 1 :       0.35854561 at      1.354 A (1.354 A by res) in 7.3578 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 2 :       0.23599463 at      1.354 A (1.354 A by res) in 7.3218 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 3 :       0.17877500 at      1.354 A (1.354 A by res) in 7.5748 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 4 :       0.17544025 at      1.354 A (1.354 A by res) in 7.6650 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 5 :       0.37127418 at      1.354 A (1.354 A by res) in 7.5886 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 6 :       0.24085746 at      1.354 A (1.354 A by res) in 7.6228 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 7 :       0.35396382 at      1.354 A (1.354 A by res) in 7.5436 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 8 :       0.31185638 at      1.354 A (1.354 A by res) in 7.3267 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 9 :       0.25737336 at      1.354 A (1.354 A by res) in 7.2675 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 10:       0.24511965 at      1.354 A (1.354 A by res) in 7.2995 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 11:       0.30558334 at      1.354 A (1.354 A by res) in 7.4777 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 12:       0.25379548 at      1.354 A (1.354 A by res) in 7.3198 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 13:       0.41785185 at      1.354 A (1.354 A by res) in 7.4132 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 14:       0.39826853 at      1.354 A (1.354 A by res) in 7.6094 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 15:       0.20535907 at      1.354 A (1.354 A by res) in 7.7600 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 16:       0.12129127 at      1.354 A (1.354 A by res) in 7.5329 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 17:       0.22425846 at      1.354 A (1.354 A by res) in 7.8372 (sec).
+ Pair  A18-LEU 3 ,  A19-SER 18:       0.12399710 at      1.354 A (1.354 A by res) in 7.4325 (sec).
+ Pair  A18-LEU 3 ,  A20-ASP 0 :       0.03531490 at      2.935 A (2.935 A by res) in 7.4524 (sec).
+ Pair  A18-LEU 3 ,  A20-ASP 4 :       0.01775770 at      2.935 A (2.935 A by res) in 7.7886 (sec).
+ Pair  A18-LEU 3 ,  A20-ASP 5 :       0.04411099 at      2.935 A (2.935 A by res) in 7.5327 (sec).
+ Pair  A18-LEU 3 ,  A21-LEU 0 :       0.17763287 at      2.111 A (0.557 A by res) in 7.5216 (sec).
+ Pair  A18-LEU 3 ,  A21-LEU 2 :       0.01482262 at      2.111 A (0.557 A by res) in 7.4241 (sec).
+ Pair  A18-LEU 3 ,  A21-LEU 4 :       0.05627959 at      2.111 A (0.557 A by res) in 7.5591 (sec).
+ Pair  A18-LEU 3 ,  A21-LEU 5 :       0.09731331 at      2.111 A (0.557 A by res) in 7.2412 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 0 :       0.13163750 at      3.742 A (2.226 A by res) in 7.2233 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 1 :       0.05984141 at      3.742 A (2.226 A by res) in 7.5107 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 2 :       0.04219175 at      3.742 A (2.226 A by res) in 7.4314 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 3 :       0.04080589 at      3.742 A (2.226 A by res) in 7.2403 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 4 :       0.06369118 at      3.742 A (2.226 A by res) in 7.3420 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 5 :       0.03720522 at      3.742 A (2.226 A by res) in 7.6198 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 9 :       0.03675217 at      3.742 A (2.226 A by res) in 7.4987 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 10:       0.03624894 at      3.742 A (2.226 A by res) in 7.1613 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 11:       0.03803325 at      3.742 A (2.226 A by res) in 7.3906 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 12:       0.03419019 at      3.742 A (2.226 A by res) in 7.4721 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 13:       0.03530821 at      3.742 A (2.226 A by res) in 7.4007 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 14:       0.04218742 at      3.742 A (2.226 A by res) in 7.3180 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 15:       0.04905665 at      3.742 A (2.226 A by res) in 7.3827 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 18:       0.05534861 at      3.742 A (2.226 A by res) in 7.5905 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 20:       0.10239043 at      3.742 A (2.226 A by res) in 7.2501 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 21:       0.13873548 at      3.742 A (2.226 A by res) in 7.6227 (sec).
+ Pair  A18-LEU 3 ,  A22-LYS 22:       0.08619635 at      3.742 A (2.226 A by res) in 7.5425 (sec).
+ Pair  A18-LEU 3 ,  A26-VAL 0 :       0.16909348 at      3.344 A (2.086 A by res) in 7.3445 (sec).
+ Pair  A18-LEU 3 ,  A26-VAL 1 :       0.21286491 at      3.093 A (2.086 A by res) in 7.4463 (sec).
+ Pair  A18-LEU 3 ,  A26-VAL 2 :       0.17160720 at      3.389 A (2.086 A by res) in 7.5956 (sec).
+ Pair  A18-LEU 3 ,  A26-VAL 3 :       0.16169766 at      3.129 A (2.086 A by res) in 7.4308 (sec).
+ Pair  A18-LEU 3 , A107-ILE 0 :       0.79927447 at      2.136 A (1.927 A by res) in 7.5717 (sec).
+ Pair  A18-LEU 3 , A107-ILE 2 :       0.49222701 at      2.405 A (1.927 A by res) in 7.2000 (sec).
+ Pair  A18-LEU 3 , A107-ILE 5 :       0.21273234 at      2.891 A (1.927 A by res) in 7.6456 (sec).
+ Pair  A18-LEU 3 , A107-ILE 6 :       0.63427972 at      2.295 A (1.927 A by res) in 7.3731 (sec).
+ Pair  A19-SER 0 ,  A20-ASP 0 :       0.17055906 at      1.360 A (1.360 A by res) in 7.5397 (sec).
+ Pair  A19-SER 0 ,  A20-ASP 4 :       0.08665865 at      1.360 A (1.360 A by res) in 7.5430 (sec).
+ Pair  A19-SER 0 ,  A20-ASP 5 :       0.09657190 at      1.360 A (1.360 A by res) in 7.6599 (sec).
+ Pair  A19-SER 0 ,  A21-LEU 0 :       0.03364782 at      2.776 A (2.776 A by res) in 6.9968 (sec).
+ Pair  A19-SER 0 ,  A21-LEU 2 :       0.03494423 at      2.776 A (2.776 A by res) in 7.8476 (sec).
+ Pair  A19-SER 0 ,  A21-LEU 4 :       0.04536717 at      2.776 A (2.776 A by res) in 7.5486 (sec).
+ Pair  A19-SER 0 ,  A21-LEU 5 :       0.03510930 at      2.776 A (2.776 A by res) in 7.4880 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 0 :       0.72672726 at      2.393 A (0.317 A by res) in 7.4898 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 1 :       0.78072670 at      1.998 A (0.317 A by res) in 7.4928 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 2 :       0.20375216 at      2.381 A (0.317 A by res) in 7.6733 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 3 :       0.23417054 at      2.381 A (0.317 A by res) in 7.5739 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 4 :       0.48221612 at      2.381 A (0.317 A by res) in 7.4697 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 5 :       0.16217410 at      2.381 A (0.317 A by res) in 7.4558 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 9 :       0.10937725 at      2.393 A (0.317 A by res) in 7.3033 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 10:       0.12413474 at      2.393 A (0.317 A by res) in 7.4963 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 11:       0.09479564 at      2.393 A (0.317 A by res) in 7.6824 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 12:       0.09379168 at      2.393 A (0.317 A by res) in 7.4683 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 13:       0.09100943 at      2.393 A (0.317 A by res) in 7.4599 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 14:       0.18812673 at      2.393 A (0.317 A by res) in 7.7721 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 15:       0.17055772 at      2.393 A (0.317 A by res) in 7.3302 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 18:       0.27222567 at      2.250 A (0.317 A by res) in 7.8750 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 20:       1.18711975 at      2.250 A (0.317 A by res) in 7.4738 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 21:       0.92859507 at      2.250 A (0.317 A by res) in 7.9412 (sec).
+ Pair  A19-SER 0 ,  A22-LYS 22:       1.19345925 at      1.950 A (0.317 A by res) in 7.4788 (sec).
+ Pair  A19-SER 1 ,  A20-ASP 0 :       0.12311618 at      1.360 A (1.360 A by res) in 7.4086 (sec).
+ Pair  A19-SER 1 ,  A20-ASP 4 :       0.07043077 at      1.360 A (1.360 A by res) in 7.6047 (sec).
+ Pair  A19-SER 1 ,  A20-ASP 5 :       0.30625751 at      1.360 A (1.360 A by res) in 7.5782 (sec).
+ Pair  A19-SER 1 ,  A21-LEU 0 :       0.07325070 at      2.776 A (2.776 A by res) in 7.3521 (sec).
+ Pair  A19-SER 1 ,  A21-LEU 2 :       0.06702782 at      2.776 A (2.776 A by res) in 7.8877 (sec).
+ Pair  A19-SER 1 ,  A21-LEU 4 :       0.09745270 at      2.776 A (2.776 A by res) in 7.6547 (sec).
+ Pair  A19-SER 1 ,  A21-LEU 5 :       0.07548652 at      2.776 A (2.776 A by res) in 7.4318 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 0 :       0.74068847 at      2.393 A (0.317 A by res) in 7.3279 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 1 :       0.79778270 at      1.998 A (0.317 A by res) in 7.6166 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 2 :       0.23674585 at      2.381 A (0.317 A by res) in 7.6575 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 3 :       0.24865208 at      2.381 A (0.317 A by res) in 7.4089 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 4 :       0.56105534 at      2.381 A (0.317 A by res) in 7.5175 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 5 :       0.17418838 at      2.381 A (0.317 A by res) in 7.6594 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 9 :       0.12384973 at      2.393 A (0.317 A by res) in 7.5071 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 10:       0.12793386 at      2.393 A (0.317 A by res) in 7.3448 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 11:       0.10655964 at      2.393 A (0.317 A by res) in 7.4645 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 12:       0.09844732 at      2.393 A (0.317 A by res) in 7.4422 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 13:       0.10348126 at      2.393 A (0.317 A by res) in 7.3994 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 14:       0.18871800 at      2.393 A (0.317 A by res) in 7.6399 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 15:       0.18592117 at      2.393 A (0.317 A by res) in 7.6085 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 18:       0.29628713 at      2.250 A (0.317 A by res) in 7.4102 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 20:       1.17387619 at      2.250 A (0.317 A by res) in 7.5195 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 21:       0.99770980 at      2.250 A (0.317 A by res) in 7.5045 (sec).
+ Pair  A19-SER 1 ,  A22-LYS 22:       1.24435531 at      1.950 A (0.317 A by res) in 7.4200 (sec).
+ Pair  A19-SER 2 ,  A20-ASP 0 :      -0.58746616 at      1.360 A (1.360 A by res) in 7.6492 (sec).
+ Pair  A19-SER 2 ,  A20-ASP 4 :       0.06859782 at      1.360 A (1.360 A by res) in 7.6257 (sec).
+ Pair  A19-SER 2 ,  A20-ASP 5 :      -0.11621996 at      1.360 A (1.360 A by res) in 7.5166 (sec).
+ Pair  A19-SER 2 ,  A21-LEU 0 :       0.05648712 at      2.776 A (2.776 A by res) in 7.2752 (sec).
+ Pair  A19-SER 2 ,  A21-LEU 2 :       0.05561770 at      2.776 A (2.776 A by res) in 7.6682 (sec).
+ Pair  A19-SER 2 ,  A21-LEU 4 :       0.07607135 at      2.776 A (2.776 A by res) in 7.3787 (sec).
+ Pair  A19-SER 2 ,  A21-LEU 5 :       0.05859459 at      2.776 A (2.776 A by res) in 7.3931 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 0 :       0.73156451 at      2.393 A (0.317 A by res) in 7.4079 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 1 :       0.87222919 at      1.998 A (0.317 A by res) in 7.5362 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 2 :       0.25986460 at      2.381 A (0.317 A by res) in 7.3233 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 3 :       0.28286544 at      2.381 A (0.317 A by res) in 7.2611 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 4 :       0.64793749 at      2.381 A (0.317 A by res) in 7.4627 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 5 :       0.19145406 at      2.381 A (0.317 A by res) in 7.6821 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 9 :       0.13582588 at      2.393 A (0.317 A by res) in 7.7476 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 10:       0.14483966 at      2.393 A (0.317 A by res) in 7.3521 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 11:       0.11251350 at      2.393 A (0.317 A by res) in 7.5964 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 12:       0.10816708 at      2.393 A (0.317 A by res) in 7.6416 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 13:       0.11106819 at      2.393 A (0.317 A by res) in 7.4784 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 14:       0.20213901 at      2.393 A (0.317 A by res) in 7.6132 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 15:       0.19155485 at      2.393 A (0.317 A by res) in 7.6073 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 18:       0.30775893 at      2.250 A (0.317 A by res) in 7.3337 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 20:       1.18751381 at      2.250 A (0.317 A by res) in 7.3386 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 21:       0.98922663 at      2.250 A (0.317 A by res) in 7.4437 (sec).
+ Pair  A19-SER 2 ,  A22-LYS 22:       1.31872720 at      1.950 A (0.317 A by res) in 7.6564 (sec).
+ Pair  A19-SER 3 ,  A20-ASP 0 :      -0.04913154 at      1.360 A (1.360 A by res) in 7.4322 (sec).
+ Pair  A19-SER 3 ,  A20-ASP 4 :       0.08096073 at      1.360 A (1.360 A by res) in 7.7256 (sec).
+ Pair  A19-SER 3 ,  A20-ASP 5 :      -0.00029658 at      1.360 A (1.360 A by res) in 7.4370 (sec).
+ Pair  A19-SER 3 ,  A21-LEU 0 :       0.03651559 at      2.776 A (2.776 A by res) in 7.4799 (sec).
+ Pair  A19-SER 3 ,  A21-LEU 2 :       0.03767244 at      2.776 A (2.776 A by res) in 7.8039 (sec).
+ Pair  A19-SER 3 ,  A21-LEU 4 :       0.04907614 at      2.776 A (2.776 A by res) in 7.5950 (sec).
+ Pair  A19-SER 3 ,  A21-LEU 5 :       0.03807872 at      2.776 A (2.776 A by res) in 7.4887 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 0 :       0.71467923 at      2.393 A (0.317 A by res) in 7.3129 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 1 :       0.86724657 at      1.998 A (0.317 A by res) in 7.5381 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 2 :       0.23499262 at      2.381 A (0.317 A by res) in 7.6679 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 3 :       0.27171519 at      2.381 A (0.317 A by res) in 7.2488 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 4 :       0.58380232 at      2.381 A (0.317 A by res) in 7.5578 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 5 :       0.18073941 at      2.381 A (0.317 A by res) in 7.6407 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 9 :       0.12352677 at      2.393 A (0.317 A by res) in 7.6042 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 10:       0.13916499 at      2.393 A (0.317 A by res) in 7.3627 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 11:       0.10249612 at      2.393 A (0.317 A by res) in 7.6776 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 12:       0.10220532 at      2.393 A (0.317 A by res) in 7.5782 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 13:       0.10049805 at      2.393 A (0.317 A by res) in 7.4785 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 14:       0.19833755 at      2.393 A (0.317 A by res) in 7.5652 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 15:       0.17939308 at      2.393 A (0.317 A by res) in 7.6757 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 18:       0.28742385 at      2.250 A (0.317 A by res) in 7.3737 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 20:       1.18124132 at      2.250 A (0.317 A by res) in 7.4915 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 21:       0.94299079 at      2.250 A (0.317 A by res) in 7.6264 (sec).
+ Pair  A19-SER 3 ,  A22-LYS 22:       1.29432250 at      1.950 A (0.317 A by res) in 7.4111 (sec).
+ Pair  A19-SER 4 ,  A20-ASP 0 :       0.21076348 at      1.360 A (1.360 A by res) in 7.3384 (sec).
+ Pair  A19-SER 4 ,  A20-ASP 4 :       0.09848536 at      1.360 A (1.360 A by res) in 7.7567 (sec).
+ Pair  A19-SER 4 ,  A20-ASP 5 :       0.10659984 at      1.360 A (1.360 A by res) in 7.6115 (sec).
+ Pair  A19-SER 4 ,  A21-LEU 0 :       0.03178514 at      2.776 A (2.776 A by res) in 7.4085 (sec).
+ Pair  A19-SER 4 ,  A21-LEU 2 :       0.03331986 at      2.776 A (2.776 A by res) in 7.4321 (sec).
+ Pair  A19-SER 4 ,  A21-LEU 4 :       0.04293230 at      2.776 A (2.776 A by res) in 7.4619 (sec).
+ Pair  A19-SER 4 ,  A21-LEU 5 :       0.03319059 at      2.776 A (2.776 A by res) in 7.3612 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 0 :       0.70370195 at      2.393 A (0.317 A by res) in 7.5779 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 1 :       0.76883166 at      1.998 A (0.317 A by res) in 7.5245 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 2 :       0.19727923 at      2.381 A (0.317 A by res) in 7.8378 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 3 :       0.22681804 at      2.381 A (0.317 A by res) in 7.5045 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 4 :       0.47244192 at      2.381 A (0.317 A by res) in 7.2167 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 5 :       0.15609592 at      2.381 A (0.317 A by res) in 7.4307 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 9 :       0.10423797 at      2.393 A (0.317 A by res) in 7.4046 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 10:       0.11826107 at      2.393 A (0.317 A by res) in 7.4083 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 11:       0.09096354 at      2.393 A (0.317 A by res) in 7.3148 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 12:       0.08942215 at      2.393 A (0.317 A by res) in 7.6167 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 13:       0.08688392 at      2.393 A (0.317 A by res) in 7.4347 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 14:       0.18172218 at      2.393 A (0.317 A by res) in 7.2818 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 15:       0.16561159 at      2.393 A (0.317 A by res) in 7.4254 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 18:       0.26381949 at      2.250 A (0.317 A by res) in 7.4279 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 20:       1.14662872 at      2.250 A (0.317 A by res) in 7.2758 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 21:       0.91073077 at      2.250 A (0.317 A by res) in 7.4668 (sec).
+ Pair  A19-SER 4 ,  A22-LYS 22:       1.18010699 at      1.950 A (0.317 A by res) in 7.7740 (sec).
+ Pair  A19-SER 5 ,  A20-ASP 0 :       0.31305760 at      1.360 A (1.360 A by res) in 7.7202 (sec).
+ Pair  A19-SER 5 ,  A20-ASP 4 :       0.10999409 at      1.360 A (1.360 A by res) in 7.6090 (sec).
+ Pair  A19-SER 5 ,  A20-ASP 5 :       0.23099109 at      1.360 A (1.360 A by res) in 7.6659 (sec).
+ Pair  A19-SER 5 ,  A21-LEU 0 :       0.05801901 at      2.776 A (2.776 A by res) in 7.7165 (sec).
+ Pair  A19-SER 5 ,  A21-LEU 2 :       0.05159330 at      2.776 A (2.776 A by res) in 7.6849 (sec).
+ Pair  A19-SER 5 ,  A21-LEU 4 :       0.07577837 at      2.776 A (2.776 A by res) in 7.7201 (sec).
+ Pair  A19-SER 5 ,  A21-LEU 5 :       0.05984383 at      2.776 A (2.776 A by res) in 7.5814 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 0 :       0.69867761 at      2.393 A (0.317 A by res) in 7.3344 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 1 :       0.72106219 at      1.998 A (0.317 A by res) in 7.4530 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 2 :       0.19339000 at      2.381 A (0.317 A by res) in 7.9072 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 3 :       0.20752200 at      2.381 A (0.317 A by res) in 7.4707 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 4 :       0.46640887 at      2.381 A (0.317 A by res) in 7.2423 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 5 :       0.14501496 at      2.381 A (0.317 A by res) in 7.2892 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 9 :       0.09978141 at      2.393 A (0.317 A by res) in 7.5767 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 10:       0.10480229 at      2.393 A (0.317 A by res) in 7.7169 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 11:       0.08905843 at      2.393 A (0.317 A by res) in 7.7768 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 12:       0.08142614 at      2.393 A (0.317 A by res) in 7.5551 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 13:       0.08448247 at      2.393 A (0.317 A by res) in 7.7141 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 14:       0.16666722 at      2.393 A (0.317 A by res) in 7.4662 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 15:       0.16367517 at      2.393 A (0.317 A by res) in 7.7096 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 18:       0.25929801 at      2.250 A (0.317 A by res) in 7.4691 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 20:       1.11276412 at      2.250 A (0.317 A by res) in 7.2048 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 21:       0.93200793 at      2.250 A (0.317 A by res) in 7.3455 (sec).
+ Pair  A19-SER 5 ,  A22-LYS 22:       1.13940469 at      1.950 A (0.317 A by res) in 7.4920 (sec).
+ Pair  A19-SER 6 ,  A20-ASP 0 :       0.26106905 at      1.360 A (1.360 A by res) in 7.5837 (sec).
+ Pair  A19-SER 6 ,  A20-ASP 4 :       0.10846636 at      1.360 A (1.360 A by res) in 7.7318 (sec).
+ Pair  A19-SER 6 ,  A20-ASP 5 :       0.14579349 at      1.360 A (1.360 A by res) in 7.8492 (sec).
+ Pair  A19-SER 6 ,  A21-LEU 0 :       0.03758757 at      2.776 A (2.776 A by res) in 7.4721 (sec).
+ Pair  A19-SER 6 ,  A21-LEU 2 :       0.03715779 at      2.776 A (2.776 A by res) in 7.2724 (sec).
+ Pair  A19-SER 6 ,  A21-LEU 4 :       0.05007668 at      2.776 A (2.776 A by res) in 7.5460 (sec).
+ Pair  A19-SER 6 ,  A21-LEU 5 :       0.03904693 at      2.776 A (2.776 A by res) in 7.4666 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 0 :       0.69043743 at      2.393 A (0.317 A by res) in 7.2403 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 1 :       0.70922167 at      1.998 A (0.317 A by res) in 7.3501 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 2 :       0.18071620 at      2.381 A (0.317 A by res) in 7.7714 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 3 :       0.20030679 at      2.381 A (0.317 A by res) in 7.5128 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 4 :       0.44052714 at      2.381 A (0.317 A by res) in 7.2484 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 5 :       0.13955776 at      2.381 A (0.317 A by res) in 7.6012 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 9 :       0.09361867 at      2.393 A (0.317 A by res) in 7.5122 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 10:       0.10234888 at      2.393 A (0.317 A by res) in 7.3228 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 11:       0.08452431 at      2.393 A (0.317 A by res) in 7.4164 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 12:       0.07941729 at      2.393 A (0.317 A by res) in 7.6021 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 13:       0.07941614 at      2.393 A (0.317 A by res) in 7.7501 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 14:       0.16581037 at      2.393 A (0.317 A by res) in 7.5554 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 15:       0.15766710 at      2.393 A (0.317 A by res) in 7.6599 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 18:       0.24988511 at      2.250 A (0.317 A by res) in 7.4257 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 20:       1.10536050 at      2.250 A (0.317 A by res) in 7.2254 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 21:       0.90350696 at      2.250 A (0.317 A by res) in 7.5289 (sec).
+ Pair  A19-SER 6 ,  A22-LYS 22:       1.11749128 at      1.950 A (0.317 A by res) in 7.3634 (sec).
+ Pair  A19-SER 7 ,  A20-ASP 0 :       0.19142441 at      1.360 A (1.360 A by res) in 7.4876 (sec).
+ Pair  A19-SER 7 ,  A20-ASP 4 :      -0.03117763 at      1.360 A (1.360 A by res) in 7.5258 (sec).
+ Pair  A19-SER 7 ,  A20-ASP 5 :       0.14702995 at      1.360 A (1.360 A by res) in 7.5967 (sec).
+ Pair  A19-SER 7 ,  A21-LEU 0 :       0.07441286 at      2.776 A (2.776 A by res) in 7.3574 (sec).
+ Pair  A19-SER 7 ,  A21-LEU 2 :       0.06871973 at      2.776 A (2.776 A by res) in 7.4655 (sec).
+ Pair  A19-SER 7 ,  A21-LEU 4 :       0.09764536 at      2.776 A (2.776 A by res) in 7.4357 (sec).
+ Pair  A19-SER 7 ,  A21-LEU 5 :       0.07700169 at      2.776 A (2.776 A by res) in 7.9755 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 0 :       0.75987180 at      2.393 A (0.317 A by res) in 7.2181 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 1 :       2.33830271 at      1.932 A (0.317 A by res) in 7.3755 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 2 :       0.63741931 at      2.381 A (0.317 A by res) in 7.6400 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 3 :       0.63320112 at      2.381 A (0.317 A by res) in 7.2164 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 4 :       1.07217115 at      2.381 A (0.317 A by res) in 7.6697 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 5 :       0.46022419 at      2.381 A (0.317 A by res) in 7.4972 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 9 :       0.34222707 at      2.393 A (0.317 A by res) in 7.5314 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 10:       0.34527315 at      2.393 A (0.317 A by res) in 7.4932 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 11:       0.29162182 at      2.393 A (0.317 A by res) in 7.2246 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 12:       0.27608465 at      2.393 A (0.317 A by res) in 7.6854 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 13:       0.29107321 at      2.393 A (0.317 A by res) in 7.4000 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 14:       0.48001616 at      2.393 A (0.317 A by res) in 7.2596 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 15:       0.47760774 at      2.393 A (0.317 A by res) in 7.4854 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 18:       0.30065972 at      2.250 A (0.317 A by res) in 7.4816 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 20:       3.24111167 at      1.899 A (0.317 A by res) in 7.4089 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 21:       3.24048570 at      1.958 A (0.317 A by res) in 7.4386 (sec).
+ Pair  A19-SER 7 ,  A22-LYS 22:      19.77423309 at      1.238 A (0.317 A by res) in 7.5221 (sec).
+ Pair  A19-SER 8 ,  A20-ASP 0 :       0.13393427 at      1.360 A (1.360 A by res) in 7.7166 (sec).
+ Pair  A19-SER 8 ,  A20-ASP 4 :      -0.01335615 at      1.360 A (1.360 A by res) in 7.9032 (sec).
+ Pair  A19-SER 8 ,  A20-ASP 5 :       0.07558850 at      1.360 A (1.360 A by res) in 7.7880 (sec).
+ Pair  A19-SER 8 ,  A21-LEU 0 :       0.05172315 at      2.776 A (2.776 A by res) in 7.2310 (sec).
+ Pair  A19-SER 8 ,  A21-LEU 2 :       0.04642234 at      2.776 A (2.776 A by res) in 7.5349 (sec).
+ Pair  A19-SER 8 ,  A21-LEU 4 :       0.06759747 at      2.776 A (2.776 A by res) in 7.5169 (sec).
+ Pair  A19-SER 8 ,  A21-LEU 5 :       0.05360287 at      2.776 A (2.776 A by res) in 7.8646 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 0 :       3.23228154 at      2.058 A (0.317 A by res) in 7.3615 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 1 :       0.69575256 at      1.998 A (0.317 A by res) in 7.4549 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 2 :       0.34361844 at      2.381 A (0.317 A by res) in 7.7676 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 3 :       0.33657430 at      2.381 A (0.317 A by res) in 7.4280 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 4 :       0.38588314 at      2.381 A (0.317 A by res) in 7.4821 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 5 :       0.36454894 at      2.381 A (0.317 A by res) in 7.5571 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 9 :       0.29197038 at      2.393 A (0.317 A by res) in 7.7998 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 10:       0.30160176 at      2.393 A (0.317 A by res) in 7.3150 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 11:       0.27623540 at      2.393 A (0.317 A by res) in 7.3741 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 12:       0.26511129 at      2.393 A (0.317 A by res) in 7.5587 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 13:       0.26664781 at      2.393 A (0.317 A by res) in 7.6717 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 14:       0.55172938 at      2.393 A (0.317 A by res) in 7.4877 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 15:       0.50171167 at      2.393 A (0.317 A by res) in 7.5052 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 18:       0.50616949 at      2.141 A (0.317 A by res) in 7.6898 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 20:      14.92266643 at      1.312 A (0.317 A by res) in 7.3300 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 21:      12.03302284 at      1.387 A (0.317 A by res) in 7.6207 (sec).
+ Pair  A19-SER 8 ,  A22-LYS 22:       6.47571138 at      1.812 A (0.317 A by res) in 7.3725 (sec).
+ Pair  A19-SER 9 ,  A20-ASP 0 :       0.09998640 at      1.360 A (1.360 A by res) in 7.5205 (sec).
+ Pair  A19-SER 9 ,  A20-ASP 4 :      -0.01205751 at      1.360 A (1.360 A by res) in 7.8388 (sec).
+ Pair  A19-SER 9 ,  A20-ASP 5 :       0.03880525 at      1.360 A (1.360 A by res) in 7.7704 (sec).
+ Pair  A19-SER 9 ,  A21-LEU 0 :       0.03997900 at      2.776 A (2.776 A by res) in 7.6662 (sec).
+ Pair  A19-SER 9 ,  A21-LEU 2 :       0.03599941 at      2.776 A (2.776 A by res) in 7.6486 (sec).
+ Pair  A19-SER 9 ,  A21-LEU 4 :       0.05303720 at      2.776 A (2.776 A by res) in 7.6271 (sec).
+ Pair  A19-SER 9 ,  A21-LEU 5 :       0.04155027 at      2.776 A (2.776 A by res) in 7.8259 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 0 :       1.89487311 at      2.285 A (0.317 A by res) in 7.3741 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 1 :       0.21587464 at      1.998 A (0.317 A by res) in 7.4144 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 2 :       0.15865970 at      2.381 A (0.317 A by res) in 7.5270 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 3 :       0.16616326 at      2.381 A (0.317 A by res) in 7.6081 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 4 :       0.15986502 at      2.381 A (0.317 A by res) in 7.6216 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 5 :       0.21616030 at      2.381 A (0.317 A by res) in 7.6704 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 9 :       0.18515288 at      2.393 A (0.317 A by res) in 7.3573 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 10:       0.19680543 at      2.393 A (0.317 A by res) in 7.3704 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 11:       0.19287513 at      2.393 A (0.317 A by res) in 7.5825 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 12:       0.18975653 at      2.393 A (0.317 A by res) in 7.4095 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 13:       0.18417422 at      2.393 A (0.317 A by res) in 7.5823 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 14:       0.31990607 at      2.393 A (0.317 A by res) in 7.3610 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 15:       0.26998269 at      2.393 A (0.317 A by res) in 7.5897 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 18:       0.20597345 at      2.250 A (0.317 A by res) in 7.5188 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 20:       4.79401662 at      1.956 A (0.317 A by res) in 7.2955 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 21:       2.10138183 at      2.036 A (0.317 A by res) in 7.3947 (sec).
+ Pair  A19-SER 9 ,  A22-LYS 22:       3.20570960 at      1.950 A (0.317 A by res) in 7.6984 (sec).
+ Pair  A19-SER 10,  A20-ASP 0 :       0.07191006 at      1.360 A (1.360 A by res) in 7.5124 (sec).
+ Pair  A19-SER 10,  A20-ASP 4 :      -0.02174340 at      1.360 A (1.360 A by res) in 7.6116 (sec).
+ Pair  A19-SER 10,  A20-ASP 5 :       0.01233625 at      1.360 A (1.360 A by res) in 7.4366 (sec).
+ Pair  A19-SER 10,  A21-LEU 0 :       0.03799392 at      2.776 A (2.776 A by res) in 7.6068 (sec).
+ Pair  A19-SER 10,  A21-LEU 2 :       0.03407275 at      2.776 A (2.776 A by res) in 7.5881 (sec).
+ Pair  A19-SER 10,  A21-LEU 4 :       0.05069906 at      2.776 A (2.776 A by res) in 7.6397 (sec).
+ Pair  A19-SER 10,  A21-LEU 5 :       0.03950952 at      2.776 A (2.776 A by res) in 7.6422 (sec).
+ Pair  A19-SER 10,  A22-LYS 0 :      -0.13209481 at      2.393 A (0.317 A by res) in 7.3514 (sec).
+ Pair  A19-SER 10,  A22-LYS 1 :       0.12348769 at      1.998 A (0.317 A by res) in 7.7342 (sec).
+ Pair  A19-SER 10,  A22-LYS 2 :       0.13544940 at      2.381 A (0.317 A by res) in 7.9031 (sec).
+ Pair  A19-SER 10,  A22-LYS 3 :       0.16747173 at      2.381 A (0.317 A by res) in 7.4077 (sec).
+ Pair  A19-SER 10,  A22-LYS 4 :       0.19002996 at      2.381 A (0.317 A by res) in 7.5572 (sec).
+ Pair  A19-SER 10,  A22-LYS 5 :       0.17344533 at      2.381 A (0.317 A by res) in 7.1897 (sec).
+ Pair  A19-SER 10,  A22-LYS 9 :       0.15397773 at      2.393 A (0.317 A by res) in 7.2748 (sec).
+ Pair  A19-SER 10,  A22-LYS 10:       0.16199840 at      2.393 A (0.317 A by res) in 7.6022 (sec).
+ Pair  A19-SER 10,  A22-LYS 11:       0.15765156 at      2.393 A (0.317 A by res) in 7.4506 (sec).
+ Pair  A19-SER 10,  A22-LYS 12:       0.15785080 at      2.393 A (0.317 A by res) in 7.6598 (sec).
+ Pair  A19-SER 10,  A22-LYS 13:       0.15539388 at      2.393 A (0.317 A by res) in 7.7509 (sec).
+ Pair  A19-SER 10,  A22-LYS 14:       0.17869183 at      2.393 A (0.317 A by res) in 7.3968 (sec).
+ Pair  A19-SER 10,  A22-LYS 15:       0.17516762 at      2.393 A (0.317 A by res) in 7.5191 (sec).
+ Pair  A19-SER 10,  A22-LYS 18:       0.03979159 at      2.250 A (0.317 A by res) in 7.5575 (sec).
+ Pair  A19-SER 10,  A22-LYS 20:       1.14705397 at      2.250 A (0.317 A by res) in 7.3988 (sec).
+ Pair  A19-SER 10,  A22-LYS 21:       0.55678895 at      2.250 A (0.317 A by res) in 7.6268 (sec).
+ Pair  A19-SER 10,  A22-LYS 22:       2.33959579 at      1.950 A (0.317 A by res) in 7.3978 (sec).
+ Pair  A19-SER 11,  A20-ASP 0 :       0.10532310 at      1.360 A (1.360 A by res) in 7.5970 (sec).
+ Pair  A19-SER 11,  A20-ASP 4 :      -0.03467419 at      1.360 A (1.360 A by res) in 7.7529 (sec).
+ Pair  A19-SER 11,  A20-ASP 5 :       0.06312029 at      1.360 A (1.360 A by res) in 7.3890 (sec).
+ Pair  A19-SER 11,  A21-LEU 0 :       0.06457741 at      2.776 A (2.776 A by res) in 7.5118 (sec).
+ Pair  A19-SER 11,  A21-LEU 2 :       0.05925773 at      2.776 A (2.776 A by res) in 7.4927 (sec).
+ Pair  A19-SER 11,  A21-LEU 4 :       0.08525928 at      2.776 A (2.776 A by res) in 7.5479 (sec).
+ Pair  A19-SER 11,  A21-LEU 5 :       0.06691115 at      2.776 A (2.776 A by res) in 7.7839 (sec).
+ Pair  A19-SER 11,  A22-LYS 0 :      -0.22424982 at      2.393 A (0.317 A by res) in 7.5037 (sec).
+ Pair  A19-SER 11,  A22-LYS 1 :       2.05427166 at      1.969 A (0.317 A by res) in 7.4555 (sec).
+ Pair  A19-SER 11,  A22-LYS 2 :       0.47043602 at      2.381 A (0.317 A by res) in 7.5117 (sec).
+ Pair  A19-SER 11,  A22-LYS 3 :       0.53334411 at      2.381 A (0.317 A by res) in 7.4431 (sec).
+ Pair  A19-SER 11,  A22-LYS 4 :       1.57101123 at      2.381 A (0.317 A by res) in 7.6254 (sec).
+ Pair  A19-SER 11,  A22-LYS 5 :       0.28966403 at      2.381 A (0.317 A by res) in 7.4087 (sec).
+ Pair  A19-SER 11,  A22-LYS 9 :       0.23072147 at      2.393 A (0.317 A by res) in 7.5886 (sec).
+ Pair  A19-SER 11,  A22-LYS 10:       0.23457865 at      2.393 A (0.317 A by res) in 7.7706 (sec).
+ Pair  A19-SER 11,  A22-LYS 11:       0.19892113 at      2.393 A (0.317 A by res) in 7.6406 (sec).
+ Pair  A19-SER 11,  A22-LYS 12:       0.19214336 at      2.393 A (0.317 A by res) in 8.0157 (sec).
+ Pair  A19-SER 11,  A22-LYS 13:       0.20254835 at      2.393 A (0.317 A by res) in 7.6600 (sec).
+ Pair  A19-SER 11,  A22-LYS 14:       0.23238777 at      2.393 A (0.317 A by res) in 7.6500 (sec).
+ Pair  A19-SER 11,  A22-LYS 15:       0.24674768 at      2.393 A (0.317 A by res) in 7.4969 (sec).
+ Pair  A19-SER 11,  A22-LYS 18:       0.11415594 at      2.250 A (0.317 A by res) in 7.6063 (sec).
+ Pair  A19-SER 11,  A22-LYS 20:       0.74720015 at      2.250 A (0.317 A by res) in 7.4985 (sec).
+ Pair  A19-SER 11,  A22-LYS 21:       0.94175405 at      2.250 A (0.317 A by res) in 7.3116 (sec).
+ Pair  A19-SER 11,  A22-LYS 22:       7.53914269 at      1.623 A (0.317 A by res) in 7.6746 (sec).
+ Pair  A19-SER 12,  A20-ASP 0 :       0.03209479 at      1.360 A (1.360 A by res) in 7.5916 (sec).
+ Pair  A19-SER 12,  A20-ASP 4 :      -0.03475201 at      1.360 A (1.360 A by res) in 7.5310 (sec).
+ Pair  A19-SER 12,  A20-ASP 5 :      -0.01773565 at      1.360 A (1.360 A by res) in 7.7946 (sec).
+ Pair  A19-SER 12,  A21-LEU 0 :       0.04275548 at      2.776 A (2.776 A by res) in 7.6500 (sec).
+ Pair  A19-SER 12,  A21-LEU 2 :       0.03823894 at      2.776 A (2.776 A by res) in 7.4630 (sec).
+ Pair  A19-SER 12,  A21-LEU 4 :       0.05665198 at      2.776 A (2.776 A by res) in 7.2318 (sec).
+ Pair  A19-SER 12,  A21-LEU 5 :       0.04439110 at      2.776 A (2.776 A by res) in 7.6326 (sec).
+ Pair  A19-SER 12,  A22-LYS 0 :      -0.41327763 at      2.393 A (0.317 A by res) in 7.5021 (sec).
+ Pair  A19-SER 12,  A22-LYS 1 :       0.35529933 at      1.998 A (0.317 A by res) in 7.4868 (sec).
+ Pair  A19-SER 12,  A22-LYS 2 :       0.21709769 at      2.381 A (0.317 A by res) in 7.7430 (sec).
+ Pair  A19-SER 12,  A22-LYS 3 :       0.28570711 at      2.381 A (0.317 A by res) in 7.5551 (sec).
+ Pair  A19-SER 12,  A22-LYS 4 :       0.63309833 at      2.381 A (0.317 A by res) in 7.6444 (sec).
+ Pair  A19-SER 12,  A22-LYS 5 :       0.19137453 at      2.381 A (0.317 A by res) in 7.2203 (sec).
+ Pair  A19-SER 12,  A22-LYS 9 :       0.16667651 at      2.393 A (0.317 A by res) in 7.5161 (sec).
+ Pair  A19-SER 12,  A22-LYS 10:       0.17176872 at      2.393 A (0.317 A by res) in 7.4964 (sec).
+ Pair  A19-SER 12,  A22-LYS 11:       0.15712901 at      2.393 A (0.317 A by res) in 7.4186 (sec).
+ Pair  A19-SER 12,  A22-LYS 12:       0.15651763 at      2.393 A (0.317 A by res) in 7.5364 (sec).
+ Pair  A19-SER 12,  A22-LYS 13:       0.15952990 at      2.393 A (0.317 A by res) in 7.4567 (sec).
+ Pair  A19-SER 12,  A22-LYS 14:       0.15317689 at      2.393 A (0.317 A by res) in 7.4552 (sec).
+ Pair  A19-SER 12,  A22-LYS 15:       0.16894780 at      2.393 A (0.317 A by res) in 7.6694 (sec).
+ Pair  A19-SER 12,  A22-LYS 18:       0.01872450 at      2.250 A (0.317 A by res) in 7.7199 (sec).
+ Pair  A19-SER 12,  A22-LYS 20:       0.49739032 at      2.250 A (0.317 A by res) in 7.2716 (sec).
+ Pair  A19-SER 12,  A22-LYS 21:       0.64028797 at      2.250 A (0.317 A by res) in 7.7058 (sec).
+ Pair  A19-SER 12,  A22-LYS 22:       2.61204666 at      1.950 A (0.317 A by res) in 7.5523 (sec).
+ Pair  A19-SER 13,  A20-ASP 0 :       0.17149404 at      1.360 A (1.360 A by res) in 7.7087 (sec).
+ Pair  A19-SER 13,  A20-ASP 4 :      -0.04527119 at      1.360 A (1.360 A by res) in 7.7435 (sec).
+ Pair  A19-SER 13,  A20-ASP 5 :       0.11533186 at      1.360 A (1.360 A by res) in 7.7367 (sec).
+ Pair  A19-SER 13,  A21-LEU 0 :       0.06314122 at      2.776 A (2.776 A by res) in 7.4728 (sec).
+ Pair  A19-SER 13,  A21-LEU 2 :       0.05827595 at      2.776 A (2.776 A by res) in 7.3758 (sec).
+ Pair  A19-SER 13,  A21-LEU 4 :       0.08288284 at      2.776 A (2.776 A by res) in 7.6262 (sec).
+ Pair  A19-SER 13,  A21-LEU 5 :       0.06512661 at      2.776 A (2.776 A by res) in 7.8785 (sec).
+ Pair  A19-SER 13,  A22-LYS 0 :       0.63623484 at      2.393 A (0.317 A by res) in 7.2144 (sec).
+ Pair  A19-SER 13,  A22-LYS 1 :       0.87268553 at      1.998 A (0.317 A by res) in 7.6363 (sec).
+ Pair  A19-SER 13,  A22-LYS 2 :       0.33865796 at      2.381 A (0.317 A by res) in 7.5772 (sec).
+ Pair  A19-SER 13,  A22-LYS 3 :       0.34897185 at      2.381 A (0.317 A by res) in 7.6314 (sec).
+ Pair  A19-SER 13,  A22-LYS 4 :       0.62356937 at      2.381 A (0.317 A by res) in 7.5289 (sec).
+ Pair  A19-SER 13,  A22-LYS 5 :       0.27608419 at      2.381 A (0.317 A by res) in 7.3585 (sec).
+ Pair  A19-SER 13,  A22-LYS 9 :       0.22939528 at      2.393 A (0.317 A by res) in 7.5933 (sec).
+ Pair  A19-SER 13,  A22-LYS 10:       0.23230857 at      2.393 A (0.317 A by res) in 7.6132 (sec).
+ Pair  A19-SER 13,  A22-LYS 11:       0.20827030 at      2.393 A (0.317 A by res) in 7.3097 (sec).
+ Pair  A19-SER 13,  A22-LYS 12:       0.20111527 at      2.393 A (0.317 A by res) in 7.8745 (sec).
+ Pair  A19-SER 13,  A22-LYS 13:       0.20795902 at      2.393 A (0.317 A by res) in 7.6248 (sec).
+ Pair  A19-SER 13,  A22-LYS 14:       0.28565974 at      2.393 A (0.317 A by res) in 7.4590 (sec).
+ Pair  A19-SER 13,  A22-LYS 15:       0.28181634 at      2.393 A (0.317 A by res) in 7.4717 (sec).
+ Pair  A19-SER 13,  A22-LYS 18:       0.39160664 at      2.250 A (0.317 A by res) in 7.4194 (sec).
+ Pair  A19-SER 13,  A22-LYS 20:       1.06419082 at      2.250 A (0.317 A by res) in 7.3916 (sec).
+ Pair  A19-SER 13,  A22-LYS 21:       0.98756627 at      2.250 A (0.317 A by res) in 7.4068 (sec).
+ Pair  A19-SER 13,  A22-LYS 22:       1.30694942 at      1.950 A (0.317 A by res) in 7.5718 (sec).
+ Pair  A19-SER 14,  A20-ASP 0 :       0.14345725 at      1.360 A (1.360 A by res) in 7.4512 (sec).
+ Pair  A19-SER 14,  A20-ASP 4 :      -0.04551602 at      1.360 A (1.360 A by res) in 7.6288 (sec).
+ Pair  A19-SER 14,  A20-ASP 5 :       0.08706963 at      1.360 A (1.360 A by res) in 7.6521 (sec).
+ Pair  A19-SER 14,  A21-LEU 0 :       0.05941022 at      2.776 A (2.776 A by res) in 7.6634 (sec).
+ Pair  A19-SER 14,  A21-LEU 2 :       0.05361057 at      2.776 A (2.776 A by res) in 7.4142 (sec).
+ Pair  A19-SER 14,  A21-LEU 4 :       0.07834839 at      2.776 A (2.776 A by res) in 7.5282 (sec).
+ Pair  A19-SER 14,  A21-LEU 5 :       0.06139133 at      2.776 A (2.776 A by res) in 7.7155 (sec).
+ Pair  A19-SER 14,  A22-LYS 0 :       0.29716210 at      2.393 A (0.317 A by res) in 7.6558 (sec).
+ Pair  A19-SER 14,  A22-LYS 1 :       0.82211174 at      1.998 A (0.317 A by res) in 7.3596 (sec).
+ Pair  A19-SER 14,  A22-LYS 2 :       0.31171952 at      2.381 A (0.317 A by res) in 7.4638 (sec).
+ Pair  A19-SER 14,  A22-LYS 3 :       0.32289797 at      2.381 A (0.317 A by res) in 7.5428 (sec).
+ Pair  A19-SER 14,  A22-LYS 4 :       0.58263813 at      2.381 A (0.317 A by res) in 7.5030 (sec).
+ Pair  A19-SER 14,  A22-LYS 5 :       0.24920070 at      2.381 A (0.317 A by res) in 7.3609 (sec).
+ Pair  A19-SER 14,  A22-LYS 9 :       0.20477111 at      2.393 A (0.317 A by res) in 7.5553 (sec).
+ Pair  A19-SER 14,  A22-LYS 10:       0.20696224 at      2.393 A (0.317 A by res) in 7.4793 (sec).
+ Pair  A19-SER 14,  A22-LYS 11:       0.18059633 at      2.393 A (0.317 A by res) in 7.4984 (sec).
+ Pair  A19-SER 14,  A22-LYS 12:       0.17668314 at      2.393 A (0.317 A by res) in 7.6184 (sec).
+ Pair  A19-SER 14,  A22-LYS 13:       0.18406403 at      2.393 A (0.317 A by res) in 7.3803 (sec).
+ Pair  A19-SER 14,  A22-LYS 14:       0.24732232 at      2.393 A (0.317 A by res) in 7.3783 (sec).
+ Pair  A19-SER 14,  A22-LYS 15:       0.23719390 at      2.393 A (0.317 A by res) in 7.3262 (sec).
+ Pair  A19-SER 14,  A22-LYS 18:       0.32345962 at      2.250 A (0.317 A by res) in 7.6202 (sec).
+ Pair  A19-SER 14,  A22-LYS 20:       0.83496628 at      2.250 A (0.317 A by res) in 7.4584 (sec).
+ Pair  A19-SER 14,  A22-LYS 21:       0.68227704 at      2.250 A (0.317 A by res) in 7.1923 (sec).
+ Pair  A19-SER 14,  A22-LYS 22:       1.20914735 at      1.950 A (0.317 A by res) in 7.5750 (sec).
+ Pair  A19-SER 15,  A20-ASP 0 :       0.10795569 at      1.360 A (1.360 A by res) in 7.7327 (sec).
+ Pair  A19-SER 15,  A20-ASP 4 :      -0.04910860 at      1.360 A (1.360 A by res) in 7.5408 (sec).
+ Pair  A19-SER 15,  A20-ASP 5 :       0.04950288 at      1.360 A (1.360 A by res) in 7.4600 (sec).
+ Pair  A19-SER 15,  A21-LEU 0 :       0.04367995 at      2.776 A (2.776 A by res) in 7.5272 (sec).
+ Pair  A19-SER 15,  A21-LEU 2 :       0.04185413 at      2.776 A (2.776 A by res) in 7.4015 (sec).
+ Pair  A19-SER 15,  A21-LEU 4 :       0.05904528 at      2.776 A (2.776 A by res) in 7.3538 (sec).
+ Pair  A19-SER 15,  A21-LEU 5 :       0.04532310 at      2.776 A (2.776 A by res) in 7.5635 (sec).
+ Pair  A19-SER 15,  A22-LYS 0 :       0.25936609 at      2.393 A (0.317 A by res) in 7.4746 (sec).
+ Pair  A19-SER 15,  A22-LYS 1 :       0.81561911 at      1.998 A (0.317 A by res) in 7.5385 (sec).
+ Pair  A19-SER 15,  A22-LYS 2 :       0.30284124 at      2.381 A (0.317 A by res) in 7.3125 (sec).
+ Pair  A19-SER 15,  A22-LYS 3 :       0.31936209 at      2.381 A (0.317 A by res) in 7.7255 (sec).
+ Pair  A19-SER 15,  A22-LYS 4 :       0.56561932 at      2.381 A (0.317 A by res) in 7.3781 (sec).
+ Pair  A19-SER 15,  A22-LYS 5 :       0.24495240 at      2.381 A (0.317 A by res) in 7.3837 (sec).
+ Pair  A19-SER 15,  A22-LYS 9 :       0.19870706 at      2.393 A (0.317 A by res) in 7.4876 (sec).
+ Pair  A19-SER 15,  A22-LYS 10:       0.20429177 at      2.393 A (0.317 A by res) in 7.6315 (sec).
+ Pair  A19-SER 15,  A22-LYS 11:       0.17366129 at      2.393 A (0.317 A by res) in 7.6454 (sec).
+ Pair  A19-SER 15,  A22-LYS 12:       0.17323116 at      2.393 A (0.317 A by res) in 7.6056 (sec).
+ Pair  A19-SER 15,  A22-LYS 13:       0.17803326 at      2.393 A (0.317 A by res) in 7.5239 (sec).
+ Pair  A19-SER 15,  A22-LYS 14:       0.24393921 at      2.393 A (0.317 A by res) in 7.4015 (sec).
+ Pair  A19-SER 15,  A22-LYS 15:       0.22707499 at      2.393 A (0.317 A by res) in 7.5591 (sec).
+ Pair  A19-SER 15,  A22-LYS 18:       0.31218885 at      2.250 A (0.317 A by res) in 7.3098 (sec).
+ Pair  A19-SER 15,  A22-LYS 20:       0.83716931 at      2.250 A (0.317 A by res) in 7.5024 (sec).
+ Pair  A19-SER 15,  A22-LYS 21:       0.66014826 at      2.250 A (0.317 A by res) in 7.6614 (sec).
+ Pair  A19-SER 15,  A22-LYS 22:       1.19211065 at      1.950 A (0.317 A by res) in 7.5196 (sec).
+ Pair  A19-SER 16,  A20-ASP 0 :       0.10339503 at      1.360 A (1.360 A by res) in 8.1589 (sec).
+ Pair  A19-SER 16,  A20-ASP 4 :      -0.05007960 at      1.360 A (1.360 A by res) in 7.7424 (sec).
+ Pair  A19-SER 16,  A20-ASP 5 :       0.04118991 at      1.360 A (1.360 A by res) in 7.5565 (sec).
+ Pair  A19-SER 16,  A21-LEU 0 :       0.03820695 at      2.776 A (2.776 A by res) in 7.7021 (sec).
+ Pair  A19-SER 16,  A21-LEU 2 :       0.03803946 at      2.776 A (2.776 A by res) in 7.3444 (sec).
+ Pair  A19-SER 16,  A21-LEU 4 :       0.05233010 at      2.776 A (2.776 A by res) in 7.6786 (sec).
+ Pair  A19-SER 16,  A21-LEU 5 :       0.03972945 at      2.776 A (2.776 A by res) in 7.7793 (sec).
+ Pair  A19-SER 16,  A22-LYS 0 :       0.41493017 at      2.393 A (0.317 A by res) in 7.4395 (sec).
+ Pair  A19-SER 16,  A22-LYS 1 :       0.87862819 at      1.998 A (0.317 A by res) in 7.6523 (sec).
+ Pair  A19-SER 16,  A22-LYS 2 :       0.31493244 at      2.381 A (0.317 A by res) in 7.4577 (sec).
+ Pair  A19-SER 16,  A22-LYS 3 :       0.33946211 at      2.381 A (0.317 A by res) in 7.7220 (sec).
+ Pair  A19-SER 16,  A22-LYS 4 :       0.57794175 at      2.381 A (0.317 A by res) in 7.6661 (sec).
+ Pair  A19-SER 16,  A22-LYS 5 :       0.26453764 at      2.381 A (0.317 A by res) in 7.6259 (sec).
+ Pair  A19-SER 16,  A22-LYS 9 :       0.21172615 at      2.393 A (0.317 A by res) in 7.4550 (sec).
+ Pair  A19-SER 16,  A22-LYS 10:       0.22407368 at      2.393 A (0.317 A by res) in 7.3930 (sec).
+ Pair  A19-SER 16,  A22-LYS 11:       0.18744451 at      2.393 A (0.317 A by res) in 7.4432 (sec).
+ Pair  A19-SER 16,  A22-LYS 12:       0.19015975 at      2.393 A (0.317 A by res) in 7.8942 (sec).
+ Pair  A19-SER 16,  A22-LYS 13:       0.19004157 at      2.393 A (0.317 A by res) in 7.5158 (sec).
+ Pair  A19-SER 16,  A22-LYS 14:       0.27572503 at      2.393 A (0.317 A by res) in 7.3590 (sec).
+ Pair  A19-SER 16,  A22-LYS 15:       0.24833409 at      2.393 A (0.317 A by res) in 7.4380 (sec).
+ Pair  A19-SER 16,  A22-LYS 18:       0.34433458 at      2.250 A (0.317 A by res) in 7.4739 (sec).
+ Pair  A19-SER 16,  A22-LYS 20:       1.01275165 at      2.250 A (0.317 A by res) in 7.5244 (sec).
+ Pair  A19-SER 16,  A22-LYS 21:       0.68242736 at      2.250 A (0.317 A by res) in 7.4299 (sec).
+ Pair  A19-SER 16,  A22-LYS 22:       1.27870018 at      1.950 A (0.317 A by res) in 7.4512 (sec).
+ Pair  A19-SER 17,  A20-ASP 0 :       0.14500092 at      1.360 A (1.360 A by res) in 7.8240 (sec).
+ Pair  A19-SER 17,  A20-ASP 4 :      -0.04797582 at      1.360 A (1.360 A by res) in 7.4587 (sec).
+ Pair  A19-SER 17,  A20-ASP 5 :       0.08413793 at      1.360 A (1.360 A by res) in 7.6971 (sec).
+ Pair  A19-SER 17,  A21-LEU 0 :       0.04962889 at      2.776 A (2.776 A by res) in 7.3418 (sec).
+ Pair  A19-SER 17,  A21-LEU 2 :       0.04839871 at      2.776 A (2.776 A by res) in 7.2838 (sec).
+ Pair  A19-SER 17,  A21-LEU 4 :       0.06639276 at      2.776 A (2.776 A by res) in 7.2752 (sec).
+ Pair  A19-SER 17,  A21-LEU 5 :       0.05142269 at      2.776 A (2.776 A by res) in 7.6323 (sec).
+ Pair  A19-SER 17,  A22-LYS 0 :       1.79236804 at      2.393 A (0.317 A by res) in 7.7551 (sec).
+ Pair  A19-SER 17,  A22-LYS 1 :       0.95085243 at      1.998 A (0.317 A by res) in 7.6941 (sec).
+ Pair  A19-SER 17,  A22-LYS 2 :       0.35182077 at      2.381 A (0.317 A by res) in 7.4380 (sec).
+ Pair  A19-SER 17,  A22-LYS 3 :       0.36962358 at      2.381 A (0.317 A by res) in 7.5872 (sec).
+ Pair  A19-SER 17,  A22-LYS 4 :       0.62774388 at      2.381 A (0.317 A by res) in 7.3425 (sec).
+ Pair  A19-SER 17,  A22-LYS 5 :       0.30133307 at      2.381 A (0.317 A by res) in 7.6698 (sec).
+ Pair  A19-SER 17,  A22-LYS 9 :       0.24800514 at      2.393 A (0.317 A by res) in 7.9229 (sec).
+ Pair  A19-SER 17,  A22-LYS 10:       0.25833164 at      2.393 A (0.317 A by res) in 7.5680 (sec).
+ Pair  A19-SER 17,  A22-LYS 11:       0.23061684 at      2.393 A (0.317 A by res) in 7.5087 (sec).
+ Pair  A19-SER 17,  A22-LYS 12:       0.22547137 at      2.393 A (0.317 A by res) in 7.5418 (sec).
+ Pair  A19-SER 17,  A22-LYS 13:       0.22624974 at      2.393 A (0.317 A by res) in 7.6128 (sec).
+ Pair  A19-SER 17,  A22-LYS 14:       0.34411630 at      2.393 A (0.317 A by res) in 7.5535 (sec).
+ Pair  A19-SER 17,  A22-LYS 15:       0.33278667 at      2.393 A (0.317 A by res) in 7.4343 (sec).
+ Pair  A19-SER 17,  A22-LYS 18:       0.47744711 at      2.250 A (0.317 A by res) in 7.3169 (sec).
+ Pair  A19-SER 17,  A22-LYS 20:       1.98702188 at      2.169 A (0.317 A by res) in 7.3735 (sec).
+ Pair  A19-SER 17,  A22-LYS 21:       1.81637856 at      2.175 A (0.317 A by res) in 7.4022 (sec).
+ Pair  A19-SER 17,  A22-LYS 22:       1.48170468 at      1.950 A (0.317 A by res) in 7.3708 (sec).
+ Pair  A19-SER 18,  A20-ASP 0 :       0.11591311 at      1.360 A (1.360 A by res) in 8.0326 (sec).
+ Pair  A19-SER 18,  A20-ASP 4 :      -0.04870702 at      1.360 A (1.360 A by res) in 7.6347 (sec).
+ Pair  A19-SER 18,  A20-ASP 5 :       0.05224352 at      1.360 A (1.360 A by res) in 7.7765 (sec).
+ Pair  A19-SER 18,  A21-LEU 0 :       0.04008540 at      2.776 A (2.776 A by res) in 7.4071 (sec).
+ Pair  A19-SER 18,  A21-LEU 2 :       0.03999800 at      2.776 A (2.776 A by res) in 7.5049 (sec).
+ Pair  A19-SER 18,  A21-LEU 4 :       0.05468292 at      2.776 A (2.776 A by res) in 7.8252 (sec).
+ Pair  A19-SER 18,  A21-LEU 5 :       0.04168179 at      2.776 A (2.776 A by res) in 7.4015 (sec).
+ Pair  A19-SER 18,  A22-LYS 0 :       1.46872711 at      2.393 A (0.317 A by res) in 7.4591 (sec).
+ Pair  A19-SER 18,  A22-LYS 1 :       0.98475374 at      1.998 A (0.317 A by res) in 7.7525 (sec).
+ Pair  A19-SER 18,  A22-LYS 2 :       0.33905662 at      2.381 A (0.317 A by res) in 7.6029 (sec).
+ Pair  A19-SER 18,  A22-LYS 3 :       0.36625409 at      2.381 A (0.317 A by res) in 7.9721 (sec).
+ Pair  A19-SER 18,  A22-LYS 4 :       0.60623034 at      2.381 A (0.317 A by res) in 7.4551 (sec).
+ Pair  A19-SER 18,  A22-LYS 5 :       0.29529690 at      2.381 A (0.317 A by res) in 7.4690 (sec).
+ Pair  A19-SER 18,  A22-LYS 9 :       0.23637413 at      2.393 A (0.317 A by res) in 7.4213 (sec).
+ Pair  A19-SER 18,  A22-LYS 10:       0.25334692 at      2.393 A (0.317 A by res) in 7.8508 (sec).
+ Pair  A19-SER 18,  A22-LYS 11:       0.21595607 at      2.393 A (0.317 A by res) in 7.5198 (sec).
+ Pair  A19-SER 18,  A22-LYS 12:       0.21768794 at      2.393 A (0.317 A by res) in 7.8043 (sec).
+ Pair  A19-SER 18,  A22-LYS 13:       0.21385397 at      2.393 A (0.317 A by res) in 7.8826 (sec).
+ Pair  A19-SER 18,  A22-LYS 14:       0.33804425 at      2.393 A (0.317 A by res) in 7.6512 (sec).
+ Pair  A19-SER 18,  A22-LYS 15:       0.30273388 at      2.393 A (0.317 A by res) in 7.3891 (sec).
+ Pair  A19-SER 18,  A22-LYS 18:       0.43404775 at      2.250 A (0.317 A by res) in 7.7273 (sec).
+ Pair  A19-SER 18,  A22-LYS 20:       1.84902840 at      2.250 A (0.317 A by res) in 7.5454 (sec).
+ Pair  A19-SER 18,  A22-LYS 21:       1.16052490 at      2.250 A (0.317 A by res) in 7.7600 (sec).
+ Pair  A19-SER 18,  A22-LYS 22:       1.50109086 at      1.950 A (0.317 A by res) in 7.5012 (sec).
+ Pair  A20-ASP 0 ,  A21-LEU 0 :       0.02383070 at      1.361 A (1.361 A by res) in 7.4913 (sec).
+ Pair  A20-ASP 0 ,  A21-LEU 2 :       0.00185719 at      1.361 A (1.361 A by res) in 7.2912 (sec).
+ Pair  A20-ASP 0 ,  A21-LEU 4 :       0.04098236 at      1.361 A (1.361 A by res) in 7.6819 (sec).
+ Pair  A20-ASP 0 ,  A21-LEU 5 :       0.02337608 at      1.361 A (1.361 A by res) in 7.7256 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 0 :      -0.39110456 at      2.931 A (2.694 A by res) in 7.4358 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 1 :      -0.45281282 at      2.931 A (2.694 A by res) in 7.4717 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 2 :      -0.43422999 at      2.931 A (2.694 A by res) in 7.5190 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 3 :      -0.46363463 at      2.931 A (2.694 A by res) in 7.7179 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 4 :      -0.31647241 at      2.694 A (2.694 A by res) in 7.3388 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 5 :      -0.39940087 at      2.931 A (2.694 A by res) in 7.3634 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 9 :      -0.37852537 at      2.931 A (2.694 A by res) in 7.6517 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 10:      -0.39811420 at      2.931 A (2.694 A by res) in 7.2911 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 11:      -0.32748432 at      2.931 A (2.694 A by res) in 7.4196 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 12:      -0.34033793 at      2.931 A (2.694 A by res) in 7.2928 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 13:      -0.33363593 at      2.931 A (2.694 A by res) in 7.6422 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 14:      -0.38682251 at      2.931 A (2.694 A by res) in 7.5565 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 15:      -0.36210423 at      2.931 A (2.694 A by res) in 7.3910 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 18:      -0.38267353 at      2.931 A (2.694 A by res) in 7.7350 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 20:      -0.41545470 at      2.931 A (2.694 A by res) in 7.4361 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 21:      -0.38197877 at      2.931 A (2.694 A by res) in 7.2984 (sec).
+ Pair  A20-ASP 0 ,  A22-LYS 22:      -0.44705880 at      2.931 A (2.694 A by res) in 7.4539 (sec).
+ Pair  A20-ASP 0 ,  A24-LYS 0 :      -0.34388935 at      5.069 A (2.778 A by res) in 7.6091 (sec).
+ Pair  A20-ASP 0 ,  A24-LYS 18:      -0.32153957 at      5.489 A (2.778 A by res) in 7.2639 (sec).
+ Pair  A20-ASP 0 ,  A24-LYS 19:      -0.34648394 at      4.911 A (2.778 A by res) in 7.4802 (sec).
+ Pair  A20-ASP 0 ,  A24-LYS 20:      -0.34017605 at      5.446 A (2.778 A by res) in 7.6063 (sec).
+ Pair  A20-ASP 0 ,  A24-LYS 21:      -0.30821968 at      5.446 A (2.778 A by res) in 7.4040 (sec).
+ Pair  A20-ASP 0 ,  A24-LYS 22:      -0.37490791 at      4.299 A (2.778 A by res) in 7.3791 (sec).
+ Pair  A20-ASP 0 ,  A24-LYS 23:      -0.36000484 at      3.165 A (2.778 A by res) in 7.4546 (sec).
+ Pair  A20-ASP 0 , B131-ASN 0 :       0.07786039 at      2.054 A (1.788 A by res) in 7.5619 (sec).
+ Pair  A20-ASP 0 , B131-ASN 3 :       0.09426667 at      1.788 A (1.788 A by res) in 7.7616 (sec).
+ Pair  A20-ASP 0 , B131-ASN 4 :       0.09937043 at      2.147 A (1.788 A by res) in 7.7403 (sec).
+ Pair  A20-ASP 0 , B131-ASN 7 :       0.00437378 at      4.095 A (1.788 A by res) in 7.8466 (sec).
+ Pair  A20-ASP 4 ,  A21-LEU 0 :      -0.00650676 at      1.361 A (1.361 A by res) in 7.7255 (sec).

@@ -1,0 +1,1816 @@
+ Evaluating /Dedicated/schnieders/programs/stack-2021.1.sh
+  Loading Modules
+   Stack 2021.1
+   GCC 9.3.0
+   CMake 3.20.0
+   Eigen 3.3.9
+   Cuda 11.1.1
+   Cuda: /usr/share/apps/2021.1/arch/gcc-9.3.0/cuda-11.1.1
+   CudaNN 8.0.5.39-11.1
+   Swig 4.0.2_gcc-9.3.0
+  Loading software from /Dedicated/schnieders/programs/local
+   Ant: /Dedicated/schnieders/programs/apache-ant-1.10.11
+   FFX: /Dedicated/schnieders/programs/ffx-builds/forcefieldx-2026-01-04
+   GDMA: /Dedicated/schnieders/programs/gdma-2.3
+   Groovy: /Dedicated/schnieders/programs/groovy-4.0.1
+   Java: /Dedicated/schnieders/programs/jdk-25.0.1
+   Maven: /Dedicated/schnieders/programs/apache-maven-3.9.5
+   VMD: /Dedicated/schnieders/programs/vmd
+   NAMD: /Dedicated/schnieders/programs/NAMD_3.0alpha7_Linux-x86_64-multicore-CUDA
+   OpenEye: /Dedicated/schnieders/programs/OpenEye
+   Tinker: /Dedicated/schnieders/programs/tinker-tools
+=== Titration pH 8.55 started: Fri Jun 12 12:24:18 CDT 2026 ===
+  Copy already exists, skipping.
+WARNING: Using incubator modules: jdk.incubator.vector
+  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/6GST/6GST_pH8.55.restart — adding --eR
+WARNING: Using incubator modules: jdk.incubator.vector
+ _________________________________________________________________________
+
+        FORCE FIELD X - Polyglot Software for Molecular Biophysics 
+
+        Version 1.0.0-6947  April 2026 
+        Git Revision  519408079905b3dd4b967041b75b836f63fb563f 
+ 
+        Please cite the following reference when using Force Field X:
+
+        RA Gogal, AJ Nessler, AC Thiel, HV Bernabe, RA Corrigan Grove,
+        LM Cousineau, JM Litman, JM Miller, G Qi, MJ Speranza,
+        MR Tollefson, TD Fenn, JJ Michaelson, O Okada, JP Piquemal,
+        JW Ponder, J Shen, RJH Smith, W Yang, P Ren and MJ Schnieders,
+        2024, Journal of Chemical Physics, 161 (1).
+
+        Copyright (c)  Michael J. Schnieders  2001-2025
+        All Rights Reserved
+
+        Force Field X is distributed under the GPL v. 3 license
+        with linking exception and is hosted by the Schnieders Lab
+        at The University of Iowa.
+
+        User Manual:   https://ffx.biochem.uiowa.edu/manual.html
+        Publications:  https://ffx.biochem.uiowa.edu/publications.html
+        License:       https://ffx.biochem.uiowa.edu/licenses.html
+
+ _________________________________________________________________________
+
+ Fri Jun 12 12:24:49 CDT 2026
+ Process ID 7010 on argon-itf-bx44-01.hpc.
+
+ Command line arguments:
+ [ManyBody, --tR, --pH, 8.55, --oT, -T, --kPH, 3.0, --eR, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/6GST/6GST_pH8.55.restart, /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/6GST/6GST_pH8.55.pdb]
+
+ Executing internal command: ffx.algorithms.commands.ManyBody
+
+ Parsing: Internal force field (amoeba-bio-2018-cphmd).
+ Parsing: Structure properties from (/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/6GST/titrate.properties).
+ Parsing: JVM system properties (i.e. command line -Dkey=value pairs).
+
+ Attempting to read force field patch from /Dedicated/schnieders/maemmad/pKa_GNN/naphosphate_solute.09Feb21.prm.
+
+ Renumbering Patch: FALSE
+ Reading 6GST_pH8.55.pdb
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   68.0 A).
+
+ Bonded Terms
+  Bonds:                                   7352
+  Angles:                                 13294
+  Stretch-Bends:                          11798
+  Out-of-Plane Bends:                      4554
+  Torsions:                               19570
+  Pi-Orbital Torsions:                      896
+  Torsion-Torsions:                          18
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 12.000
+
+ Opened 6GST_pH8.55.pdb in 1.775 sec.
+
+ System Resources
+  Total CPU time:          20.80 (sec)
+  System load average:      2.97
+  Open file handles:         146 of  81920 allowed
+  System memory:           78072 MB free out of  79280 MB
+  System swap space:        2053 MB free out of   2053 MB
+  JVM memory:               3864 MB free out of   4096 MB
+
+ Adding titration hydrogen to : /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/6GST/6GST_pH8.55.pdb
+
+ Reading 6GST_pH8.55.pdb
+
+ Assigning atom types for 2 chains.
+ Amino acid chain A
+ Amino acid chain B
+ Renumbering PDB file due to built atoms (7314 vs 7254)
+ Total number of atoms: 7314
+
+ Constructing Force Field AMOEBA-BIO-2018-CPHMD
+
+ SMP threads:                                20
+ The system will be treated as aperiodic (max separation =   68.0 A).
+
+ Bonded Terms
+  Bonds:                                   7412
+  Angles:                                 13354
+  Stretch-Bends:                          11798
+  Out-of-Plane Bends:                      4554
+  Torsions:                               19690
+  Pi-Orbital Torsions:                      896
+  Torsion-Torsions:                          18
+
+ Non-Bonded Terms
+
+  Van der Waals
+   Cut-Off:                                NONE
+   Long-Range Correction:                 FALSE
+
+ Electrostatics
+   Polarization:                         MUTUAL
+    SCF Convergence Criteria:         1.000e-06
+    SCF Predictor:                         NONE
+    SCF Algorithm:                           CG
+    CG Preconditioner Cut-Off:            4.500
+    CG Preconditioner Ewald Coeff.:       0.000
+    CG Preconditioner Scale:              2.000
+    CG Preconditioner Mode:     FLETCHER_REEVES
+    Electrostatics Cut-Off:                NONE
+
+  Continuum Solvation
+   Radii:                                SOLUTE
+   Generalized Kirkwood Cut-Off:           NONE
+   GKC:                                  2.4550
+   Solvent Dielectric:                  78.3000
+   Solute Dielectric:                    2.0000
+   Descreen with vdW Radii:                TRUE
+   Descreen with Hydrogen Atoms:          FALSE
+   Descreen Offset:                      0.0000
+   General HCT Scale Factor:             0.7200
+   Non-Polar Model:                  GAUSS-DISP
+    GaussVol Radii Offset:               0.0000
+    GaussVol Radii Scale:                1.0000
+   Dispersion Integral Offset:           1.0560 (A)
+   Cavitation Solvent Pressure:          0.0334 (Kcal/mol/A^3)
+   Cavitation Surface Tension:           0.1030 (Kcal/mol/A^2)
+   Cavitation Cross-Over Radius:         9.2515 (A)
+
+  Overall system charge:                 72.000
+ Temperature: 298.150000
+
+ Energy restart file: 6GST_pH8.55.restart
+
+ Initial Potential Energy:
+ Generalized Kirkwood -17869.85879068      0.535
+ Cavitation             4530.91097633      0.502
+ Dispersion            -2625.69225210      0.774
+
+ Computed Potential Energy
+  Bond Stretching            970.85982474         7412        0.002 ( 0.01822)
+  Angle Bending             1654.64012162        13354        0.003 ( 2.81967)
+  Stretch-Bend                -6.55459196        11798        0.007
+  Out-of-Plane Bend           57.23030951         4554        0.004
+  Torsional Angle            341.20818901        19690        0.003
+  Pi-Orbital Torsion          58.24778195          896        0.002
+  Torsion-Torsion            -66.79097563           18        0.000
+  Van der Waals             1205.93955452     26722875        0.506
+  Atomic Multipoles        10720.95879416     26722875
+  Polarization              -885.41492727     26722875        5.636
+  Solvation               -15964.64006645     26750955
+  Total Potential          -1914.31598581  (Kcal/mole)        6.162 (sec)
+
+ Initial Rotamer Torsion Angles:
+
+ Residue    Current Torsional Angles
+ A   14-HIS -149.198   48.533    0.000    0.000
+ A   21-GLH  -68.185  -79.133  -12.041    0.000
+ A   24-ASH  -85.906  -37.123    0.000    0.000
+ A   28-GLH   62.410 -179.189  -60.065    0.000
+ A   29-GLH  -68.987 -167.909   44.762    0.000
+ A   30-LYS -126.411 -158.778 -156.209 -141.520
+ A   36-ASH  -57.045  -37.774    0.000    0.000
+ A   39-ASH   55.227  -29.954    0.000    0.000
+ A   41-ASH -175.412   32.232    0.000    0.000
+ A   48-GLH   60.484  178.949   67.034    0.000
+ A   49-LYS  174.756  167.518 -172.525  176.198
+ A   51-LYS  -50.173  -53.586  176.817 -166.153
+ A   55-ASH  -71.944  -53.031    0.000    0.000
+ A   64-ASH -170.152   14.920    0.000    0.000
+ A   68-LYS  -44.875 -163.933  168.717   54.551
+ A   82-LYS -167.608  171.284 -171.785   60.754
+ A   83-HIS  -61.333  -68.123    0.000    0.000
+ A   84-HIS  -62.012  -82.162    0.000    0.000
+ A   86-CYS  -71.188    0.000    0.000    0.000
+ A   88-GLH  -51.162  170.161  -45.925    0.000
+ A   90-GLH  179.115   61.081   20.178    0.000
+ A   91-GLH  178.737 -175.033   37.258    0.000
+ A   92-GLH  -64.940  173.139  -34.576    0.000
+ A   97-ASH  -59.719  -19.041    0.000    0.000
+ A  100-GLH  175.370 -176.534  -51.450    0.000
+ A  105-ASH  -72.551    7.081    0.000    0.000
+ A  114-CYS  -60.944    0.000    0.000    0.000
+ A  118-ASH  -89.380    1.351    0.000    0.000
+ A  120-GLH  -67.413  -66.053    4.822    0.000
+ A  121-LYS  -53.513 -173.853 -166.608 -176.260
+ A  123-LYS -170.473 -134.810  -77.492  104.241
+ A  125-GLH  -55.602  -54.876  -30.696    0.000
+ A  128-LYS  -56.817 -175.927  179.324 -170.948
+ A  132-GLH  177.754  173.815  -50.463    0.000
+ A  133-LYS  -62.491  174.078  176.710  172.061
+ A  135-LYS  178.015  165.149  138.514   52.650
+ A  139-GLH  -69.408  168.038  -17.780    0.000
+ A  143-LYS  -48.904 -113.223   86.337  -58.976
+ A  150-ASH  -88.132  -81.924    0.000    0.000
+ A  151-LYS  -63.867  160.861 -133.530   79.065
+ A  156-ASH  -60.679  -69.425    0.000    0.000
+ A  161-ASH -179.953   45.024    0.000    0.000
+ A  164-ASH -173.680   59.120    0.000    0.000
+ A  167-HIS -164.231 -143.789    0.000    0.000
+ A  170-GLH  172.913   46.282   65.536    0.000
+ A  172-LYS  -62.233  159.054  146.218  175.770
+ A  173-CYS   69.601    0.000    0.000    0.000
+ A  175-ASH  -61.984   -6.273    0.000    0.000
+ A  181-LYS  -61.966 -157.536  -56.085  -61.579
+ A  182-ASH  -61.164   -8.397    0.000    0.000
+ A  188-GLH  -66.008  172.753    7.975    0.000
+ A  191-LYS -173.735  178.401   94.917  -63.524
+ A  192-LYS  -69.920   94.970  169.848  177.740
+ A  198-LYS  -55.421  145.570  174.757  179.600
+ A  210-LYS  -56.605  171.221  173.258 -174.404
+ A  217-LYS   77.523  173.123  -63.812 -174.823
+
+ Rotamer Library:     Richardson
+ Algorithm:           ALL
+ Goldstein Criteria:  true
+ Three-Body Energies: true
+
+
+ Computing Residue Distance Matrix
+ Built residue neighbor list:              0.010 sec
+ Pairwise distance matrix:               368.340 sec
+
+ Beginning Energy   -5503.97336293
+
+     Residue  Nrot
+   1  A14-HIS   27
+   2  A21-GLH   42
+   3  A24-ASH   27
+   4  A28-GLH   42
+   5  A29-GLH   42
+   6  A30-LYS   56
+   7  A36-ASH   27
+   8  A39-ASH   27
+   9  A41-ASH   27
+  10  A48-GLH   42
+  11  A49-LYS   56
+  12  A51-LYS   56
+  13  A55-ASH   27
+  14  A64-ASH   27
+  15  A68-LYS   56
+  16  A82-LYS   56
+  17  A83-HIS   27
+  18  A84-HIS   27
+  19  A86-CYS   11
+  20  A88-GLH   42
+  21  A90-GLH   42
+  22  A91-GLH   42
+  23  A92-GLH   42
+  24  A97-ASH   27
+  25 A100-GLH   42
+  26 A105-ASH   27
+  27 A114-CYS   11
+  28 A118-ASH   27
+  29 A120-GLH   42
+  30 A121-LYS   56
+  31 A123-LYS   56
+  32 A125-GLH   42
+  33 A128-LYS   56
+  34 A132-GLH   42
+  35 A133-LYS   56
+  36 A135-LYS   56
+  37 A139-GLH   42
+  38 A143-LYS   56
+  39 A150-ASH   27
+  40 A151-LYS   56
+  41 A156-ASH   27
+  42 A161-ASH   27
+  43 A164-ASH   27
+  44 A167-HIS   27
+  45 A170-GLH   42
+  46 A172-LYS   56
+  47 A173-CYS   11
+  48 A175-ASH   27
+  49 A181-LYS   56
+  50 A182-ASH   27
+  51 A188-GLH   42
+  52 A191-LYS   56
+  53 A192-LYS   56
+  54 A198-LYS   56
+  55 A210-LYS   56
+  56 A217-LYS   56
+
+ Backbone energy:    -3523.90912687
+
+ Loaded self energies from restart file.
+  Rotamer (A14-HIS, 3) self-energy      73.94429519 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIS, 4) self-energy      53.95237426 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIS, 5) self-energy     115.30638343 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIS, 6) self-energy    2693.86919011 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIS, 7) self-energy      67.37001499 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIS, 8) self-energy   26099.81194469 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIS, 9) self-energy   12589.26977253 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIS,10) self-energy   22236.24818439 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,11) self-energy      40.28477562 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,12) self-energy      25.03646681 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,13) self-energy      46.01139329 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,14) self-energy    1782.07450190 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,15) self-energy      45.58762872 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,16) self-energy   27870.12074872 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,17) self-energy    9971.41184534 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HID,18) self-energy   23086.70055847 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,19) self-energy      35.02160572 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,20) self-energy      30.16469310 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,21) self-energy      85.43722208 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,22) self-energy    3181.82373153 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,23) self-energy      47.88713166 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,24) self-energy   23664.87698665 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,25) self-energy   13242.58094824 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A14-HIE,26) self-energy   22459.59340216 pruned by (A14-HIE, 2)     -26.41189742.
+  Rotamer (A21-GLH, 1) self-energy      86.35120532 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 2) self-energy     239.76050857 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 3) self-energy   36250.81292260 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 4) self-energy      86.21835811 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 5) self-energy    6527.81204816 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 6) self-energy     395.15879115 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 7) self-energy    1879.33056104 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 8) self-energy    2612.32943284 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH, 9) self-energy     109.36032948 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,10) self-energy     523.20936590 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,11) self-energy    2490.67895514 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,12) self-energy      91.41598214 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,13) self-energy   10872.77772696 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,14) self-energy     174.74463176 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,15) self-energy    1929.27450344 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,16) self-energy    1665.48381463 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,17) self-energy      68.94984203 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,18) self-energy     263.84095586 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,19) self-energy    2591.93804276 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,20) self-energy      89.77659061 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,21) self-energy    5492.01205417 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,22) self-energy     223.05787884 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,23) self-energy    1893.03980242 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,24) self-energy     618.16502637 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,25) self-energy     225.96766086 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,26) self-energy     250.34054552 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,27) self-energy    2332.47985883 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,28) self-energy     106.81052550 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,29) self-energy   10764.80436200 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,30) self-energy     203.10507578 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,31) self-energy     586.87934764 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,32) self-energy     808.17409639 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLH,33) self-energy      83.07884424 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLU,34) self-energy     194.69220589 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLU,35) self-energy    2389.07591787 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLU,36) self-energy      18.59154713 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLU,37) self-energy    7578.42038426 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLU,38) self-energy     103.70113664 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLU,39) self-energy    2242.14834859 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A21-GLU,40) self-energy     766.58179093 pruned by (A21-GLU, 0)     -13.11794446.
+  Rotamer (A24-ASH, 1) self-energy      54.81325788 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 2) self-energy     116.93728068 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 3) self-energy      70.87048305 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 4) self-energy      54.60686326 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 5) self-energy      53.26435858 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 6) self-energy      46.92714690 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 7) self-energy     115.02429050 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 8) self-energy      67.25106936 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH, 9) self-energy      57.15134049 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,10) self-energy      51.21860832 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,11) self-energy      50.90943345 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,12) self-energy     122.28618942 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,13) self-energy      76.88652755 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,14) self-energy      59.76358436 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,15) self-energy      59.41412933 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,16) self-energy      51.98523957 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,17) self-energy     159.19010191 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,18) self-energy     107.35435871 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,19) self-energy      83.99211440 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,20) self-energy      56.72023199 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASH,21) self-energy      73.85210043 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASP,22) self-energy      64.79767771 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A24-ASP,23) self-energy       5.98515368 pruned by (A24-ASP,25)     -21.02603803.
+  Rotamer (A28-GLH, 1) self-energy      52.12375117 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 2) self-energy      50.05099323 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 3) self-energy     183.75537983 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 4) self-energy      50.75560736 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 5) self-energy      48.46470689 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 6) self-energy      61.60864905 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 7) self-energy     914.94868586 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 8) self-energy      46.56332805 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH, 9) self-energy      47.75368497 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,10) self-energy      52.10539690 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,11) self-energy     154.92778430 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,12) self-energy      53.21783936 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,13) self-energy      51.45073720 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,14) self-energy      86.04632682 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,15) self-energy    2902.70867100 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,16) self-energy      49.92116222 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,17) self-energy      50.29879393 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,18) self-energy      61.97388570 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,19) self-energy     249.72885783 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,20) self-energy      54.41851844 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,21) self-energy      52.24894164 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,22) self-energy      64.51314830 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,23) self-energy     370.33416255 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,24) self-energy      50.31461848 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,25) self-energy      52.36758487 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,26) self-energy      70.51067047 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,27) self-energy     169.63671670 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,28) self-energy      71.29641038 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,29) self-energy      69.15434885 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,30) self-energy     114.76331611 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,31) self-energy     443.25427151 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,32) self-energy      68.03748273 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLH,33) self-energy      64.93489723 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLU,35) self-energy     142.21468755 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLU,38) self-energy      17.73230240 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A28-GLU,39) self-energy     470.00968355 pruned by (A28-GLU,41)     -17.95413956.
+  Rotamer (A29-GLH, 1) self-energy      75.75228570 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 2) self-energy     259.90786391 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 3) self-energy      64.30425511 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 4) self-energy     138.40693377 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 5) self-energy     409.89304132 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 6) self-energy     549.19339013 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 7) self-energy    1263.44555510 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 8) self-energy      78.33353470 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH, 9) self-energy     150.40830051 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,10) self-energy     234.05232352 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,11) self-energy      84.30851749 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,12) self-energy     140.19935842 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,13) self-energy    1084.47420669 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,14) self-energy     442.11394596 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,15) self-energy     267.42341714 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,16) self-energy     155.74826396 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,17) self-energy     177.87107689 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,18) self-energy     255.96464319 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,19) self-energy      68.09335599 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,20) self-energy     134.85408828 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,21) self-energy     254.85826980 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,22) self-energy     331.95782786 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,23) self-energy    1734.98358564 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,24) self-energy      82.82488012 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,25) self-energy     133.08995428 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,26) self-energy     157.44717952 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,27) self-energy     113.05398517 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,28) self-energy     127.39968339 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,29) self-energy     252.07584166 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,30) self-energy     465.87774269 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,31) self-energy     299.05798738 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,32) self-energy     104.76458825 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLH,33) self-energy     171.65492054 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLU,34) self-energy     223.29457404 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLU,36) self-energy      75.54859913 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLU,37) self-energy     216.62591710 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLU,38) self-energy     411.94566484 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLU,39) self-energy     363.81761008 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLU,40) self-energy      11.92114306 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A29-GLU,41) self-energy      88.52948725 pruned by (A29-GLU, 0)     -15.78122132.
+  Rotamer (A30-LYD, 2) self-energy     678.28515661 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD, 3) self-energy    4933.72267375 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD, 4) self-energy    8086.63773081 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD, 5) self-energy    3536.18012082 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD, 6) self-energy    6214.01935933 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD, 7) self-energy     633.41362939 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,10) self-energy   57390.30254947 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,11) self-energy    6860.30467839 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,12) self-energy      88.64929347 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,13) self-energy     124.40356729 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,14) self-energy    1327.06256470 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,15) self-energy      16.11409283 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,16) self-energy      19.72440137 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,17) self-energy       6.94374627 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,18) self-energy      43.27904899 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,20) self-energy      33.72184398 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,23) self-energy     119.77783109 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYD,24) self-energy    1263.19077528 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,29) self-energy     759.79568055 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,31) self-energy    8147.32134052 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,32) self-energy    3585.13922642 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,33) self-energy    6229.21930882 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,34) self-energy     686.85824932 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,37) self-energy   57590.98425711 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,38) self-energy    7359.20999660 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,39) self-energy      79.82081508 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,40) self-energy     120.85254260 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,41) self-energy    8112.64372367 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,42) self-energy       6.46826682 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,43) self-energy       8.82357345 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,45) self-energy      47.75590268 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,47) self-energy      24.61100784 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,50) self-energy     106.43860589 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A30-LYS,51) self-energy    1501.26576016 pruned by (A30-LYS,48)     -21.60159448.
+  Rotamer (A36-ASH, 1) self-energy      54.33421890 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 2) self-energy      52.22058252 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 3) self-energy      52.48549077 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 4) self-energy     110.52301526 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 5) self-energy      60.74490091 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 6) self-energy      49.28103498 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 7) self-energy      59.37040689 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 8) self-energy      57.26925256 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH, 9) self-energy     149.60515166 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,10) self-energy      56.88029879 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,11) self-energy      52.81421359 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,12) self-energy      57.48333635 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,13) self-energy      58.40063152 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,14) self-energy     115.62240273 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,15) self-energy      66.83681998 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,16) self-energy      54.39458156 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,17) self-energy     102.38845609 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,18) self-energy     101.25142931 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,19) self-energy     271.23069635 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,20) self-energy      62.34782692 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASH,21) self-energy      74.39448319 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A36-ASP,24) self-energy      46.09278965 pruned by (A36-ASP,22)     -20.37392756.
+  Rotamer (A39-ASH, 1) self-energy      59.03491815 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 2) self-energy      54.97168590 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 3) self-energy      55.38555180 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 4) self-energy      76.44982445 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 5) self-energy      57.93851461 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 6) self-energy      54.06935550 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 7) self-energy      63.47736659 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 8) self-energy      61.00578408 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH, 9) self-energy      84.31066533 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,10) self-energy      57.39517704 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,11) self-energy      57.98054627 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,12) self-energy      60.20974339 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,13) self-energy      61.26880227 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,14) self-energy      81.58958329 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,15) self-energy      64.40380051 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,16) self-energy      59.19841115 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,17) self-energy     110.26973641 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,18) self-energy     103.93062899 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,19) self-energy     129.01473292 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,20) self-energy      62.87687897 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASH,21) self-energy      81.08462370 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A39-ASP,24) self-energy       9.63164662 pruned by (A39-ASP, 0)     -19.19364823.
+  Rotamer (A41-ASH, 1) self-energy      69.39817392 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 2) self-energy     184.13691360 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 3) self-energy     141.17980812 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 4) self-energy      72.14178865 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 5) self-energy      62.22296752 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 6) self-energy      56.59127591 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 7) self-energy     267.16181779 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 8) self-energy     165.35099271 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH, 9) self-energy      73.77963012 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,10) self-energy      58.99080605 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,11) self-energy      60.26471663 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,12) self-energy     189.05801014 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,13) self-energy     145.06963144 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,14) self-energy      73.91977107 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,15) self-energy      65.25465186 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,16) self-energy      61.76523194 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,17) self-energy     400.76576618 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,18) self-energy     534.23059425 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,19) self-energy     102.04391251 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,20) self-energy      63.78188374 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASH,21) self-energy      82.30823785 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASP,22) self-energy     138.81252313 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A41-ASP,23) self-energy      81.05959071 pruned by (A41-ASP, 0)     -18.54355162.
+  Rotamer (A48-GLH, 1) self-energy      57.19975768 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 2) self-energy      56.25232482 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 3) self-energy      85.17595284 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 4) self-energy     101.46345778 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 5) self-energy      68.85197062 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 6) self-energy  131737.73392538 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 7) self-energy      55.59109852 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 8) self-energy      49.89308129 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH, 9) self-energy      50.43767780 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,10) self-energy      52.90002205 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,11) self-energy      95.06813274 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,12) self-energy      76.09855350 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,13) self-energy      74.60407235 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,14) self-energy  154999.34899097 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,15) self-energy      59.05177603 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,16) self-energy      53.34516663 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,17) self-energy      52.95726975 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,18) self-energy      68.21926729 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,19) self-energy      89.53930166 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,20) self-energy      95.47178299 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,21) self-energy      74.06496809 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,22) self-energy   71730.63120209 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,23) self-energy      58.58077046 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,24) self-energy      53.56285965 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,25) self-energy      54.93209370 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,26) self-energy      71.20313520 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,27) self-energy     124.99801945 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,28) self-energy      94.39819173 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,29) self-energy      92.00820918 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,30) self-energy  154992.77944859 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,31) self-energy      90.11044754 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,32) self-energy      71.43862951 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLH,33) self-energy      67.79359142 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLU,35) self-energy      14.99335331 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLU,36) self-energy      13.84063281 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLU,37) self-energy      12.42750554 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A48-GLU,38) self-energy  297762.78700934 pruned by (A48-GLU,41)     -14.14526400.
+  Rotamer (A49-LYD, 2) self-energy    6546.97250434 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD, 3) self-energy  138031.44150741 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD, 4) self-energy     651.04155851 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD, 5) self-energy     531.31632516 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD, 6) self-energy     228.98491116 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD, 7) self-energy    1143.88033045 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD, 8) self-energy     965.74913269 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD, 9) self-energy     381.79645479 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,10) self-energy   12211.54466841 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,11) self-energy      83.12972522 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,14) self-energy      18.28546737 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,15) self-energy      38.82208871 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,16) self-energy    1003.34606505 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,17) self-energy  162564.70464820 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,18) self-energy     644.99429930 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,19) self-energy     611.91498087 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,20) self-energy    2153.82517009 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,21) self-energy    2537.53372175 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,22) self-energy   12480.77641599 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,23) self-energy  175330.11549580 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,24) self-energy   86367.10686313 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,25) self-energy    9447.14695920 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,26) self-energy    8630.44564062 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,27) self-energy    7674.25773738 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYD,28) self-energy    3764.44177686 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,29) self-energy    6556.78386227 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,30) self-energy   11188.36915276 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,31) self-energy     646.35533797 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,32) self-energy     518.81039467 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,33) self-energy     217.45498797 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,34) self-energy    1403.63588301 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,35) self-energy    1008.38557001 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,36) self-energy     374.45730964 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,37) self-energy   12516.06027588 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,38) self-energy      71.61701511 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,41) self-energy       9.35667018 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,42) self-energy      31.14634266 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,43) self-energy     961.41008743 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,44) self-energy  164594.27468561 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,45) self-energy     639.10575453 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,46) self-energy     607.37062541 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,47) self-energy    2317.59665368 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,48) self-energy    8036.95162379 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,49) self-energy   12730.95531511 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,50) self-energy  175213.60493922 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,51) self-energy   86244.32002358 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,52) self-energy    9470.23247120 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,53) self-energy    9036.15323671 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,54) self-energy    7708.38330592 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A49-LYS,55) self-energy   11900.98192073 pruned by (A49-LYS, 0)     -19.56874583.
+  Rotamer (A51-LYD, 2) self-energy     209.66209556 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD, 3) self-energy     149.61263231 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD, 4) self-energy     149.38824320 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD, 5) self-energy    6499.17910512 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD, 6) self-energy      38.31922743 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD, 9) self-energy       2.43381833 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD,16) self-energy       2.43095909 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD,17) self-energy       6.21675760 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD,18) self-energy      36.17373163 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD,23) self-energy      87.60916762 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYD,24) self-energy     657.53344071 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYS,29) self-energy     195.42756016 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYS,31) self-energy     136.49324456 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYS,32) self-energy    6718.18142014 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYS,33) self-energy      26.01481021 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYS,45) self-energy      28.02068337 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYS,50) self-energy      72.86600514 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A51-LYS,51) self-energy     657.80965050 pruned by (A51-LYS,48)     -23.33558663.
+  Rotamer (A55-ASH, 1) self-energy      55.23391422 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 2) self-energy      78.21976538 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 3) self-energy      83.28956299 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 4) self-energy     716.88427605 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 5) self-energy     156.17413435 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 6) self-energy      52.76701842 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 7) self-energy     159.81172993 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 8) self-energy     130.44713717 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH, 9) self-energy    1103.71049732 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,10) self-energy     177.05439723 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,11) self-energy      53.46814459 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,12) self-energy      82.11177348 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,13) self-energy      86.45695412 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,14) self-energy     498.55761531 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,15) self-energy     162.61114521 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,16) self-energy      62.30033914 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,17) self-energy     480.52344064 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,18) self-energy     316.32106608 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,19) self-energy    1124.90644018 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,20) self-energy     157.46305395 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASH,21) self-energy      74.76267665 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASP,23) self-energy      11.60105226 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASP,24) self-energy    1087.68246589 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A55-ASP,25) self-energy      81.86692648 pruned by (A55-ASP, 0)     -18.62739991.
+  Rotamer (A64-ASH, 1) self-energy      62.15625009 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 2) self-energy     182.52098371 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 3) self-energy     171.09647675 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 4) self-energy      60.47987509 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 5) self-energy      58.75667401 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 6) self-energy     946.04336524 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 7) self-energy    1092.93424072 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 8) self-energy     321.07717251 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH, 9) self-energy      58.78359395 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,10) self-energy      61.43288421 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,11) self-energy     481.41896649 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,12) self-energy     200.16212558 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,13) self-energy     182.87213068 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,14) self-energy      73.21500448 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,15) self-energy      65.32852834 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,16) self-energy     953.07209206 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,17) self-energy     300.12193860 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,18) self-energy     765.37855575 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,19) self-energy      80.70937232 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,20) self-energy      80.55290480 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASH,21) self-energy     500.18518708 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASP,22) self-energy     143.27953777 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASP,23) self-energy     135.85737583 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A64-ASP,26) self-energy    1168.24424428 pruned by (A64-ASP,24)     -19.00230813.
+  Rotamer (A68-LYD, 2) self-energy     150.64241025 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD, 3) self-energy     161.63285182 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD, 4) self-energy     920.64066211 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD, 5) self-energy     185.56258586 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD, 6) self-energy   83026.84724692 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD, 7) self-energy    1984.40384310 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD, 8) self-energy    2330.58241120 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD, 9) self-energy    2780.27357479 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,10) self-energy  150224.52011337 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,11) self-energy   22439.17358495 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,12) self-energy    3057.00709102 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,13) self-energy    3124.88725830 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,14) self-energy   38174.97351513 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,15) self-energy    7586.16627070 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,16) self-energy     656.18800227 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,17) self-energy     383.18866645 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,18) self-energy     593.25529823 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,19) self-energy    6958.92321007 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,21) self-energy      17.41336057 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,22) self-energy       7.34424680 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,23) self-energy      37.86009842 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,24) self-energy       6.61383385 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,25) self-energy     872.28964642 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,26) self-energy   14595.65609497 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,27) self-energy     909.60082723 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYD,28) self-energy   13349.81984383 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,29) self-energy     141.22581563 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,30) self-energy      95.74444103 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,31) self-energy    3267.86371189 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,32) self-energy     171.50218618 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,33) self-energy   83938.50384705 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,34) self-energy    2402.54125653 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,35) self-energy    2345.77967641 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,36) self-energy    2768.79393214 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,37) self-energy  151377.34927671 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,38) self-energy   30244.04702246 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,39) self-energy    3130.03546606 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,40) self-energy    3155.68236486 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,41) self-energy   38793.31158817 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,42) self-energy    7552.89733122 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,43) self-energy     644.21462267 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,44) self-energy     371.56363181 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,45) self-energy     592.11554265 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,46) self-energy    7296.85654733 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,50) self-energy      80.24199176 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,52) self-energy     860.07990306 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,53) self-energy   14682.05152832 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,54) self-energy     958.01069528 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A68-LYS,55) self-energy   35115.07533565 pruned by (A68-LYS, 0)     -20.76412601.
+  Rotamer (A82-LYD, 2) self-energy    1507.03679826 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD, 3) self-energy     710.16200838 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD, 4) self-energy   28154.49391384 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD, 5) self-energy   11657.06858024 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD, 6) self-energy     135.80843816 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,17) self-energy     304.42988387 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,18) self-energy      62.59998809 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,19) self-energy      17.94581858 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,20) self-energy    3412.68721457 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,21) self-energy    8169.55233769 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,22) self-energy    2242.59818876 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,23) self-energy     439.98064706 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,24) self-energy     521.67227715 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,25) self-energy     792.76342997 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,26) self-energy     195.28478139 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYD,27) self-energy      67.77852840 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,29) self-energy  451297.34248723 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,30) self-energy    1417.20876905 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,31) self-energy   28237.41379471 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,32) self-energy   13720.80642343 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,33) self-energy     126.38708799 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,44) self-energy     303.98380008 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,45) self-energy      56.36052951 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,46) self-energy      14.29159137 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,47) self-energy    3385.83570801 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,48) self-energy    9828.71898473 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,49) self-energy    2240.10174339 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,50) self-energy     433.88932627 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,51) self-energy     592.41511247 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,52) self-energy     859.55791909 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,53) self-energy     194.06948206 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A82-LYS,54) self-energy      59.40667434 pruned by (A82-LYS, 0)     -20.27480514.
+  Rotamer (A83-HIS, 3) self-energy    1345.99172985 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIS, 4) self-energy     601.73978734 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIS, 5) self-energy    6598.70731342 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIS, 6) self-energy       6.71286366 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIS, 7) self-energy      18.76907004 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIS, 9) self-energy      49.43288453 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HID,11) self-energy    1378.47767933 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HID,12) self-energy     530.76619488 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HID,13) self-energy    7200.40417130 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HID,15) self-energy       5.00781865 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HID,17) self-energy      31.20839422 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIE,19) self-energy    1013.34716855 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIE,20) self-energy     545.50328173 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIE,21) self-energy     156.61715867 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIE,23) self-energy       8.66223859 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A83-HIE,25) self-energy       2.16671406 pruned by (A83-HIE,24)     -30.47872131.
+  Rotamer (A88-GLH, 1) self-energy      53.30424785 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 2) self-energy      55.49787878 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 3) self-energy      71.51966025 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 4) self-energy      53.05724744 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 5) self-energy      51.16914135 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 6) self-energy      65.69942677 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 7) self-energy      52.53294420 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 8) self-energy      48.36737810 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH, 9) self-energy      49.81722243 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,10) self-energy      58.69692231 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,11) self-energy     113.48747871 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,12) self-energy      55.53970209 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,13) self-energy      54.12834426 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,14) self-energy     112.64373851 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,15) self-energy      57.61924915 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,16) self-energy      51.90700243 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,17) self-energy      52.37676929 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,18) self-energy      59.71396827 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,19) self-energy      75.37734735 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,20) self-energy      57.03994876 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,21) self-energy      54.98242376 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,22) self-energy      69.58338980 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,23) self-energy      56.21109264 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,24) self-energy      52.04879034 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,25) self-energy      53.93581906 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,26) self-energy      77.21602834 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,27) self-energy     149.24404799 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,28) self-energy      73.69137674 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,29) self-energy      71.87673699 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,30) self-energy     112.15192791 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,31) self-energy      91.70430213 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,32) self-energy      70.19011379 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A88-GLH,33) self-energy      67.12693314 pruned by (A88-GLU,41)     -16.00338489.
+  Rotamer (A90-GLH, 1) self-energy      85.99780411 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 2) self-energy     111.73985215 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 3) self-energy      77.51549749 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 4) self-energy     111.65618487 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 5) self-energy      58.58253586 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 6) self-energy     527.98025751 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 7) self-energy      77.43973099 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 8) self-energy      62.13769674 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH, 9) self-energy     935.57069894 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,10) self-energy      93.92282920 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,11) self-energy     127.60110284 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,12) self-energy      86.76653166 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,13) self-energy      70.87361471 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,14) self-energy     320.12389601 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,15) self-energy      82.18911739 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,16) self-energy      66.91278328 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,17) self-energy    3634.75363761 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,18) self-energy     116.15727074 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,19) self-energy      91.98317583 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,20) self-energy      73.90752581 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,21) self-energy      63.76141703 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,22) self-energy     330.49104264 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,23) self-energy      82.98808629 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,24) self-energy      66.85583665 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,25) self-energy    1014.72981086 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,26) self-energy     111.56472774 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,27) self-energy     173.05494603 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,28) self-energy     100.03131538 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,29) self-energy      82.14690143 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,30) self-energy     348.28210401 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,31) self-energy     116.25285568 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,32) self-energy      85.71637836 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLH,33) self-energy    3630.98013973 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLU,34) self-energy      32.46990525 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLU,35) self-energy      10.12809840 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLU,38) self-energy     317.75739654 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLU,39) self-energy       9.23783592 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A90-GLU,41) self-energy    3166.27884906 pruned by (A90-GLU, 0)     -17.60101856.
+  Rotamer (A91-GLH, 1) self-energy      53.70829845 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 2) self-energy      66.53323536 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 3) self-energy    1522.12716342 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 4) self-energy      50.19328001 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 5) self-energy      48.81635661 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 6) self-energy      88.52952076 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 7) self-energy      61.09247779 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 8) self-energy      47.65559277 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH, 9) self-energy     116.10051289 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,10) self-energy      69.57728686 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,11) self-energy    5270.73990952 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,12) self-energy      53.15927658 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,13) self-energy      51.76134406 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,14) self-energy      94.49731326 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,15) self-energy      63.04580818 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,16) self-energy      51.05385466 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,17) self-energy      74.60220937 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,18) self-energy      82.91115269 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,19) self-energy    1524.17894183 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,20) self-energy      54.67744902 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,21) self-energy      52.80535850 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,22) self-energy      85.25069783 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,23) self-energy      66.59190485 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,24) self-energy      52.44365134 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,25) self-energy     288.99407350 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,26) self-energy      88.23788874 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,27) self-energy    5332.74575167 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,28) self-energy      71.58886270 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,29) self-energy      69.76436676 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,30) self-energy     125.16149422 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,31) self-energy      97.08700737 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,32) self-energy      69.47560201 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLH,33) self-energy      89.20436308 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLU,35) self-energy   10033.17150926 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLU,38) self-energy      29.31972279 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A91-GLU,41) self-energy      20.52825705 pruned by (A91-GLU,40)     -17.32166661.
+  Rotamer (A92-GLH, 1) self-energy      56.95102484 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 2) self-energy    2054.69976216 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 3) self-energy    7478.05729948 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 4) self-energy   16036.40180876 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 5) self-energy     105.25931070 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 6) self-energy    3745.45237068 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 7) self-energy    1158.44397959 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 8) self-energy      50.12776718 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH, 9) self-energy     290.87320711 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,10) self-energy     993.53082733 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,11) self-energy    1978.81616263 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,12) self-energy    3180.56417634 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,13) self-energy     114.46069387 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,14) self-energy    3020.84215259 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,15) self-energy   10221.25751093 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,16) self-energy      55.74481260 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,17) self-energy     933.46228342 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,18) self-energy    1631.69768426 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,19) self-energy    3926.21382321 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,20) self-energy    9551.98627541 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,21) self-energy     126.71795782 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,22) self-energy    3756.76480075 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,23) self-energy    1159.98536464 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,24) self-energy      54.06823887 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,25) self-energy     281.68963743 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,26) self-energy    1011.20532355 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,27) self-energy    1843.66061068 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,28) self-energy    2847.09269273 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,29) self-energy     128.81958822 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,30) self-energy    1006.26780562 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,31) self-energy     564.10762120 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,32) self-energy      76.67514477 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLH,33) self-energy     276.93597558 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLU,34) self-energy    1014.67329702 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLU,35) self-energy    2163.19346570 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLU,36) self-energy    3837.71672300 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLU,37) self-energy      38.51816465 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLU,38) self-energy    5087.85914330 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLU,39) self-energy    1368.92995132 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A92-GLU,41) self-energy     259.72939249 pruned by (A92-GLU, 0)     -16.10538600.
+  Rotamer (A97-ASH, 1) self-energy      81.85422412 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 2) self-energy     145.14038417 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 3) self-energy     124.84006807 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 4) self-energy   16461.54582339 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 5) self-energy     583.05217543 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 6) self-energy      78.39018967 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 7) self-energy     164.30747616 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 8) self-energy     123.34008067 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH, 9) self-energy     386.85451618 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,10) self-energy     551.53942901 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,11) self-energy      76.55239033 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,12) self-energy     147.19105347 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,13) self-energy     110.17386065 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,14) self-energy     581.37184477 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,15) self-energy     514.07900763 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,16) self-energy      80.40587335 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,17) self-energy     325.53830765 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,18) self-energy     236.71039571 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,19) self-energy     417.96219341 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,20) self-energy     552.50309222 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASH,21) self-energy      96.33897254 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASP,22) self-energy      90.40645498 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASP,23) self-energy      36.82775147 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASP,24) self-energy     317.85532881 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A97-ASP,25) self-energy     510.34511439 pruned by (A97-ASP, 0)     -20.68332967.
+  Rotamer (A100-GLH, 1) self-energy      66.34963987 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 2) self-energy     147.02581455 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 3) self-energy    1710.03318995 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 4) self-energy     891.10830539 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 5) self-energy     110.46120292 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 6) self-energy     153.39039175 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 7) self-energy    2038.34099241 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 8) self-energy   80193.47016472 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH, 9) self-energy     834.12155826 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,10) self-energy     189.32705955 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,11) self-energy    1790.80439032 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,12) self-energy    1505.05392312 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,13) self-energy     122.97870314 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,14) self-energy     122.14467597 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,15) self-energy     809.25904988 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,16) self-energy    1933.26328252 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,17) self-energy    2018.18452955 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,18) self-energy     147.86529694 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,19) self-energy     981.85368041 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,20) self-energy     975.88141295 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,21) self-energy     127.68491369 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,22) self-energy     192.25086938 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,23) self-energy    2056.89459324 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,24) self-energy    1539.27890216 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,25) self-energy    9684.89600869 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,26) self-energy     165.80195401 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,27) self-energy    1737.67999124 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,28) self-energy     449.58523776 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,29) self-energy     104.92170700 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,30) self-energy     140.74636178 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,31) self-energy     586.86263312 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,32) self-energy    1932.90883898 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLH,33) self-energy     577.09118279 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,34) self-energy      84.04898997 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,35) self-energy    1709.74443646 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,36) self-energy     908.85582445 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,37) self-energy      28.08736437 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,38) self-energy      44.62212057 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,39) self-energy    2115.65942560 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,40) self-energy    1605.69221167 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A100-GLU,41) self-energy     807.86316424 pruned by (A100-GLU, 0)     -13.26832275.
+  Rotamer (A105-ASH, 1) self-energy      57.84748790 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 2) self-energy     240.59739363 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 3) self-energy     183.82100935 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 4) self-energy      57.83279222 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 5) self-energy      75.61186406 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 6) self-energy      56.54011356 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 7) self-energy     247.00714753 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 8) self-energy     150.41057976 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH, 9) self-energy      62.51070443 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,10) self-energy      56.54826577 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,11) self-energy      58.69316211 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,12) self-energy     236.11940283 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,13) self-energy     163.65118862 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,14) self-energy      63.25760876 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,15) self-energy      64.36252266 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,16) self-energy      64.28903135 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,17) self-energy     506.49096684 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,18) self-energy     366.75369359 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,19) self-energy      94.24017019 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,20) self-energy      61.93048098 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASH,21) self-energy      80.79025462 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASP,22) self-energy     197.31759358 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A105-ASP,23) self-energy      84.52192136 pruned by (A105-ASP, 0)     -20.16280193.
+  Rotamer (A114-CYS, 2) self-energy      22.99456902 pruned by (A114-CYD, 1)      -9.39870705.
+  Rotamer (A114-CYS, 3) self-energy      16.60604688 pruned by (A114-CYD, 1)      -9.39870705.
+  Rotamer (A114-CYS, 5) self-energy      22.99456902 pruned by (A114-CYD, 1)      -9.39870705.
+  Rotamer (A114-CYS, 6) self-energy      16.60604688 pruned by (A114-CYD, 1)      -9.39870705.
+  Rotamer (A118-ASH, 1) self-energy      56.12133146 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 2) self-energy     126.82006759 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 3) self-energy      80.32589297 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 4) self-energy      71.27936801 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 5) self-energy      57.07207003 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 6) self-energy      48.83264911 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 7) self-energy      97.48745976 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 8) self-energy      69.25452517 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH, 9) self-energy      74.15451753 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,10) self-energy      52.34610068 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,11) self-energy      52.52014074 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,12) self-energy     131.27269882 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,13) self-energy      84.63061846 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,14) self-energy      76.35240525 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,15) self-energy      64.80074402 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,16) self-energy      53.98859866 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,17) self-energy     114.51602957 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,18) self-energy      95.85003452 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,19) self-energy     109.68263802 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,20) self-energy      57.80192828 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASH,21) self-energy      75.22737733 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASP,22) self-energy      70.99238140 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A118-ASP,23) self-energy      11.93841505 pruned by (A118-ASP,25)     -19.34905370.
+  Rotamer (A120-GLH, 1) self-energy      55.12040391 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 2) self-energy      53.86849654 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 3) self-energy      67.72073758 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 4) self-energy      53.49763391 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 5) self-energy      52.77265962 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 6) self-energy      53.76491119 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 7) self-energy      58.21153783 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 8) self-energy      50.66823399 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH, 9) self-energy      51.77774588 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,10) self-energy      57.29673937 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,11) self-energy     124.05920764 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,12) self-energy      56.23998261 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,13) self-energy      55.71593559 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,14) self-energy      62.58757031 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,15) self-energy      63.07262541 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,16) self-energy      53.96315572 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,17) self-energy      53.96325819 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,18) self-energy      57.85916202 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,19) self-energy      71.51456917 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,20) self-energy      57.44001800 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,21) self-energy      56.54593938 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,22) self-energy      57.74853447 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,23) self-energy      61.74112373 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,24) self-energy      54.44124382 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,25) self-energy      56.87972729 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,26) self-energy      75.80922224 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,27) self-energy     177.78849207 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,28) self-energy      74.50404108 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,29) self-energy      73.36063443 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,30) self-energy      92.32518978 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,31) self-energy      96.81470867 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,32) self-energy      72.08659709 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A120-GLH,33) self-energy      68.63294228 pruned by (A120-GLU, 0)     -15.65964404.
+  Rotamer (A121-LYD,17) self-energy       4.81518996 pruned by (A121-LYS,31)     -25.82289609.
+  Rotamer (A121-LYD,18) self-energy      36.36043176 pruned by (A121-LYS,31)     -25.82289609.
+  Rotamer (A121-LYS,45) self-energy      27.84801414 pruned by (A121-LYS,31)     -25.82289609.
+  Rotamer (A123-LYD, 2) self-energy    1501.08936919 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD, 3) self-energy      63.97539069 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD, 4) self-energy      60.21282973 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD, 5) self-energy    3088.78230401 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD, 6) self-energy      42.98815569 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD, 7) self-energy    1292.55307368 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD, 8) self-energy *     2.6276e+06 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD, 9) self-energy    1092.09565661 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,12) self-energy       9.34249786 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,14) self-energy      15.36194962 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,15) self-energy      95.81863051 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,16) self-energy     413.88685824 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,17) self-energy   35601.63323966 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,18) self-energy     299.90575776 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,19) self-energy     279.20311022 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,20) self-energy *     1.4354e+06 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,21) self-energy  112586.06307138 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,22) self-energy  466504.77306201 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,23) self-energy     386.44853951 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,24) self-energy    1593.44547726 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,25) self-energy   30728.70947231 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,26) self-energy    9473.01339609 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,27) self-energy   11549.24961175 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYD,28) self-energy   14990.10332365 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,29) self-energy    1489.20759266 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,30) self-energy   18743.94705368 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,31) self-energy      46.09464500 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,32) self-energy    3014.55732582 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,33) self-energy      30.53336042 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,34) self-energy    1294.98679139 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,35) self-energy *     4.1646e+06 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,36) self-energy    1081.57996943 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,42) self-energy      84.85874650 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,43) self-energy     405.79103612 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,44) self-energy   36405.58305024 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,45) self-energy     291.71399596 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,46) self-energy     305.48201234 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,47) self-energy *     1.4353e+06 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,48) self-energy  112980.56538101 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,49) self-energy  468265.97980814 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,50) self-energy     375.94339841 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,51) self-energy    1617.40164002 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,52) self-energy   31226.92238578 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,53) self-energy    9588.72075141 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,54) self-energy   11548.30930843 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A123-LYS,55) self-energy   14998.45240318 pruned by (A123-LYS,40)     -17.62749790.
+  Rotamer (A125-GLH, 1) self-energy      55.98043142 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 2) self-energy     421.10745548 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 3) self-energy    1175.58181268 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 4) self-energy      54.49773164 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 5) self-energy      52.34018899 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 6) self-energy      54.36974787 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 7) self-energy      56.50659647 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 8) self-energy      49.94969072 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH, 9) self-energy      51.78359064 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,10) self-energy     648.85985761 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,11) self-energy    1369.59724697 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,12) self-energy      57.04473287 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,13) self-energy      55.99355374 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,14) self-energy      63.64765042 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,15) self-energy      73.36716766 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,16) self-energy      53.78772784 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,17) self-energy      54.23514540 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,18) self-energy     383.70808297 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,19) self-energy     823.43046558 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,20) self-energy      58.52368946 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,21) self-energy      56.13267204 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,22) self-energy      58.20373093 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,23) self-energy      60.76106600 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,24) self-energy      53.56309028 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,25) self-energy      56.26436456 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,26) self-energy     666.74425839 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,27) self-energy    1394.81549725 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,28) self-energy      75.18186195 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,29) self-energy      73.54560041 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,30) self-energy      93.26069184 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,31) self-energy     100.31153807 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,32) self-energy      71.91642866 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLH,33) self-energy      68.98569376 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLU,34) self-energy     472.82327610 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A125-GLU,35) self-energy    1243.23740238 pruned by (A125-GLU, 0)     -15.17699757.
+  Rotamer (A128-LYD, 2) self-energy     142.98890032 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYD, 3) self-energy     114.46231222 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYD, 4) self-energy     112.67574672 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYD, 5) self-energy     294.10689669 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYD, 6) self-energy     110.17325514 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYD,17) self-energy       8.77292312 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYD,18) self-energy      37.76532760 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYD,24) self-energy      66.05610815 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYS,29) self-energy     129.42002334 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYS,31) self-energy      98.73868306 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYS,32) self-energy     302.99356786 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYS,33) self-energy      96.65328475 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYS,45) self-energy      29.74742692 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A128-LYS,51) self-energy      54.30019782 pruned by (A128-LYS, 0)     -23.00175334.
+  Rotamer (A132-GLH, 1) self-energy      54.29534572 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 2) self-energy      62.48873694 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 3) self-energy     601.48897826 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 4) self-energy      50.59003296 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 5) self-energy      65.55648631 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 6) self-energy     135.85220177 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 7) self-energy      53.59625614 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 8) self-energy      47.27162836 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH, 9) self-energy      48.83376269 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,10) self-energy      65.32656207 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,11) self-energy     677.39728245 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,12) self-energy      53.37831881 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,13) self-energy      54.47705788 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,14) self-energy      92.51856808 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,15) self-energy      59.99918737 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,16) self-energy      50.73855307 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,17) self-energy      51.49860814 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,18) self-energy      67.98073545 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,19) self-energy     330.17046734 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,20) self-energy      55.02765269 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,21) self-energy      57.86204995 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,22) self-energy      76.55729955 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,23) self-energy      57.38973783 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,24) self-energy      50.93450704 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,25) self-energy      53.32996755 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,26) self-energy      83.76120113 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,27) self-energy     727.28661914 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,28) self-energy      71.63241966 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,29) self-energy      71.94772859 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,30) self-energy     121.90360079 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,31) self-energy      93.19241454 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,32) self-energy      68.74270944 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLH,33) self-energy      66.30162221 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLU,35) self-energy     568.90446660 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A132-GLU,38) self-energy      22.58514955 pruned by (A132-GLU,41)     -16.65329386.
+  Rotamer (A133-LYD, 2) self-energy     212.49620548 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD, 3) self-energy    1134.78449256 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD, 4) self-energy     861.98395820 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD, 5) self-energy    2490.25884009 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD, 6) self-energy    3491.06648715 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD, 7) self-energy    4604.20215331 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD, 8) self-energy    4496.37492987 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD, 9) self-energy   32127.14150350 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,10) self-energy     758.29462931 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,11) self-energy    1448.87469818 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,12) self-energy   34351.10218873 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,13) self-energy    1771.83648183 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,14) self-energy     795.65000990 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,15) self-energy     547.06724853 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,16) self-energy   10706.00211868 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,17) self-energy      12.42252046 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,18) self-energy     522.43524279 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,19) self-energy     686.69787316 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,22) self-energy       8.67306862 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,23) self-energy      27.04885547 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,24) self-energy      47.06161116 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYD,28) self-energy     404.97425826 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,29) self-energy     299.99324466 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,30) self-energy      94.46518105 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,31) self-energy    1644.75066767 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,32) self-energy    2598.61591020 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,33) self-energy    3645.00075132 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,34) self-energy    4725.65266369 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,35) self-energy    4543.96056866 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,36) self-energy   39301.61404994 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,37) self-energy     935.24132551 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,38) self-energy    1527.80921796 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,39) self-energy   34769.39167862 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,40) self-energy    1829.51831670 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,41) self-energy     794.44965870 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,42) self-energy     677.31306359 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,43) self-energy   62616.30288891 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,45) self-energy     514.51384746 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,46) self-energy     678.44425561 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,50) self-energy      47.01755950 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,51) self-energy      38.83035683 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A133-LYS,55) self-energy     400.38836850 pruned by (A133-LYS, 0)     -17.86126004.
+  Rotamer (A135-LYD, 2) self-energy      91.03926447 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD, 3) self-energy     162.09422843 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD, 4) self-energy     162.37325155 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD, 5) self-energy    2605.24612980 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD, 6) self-energy      63.13397831 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,17) self-energy    1483.98613241 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,18) self-energy      68.10320440 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,19) self-energy      23.45536029 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,20) self-energy      25.96464624 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,21) self-energy      22.18292115 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,22) self-energy      25.85434032 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,23) self-energy      34.58830516 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,24) self-energy     190.46286424 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,25) self-energy    1368.87278047 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,26) self-energy    1389.11555253 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,27) self-energy   11247.88782737 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYD,28) self-energy     766.79474021 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,29) self-energy      81.17081300 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,30) self-energy       9.90902350 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,31) self-energy     152.01543004 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,32) self-energy    2706.13096419 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,33) self-energy      52.35651590 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,44) self-energy    1478.83300207 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,45) self-energy      60.95854571 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,46) self-energy      11.76586085 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,47) self-energy      22.41057989 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,48) self-energy      10.58403408 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,49) self-energy      14.42324504 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,50) self-energy      23.52468101 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,51) self-energy     181.33580682 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,52) self-energy    1355.90718345 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,53) self-energy    1377.65428528 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,54) self-energy   24540.47791835 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A135-LYS,55) self-energy     757.73764368 pruned by (A135-LYS,40)     -19.35803696.
+  Rotamer (A139-GLH, 1) self-energy      53.23005898 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 2) self-energy      61.42720175 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 3) self-energy    6249.90819351 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 4) self-energy      54.43500876 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 5) self-energy      52.36213002 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 6) self-energy      53.53236221 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 7) self-energy     633.47747214 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 8) self-energy      47.93371752 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH, 9) self-energy      51.16727445 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,10) self-energy      61.88465209 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,11) self-energy    7892.09732255 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,12) self-energy      56.86857397 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,13) self-energy      55.33076401 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,14) self-energy      60.58327350 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,15) self-energy    1533.50656752 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,16) self-energy      51.45588513 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,17) self-energy      53.75835366 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,18) self-energy      70.06882956 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,19) self-energy    6187.63965890 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,20) self-energy      58.33955449 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,21) self-energy      56.11490254 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,22) self-energy      57.55510310 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,23) self-energy     636.80287175 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,24) self-energy      51.63879815 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,25) self-energy      55.69795559 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,26) self-energy      80.33574408 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,27) self-energy    2057.89583836 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,28) self-energy      75.05099008 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,29) self-energy      72.93505243 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,30) self-energy      90.20849376 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,31) self-energy     716.09550134 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,32) self-energy      69.58344843 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLH,33) self-energy      68.38355033 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLU,35) self-energy    7788.34231286 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A139-GLU,39) self-energy     770.22790834 pruned by (A139-GLU, 0)     -15.64017581.
+  Rotamer (A143-LYD,17) self-energy       6.07732157 pruned by (A143-LYS,48)     -21.22542595.
+  Rotamer (A143-LYD,18) self-energy      37.02484776 pruned by (A143-LYS,48)     -21.22542595.
+  Rotamer (A143-LYS,45) self-energy      29.62261781 pruned by (A143-LYS,48)     -21.22542595.
+  Rotamer (A150-ASH, 1) self-energy      53.26846895 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 2) self-energy      44.40571700 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 3) self-energy      44.59871677 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 4) self-energy      70.23736232 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 5) self-energy      50.82801308 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 6) self-energy      45.65585732 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 7) self-energy      49.62646222 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 8) self-energy      48.34344907 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH, 9) self-energy      74.48984315 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,10) self-energy      49.48613620 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,11) self-energy      49.51178455 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,12) self-energy      49.64118128 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,13) self-energy      50.49211660 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,14) self-energy      75.46568718 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,15) self-energy      57.28269892 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,16) self-energy      50.73863788 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,17) self-energy      83.74026663 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,18) self-energy      83.16124592 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,19) self-energy     113.07583330 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,20) self-energy      55.05134725 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASH,21) self-energy      71.68374293 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A150-ASP,24) self-energy       3.25802273 pruned by (A150-ASP,22)     -29.81566320.
+  Rotamer (A151-LYD,17) self-energy      16.28410883 pruned by (A151-LYS,31)     -23.73680657.
+  Rotamer (A151-LYD,18) self-energy      37.50329517 pruned by (A151-LYS,31)     -23.73680657.
+  Rotamer (A151-LYS,44) self-energy       6.86539388 pruned by (A151-LYS,31)     -23.73680657.
+  Rotamer (A151-LYS,45) self-energy      30.52532065 pruned by (A151-LYS,31)     -23.73680657.
+  Rotamer (A156-ASH, 1) self-energy      62.75571022 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 2) self-energy    2760.30882935 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 3) self-energy     361.14097543 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 4) self-energy     231.66656172 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 5) self-energy     852.13110711 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 6) self-energy     132.01462358 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 7) self-energy    1104.71720501 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 8) self-energy     624.66293124 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH, 9) self-energy     406.69312868 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,10) self-energy     315.73351976 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,11) self-energy      76.54127995 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,12) self-energy     728.97782796 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,13) self-energy     276.22902947 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,14) self-energy     185.07497698 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,15) self-energy     224.75345803 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,16) self-energy      80.05998199 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,17) self-energy    1140.12732821 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,18) self-energy     660.66774566 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,19) self-energy     353.75059609 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,20) self-energy     243.64145097 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASH,21) self-energy      93.07980169 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASP,22) self-energy    1091.56588431 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASP,23) self-energy     580.89239251 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASP,24) self-energy     146.42671200 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A156-ASP,25) self-energy     152.30782808 pruned by (A156-ASP, 0)     -17.99628070.
+  Rotamer (A161-ASH, 1) self-energy      73.97558828 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 2) self-energy     311.88905935 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 3) self-energy     243.32919850 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 4) self-energy      72.38026177 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 5) self-energy      75.26786752 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 6) self-energy     235.50012565 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 7) self-energy     298.59034201 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 8) self-energy     202.85059780 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH, 9) self-energy      87.69280851 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,10) self-energy      66.90960591 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,11) self-energy     116.61574207 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,12) self-energy     372.39099734 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,13) self-energy     265.42218973 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,14) self-energy      87.47734956 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,15) self-energy      77.61624188 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,16) self-energy     267.32760910 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,17) self-energy     619.78173618 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,18) self-energy     474.29563820 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,19) self-energy     110.89136074 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,20) self-energy      69.10998562 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASH,21) self-energy     133.33271754 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASP,22) self-energy     203.30903097 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASP,23) self-energy     140.39728321 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A161-ASP,26) self-energy      58.06611688 pruned by (A161-ASP, 0)     -20.31178190.
+  Rotamer (A164-ASH, 1) self-energy      65.29320518 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 2) self-energy     303.86173327 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 3) self-energy     226.93731537 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 4) self-energy      62.58085937 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 5) self-energy      69.32175282 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 6) self-energy     221.16284459 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 7) self-energy     259.74090037 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 8) self-energy     170.96833032 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH, 9) self-energy      66.75095631 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,10) self-energy      56.91800816 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,11) self-energy     270.23762533 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,12) self-energy     298.65905500 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,13) self-energy     187.30079956 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,14) self-energy      67.91622375 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,15) self-energy     119.27876023 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,16) self-energy     161.62431441 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,17) self-energy     340.68717736 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,18) self-energy     232.26042839 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,19) self-energy      96.96679799 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,20) self-energy      62.44036245 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASH,21) self-energy     169.96478907 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASP,22) self-energy     284.95539164 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASP,23) self-energy     124.30344464 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A164-ASP,26) self-energy      88.55121713 pruned by (A164-ASP, 0)     -20.11773143.
+  Rotamer (A167-HIS, 3) self-energy    4527.73315310 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIS, 4) self-energy    4323.61313120 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIS, 8) self-energy    4477.94923697 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIS, 9) self-energy    9721.20541282 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIS,10) self-energy   14002.35756486 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HID,11) self-energy    3646.75555911 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HID,12) self-energy    4479.53015698 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HID,16) self-energy    4659.45750081 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HID,17) self-energy   14855.94020922 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HID,18) self-energy   11804.41578652 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIE,19) self-energy    4749.24751760 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIE,20) self-energy    4005.40068225 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIE,24) self-energy    4120.08061536 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIE,25) self-energy    9383.75944724 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A167-HIE,26) self-energy   11836.55641518 pruned by (A167-HIE,23)     -30.70239970.
+  Rotamer (A170-GLH, 1) self-energy      56.06609149 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 2) self-energy   14313.64836107 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 3) self-energy      92.17035295 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 4) self-energy      53.25042718 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 5) self-energy      52.83244297 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 6) self-energy     130.10444052 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 7) self-energy    3714.17118849 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 8) self-energy  251202.75759966 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH, 9) self-energy     124.37939700 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,10) self-energy    1843.71853865 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,11) self-energy     134.07945929 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,12) self-energy      55.83074011 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,13) self-energy      59.09824477 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,14) self-energy     454.55900355 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,15) self-energy    1237.94296219 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,16) self-energy   20183.02357500 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,17) self-energy      97.48595103 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,18) self-energy    3423.66939198 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,19) self-energy      93.02615182 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,20) self-energy      57.47752869 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,21) self-energy      56.57347486 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,22) self-energy     127.57750104 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,23) self-energy    1024.89771715 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,24) self-energy  251402.77473460 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,25) self-energy     131.55520407 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,26) self-energy    1855.33862263 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,27) self-energy     146.79576127 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,28) self-energy      74.08740564 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,29) self-energy      76.27983712 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,30) self-energy     151.99434942 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,31) self-energy    1262.36275691 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,32) self-energy   20198.44319226 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLH,33) self-energy     112.31100316 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLU,34) self-energy    2104.16618771 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLU,35) self-energy      31.46252984 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLU,38) self-energy      72.06020030 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLU,39) self-energy    1051.75438415 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLU,40) self-energy   33785.90446807 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A170-GLU,41) self-energy      34.06466072 pruned by (A170-GLU, 0)     -15.91380307.
+  Rotamer (A172-LYD,17) self-energy       5.68306956 pruned by (A172-LYS,31)     -22.35261541.
+  Rotamer (A172-LYD,18) self-energy      37.10103307 pruned by (A172-LYS,31)     -22.35261541.
+  Rotamer (A172-LYS,45) self-energy      28.95271209 pruned by (A172-LYS,31)     -22.35261541.
+  Rotamer (A173-CYS, 3) self-energy     134.89941482 pruned by (A173-CYD, 1)      -3.84002412.
+  Rotamer (A173-CYS, 6) self-energy     134.89941482 pruned by (A173-CYD, 1)      -3.84002412.
+  Rotamer (A173-CYD, 9) self-energy     105.37107950 pruned by (A173-CYD, 1)      -3.84002412.
+  Rotamer (A175-ASH, 1) self-energy      53.03880581 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 2) self-energy      55.38516778 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 3) self-energy      59.32090960 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 4) self-energy      55.98478850 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 5) self-energy      52.50558028 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 6) self-energy      49.86126517 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 7) self-energy      79.06893858 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 8) self-energy      69.24044200 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH, 9) self-energy      61.19952991 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,10) self-energy      52.01843550 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,11) self-energy      53.44193429 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,12) self-energy      60.74905628 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,13) self-energy      65.14091893 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,14) self-energy      61.12726172 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,15) self-energy      58.87035605 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,16) self-energy      54.92064687 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,17) self-energy     184.13929802 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,18) self-energy     140.96736714 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,19) self-energy      92.25209310 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,20) self-energy      57.50885470 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A175-ASH,21) self-energy      76.01970256 pruned by (A175-ASP,25)     -20.59417427.
+  Rotamer (A181-LYD, 2) self-energy       9.62360820 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD, 3) self-energy      42.45098424 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD, 4) self-energy      42.67643368 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD, 5) self-energy    1677.73873818 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD, 6) self-energy       8.79085304 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,17) self-energy   14968.54133239 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,18) self-energy      38.21794787 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,20) self-energy     744.08761552 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,21) self-energy      76.70125102 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,22) self-energy      32.35607740 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,24) self-energy       4.56267801 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,25) self-energy    4653.08471397 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,26) self-energy    6752.33114256 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,27) self-energy *     2.2082e+06 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYD,28) self-energy       7.59906802 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,31) self-energy      30.48989217 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,32) self-energy    1721.09385233 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,44) self-energy   14952.99725081 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,45) self-energy      30.51196113 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,47) self-energy     911.61894669 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,48) self-energy      67.47026478 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,49) self-energy      21.20902143 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,52) self-energy    4673.75700133 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,53) self-energy    6679.19026833 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A181-LYS,54) self-energy *     2.2103e+06 pruned by (A181-LYS, 0)     -21.29474111.
+  Rotamer (A182-ASH, 1) self-energy      54.13152044 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 2) self-energy     281.48768650 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 3) self-energy    1217.17472074 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 4) self-energy      66.71068740 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 5) self-energy     455.63847914 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 6) self-energy      50.43823944 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 7) self-energy     272.29805791 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 8) self-energy     181.14525607 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH, 9) self-energy      67.44805326 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,10) self-energy     136.90417067 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,11) self-energy      54.24796277 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,12) self-energy     204.09053299 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,13) self-energy     195.56373433 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,14) self-energy      68.23865965 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,15) self-energy     294.59847536 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,16) self-energy      55.76645957 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,17) self-energy     296.42364076 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,18) self-energy     245.84636957 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,19) self-energy     101.19852180 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,20) self-energy     142.21531279 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASH,21) self-energy      76.56305198 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASP,22) self-energy     158.37876621 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASP,23) self-energy     133.25560054 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A182-ASP,25) self-energy      80.74359651 pruned by (A182-ASP, 0)     -20.20987656.
+  Rotamer (A188-GLH, 1) self-energy      52.79983690 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 2) self-energy      70.87729845 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 3) self-energy  178923.79813141 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 4) self-energy    1597.89608566 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 5) self-energy      70.49660860 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 6) self-energy      60.35322230 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 7) self-energy    8787.40005739 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 8) self-energy      48.38078216 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH, 9) self-energy     361.73023497 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,10) self-energy      68.89333294 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,11) self-energy  155667.09719936 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,12) self-energy    3098.55615757 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,13) self-energy      68.59849667 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,14) self-energy      67.77957161 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,15) self-energy   16624.04595898 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,16) self-energy      51.30107303 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,17) self-energy     459.31332372 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,18) self-energy     131.81319680 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,19) self-energy  175122.89738238 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,20) self-energy    1037.29695891 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,21) self-energy      73.86588019 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,22) self-energy      63.52807155 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,23) self-energy    8739.75521635 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,24) self-energy      52.81244575 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,25) self-energy     378.05970529 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,26) self-energy      87.41609553 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,27) self-energy  155254.05276755 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,28) self-energy    3088.68553602 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,29) self-energy      86.24159972 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,30) self-energy      97.35158311 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,31) self-energy    2249.58744192 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,32) self-energy      69.39818752 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLH,33) self-energy     311.44677657 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLU,35) self-energy  136096.79984396 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLU,36) self-energy    2030.46372848 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLU,39) self-energy   10884.84632834 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A188-GLU,41) self-energy     304.68619958 pruned by (A188-GLU, 0)     -16.51891101.
+  Rotamer (A191-LYD,17) self-energy       7.84358951 pruned by (A191-LYS, 0)     -20.09803105.
+  Rotamer (A191-LYD,18) self-energy      39.67951372 pruned by (A191-LYS, 0)     -20.09803105.
+  Rotamer (A191-LYS,45) self-energy      31.94221118 pruned by (A191-LYS, 0)     -20.09803105.
+  Rotamer (A192-LYD, 2) self-energy  394085.13240614 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD, 3) self-energy   27412.88116883 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD, 4) self-energy   12695.87044647 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD, 5) self-energy   18484.56136624 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD, 6) self-energy   15296.40314435 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD, 7) self-energy      71.80454048 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD, 8) self-energy      71.09688265 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD, 9) self-energy     226.99938579 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,10) self-energy  297739.98278696 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,11) self-energy  285451.22525867 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,12) self-energy   18134.42328162 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,13) self-energy   18387.24945401 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,14) self-energy   24961.43329201 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,15) self-energy   70671.83073215 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,16) self-energy   70094.59932116 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,18) self-energy   91238.13248822 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,19) self-energy     925.16763947 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,20) self-energy       6.99098092 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,21) self-energy       6.19363074 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,22) self-energy       6.70148374 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,23) self-energy   12919.14141724 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYD,24) self-energy    2839.87572137 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,29) self-energy  394826.64442968 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,30) self-energy      23.00166492 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,31) self-energy   12877.37197223 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,32) self-energy   18400.95442040 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,33) self-energy   16555.95304088 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,34) self-energy      62.36927827 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,35) self-energy      58.52560067 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,36) self-energy     197.41534983 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,37) self-energy  299672.76114604 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,38) self-energy  286578.98588973 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,39) self-energy   18161.76441151 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,40) self-energy   18616.64193008 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,41) self-energy   26050.84077608 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,42) self-energy   70642.25391389 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,43) self-energy   70027.68595902 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,45) self-energy   90954.63311249 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,46) self-energy     931.43707197 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,50) self-energy   13554.98897522 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A192-LYS,51) self-energy    2841.47519837 pruned by (A192-LYS, 0)     -20.96931147.
+  Rotamer (A198-LYD, 2) self-energy       5.94462591 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYD, 3) self-energy      13.19018745 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYD, 4) self-energy      12.41479350 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYD, 5) self-energy     404.25044612 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYD, 6) self-energy       6.08962129 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYD,17) self-energy       6.19041412 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYD,18) self-energy      37.37501168 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYS,32) self-energy     408.37950947 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A198-LYS,45) self-energy      29.33729606 pruned by (A198-LYS, 0)     -22.05032714.
+  Rotamer (A210-LYD, 2) self-energy     413.74501846 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD, 3) self-energy    8566.26183024 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD, 4) self-energy   19262.52977891 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD, 5) self-energy    7480.79597868 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD, 6) self-energy   18641.06714937 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD, 9) self-energy       4.28461503 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,10) self-energy    6689.49493067 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,11) self-energy   80624.14491847 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,12) self-energy      37.94825959 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,13) self-energy     116.29940988 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,14) self-energy     168.03449054 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,15) self-energy      26.13287450 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,16) self-energy      24.19974309 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,17) self-energy       8.49985687 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,18) self-energy      49.68958258 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,19) self-energy       5.83052499 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,23) self-energy      87.35214065 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,24) self-energy      43.77060041 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,26) self-energy       9.50045976 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYD,27) self-energy       4.07221059 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,29) self-energy     773.56219003 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,31) self-energy   19494.19293747 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,32) self-energy    7540.84835655 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,33) self-energy   18920.03918639 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,37) self-energy    6748.37225334 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,38) self-energy   81908.81537721 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,39) self-energy      27.92424842 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,40) self-energy     108.21861163 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,41) self-energy     467.32947460 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,42) self-energy      19.57387690 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,43) self-energy      11.66116484 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,45) self-energy      54.85606916 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,50) self-energy      83.69976069 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A210-LYS,51) self-energy      30.61354089 pruned by (A210-LYS, 0)     -20.98077954.
+  Rotamer (A217-LYD,17) self-energy      72.06025679 pruned by (A217-LYS, 0)     -25.76829138.
+  Rotamer (A217-LYD,18) self-energy      35.02522797 pruned by (A217-LYS, 0)     -25.76829138.
+  Rotamer (A217-LYS,44) self-energy      62.89310270 pruned by (A217-LYS, 0)     -25.76829138.
+  Rotamer (A217-LYS,45) self-energy      27.54066860 pruned by (A217-LYS, 0)     -25.76829138.
+ Loaded 2-body energies from restart file.
+ Rotamer Pair (      9,41) (     11,10) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (      9,41) (     11,37) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     27,24) (     29, 3) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,28) (     55,25) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,28) (     55,26) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,28) (     55,27) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,28) (     55,52) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,28) (     55,53) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,28) (     55,54) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,55) (     55,25) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,55) (     55,26) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,55) (     55,27) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,55) (     55,52) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,55) (     55,53) 2-body energy          NaN pre-pruned since energy is NaN.
+ Rotamer Pair (     54,55) (     55,54) 2-body energy          NaN pre-pruned since energy is NaN.
+ Loaded trimer energies from restart file.
+
+ Number of self energies: 0
+ Backbone energy:    -3523.90912687
+
+ Time for single energies:        9.561
+ Number of 2-body energies to calculate: 0
+ Time for 2-body energies:        0.06788
+ Number of 3-Body energies to calculate: 1962
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 0 :       0.00193081 at      1.533 Ang (1.675 Ang by residue) in 9.4040 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 1 :       0.00119019 at      1.533 Ang (1.675 Ang by residue) in 9.2835 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 7 :       0.00089241 at      1.539 Ang (1.675 Ang by residue) in 9.2738 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 8 :       0.00091797 at      1.539 Ang (1.675 Ang by residue) in 9.2705 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 9 :       0.00093474 at      1.539 Ang (1.675 Ang by residue) in 9.2683 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 10:       0.00251380 at      1.539 Ang (1.675 Ang by residue) in 9.2483 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 11:       0.00428508 at      1.517 Ang (1.675 Ang by residue) in 9.2688 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 12:       0.00106257 at      1.539 Ang (1.675 Ang by residue) in 9.2215 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 13:       0.00110277 at      1.539 Ang (1.675 Ang by residue) in 9.2419 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 14:       0.00106119 at      1.539 Ang (1.675 Ang by residue) in 9.2747 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 15:       0.00104265 at      1.539 Ang (1.675 Ang by residue) in 9.2729 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYD 16:       0.00123715 at      1.539 Ang (1.675 Ang by residue) in 9.2147 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 34:       0.00117857 at      1.539 Ang (1.675 Ang by residue) in 9.2798 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 35:       0.00112114 at      1.539 Ang (1.675 Ang by residue) in 9.1959 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 36:       0.00126088 at      1.539 Ang (1.675 Ang by residue) in 9.2014 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 37:       0.00482323 at      1.539 Ang (1.675 Ang by residue) in 9.2128 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 38:       0.00869427 at      1.517 Ang (1.675 Ang by residue) in 9.2453 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 39:       0.00163387 at      1.539 Ang (1.675 Ang by residue) in 9.2077 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 40:       0.00188341 at      1.539 Ang (1.675 Ang by residue) in 9.1947 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 41:       0.00173160 at      1.539 Ang (1.675 Ang by residue) in 9.2414 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 42:       0.00301914 at      1.539 Ang (1.675 Ang by residue) in 9.2122 (sec).
+ 3-Body A132-GLU 41, A133-LYS 52, A135-LYS 43:       0.00208605 at      1.539 Ang (1.675 Ang by residue) in 9.2061 (sec).
+ 3-Body A132-GLU 41, A133-LYS 53, A135-LYS 0 :       0.00192898 at      1.533 Ang (1.675 Ang by residue) in 9.2128 (sec).
+ 3-Body A132-GLU 41, A133-LYS 53, A135-LYD 1 :       0.00120870 at      1.533 Ang (1.675 Ang by residue) in 9.1570 (sec).
+ 3-Body A132-GLU 41, A133-LYS 53, A135-LYD 7 :       0.00089627 at      1.539 Ang (1.675 Ang by residue) in 9.1994 (sec).
+ 3-Body A132-GLU 41, A133-LYS 53, A135-LYD 8 :       0.00092017 at      1.539 Ang (1.675 Ang by residue) in 9.1810 (sec).
