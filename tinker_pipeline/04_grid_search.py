@@ -1,43 +1,4 @@
 #!/usr/bin/env python3
-"""
-09_grid_search_paper_ffx.py
-
-Full hyperparameter grid search for GAT on the FFX + PKAD-R dataset.
-
-This is a direct analogue of Graph_pKa/Net/GNN_Grid_Search/GAT.py but
-reads from the FFX-extracted, paper-exact feature datasets produced by:
-
-    08_prepare_features_paper.py  ->  Graph_pKa/Features_Paper/
-    08_create_datasets_paper.py   ->  Graph_pKa/Features_Paper/Datasets/
-
-Hyperparameter grid (identical to the original paper grid search):
-    heads          : 4, 6, 8
-    hidden_channels: 16, 32, 48, 64
-    batch_size     : 16, 24, 32, 40
-    k_folds        : 10
-    patience       : 20  (applied after epoch 60)
-    learning_rate  : 0.001, 0.006, 0.01, 0.06, 0.1
-    dropout        : 0.2, 0.3, 0.4, 0.5
-    loss           : SmoothL1Loss(β=0.5), L1Loss, MSELoss
-
-Model architecture (identical to paper):
-    GATv2Conv(input_dim -> hidden*heads, concat=True, no self-loops)
-    ReLU -> Dropout -> global_mean_pool -> Linear(hidden*heads -> 1)
-
-Outputs to:
-    Graph_pKa/Results/Grid_Search_Paper_FFX/
-        grid_search_results.csv      ← all (dataset, combo) rows
-        best_result.csv              ← single best row by MAE
-        all_best_predictions/        ← per-fold held-out predictions
-
-Run (from pKa_GNN/ as CWD):
-    python tinker_pipeline/04_grid_search.py
-    python tinker_pipeline/04_grid_search.py --dataset 0           # only radius 7 Å
-    python tinker_pipeline/04_grid_search.py --single-core         # disable parallelism
-    python tinker_pipeline/04_grid_search.py \\
-        --dataset-dir Graph_pKa/Features_Paper/Datasets \\
-        --results-dir Graph_pKa/Results/Grid_Search_Paper_FFX
-"""
 
 from __future__ import annotations
 
@@ -46,7 +7,6 @@ import multiprocessing
 import os
 import pickle
 import random
-from collections import defaultdict
 from itertools import product
 from pathlib import Path
 
@@ -64,7 +24,6 @@ DATASET_DIR = Path("Graph_pKa/Features_Paper/Datasets")
 RESULTS_DIR = Path("Graph_pKa/Results/Grid_Search_Paper_FFX")
 # ─────────────────────────────────────────────────────────────────────────────
 
-
 def set_seed(seed: int = 42) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -75,9 +34,7 @@ def set_seed(seed: int = 42) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
     torch.set_num_threads(1)
 
-
 set_seed(42)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Data loading
@@ -101,7 +58,6 @@ def load_training_data(dataset_dir: Path, max_index: int = 5):
     input_dim = data_sets[0][0].x.shape[1]
     return data_sets, input_dim
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Model -- identical to Graph_pKa/Net/GNN_Grid_Search/GAT.py  ::  class GATConv
 # ════════════════════════════════════════════════════════════════════════════
@@ -122,7 +78,6 @@ class GATConv(torch.nn.Module):
         x = self.dropout(x)
         x = self.pool(x, data.batch)
         return self.out(x)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Prediction CSV helper
@@ -154,7 +109,6 @@ def save_predictions_to_csv(
     out_dir.mkdir(parents=True, exist_ok=True)
     fname = f"predictions_dataset_{dataset_idx}_{tag}.csv"
     pd.DataFrame(all_best_predictions).to_csv(out_dir / fname, index=False)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Core training worker  (one hyperparameter combination, called in parallel)
@@ -308,7 +262,6 @@ def train_and_evaluate(
         avg_mae, avg_rmse,
     )
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Main
 # ════════════════════════════════════════════════════════════════════════════
@@ -431,7 +384,6 @@ def main() -> None:
         f"--dropout {best['Dropout']} "
         f"--batch {int(best['Batch'])}"
     )
-
 
 if __name__ == "__main__":
     main()

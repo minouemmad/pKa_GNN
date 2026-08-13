@@ -1,13 +1,3 @@
-"""
-00_fix_structures.py
-
-Prepare raw PDB files for Tinker/AMOEBA minimization:
-  1. Strip NMR ensembles to model 1
-  2. Strip hydrogens
-  3. Run PDBFixer: remove heterogens/water, replace nonstandard residues,
-     add missing residues/atoms
-  4. Write output without CRYST1 record
-"""
 
 import argparse
 import os
@@ -69,7 +59,6 @@ LOG_FIELDS = [
     "nonstandard_replaced", "large_missing_residues", "notes"
 ]
 
-
 # ── NMR multi-model stripper ──────────────────────────────────────────────────
 
 def has_model_records(pdb_path: str) -> bool:
@@ -78,7 +67,6 @@ def has_model_records(pdb_path: str) -> bool:
             if line.startswith("MODEL"):
                 return True
     return False
-
 
 def strip_to_model1(pdb_path: str, out_path: str) -> int:
     lines_out = []
@@ -124,7 +112,6 @@ def strip_to_model1(pdb_path: str, out_path: str) -> int:
 
     return atom_count
 
-
 def strip_hydrogens(pdb_path: str, out_path: str) -> int:
     """Remove all H/D atoms so FFX assigns its own via AMOEBA biotypes.
 
@@ -152,7 +139,6 @@ def strip_hydrogens(pdb_path: str, out_path: str) -> int:
         f.writelines(lines_out)
 
     return heavy_count
-
 
 def preprocess_residues(pdb_path, out_path):
     """Remap fixable non-standard residues and strip unfixable ones.
@@ -236,7 +222,6 @@ def preprocess_residues(pdb_path, out_path):
         f.writelines(lines_out)
 
     return sorted(set(remapped)), sorted(set(stripped))
-
 
 def fix_one(pdb_id, raw_path, fixed_path):
     log = {k: "" for k in LOG_FIELDS}
@@ -336,7 +321,6 @@ def fix_one(pdb_id, raw_path, fixed_path):
 
     return log
 
-
 def main():
     parser = argparse.ArgumentParser(
         description="Fix raw PDB files for Tinker/AMOEBA minimization."
@@ -401,7 +385,6 @@ def main():
 
     print(f"\nLog → {LOG_PATH}")
     print("Next step: 01_run_tinker_minimize.py")
-
 
 if __name__ == "__main__":
     main()

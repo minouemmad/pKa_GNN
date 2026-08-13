@@ -1,19 +1,3 @@
-"""
-tinker_minimize_one.py
-
-Helper called by per-protein SGE minimize jobs.  Reads the neutralized XYZ
-for one protein from Graph_pKa/Data/6_Neutralized_System/, writes the Tinker
-key file (exact match to the paper's key format), and runs minimize.x.
-
-Usage (run from pKa_GNN/ as CWD):
-    python tinker_pipeline/tinker_minimize_one.py --pdb-id 135L
-
-Output:
-    Graph_pKa/Data/7_Energy_Minimization_Systems/{PDB_ID}/
-        {PDB_ID}.xyz        ← input copy
-        {PDB_ID}.key        ← Tinker key file
-        {PDB_ID}.xyz_2      ← minimized output from minimize.x
-"""
 
 from __future__ import annotations
 
@@ -51,7 +35,6 @@ PARAM_FILE   = "Graph_pKa/Tinker_params/amoebabio18.prm"   # absolute path passe
 # RMS gradient convergence criterion — matches the paper's minimize.x call
 RMS_GRADIENT = "1"
 
-
 def read_waterbox(pdb_id: str, coords_csv: str) -> int:
     """Return the waterbox size for *pdb_id* from TinkerXYZ_coords.csv."""
     with open(coords_csv, newline="") as fh:
@@ -61,7 +44,6 @@ def read_waterbox(pdb_id: str, coords_csv: str) -> int:
             if row_id == pdb_id:
                 return int(float(row["Waterbox"]))
     raise KeyError(f"PDB_ID '{pdb_id}' not found in {coords_csv}")
-
 
 def write_key_file(key_path: str, param_file_abs: str, waterbox: int) -> None:
     """Write a Tinker .key file that exactly matches the paper's format."""
@@ -83,7 +65,6 @@ def write_key_file(key_path: str, param_file_abs: str, waterbox: int) -> None:
     with open(key_path, "w") as fh:
         fh.write(content)
 
-
 def run_minimize(xyz_path: str, key_path: str, work_dir: str) -> int:
     """Call minimize and return the process return code."""
     result = subprocess.run(
@@ -94,7 +75,6 @@ def run_minimize(xyz_path: str, key_path: str, work_dir: str) -> int:
         cwd=work_dir,
     )
     return result.returncode
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -150,7 +130,6 @@ def main() -> None:
         print(f"[{pdb_id}] Minimization complete → {minimized}")
     else:
         print(f"[{pdb_id}] WARNING: expected output {minimized} not found — check Tinker logs")
-
 
 if __name__ == "__main__":
     main()

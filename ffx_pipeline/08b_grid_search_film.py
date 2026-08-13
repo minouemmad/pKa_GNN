@@ -1,38 +1,4 @@
 #!/usr/bin/env python3
-"""
-08b_grid_search_film.py  (FFX pipeline)
-
-Hyperparameter grid search for the FiLM-conditioned GAT on the FFX titration
-dataset.  Mirrors `08_grid_search.py` but:
-
-  • Uses the FiLM architecture from `07_train.py::GATModel(arch='film')`:
-        GATv2Conv → ReLU → (γ⊙h + β  with γ,β = MLP(pH))
-                  → Dropout → global_mean_pool → Linear → 1
-  • Uses GroupKFold by residue so that all per-pH replicates of the same
-    (PDB, chain, residue) stay together in train/val splits — matching the
-    "titrate (FiLM, group-residue CV)" setup used in
-    `Graph_pKa/Presentation_FFX/titration_summary.csv`.
-  • Defaults to `Graph_pKa/Features_titrate/Datasets/` →
-    `Graph_pKa/Results/Grid_Search_FFX_titrate_film/`.
-
-Hyperparameter grid (identical to 08_grid_search.py):
-    heads          : 4, 6, 8
-    hidden_channels: 16, 32, 48, 64
-    batch_size     : 16, 24, 32, 40
-    learning_rate  : 0.001, 0.006, 0.01, 0.06, 0.1
-    dropout        : 0.2, 0.3, 0.4, 0.5
-    loss           : SmoothL1Loss(β=0.5), L1Loss, MSELoss
-    k_folds        : 10
-    patience       : 20  (after epoch 60)
-
-Run:
-    python ffx_pipeline/08b_grid_search_film.py
-    python ffx_pipeline/08b_grid_search_film.py --dataset 0
-    python ffx_pipeline/08b_grid_search_film.py --single-core
-    python ffx_pipeline/08b_grid_search_film.py \\
-        --dataset-dir Graph_pKa/Features_titrate/Datasets \\
-        --results-dir Graph_pKa/Results/Grid_Search_FFX_titrate_film
-"""
 
 from __future__ import annotations
 
@@ -62,7 +28,6 @@ RESULTS_DIR = Path("Graph_pKa/Results/Grid_Search_FFX_titrate_film")
 _PH_MEAN = 6.0
 _PH_STD  = 3.0
 
-
 def set_seed(seed: int = 42) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -73,9 +38,7 @@ def set_seed(seed: int = 42) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
     torch.set_num_threads(1)
 
-
 set_seed(42)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Data loading
@@ -106,7 +69,6 @@ def load_training_data(dataset_dir: Path, max_index: int = 5):
         )
     return data_sets, input_dim
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # pH normalisation
 # ════════════════════════════════════════════════════════════════════════════
@@ -115,7 +77,6 @@ def _normalize_ph(ph: torch.Tensor) -> torch.Tensor:
     """Normalise pH ∈ [3, 9] to roughly [-1, 1].  NaN → 0."""
     out = (ph - _PH_MEAN) / _PH_STD
     return torch.nan_to_num(out, nan=0.0)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Model — FiLM-conditioned GAT (mirrors GATModel(arch='film') in 07_train.py)
@@ -151,7 +112,6 @@ class FiLMGATConv(torch.nn.Module):
         x = self.dropout(x)
         x = self.pool(x, data.batch)
         return self.head(x)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Prediction CSV helper
@@ -190,7 +150,6 @@ def save_predictions_to_csv(
 
     df = pd.DataFrame(rows)
     df.to_csv(out_dir / "predictions.csv", index=False)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Training loop (one fold)
@@ -265,7 +224,6 @@ def train_one_fold(
 
     return best_val_mae, train_losses_, val_maes_, best_predictions
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Grid search for one hyperparameter combo × one dataset (residue-grouped CV)
 # ════════════════════════════════════════════════════════════════════════════
@@ -338,7 +296,6 @@ def run_one_combo(
         "mean_val_mae":     mean_mae,
         "fold_maes":        fold_maes,
     }
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -425,7 +382,6 @@ def main() -> None:
     print(f"  lr     : {best['lr']}  dropout={best['dropout']}  batch={best['batch_size']}")
     print(f"\nResults  → {args.results_dir / 'grid_search_results.csv'}")
     print(f"Best row → {args.results_dir / 'best_result.csv'}")
-
 
 if __name__ == "__main__":
     main()

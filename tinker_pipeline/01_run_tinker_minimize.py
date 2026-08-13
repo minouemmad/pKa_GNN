@@ -1,41 +1,3 @@
-"""
-01_run_tinker_minimize.py  (tinker_pipeline)
-
-Generate and optionally submit SGE job scripts that reproduce the paper's
-Tinker AMOEBA energy-minimisation pipeline (Song et al., J. Chem. Inf. Model.
-2026) on the same PKAD-R dataset used by the FFX pipeline.
-
-The two pipelines share the same input PDBs (data/fixed_pdbs/) but are
-otherwise completely independent:
-
-    FFX pipeline   — ffx_pipeline/03_run_ffx_minimize.py
-                     rotamer opt + titr-ManyBody + AMOEBA GK minimize
-    Tinker pipeline — THIS SCRIPT
-                     PDBFixer → pdbxyz.x → xyzedit.x → minimize.x (amoebabio18)
-
-Jobs generated
-──────────────
-1. tinker_prep.job (one-time, all proteins)
-   Runs tinker_prep_all.py — handles steps 1-11 of Tinker_EM.py:
-     PDBFixer, water removal, pdb→xyz, center-of-mass, waterbox sizing,
-     solvation, charge analysis, neutralisation.
-   Output: Graph_pKa/Data/6_Neutralized_System/{PDB_ID}.xyz
-
-2. {PDB_ID}_tinker_min.job (one per protein, holds on tinker_prep)
-   Runs tinker_minimize_one.py — creates Tinker key file and calls
-   minimize.x with RMS gradient 1.0 kcal/mol/Å.
-   Output: Graph_pKa/Data/7_Energy_Minimization_Systems/{PDB_ID}/{PDB_ID}.xyz_2
-
-Flags
-─────
-  --dry    Generate all scripts but do not submit to SGE.
-  --force  Regenerate scripts and resubmit even if outputs exist.
-
-Run (from pKa_GNN/ as CWD):
-    python tinker_pipeline/01_run_tinker_minimize.py
-    python tinker_pipeline/01_run_tinker_minimize.py --dry
-    python tinker_pipeline/01_run_tinker_minimize.py --force
-"""
 
 from __future__ import annotations
 
@@ -80,7 +42,6 @@ if _only_indices:
 
 LOG_FIELDS = ["pdb_id", "job_type", "job_script", "job_id", "status", "notes"]
 
-
 # ── Script generators ─────────────────────────────────────────────────────────
 
 def make_prep_script(pka_gnn_abs: str) -> str:
@@ -104,7 +65,6 @@ python tinker_pipeline/tinker_prep_all.py
 
 echo "=== tinker_prep done: $(date) ==="
 """
-
 
 def make_minimize_script(pdb_id: str, pka_gnn_abs: str, hold_prep: bool = True) -> str:
     """Generate a per-protein minimize job bash script."""
@@ -130,14 +90,12 @@ python tinker_pipeline/tinker_minimize_one.py --pdb-id {pdb_id}
 echo "=== {pdb_id} tinker_min done: $(date) ==="
 """
 
-
 # ── Utilities ─────────────────────────────────────────────────────────────────
 
 def _write_script(path: str, text: str) -> None:
     with open(path, "w") as fh:
         fh.write(text)
     os.chmod(path, os.stat(path).st_mode | stat.S_IEXEC)
-
 
 def _submit(script_path: str) -> tuple:
     try:
@@ -154,7 +112,6 @@ def _submit(script_path: str) -> tuple:
         return -1, "qsub not found — are you on a submit node?"
     except subprocess.TimeoutExpired:
         return -1, "qsub timed out"
-
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -251,7 +208,6 @@ def main() -> None:
     print(f"\nWorkflow order:")
     print(f"  1. tinker_prep.job  — preprocesses ALL proteins (pdbxyz, solvate, neutralise)")
     print(f"  2. {{PDB_ID}}_tinker_min.job  — minimize.x for each protein (auto-holds on prep)")
-
 
 if __name__ == "__main__":
     main()

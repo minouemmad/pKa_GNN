@@ -10,14 +10,11 @@ import csv
 import math
 import time
 import shutil
-import requests
 import subprocess
-import sys
 import numpy as np
 import pandas as pd
 import MDAnalysis as mda
 
-from pathlib import Path
 from openmm.app import PDBFile
 
 _TINKER_BIN = "/Dedicated/schnieders/programs/tinker-tools/bin"
@@ -34,7 +31,6 @@ os.environ.setdefault("OMP_NUM_THREADS", "1")
 os.environ.setdefault("OMP_STACKSIZE", "512m")
 
 from pdbfixer import PDBFixer
-
 
 def fix_pdb_files_with_pdbfixer(
     pdb_dir: str = "../Graph_pKa/Data/0_Raw_PDB",
@@ -60,7 +56,6 @@ def fix_pdb_files_with_pdbfixer(
                 fix_pdb_file(input_pdb, output_pdb)
             except Exception as e:
                 print(f"   Skipping {file_name}: {str(e)[:60]}", flush=True)
-
 
 def remove_water_with_mdanalysis(
     pdb_dir: str = "../Graph_pKa/Data/1_PDB_After_Fixer",
@@ -113,7 +108,6 @@ def remove_water_with_mdanalysis(
 
     log("Finished solvent removal")
 
-
 def convert_pdb_to_xyz_files(
     pdb_dir: str = "../Graph_pKa/Data/2_Cleaned_PDB",
     param_file: str = "../Graph_pKa/Tinker_params/amoebabio18.prm",
@@ -135,7 +129,7 @@ def convert_pdb_to_xyz_files(
         log.write(f"Processing {len(pdb_files)} PDB files\n\n")
 
     for filename in pdb_files:
-        pdb_file = os.path.join(pdb_dir, filename)
+        os.path.join(pdb_dir, filename)
         base_name = os.path.splitext(filename)[0]
         xyz_out = os.path.join(pdb_dir, f"{base_name}.xyz")
         if os.path.exists(xyz_out):
@@ -191,7 +185,6 @@ def convert_pdb_to_xyz_files(
         log.write("\n" + "=" * 60 + "\n")
         log.write(f"Summary: {successful_count} succeeded, {failed_count} failed\n")
         log.write("Finished PDB to XYZ conversion\n")
-
 
 def move_center_of_mass_and_relocate(
     cleaned_pdb_dir: str = "../Graph_pKa/Data/2_Cleaned_PDB",
@@ -270,7 +263,6 @@ def move_center_of_mass_and_relocate(
     with open(error_log_file, "a") as log:
         log.write(f"Moved {moved_count} files to center_moved_xyz_dir\n")
 
-
 def write_xyz_coordinate_ranges(
     xyz_dir: str = "../Graph_pKa/Data/4_Center_Moved_XYZ",
     output_csv: str = "../Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv",
@@ -346,7 +338,6 @@ def write_xyz_coordinate_ranges(
                     )
                 except Exception as e:
                     print(f"   Skipping {filename}: {str(e)[:60]}", flush=True)
-
 
 def soak_proteins_with_waterbox(
     tinker_coords_csv: str = "../Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv",
@@ -428,7 +419,6 @@ def soak_proteins_with_waterbox(
             except Exception as e:
                 print(f"   Skipping move {filename}: {str(e)[:60]}", flush=True)
 
-
 def analyze_and_collect_charge(
     xyz_dir: str = "../Graph_pKa/Data/4_Center_Moved_XYZ",
     param_file: str = "../Graph_pKa/Tinker_params/amoebabio18.prm",
@@ -488,7 +478,6 @@ def analyze_and_collect_charge(
                         log.write(f"--- stderr ({filename}) ---\n{stderr}\n\n")
             except Exception as e:
                 print(f"   Skipping {filename}: {str(e)[:60]}", flush=True)
-
 
 def generate_system_solvent_info(
     soaked_proteins_dir: str = "../Graph_pKa/Data/5_Dissolved_Proteins",
@@ -596,7 +585,6 @@ def generate_system_solvent_info(
             )
         csv_writer.writerows(results)
 
-
 def process_solvent_info_and_ohh_ohh(
     xyz_dir: str = "../Graph_pKa/Data/4_Center_Moved_XYZ",
     solvent_info_csv: str = "../Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv",
@@ -642,7 +630,6 @@ def process_solvent_info_and_ohh_ohh(
             merged_df.to_csv(merged_output_csv, index=False)
         except Exception as e:
             print(f"   Skipping merge: {str(e)[:60]}", flush=True)
-
 
 def offset_charges_in_systems(
     merged_system_solve_file: str = "../Graph_pKa/Data/6_Neutralized_System/System_Solve_Info_with_Charge.csv",
@@ -1163,7 +1150,6 @@ def create_key_files_and_run_minimization(
     except Exception as e:
         print(f"   Skipping CSV write: {str(e)[:60]}", flush=True)
 
-
 FUNCTION_MAP = {
     "fix_pdb_files_with_pdbfixer": fix_pdb_files_with_pdbfixer,
     "remove_water_with_mdanalysis": remove_water_with_mdanalysis,
@@ -1180,7 +1166,6 @@ FUNCTION_MAP = {
 }
 
 __all__ = list(FUNCTION_MAP.keys())
-
 
 if __name__ == "__main__":
     print("=" * 60, flush=True)

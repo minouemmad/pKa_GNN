@@ -1,25 +1,4 @@
 #!/usr/bin/env python3
-"""
-analyze_ablation_grid.py — aggregate the 40-job sweep produced by
-run_ablation_sweep.py.
-
-Layout consumed:
-    Graph_pKa/Results/Comparison_2026/{mode}_{cond}/predictions/
-        dataset_{0..4}_all_folds.csv
-
-mode      ∈ {rotopt, titrate}
-cond      ∈ {full, noDip, noPerm, noElec}
-radius    7..11 Å  ↔ dataset_idx 0..4
-
-Outputs (under --out-dir, default Comparison_2026/_analysis):
-    summary_by_radius.csv          overall MAE/RMSE/N per (mode, cond, radius)
-    per_residue_by_radius.csv      MAE per (mode, cond, radius, residue)
-    paired_tests_by_radius.csv     Wilcoxon |err| + bootstrap ΔMAE for key pairs
-    best_per_mode.csv              best (cond, radius) per mode
-    mae_vs_radius_{mode}.png       4-line plot per mode
-    delta_mae_vs_radius.png        ablation contributions per mode
-    per_residue_heatmap_r{R}.png   residue × cond MAE heatmap (best radius)
-"""
 from __future__ import annotations
 
 import argparse
@@ -50,7 +29,6 @@ PAIRS_PER_MODE = [
     ("noPerm-vs-noDip", "noPerm", "noDip"),  # which contributes more?
 ]
 
-
 # ─────────────────────────── helpers ───────────────────────────
 def _key(df: pd.DataFrame) -> pd.Series:
     return (df["PDB_ID"].astype(str) + "|" +
@@ -58,14 +36,12 @@ def _key(df: pd.DataFrame) -> pd.Series:
             df["Residue_Number"].astype(int).astype(str) + "|" +
             df["Residue_Name"].astype(str))
 
-
 def _agg_titrate(df: pd.DataFrame) -> pd.DataFrame:
     """Average Predicted_pKa over pH replicates per residue key."""
     return df.groupby(KEY_COLS, as_index=False).agg(
         True_pKa=("True_pKa", "first"),
         Predicted_pKa=("Predicted_pKa", "mean"),
     )
-
 
 def _load_pred(root: Path, mode: str, cond: str, radius: int,
                log: logging.Logger) -> pd.DataFrame | None:
@@ -86,7 +62,6 @@ def _load_pred(root: Path, mode: str, cond: str, radius: int,
     df["key"] = _key(df)
     return df
 
-
 def _bootstrap_dmae(a: np.ndarray, b: np.ndarray, n_boot: int, seed: int):
     rng = np.random.default_rng(seed)
     d = a - b
@@ -94,7 +69,6 @@ def _bootstrap_dmae(a: np.ndarray, b: np.ndarray, n_boot: int, seed: int):
     boot = d[idx].mean(axis=1)
     lo, hi = np.percentile(boot, [2.5, 97.5])
     return float(d.mean()), float(lo), float(hi)
-
 
 # ─────────────────────────── main ──────────────────────────────
 def main():
@@ -290,7 +264,6 @@ def main():
     print(best.to_string(index=False))
 
     print(f"\nAll outputs → {out}")
-
 
 if __name__ == "__main__":
     main()

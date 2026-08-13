@@ -1,6 +1,3 @@
-"""
-01_parse_and_download.py
-"""
 
 import os
 import re

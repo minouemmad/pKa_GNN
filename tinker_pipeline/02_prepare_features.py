@@ -1,24 +1,3 @@
-"""
-08_prepare_features_paper.py
-
-Paper-exact feature extraction — replicates the original Graph_pKa GitHub
-pipeline (Song et al., J. Chem. Inf. Model. 2026) as closely as possible
-using FFX/GK output instead of Tinker molecular dynamics.
-
-Key differences vs 04_prepare_features.py:
-  • 4-class residue OHE  (ASP / GLU / HIS / LYS only) — matches paper
-  • 9-class atom-type OHE (labels 0-8, no sidechain-S class 9) — matches paper
-  • No edge-feature output (paper does not include edge attributes)
-  • input_dim = 4 + 3 (coords) + 3 (dipoles) + 4 (counts) + 2 (Hbond) + 1 (SASA)
-              + 9 (atom OHE) = 26  — matches paper's reported feature count
-
-Outputs (inside Graph_pKa/Features_Paper/):
-    Node_Feature_Vectors/{radius}/{PDB}_{chain}_{resid}.{ResName}.csv
-    Adjacency_Matrices/With_Self_Loop/{PDB}_{chain}_{resid}.{ResName}_adjacency.csv
-
-Run (from pKa_GNN/ as CWD):
-    python tinker_pipeline/02_prepare_features.py
-"""
 
 from __future__ import annotations
 
@@ -41,7 +20,6 @@ try:
     import mdtraj as md
 except ImportError:
     raise SystemExit("mdtraj not found. Install with: conda install -c conda-forge mdtraj")
-
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 PDB_DIR  = os.environ.get("PAPER_PDB_DIR",  "data/fixed_pdbs")
@@ -87,7 +65,6 @@ BACKBONE_H     = {"H", "HN", "H1", "H2", "H3", "HA", "HA2", "HA3"}
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Parsing
 # ════════════════════════════════════════════════════════════════════════════
@@ -111,7 +88,6 @@ def parse_pdb(path: str) -> pd.DataFrame:
             ))
     return pd.DataFrame(rows)
 
-
 def parse_uind(path: str) -> dict[int, tuple[float, float, float]]:
     """Parse FFX .uind induced-dipole file → {serial: (ux, uy, uz)}."""
     dipoles: dict[int, tuple[float, float, float]] = {}
@@ -129,7 +105,6 @@ def parse_uind(path: str) -> dict[int, tuple[float, float, float]]:
             except (ValueError, IndexError):
                 continue
     return dipoles
-
 
 def parse_uperm(path: str) -> dict[int, tuple[float, float, float, float]]:
     """Parse FFX .uperm permanent-multipole file.
@@ -152,7 +127,6 @@ def parse_uperm(path: str) -> dict[int, tuple[float, float, float, float]]:
                 continue
     return out
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Atom classification
 # ════════════════════════════════════════════════════════════════════════════
@@ -160,11 +134,9 @@ def parse_uperm(path: str) -> dict[int, tuple[float, float, float, float]]:
 def classify_backbone_sidechain(atom_name: str) -> str:
     return "BB" if (atom_name in BACKBONE_HEAVY or atom_name in BACKBONE_H) else "SC"
 
-
 def assign_atom_label(atom_name: str, bb_sc: str) -> int:
     key_char = "CA" if atom_name == "CA" else atom_name[0]
     return ATOM_LABEL_MAP.get((key_char, bb_sc), -1)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Local backbone frame (matches original Tinker_Output_Processing.py exactly)
@@ -173,7 +145,6 @@ def assign_atom_label(atom_name: str, bb_sc: str) -> int:
 def _normalize(v: np.ndarray) -> np.ndarray:
     n = np.linalg.norm(v)
     return v / n if n > 0 else v
-
 
 def build_local_frame(ca: np.ndarray, c: np.ndarray, o: np.ndarray):
     """
@@ -187,7 +158,6 @@ def build_local_frame(ca: np.ndarray, c: np.ndarray, o: np.ndarray):
     y_axis = np.cross(z_axis, x_axis)
     R = np.column_stack([x_axis, y_axis, z_axis])
     return R, ca
-
 
 def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
     """Add recalculated_x/y/z; rotate Dipole_X/Y/Z into local frame.
@@ -266,7 +236,6 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
         df["PermDipole_Z"] = pdz
 
     return df
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Rotation-invariant dipole scalars
@@ -350,7 +319,6 @@ def compute_dipole_invariants(df: pd.DataFrame, cutoff: float = 9.0) -> pd.DataF
 
     return df
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Neighbour counts (MDAnalysis)
 # ════════════════════════════════════════════════════════════════════════════
@@ -395,7 +363,6 @@ def compute_neighbor_counts(pdb_path: str, df: pd.DataFrame) -> pd.DataFrame:
 
     return nbr_df
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # H-bonds and SASA (mdtraj)
 # ════════════════════════════════════════════════════════════════════════════
@@ -430,7 +397,6 @@ def compute_hbonds_sasa(pdb_path: str, n_atoms: int) -> pd.DataFrame:
             "SASA_Value":                    0.0,
         })
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Adjacency matrix (distance-based, self-loops included)
 # ════════════════════════════════════════════════════════════════════════════
@@ -444,7 +410,6 @@ def build_adjacency_matrix(res_df: pd.DataFrame) -> pd.DataFrame:
         adj[i] = (dists <= BOND_CUTOFF).astype(int)
     names = res_df["name"].tolist()
     return pd.DataFrame(adj, index=names, columns=names)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Find completed FFX jobs
@@ -463,7 +428,6 @@ def find_completed_jobs(pdb_dir: str) -> list[tuple[str, str, str, str | None]]:
         uperm_path = str(uperm) if uperm.exists() else None
         jobs.append((pdb_id, str(pdb_path), str(uind), uperm_path))
     return jobs
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -677,7 +641,6 @@ def main() -> None:
     log.info(f"  Skipped (no pKa)   : {n_skipped}")
     log.info(f"  Effective input_dim (after 9-class OHE): "
              f"{len(residue_ohe_cols) + 3 + 3 + 2 + 1 + 4 + 9} = 26")
-
 
 if __name__ == "__main__":
     main()

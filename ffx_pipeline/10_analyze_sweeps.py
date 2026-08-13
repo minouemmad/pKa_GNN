@@ -1,33 +1,4 @@
 #!/usr/bin/env python
-"""
-10_analyze_sweeps.py — final 2x2 comparison of rotopt vs titrate, with/without
-induced dipoles.
-
-Ingests per-residue prediction CSVs written by 07_train.py:
-    <sweep_root>/<condition>/predictions/dataset_{r}_all_folds.csv
-where columns include: PDB_ID, Chain_ID, Residue_Number, Residue_Name,
-True_pKa, Predicted_pKa, fold.
-
-For each radius r in RADII:
-  - Computes per-condition overall MAE / RMSE.
-  - Restricts to the intersection of residues across all 4 conditions
-    (so paired tests are valid).
-  - Paired Wilcoxon signed-rank on |error| for:
-      A) rotopt:  withDip vs noDip
-      B) titrate: withDip vs noDip
-      C) titrate-withDip vs rotopt-withDip
-      D) titrate-noDip  vs rotopt-noDip
-  - Bootstrap 95% CI on ΔMAE for each pair.
-  - Per-residue-type MAE breakdown for each condition.
-
-Outputs (under --out-dir, default Graph_pKa/Results/Analysis_Sweep2):
-    summary_by_radius.csv         overall MAE/RMSE/N per (condition, radius)
-    paired_tests_by_radius.csv    Wilcoxon stats + bootstrap CI per pair, radius
-    per_residue_by_radius.csv     MAE per (residue, condition, radius)
-    mae_vs_radius.png             4-line plot
-    delta_mae_vs_radius.png       paired ΔMAE plot (3 pairs)
-    per_residue_heatmap.png       residue x condition MAE @ primary radius
-"""
 from __future__ import annotations
 import argparse
 import logging
@@ -65,7 +36,6 @@ PAIRS = [
 
 KEY_COLS = ["PDB_ID", "Chain_ID", "Residue_Number", "Residue_Name"]
 
-
 def _key(df: pd.DataFrame) -> pd.Series:
     return (
         df["PDB_ID"].astype(str) + "|" +
@@ -73,7 +43,6 @@ def _key(df: pd.DataFrame) -> pd.Series:
         df["Residue_Number"].astype(int).astype(str) + "|" +
         df["Residue_Name"].astype(str)
     )
-
 
 def _agg_titrate(df: pd.DataFrame) -> pd.DataFrame:
     """Titrate mode has multiple pH copies per residue; average predictions
@@ -83,7 +52,6 @@ def _agg_titrate(df: pd.DataFrame) -> pd.DataFrame:
         Predicted_pKa=("Predicted_pKa", "mean"),
     )
     return grp
-
 
 def _load_predictions(sweep_root: Path, subdir: str, radius: int,
                       is_titrate: bool, log: logging.Logger) -> pd.DataFrame | None:
@@ -108,7 +76,6 @@ def _load_predictions(sweep_root: Path, subdir: str, radius: int,
     df["key"] = _key(df)
     return df
 
-
 def _bootstrap_delta_mae(a_err: np.ndarray, b_err: np.ndarray,
                          n_boot: int = 5000, seed: int = 0) -> tuple[float, float, float]:
     """Bootstrap mean(a_err − b_err) → (ΔMAE point, lo, hi 95%)."""
@@ -120,7 +87,6 @@ def _bootstrap_delta_mae(a_err: np.ndarray, b_err: np.ndarray,
     boot = d[idx].mean(axis=1)
     lo, hi = np.percentile(boot, [2.5, 97.5])
     return point, float(lo), float(hi)
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -307,7 +273,6 @@ def main():
         print(sub[cols].round(4).to_string(index=False))
 
     print(f"\nAll outputs → {out_dir}")
-
 
 if __name__ == "__main__":
     main()

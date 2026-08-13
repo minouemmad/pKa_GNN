@@ -1,12 +1,3 @@
-"""
-plot_physedge.py
-
-Generate presentation-quality plots from the PhysEdge sweep:
-  1. Per-variant MAE box/strip plot across (seed, fold) pairs
-  2. ΔMAE vs Charge baseline with paired Wilcoxon p-value annotations
-  3. Predicted vs True scatter for the best variant (best seed)
-  4. Permutation importance bar charts
-"""
 from __future__ import annotations
 
 import argparse
@@ -31,7 +22,6 @@ PALETTE = {
     "PhysEdge":           "#2ca02c",
     "InvariantPhysEdge":  "#d62728",
 }
-
 
 def plot_box(perfold: pd.DataFrame, summary: pd.DataFrame, out: Path) -> None:
     fig, ax = plt.subplots(figsize=(8.5, 5))
@@ -61,7 +51,6 @@ def plot_box(perfold: pd.DataFrame, summary: pd.DataFrame, out: Path) -> None:
     print(f"Wrote {out}")
     plt.close(fig)
 
-
 def plot_delta(summary: pd.DataFrame, out: Path) -> None:
     fig, ax = plt.subplots(figsize=(8.5, 4.0))
     s = summary[summary["variant"] != "Charge"].copy()
@@ -86,7 +75,6 @@ def plot_delta(summary: pd.DataFrame, out: Path) -> None:
     fig.savefig(out, dpi=180)
     print(f"Wrote {out}")
     plt.close(fig)
-
 
 def plot_scatter(results_dir: Path, variant: str, seed: int, ds_idx: int, out: Path) -> None:
     csv = results_dir / f"Training_{variant}_seed{seed}" / "predictions" / f"dataset_{ds_idx}_all_folds.csv"
@@ -116,7 +104,6 @@ def plot_scatter(results_dir: Path, variant: str, seed: int, ds_idx: int, out: P
     print(f"Wrote {out}")
     plt.close(fig)
 
-
 def plot_perm_importance(perm_csv: Path, out: Path, variant: str) -> None:
     if not perm_csv.exists():
         print(f"  perm-importance: missing {perm_csv}")
@@ -139,7 +126,6 @@ def plot_perm_importance(perm_csv: Path, out: Path, variant: str) -> None:
     fig.savefig(out, dpi=180)
     print(f"Wrote {out}")
     plt.close(fig)
-
 
 def main() -> None:
     ap = argparse.ArgumentParser()
@@ -172,7 +158,6 @@ def main() -> None:
     for perm in sorted(args.results_dir.glob("perm_importance_*.csv")):
         name = perm.stem.replace("perm_importance_", "")
         plot_perm_importance(perm, plots / f"05_perm_importance_{name}.png", name)
-
 
 if __name__ == "__main__":
     main()

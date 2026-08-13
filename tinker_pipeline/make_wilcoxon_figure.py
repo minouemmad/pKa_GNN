@@ -1,21 +1,3 @@
-"""Standalone Wilcoxon explainer figure for the FFX138 feature-engineering sweep.
-
-Two panels (no overlap, generous margins):
-  (a) Forest plot — mean ΔMAE per variant vs Charge baseline, with 95 % CI
-      from the per-fold paired deltas, p-value annotated on the right side.
-  (b) Paired-difference distribution for the best variant (InducedDip):
-      MAE_variant − MAE_charge for each of the 80 (seed, fold) pairs, with
-      median, mean, zero-line, and a count of "wins" (Δ < 0).
-
-Inputs (already on disk):
-  tinker_pipeline/Graph_pKa/Net_FFX138_Electro/sweep_electrostatics_138_summary.csv
-  tinker_pipeline/Graph_pKa/Net_FFX138_Electro/sweep_electrostatics_138_perfold.csv
-  tinker_pipeline/Graph_pKa/Net_FFX138_PhysEdge/sweep_physedge_138_summary.csv
-  tinker_pipeline/Graph_pKa/Net_FFX138_PhysEdge/sweep_physedge_138_perfold.csv
-
-Output:
-  Graph_pKa/Presentation_FFX/04_wilcoxon_variants.png
-"""
 from __future__ import annotations
 
 from pathlib import Path
@@ -29,7 +11,6 @@ ELECTRO  = ROOT / "tinker_pipeline" / "Graph_pKa" / "Net_FFX138_Electro"
 PHYSEDGE = ROOT / "tinker_pipeline" / "Graph_pKa" / "Net_FFX138_PhysEdge"
 OUT      = ROOT / "Graph_pKa" / "Presentation_FFX"
 OUT.mkdir(parents=True, exist_ok=True)
-
 
 # ─── load and merge both sweep summaries / per-fold tables ──────────────────
 sum_e = pd.read_csv(ELECTRO  / "sweep_electrostatics_138_summary.csv")
@@ -73,7 +54,6 @@ for v in variants:
 
 forest = pd.DataFrame(rows).sort_values("mean_d").reset_index(drop=True)
 print(forest.to_string(index=False))
-
 
 # ─── figure ──────────────────────────────────────────────────────────────────
 plt.rcParams.update({"font.size": 10})
@@ -143,7 +123,6 @@ ax1.legend(handles=[
           label="significantly worse (p<0.05)"),
 ], fontsize=8.5, loc="upper center", bbox_to_anchor=(0.5, -0.14),
    ncol=4, framealpha=0.95, frameon=True)
-
 
 # (b) paired-difference distribution for InducedDip (best variant)
 best = "InducedDip"

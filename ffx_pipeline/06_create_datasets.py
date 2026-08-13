@@ -1,50 +1,8 @@
-"""
-06_create_datasets.py
-
-Converts per-residue CSV feature files (produced by 05_prepare_features.py)
-into PyTorch Geometric Data objects and saves them as pickle files for
-training / evaluation.
-
-Expected inputs (produced by 04_prepare_features.py):
-    Graph_pKa/Features/Adjacency_Matrices/With_Self_Loop/
-        {PDB}_{chain}_{resseq}.{ResName}_adjacency.csv
-
-    Graph_pKa/Features/Node_Feature_Vectors/{7,8,9,10,11}/
-        {PDB}_{chain}_{resseq}.{ResName}.csv
-            columns include: atom_label, Expt. pKa, Residue Name_*, Radius_*A_*_Count,
-                             recalculated_x/y/z, Dipole_X/Y/Z, H-bond counts, SASA_Value
-
-Outputs:
-    Graph_pKa/Features/Datasets/
-        data_list_0.pkl   ← radius 7
-        data_list_1.pkl   ← radius 8
-        data_list_2.pkl   ← radius 9
-        data_list_3.pkl   ← radius 10
-        data_list_4.pkl   ← radius 11
-
-Each .pkl contains a list of torch_geometric.data.Data objects with:
-    x              – node feature matrix  (n_atoms × n_features)
-    edge_index     – COO adjacency  (2 × n_edges)
-    y              – experimental pKa  (tensor of shape [1])
-    residue_label  – integer index into TARGET_RESIDUES sorted list
-    PDB_ID         – str
-    Chain_ID       – str
-    Residue_Number – int
-    Residue_Name   – str (full name, e.g. 'Aspartate')
-
-Atom-label one-hot encoding uses num_classes=10 to cover the full label scheme
-(0–8 standard + 9 = sidechain S for CYS) defined in 04_prepare_features.py.
-
-Run:
-    python 06_create_datasets.py
-    python 06_create_datasets.py --feat-dir Graph_pKa/Features --out-dir Graph_pKa/Features/Datasets
-"""
 
 from __future__ import annotations
 
 import argparse
 import logging
-import os
 import pickle
 import re
 from pathlib import Path
@@ -73,7 +31,6 @@ EDGE_FEAT_COLS         = ["dx", "dy", "dz", "distance"]  # 4 edge features
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
-
 
 def parse_stem(stem: str) -> tuple[str, str, int, str, float | None]:
     """Parse a feature-CSV stem into (pdb_id, chain, resseq, res_name, pH).
@@ -111,7 +68,6 @@ def parse_stem(stem: str) -> tuple[str, str, int, str, float | None]:
     chain     = id_chain[under2 + 1:]       # e.g. 'A'
 
     return pdb_id, chain, resseq, res_name, ph
-
 
 def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
     """Build a list of PyG Data objects for one radius directory."""
@@ -215,7 +171,6 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
              f"(skipped – missing feat: {skipped_missing}, bad format: {skipped_bad})")
     return data_list
 
-
 def main(feat_dir: Path, out_dir: Path) -> None:
     adj_dir  = feat_dir / "Adjacency_Matrices" / "With_Self_Loop"
     node_dir = feat_dir / "Node_Feature_Vectors"
@@ -243,7 +198,6 @@ def main(feat_dir: Path, out_dir: Path) -> None:
         log.info(f"  Saved {len(data_list)} graphs → {pkl_path}")
 
     log.info("Done.")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Build PyG datasets from 05_prepare_features output")

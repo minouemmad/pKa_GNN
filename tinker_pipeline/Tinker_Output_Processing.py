@@ -1,14 +1,4 @@
 #!/usr/bin/env python3
-"""Master script containing all procedures for processing Tinker output.
-
-This pipeline processes Tinker molecular dynamics output files through multiple stages:
-1. Convert .xyz files to CSV format
-2. Assign atom types from AMOEBA forcefield
-3. Extract dipole moments from .uind files
-4. Transform coordinates to local reference frames
-5. Map atoms to amino acid residues
-6. Generate final PDB files with refined coordinates
-"""
 
 import re
 import os
@@ -21,10 +11,8 @@ import numpy as np
 import pandas as pd
 import mdtraj as md
 import MDAnalysis as mda
-from pathlib import Path
 from collections import defaultdict
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
-
 
 # Configure logging
 logging.basicConfig(
@@ -69,14 +57,12 @@ def extract_pdb_id_from_pdb_file(pdb_file):
     """
     return os.path.basename(pdb_file).replace("_refined_coordinates.pdb", "").split("_")[0]
 
-
 def normalize_atom_name_for_merge(atom_name):
     """Normalize atom names for merge matching: treat HN as 'H'."""
     if pd.isna(atom_name):
         return None
     atom_str = str(atom_name).strip()
     return "H" if atom_str == "HN" else atom_str
-
 
 def find_pdb_files(output_dir):
     """Find all refined PDB files in PDB-ID named subfolders.
@@ -99,8 +85,6 @@ def find_pdb_files(output_dir):
                     pdb_files.extend(found)
     
     return pdb_files
-
-
 
 def normalize_residue_name(name):
     """Convert residue names in any format to standard 3-letter code."""
@@ -131,7 +115,6 @@ CONFIG = {
     "raw_pdb_dir": "../Graph_pKa/Data/0_Raw_PDB",
     "atom_types_file": "../Graph_pKa/Tinker_params/ff_atoms.csv",
 }
-
 
 def process_all_xyz_files(Dir):
     """Convert Tinker .xyz_2 files to CSV and track solvent stop atoms.
@@ -257,10 +240,7 @@ def process_all_xyz_files(Dir):
     except Exception as e:
         logger.error(f"Error writing stop_info CSV: {e}")
 
-
-
 # === Assign AMOEBAbio18 Atom Types to Converted CSV ===
-
 
 def map_bonds_to_atom_types(row, atom_types_df):
     """Map bond numbers to atom types from the Atom_types dataframe."""
@@ -288,7 +268,6 @@ def map_bonds_to_atom_types(row, atom_types_df):
 
     return ", ".join(bond_atom_types)
 
-
 def process_all_csv_files_to_add_Atom_Types(Dir, Atom_types):
     for root, dirs, files in os.walk(Dir):  # Recursively walk through the directory
         for filename in files:
@@ -312,7 +291,6 @@ def process_all_csv_files_to_add_Atom_Types(Dir, Atom_types):
             except Exception as e:
                 logger.error(f"Error processing {file_path}: {e}")
 
-
 Atom_types = None
 try:
     Atom_types = pd.read_csv(CONFIG["atom_types_file"])
@@ -322,9 +300,7 @@ except FileNotFoundError:
 except Exception as e:
     logger.error(f"Error loading atom types: {e}")
 
-
 # === Extract Dipole Moments and Combine with CSV ===
-
 
 def process_all_csv_files_add_dipoles(Dir):
     """Add dipole moment vectors from .uind files to CSV data."""
@@ -372,7 +348,7 @@ def process_all_csv_files_add_dipoles(Dir):
                 # Append dipole moments to the CSV
                 try:
                     df = pd.read_csv(tinkerXYZ)
-                    fieldnames = list(df.columns) + ["Dipole_Vector"]
+                    list(df.columns) + ["Dipole_Vector"]
                     
                     # Add dipole vectors
                     dipole_col = []
@@ -391,11 +367,7 @@ def process_all_csv_files_add_dipoles(Dir):
                     logger.error(f"Error processing dipoles for {tinkerXYZ}: {e}")
                     continue
 
-
-
-
 # === Normalize Atoms' Coordinates within a Universal Local Frame ===
-
 
 def process_all_csv_files_local_frame(Dir):
     failed_files = []
@@ -512,11 +484,7 @@ def process_all_csv_files_local_frame(Dir):
     # Return the DataFrame of failed files
     return failed_df
 
-
-
-
 # === Align the Atoms with Corresponding Amino Acids ===
-
 
 def process_all_csv_files_add_description(Dir):
     df2 = pd.read_csv(
@@ -547,9 +515,7 @@ def process_all_csv_files_add_description(Dir):
                 print(f"Failed to process {file_path}: {e}")
                 logger.error(f"Failed to process {file_path}: {e}")
 
-
 DESCRIPTION_DIR = CONFIG["output_dir"]
-
 
 # === Copy Raw PDB Files, Extract Residue Information, and Add Residue IDs ===
 
@@ -783,13 +749,10 @@ def copy_pdbs_and_align_descriptions(root_dir, raw_pdb_dir):
     logger.info(f"Combined PDB copy and alignment complete. Processed {processed_count} protein datasets.")
     print(f"Processed {processed_count} datasets with PDB copy and alignment.")
 
-
 root_dir = CONFIG["output_dir"]
 raw_pdb_dir = CONFIG["raw_pdb_dir"]
 
-
 # === Map Chain/Residue/Residue Number Info with PDB ===
-
 
 def process_all_files_in_subfolders(root_dir, failed_files_log_path, comparison_results_path):
     failed_files = []
@@ -901,14 +864,11 @@ def process_all_files_in_subfolders(root_dir, failed_files_log_path, comparison_
 
         print(f"Comparison results saved to {comparison_results_path}")
 
-
 root_dir = CONFIG["output_dir"]
 failed_files_log_path = os.path.join(CONFIG["output_dir"], "failed_files_log.csv")
 comparison_results_path = os.path.join(CONFIG["output_dir"], "comparison_results_1.csv")
 
-
 # === Combine all the Updated CSV Files with Bonds Info ===
-
 
 def combine_csv_files_in_subfolders(root_dir, output_file_path, columns_to_keep):
     # List to store DataFrames from all CSV files
@@ -963,7 +923,6 @@ def combine_csv_files_in_subfolders(root_dir, output_file_path, columns_to_keep)
     else:
         print("No CSV files found to combine.")
 
-
 output_file_path = os.path.join(CONFIG["output_dir"], "Edge_Masterfile.csv")
 columns_to_keep = [
     "atom_number",
@@ -979,12 +938,9 @@ columns_to_keep = [
     "bonds",
 ]
 
-
 # === Generate PDB Files from Final CSV Data for Feature Extracting ===
 
-
 PDB_DIR = CONFIG["output_dir"]
-
 
 def generate_complete_pdb_from_csv(pdb_dir):
     """
@@ -1026,7 +982,6 @@ def generate_complete_pdb_from_csv(pdb_dir):
     print(f"Failed: {failed_count} PDB files")
     print(f"Log file: {processing_log}")
     logger.info(f"PDB generation complete: {success_count} successful, {failed_count} failed")
-
 
 def create_pdb_from_merged_csv(csv_path, output_dir, pdb_id, log_path):
     """Create a complete PDB file from Merged CSV data."""
@@ -1140,7 +1095,6 @@ def create_pdb_from_merged_csv(csv_path, output_dir, pdb_id, log_path):
             log.write(f"Exception in create_pdb_from_merged_csv: {str(e)}\n")
         return False
 
-
 def create_pdb_generation_summary(pdb_dir):
     """Create a summary report of all generated PDB files."""
     summary_data = []
@@ -1192,7 +1146,6 @@ def create_pdb_generation_summary(pdb_dir):
     else:
         print("No generated PDB files found")
         return None
-
 
 def calculate_neighbor_heavy_atoms(output_dir):
     """Step 11: Count neighbor heavy atoms within specified radii for each atom.
@@ -1281,7 +1234,6 @@ def calculate_neighbor_heavy_atoms(output_dir):
         logger.error("MDAnalysis not installed. Skipping neighbor atom calculation.")
     except Exception as e:
         logger.error(f"Error in calculate_neighbor_heavy_atoms: {e}")
-
 
 def calculate_hbonds_and_sasa_per_atom(output_dir):
     """Step 12: Calculate hydrogen bonds and SASA per atom.
@@ -1383,7 +1335,6 @@ def calculate_hbonds_and_sasa_per_atom(output_dir):
     except Exception as e:
         logger.error(f"Error in calculate_hbonds_and_sasa_per_atom: {e}")
 
-
 def merge_feature_vectors_from_subfolders(output_dir):
     """Step 13: Merge neighbor atoms, H-bonds, and SASA features with:
     1. Individual PDB NEW_ID_Added_Merged.csv files (per-PDB merge)
@@ -1454,7 +1405,6 @@ def merge_feature_vectors_from_subfolders(output_dir):
                         # Add PDB column if it doesn't exist
                         if "PDB" not in pdb_individual_df.columns:
                             pdb_individual_df.insert(0, "PDB", pdb_id.upper())
-                        
                         
                         # Create merge keys for per-PDB merge
                         # Normalize names in individual PDB file
@@ -1702,7 +1652,6 @@ def merge_feature_vectors_from_subfolders(output_dir):
     except Exception as e:
         logger.error(f"Error in merge_feature_vectors_from_subfolders: {e}", exc_info=True)
 
-
 def get_adjacency_matrix():
     """Generate adjacency matrices from merged PDB features.
     
@@ -1891,7 +1840,6 @@ def get_adjacency_matrix():
             logger.info(
                 f"PDB ID: {pdb_id}, Chain: {chain_id}, Residue Number: {residue_number}, Residue Name: {residue_name} has an adjacency matrix of shape: {matrix.shape}"
             )
-
 
 def normalize_and_generate_node_features():
     """Step 15: Normalize dataset and generate node feature vectors for all radii.
@@ -2193,7 +2141,6 @@ def normalize_and_generate_node_features():
             logger.error(f"Error processing radius {radius}Å: {e}")
 
     logger.info(f"✓ Node feature generation complete. Files saved in: {base_directory}")
-
 
 if __name__ == "__main__":
     try:

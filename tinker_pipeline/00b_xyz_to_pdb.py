@@ -1,38 +1,3 @@
-"""
-00b_xyz_to_pdb.py
-=================
-
-Convert Tinker-minimised `.xyz_N` (largest N) coordinates into a PDB file
-matched to the original input PDB so that downstream feature extraction
-(02_prepare_features.py) can read `<PDB>_final.pdb` + `<PDB>_final.uind`.
-
-Method
-------
-1.  Find the largest `.xyz_<N>` in
-    Graph_pKa/Data/7_Energy_Minimization_Systems/<PDB>/.
-2.  Parse the Tinker XYZ file.  Stop when an O–H–H–O–H–H water-water pattern
-    is encountered (matches the original Tinker_Output_Processing.py
-    behaviour) or any non-protein "Cl-", "Na+", "K+", etc. token is found
-    in the atom-name column.
-3.  Strip H atoms (Tinker adds H; the input PDB has none).
-4.  Read the input PDB and match its heavy ATOM records to the Tinker heavy
-    atoms in sequence order.  Counts must match exactly.
-5.  Write `<PDB>_final.pdb` (input PDB columns 30:54 replaced with Tinker
-    coords) and copy the `.uind` file as `<PDB>_final.uind`.
-
-Output
-------
-tinker_pipeline/data/fixed_pdbs/<PDB>/
-    <PDB>_final.pdb
-    <PDB>_final.uind
-
-Run
----
-    python tinker_pipeline/00b_xyz_to_pdb.py \
-        --tinker-dir Graph_pKa/Data/7_Energy_Minimization_Systems \
-        --input-root tinker_pipeline/data/fixed_pdbs \
-        --pdb-list ffx_pipeline/data/rotopt_tinker_intersect.txt
-"""
 from __future__ import annotations
 
 import argparse
@@ -48,7 +13,6 @@ log = logging.getLogger(__name__)
 # Tokens that should not appear in protein heavy-atom records
 NON_PROTEIN_TOKENS = {"Cl-", "Cl", "Na+", "Na", "K+", "K", "Mg+2", "Mg", "Ca+2", "Ca"}
 
-
 def find_largest_xyz(pdb_dir: Path, pdb_id: str) -> Optional[Path]:
     candidates = []
     for p in pdb_dir.glob(f"{pdb_id}.xyz*"):
@@ -61,7 +25,6 @@ def find_largest_xyz(pdb_dir: Path, pdb_id: str) -> Optional[Path]:
         return None
     candidates.sort()
     return candidates[-1][1]
-
 
 def parse_tinker_xyz(xyz_path: Path) -> list[dict]:
     """Parse Tinker XYZ.  Returns list of {serial, name, x, y, z}.
@@ -114,7 +77,6 @@ def parse_tinker_xyz(xyz_path: Path) -> list[dict]:
 
     return atoms
 
-
 def parse_input_pdb_lines(pdb_path: Path) -> list[tuple[int, str]]:
     """Return list of (line_index, atom_name) for ATOM records (heavy + H)."""
     out: list[tuple[int, str]] = []
@@ -124,7 +86,6 @@ def parse_input_pdb_lines(pdb_path: Path) -> list[tuple[int, str]]:
                 name = line[12:16].strip()
                 out.append((idx, name))
     return out
-
 
 def is_hydrogen(name: str) -> bool:
     """Return True for hydrogen atoms by name convention."""
@@ -137,7 +98,6 @@ def is_hydrogen(name: str) -> bool:
     if len(s) >= 2 and s[0].isdigit() and s[1] == "H":
         return True
     return False
-
 
 def write_final_pdb(
     input_pdb: Path,
@@ -187,7 +147,6 @@ def write_final_pdb(
 
     return True, f"{len(tinker_heavy)} heavy atoms"
 
-
 def process_pdb(
     pdb_id: str,
     tinker_root: Path,
@@ -227,7 +186,6 @@ def process_pdb(
     out_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(uind, out_uind)
     return True, f"{xyz.name} -> {msg}"
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -270,7 +228,6 @@ def main():
             for pid, msg in fail:
                 fh.write(f"{pid}\t{msg}\n")
         log.info(f"Failures: {fail_log}")
-
 
 if __name__ == "__main__":
     main()

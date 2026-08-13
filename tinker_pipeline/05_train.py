@@ -1,37 +1,3 @@
-"""
-08_train_paper.py
-
-Paper-exact training script — replicates the GAT_1 model and training
-procedure reported in Song et al., J. Chem. Inf. Model. 2026
-(doi:10.1021/acs.jcim.5c01681) as closely as possible.
-
-Architecture (GAT_1 — best model in paper):
-    GATv2Conv(input_dim → hidden*heads, heads=4, concat=True, no self-loops)
-    ReLU → Dropout → global_mean_pool → Linear(hidden*heads → 1)
-
-Training (paper's reported settings):
-    loss      : MSELoss      (paper grid-searched L1 / Huber / MSE)
-    optimizer : Adam, lr=0.01
-    batch     : 32
-    dropout   : 0.5
-    heads     : 4
-    hidden    : 48
-    patience  : 20   (early stop after >60 epochs with no val MAE improvement)
-    max epochs: 500
-    k-folds   : 10
-    seed      : 42
-
-Key differences vs 07_train.py:
-  • MSELoss instead of SmoothL1Loss
-  • lr=0.01, heads=4, dropout=0.5, batch=32, patience=20 (paper optimum)
-  • No edge_dim (paper does not use edge features)
-  • Reads from Graph_pKa/Features_Paper/Datasets/
-  • Results written to Graph_pKa/Results/Training_Paper/
-
-Run (from pKa_GNN/ as CWD):
-    python tinker_pipeline/05_train.py
-    python tinker_pipeline/05_train.py --dataset 0          # only radius 7
-"""
 
 from __future__ import annotations
 
@@ -58,7 +24,6 @@ RESULTS_DIR = Path("Graph_pKa/Results/Training_Paper")
 RADII       = [7, 8, 9, 10, 11]
 # ─────────────────────────────────────────────────────────────────────────────
 
-
 def set_seed(seed: int = 42) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -68,7 +33,6 @@ def set_seed(seed: int = 42) -> None:
     torch.backends.cudnn.benchmark = False
     os.environ["PYTHONHASHSEED"] = str(seed)
     torch.set_num_threads(1)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Model — mirrors GATConv class in Graph_pKa/Net/GNN_Grid_Search/GAT.py
@@ -134,7 +98,6 @@ class GATModelPaper(torch.nn.Module):
             x = num / denom
         return self.out(x)
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Training helpers
 # ════════════════════════════════════════════════════════════════════════════
@@ -188,7 +151,7 @@ def train_one_fold(
 
                 for j in range(y.size(0)):
                     # Map back to original graph index for metadata
-                    graph_pos = i * batch_size + j
+                    i * batch_size + j
                     epoch_preds.append({
                         "True_pKa":      y[j].item(),
                         "Predicted_pKa": out[j].item(),
@@ -211,7 +174,6 @@ def train_one_fold(
                 break
 
     return best_preds
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Per-dataset training
@@ -295,7 +257,6 @@ def train_dataset(
         "mean_RMSE":   mean_rmse,
     }
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Main
 # ════════════════════════════════════════════════════════════════════════════
@@ -366,7 +327,6 @@ def main() -> None:
         pd.DataFrame(summary_rows).to_csv(summary_path, index=False)
         print(f"\nSummary metrics → {summary_path}")
         print(pd.DataFrame(summary_rows)[["dataset_idx","radius_A","n_graphs","input_dim","mean_MAE","mean_RMSE"]].to_string(index=False))
-
 
 if __name__ == "__main__":
     main()

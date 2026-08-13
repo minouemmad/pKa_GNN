@@ -1,32 +1,3 @@
-"""
-09_create_datasets_paper.py
-
-Paper-exact dataset builder — mirrors the original create_data.py from
-Graph_pKa/Net/create_data.py as closely as possible, adapted for FFX output.
-
-Key settings matching the paper:
-  • num_classes = 9  (atom_label 0-8; no sidechain-S class 9)
-  • No edge_attr (paper GAT_1 does not use edge features)
-  • Reads from Graph_pKa/Features_Paper/ (produced by 08_prepare_features_paper.py)
-  • input_dim = 26 after one-hot encoding atom_label
-
-Outputs (inside Graph_pKa/Features_Paper/Datasets/):
-    data_list_0.pkl   <- radius 7 A
-    data_list_1.pkl   <- radius 8 A
-    data_list_2.pkl   <- radius 9 A
-    data_list_3.pkl   <- radius 10 A
-    data_list_4.pkl   <- radius 11 A
-
-Optional: pass --feat-dir to point at PKAD_Data for direct paper comparison:
-    python 09_create_datasets_paper.py \\
-        --feat-dir Graph_pKa/PKAD_Data \\
-        --adj-subdir Adj_Matrix/With_Self_Loop \\
-        --node-subdir 4_Residues_W_Local_Frame \\
-        --out-dir Graph_pKa/PKAD_Data/Subsets_Paper
-
-Run (from pKa_GNN/ as CWD):
-    python tinker_pipeline/03_create_datasets.py
-"""
 
 from __future__ import annotations
 
@@ -55,7 +26,6 @@ NUM_ATOM_LABEL_CLASSES = 9
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
 
-
 def parse_stem(stem: str) -> tuple[str, str, int, str]:
     """'{PDB}_{chain}_{resseq}.{ResName}' → (pdb_id, chain, resseq, res_name)."""
     dot_idx = stem.rfind(".")
@@ -76,7 +46,6 @@ def parse_stem(stem: str) -> tuple[str, str, int, str]:
     pdb_id    = id_chain[:under2]
     chain     = id_chain[under2 + 1:]
     return pdb_id, chain, resseq, res_name
-
 
 def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
     """Build PyG Data objects for one radius. No edge_attr (paper-exact)."""
@@ -258,7 +227,6 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
                     q_pair * inv_r,
                 ], dim=1))
 
-            # ---- AMOEBA charge-dipole term (rotation-invariant, lab frame) ----
             need_qd = os.environ.get("CHARGE_DIPOLE_EDGE", "")
             if need_qd and have_lab_pos and "atomic_charge" in nf.columns:
                 q = torch.tensor(nf["atomic_charge"].values, dtype=torch.float)
@@ -275,7 +243,6 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
                         qd_blocks.append(torch.zeros(edge_index.size(1)))
                 edge_blocks.append(torch.stack(qd_blocks, dim=1))
 
-            # ---- AMOEBA dipole-dipole term (rotation-invariant, lab frame) ----
             need_dd = os.environ.get("DIPOLE_DIPOLE_EDGE", "")
             if need_dd and have_lab_pos:
                 dd_blocks: list[torch.Tensor] = []
@@ -306,7 +273,6 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
              f"(skipped – missing: {skipped_missing}, bad: {skipped_bad})")
     return data_list
 
-
 def main(feat_dir: Path, adj_subdir: str, node_subdir: str, out_dir: Path) -> None:
     adj_dir  = feat_dir / adj_subdir
     node_dir = feat_dir / node_subdir
@@ -333,7 +299,6 @@ def main(feat_dir: Path, adj_subdir: str, node_subdir: str, out_dir: Path) -> No
         log.info(f"  Saved {len(dl)} graphs to {pkl_path}")
 
     log.info("\nDataset creation complete.")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Paper-exact dataset builder (08_create_datasets_paper.py)")
