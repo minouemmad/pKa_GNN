@@ -1,46 +1,3 @@
-"""
-09_feature_analysis.py
-
-Feature-importance analysis for the FFX pipeline GNN.
-
-Two complementary analyses:
-
-  1.  PCA on the stacked node-feature matrix
-      ──────────────────────────────────────
-      Concatenates `data.x` across every graph in the chosen dataset, fits
-      sklearn PCA, and reports
-          • explained variance ratio per component
-          • cumulative variance vs. # components
-          • the top-k input features that load on each principal component
-            (so "PC1 is mostly Dipole_X + recalculated_x + Perm_Charge", etc.)
-      This answers "what are the principal components consisting of?" without
-      having to combinatorially try feature subsets.
-
-  2.  Group-wise permutation importance (model-based)
-      ────────────────────────────────────────────────
-      Loads a trained checkpoint, then for each FEATURE GROUP shuffles the
-      values of those columns across the dataset and re-evaluates MAE.  The
-      MAE-increase is the importance of that group.  Groups are
-      domain-meaningful bundles ("multipoles", "induced dipoles", "neighbour
-      counts at radius r", "pH", "protonation state", etc.) so the result is
-      directly actionable for ablation experiments.
-
-Usage:
-    # PCA only — no model needed
-    python 09_feature_analysis.py --mode titrate --dataset 0 \\
-        --out Graph_pKa/Results/Feature_Analysis_titrate
-
-    # Both PCA + permutation importance (requires trained checkpoint)
-    python 09_feature_analysis.py --mode titrate --dataset 0 \\
-        --checkpoint Graph_pKa/Results/Training_titrate_film/models/dataset_0/fold_1.pth \\
-        --arch film --hidden 48 --heads 6 --dropout 0.3 \\
-        --out Graph_pKa/Results/Feature_Analysis_titrate
-
-Outputs written to <out>/dataset_{idx}/:
-    pca_explained_variance.csv      one row per principal component
-    pca_top_loadings.csv            top-k features per PC (long format)
-    permutation_importance.csv      MAE delta per feature group (if --checkpoint set)
-"""
 
 from __future__ import annotations
 
@@ -84,7 +41,6 @@ FEATURE_GROUPS: list[tuple[str, str]] = [
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Feature-name reconstruction
 # ════════════════════════════════════════════════════════════════════════════
@@ -125,7 +81,6 @@ def build_feature_names(feat_dir: Path, radius: int, n_cols: int) -> list[str]:
             names = names[:n_cols]
     return names
 
-
 def assign_groups(feature_names: list[str]) -> dict[str, list[int]]:
     """Map group-name → list of column indices in `x`."""
     groups: dict[str, list[int]] = {name: [] for name, _ in FEATURE_GROUPS}
@@ -136,7 +91,6 @@ def assign_groups(feature_names: list[str]) -> dict[str, list[int]]:
                 break
     return {g: cols for g, cols in groups.items() if cols}
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # PCA
 # ════════════════════════════════════════════════════════════════════════════
@@ -144,7 +98,6 @@ def assign_groups(feature_names: list[str]) -> dict[str, list[int]]:
 def stack_node_features(data_list) -> np.ndarray:
     """Concatenate every graph's `x` along the node axis → (N_total, F)."""
     return np.concatenate([d.x.numpy() for d in data_list], axis=0)
-
 
 def run_pca(
     data_list,
@@ -200,7 +153,6 @@ def run_pca(
         feats = ", ".join(f"{r['feature']}({r['loading']:+.2f})" for _, r in top.iterrows())
         log.info(f"  PC{k+1} ({pca.explained_variance_ratio_[k]*100:5.1f}%) : {feats}")
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Permutation importance
 # ════════════════════════════════════════════════════════════════════════════
@@ -216,7 +168,6 @@ def _import_train_module() -> object:
     spec.loader.exec_module(mod)
     return mod
 
-
 def evaluate_mae(model: torch.nn.Module, loader: DataLoader, device: str) -> float:
     model.eval()
     total_abse, n = 0.0, 0
@@ -227,7 +178,6 @@ def evaluate_mae(model: torch.nn.Module, loader: DataLoader, device: str) -> flo
             total_abse += (out - batch.y.view(-1)).abs().sum().item()
             n += batch.y.size(0)
     return total_abse / max(n, 1)
-
 
 def permutation_importance(
     data_list,
@@ -307,7 +257,6 @@ def permutation_importance(
         out_dir / "permutation_importance.csv", index=False
     )
     log.info(f"  Permutation importance → {out_dir / 'permutation_importance.csv'}")
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -407,7 +356,6 @@ def main() -> None:
             )
 
     log.info(f"\nDone.  Results → {out_root}")
-
 
 if __name__ == "__main__":
     main()

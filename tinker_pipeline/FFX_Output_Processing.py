@@ -1,54 +1,14 @@
 #!/usr/bin/env python3
-"""FFX-based pipeline for processing pKa GNN inputs.
-
-Replaces the Tinker_EM.py + Tinker_Output_Processing.py chain.
-
-Pipeline overview
------------------
-Inputs collected from the cluster (after SGE jobs finish):
-  Data/0_Fixed_PDB/        {ID}_fixed.pdb
-  Data/1_FFX_Final_PDB/    {ID}_final.pdb  (Step-4 Minimize output, renamed)
-  Data/2_Uind_Files/       {ID}.uind       (--saveInduced output, renamed)
-  Data/3_Mpoles_Files/     {ID}.mpoles     (PrintMultipoles.groovy output, optional)
-
-Steps run locally:
-  1. collect_ffx_outputs()    – organise cluster outputs into Data/ layout
-  2. parse_ffx_pdb()          – parse final PDB → per-protein atom DataFrame
-  3. assign_amoeba_types()    – (residue, atom_name) → AMOEBA type via biotype table
-  4. read_uind()              – attach induced dipole [ux, uy, uz] per atom
-  5. read_mpoles()            – attach permanent multipoles [q,px,py,pz,Qxx,...] (optional)
-  6. compute_local_frame()    – CA-based local frame transform for coordinates
-  7. build_node_features()    – per-titratable-residue CSV within a Å-radius neighbourhood
-  8. build_adjacency()        – adjacency matrix CSV for each titratable residue
-  9. write_datasets()         – pickle graphs for Net/
-
-Expected naming convention for files collected from the cluster
----------------------------------------------------------------
-After the SGE Step-4 job, FFX produces:
-  {ID}_fixed_min_2.pdb_2   (or {ID}_fixed_min.pdb_2 in the fallback path)
-  {ID}_fixed_min_2.uind    (or {ID}_fixed_min.uind)
-
-collect_ffx_outputs() searches for these patterns, then copies and renames them to:
-  Data/1_FFX_Final_PDB/{ID}_final.pdb
-  Data/2_Uind_Files/{ID}.uind
-
-Run PrintMultipoles.groovy separately on the cluster; it writes {ID}.mpoles which
-you then place in Data/3_Mpoles_Files/.
-"""
 
 from __future__ import annotations
 
-import os
 import re
-import csv
-import glob
 import shutil
 import logging
 import pickle
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from collections import defaultdict
 
 logging.basicConfig(
     level=logging.INFO,
@@ -56,9 +16,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
 # Paths (relative to this file's location,  i.e.  Graph_pKa/)
-# ---------------------------------------------------------------------------
 BASE = Path(__file__).parent.resolve()
 
 DATA_FIXED_PDB    = BASE / "Data" / "0_Fixed_PDB"
@@ -92,10 +50,7 @@ AMINO_ACID_3_TO_FULL = {
     "THR": "Threonine", "TRP": "Tryptophan", "TYR": "Tyrosine", "VAL": "Valine",
 }
 
-
-# ===========================================================================
 # Step 0 – Build biotype lookup table from amoebabio18.prm
-# ===========================================================================
 
 def load_biotype_table(param_file: Path = PARAM_FILE) -> dict[tuple[str, str], int]:
     """Parse biotype lines in the AMOEBA .prm file.
@@ -126,16 +81,13 @@ def load_biotype_table(param_file: Path = PARAM_FILE) -> dict[tuple[str, str], i
     logger.info(f"Loaded {len(table)} biotype entries from {param_file.name}")
     return table
 
-
 BIOTYPE_TABLE: dict[tuple[str, str], int] = {}   # populated lazily
-
 
 def get_biotype_table() -> dict[tuple[str, str], int]:
     global BIOTYPE_TABLE
     if not BIOTYPE_TABLE:
         BIOTYPE_TABLE = load_biotype_table()
     return BIOTYPE_TABLE
-
 
 def assign_amoeba_type(residue_3: str, atom_name: str) -> int | None:
     """Return AMOEBA atom type for (residue 3-letter, atom_name), or None."""
@@ -144,10 +96,7 @@ def assign_amoeba_type(residue_3: str, atom_name: str) -> int | None:
     key = (full, atom_name.upper())
     return table.get(key)
 
-
-# ===========================================================================
 # Step 1 – Collect FFX outputs from the cluster into local Data/ layout
-# ===========================================================================
 
 def collect_ffx_outputs(
     cluster_output_dir: str,
@@ -194,7 +143,6 @@ def collect_ffx_outputs(
         pid_up = pid.upper()
         pid_lo = pid.lower()
 
-        # --- PDB: prefer _min_2.pdb_2, fall back to _min.pdb_2 ---
         pdb_candidates = [
             cluster_dir / f"{pid_up}_fixed_min_2.pdb_2",
             cluster_dir / f"{pid_lo}_fixed_min_2.pdb_2",
@@ -205,7 +153,6 @@ def collect_ffx_outputs(
         ]
         pdb_src = next((p for p in pdb_candidates if p.exists()), None)
 
-        # --- .uind: prefer _min_2.uind, fall back to _min.uind ---
         uind_candidates = [
             cluster_dir / f"{pid_up}_fixed_min_2.uind",
             cluster_dir / f"{pid_lo}_fixed_min_2.uind",
@@ -231,7 +178,6 @@ def collect_ffx_outputs(
             shutil.copy2(uind_src, uind_dst)
             logger.info(f"  Copied  {uind_src.name}  →  {uind_dst.name}")
 
-        # --- .mpoles: written by PrintMultipoles.groovy ---
         mpoles_candidates = [
             cluster_dir / f"{pid_up}.mpoles",
             cluster_dir / f"{pid_lo}.mpoles",
@@ -250,10 +196,7 @@ def collect_ffx_outputs(
     logger.info(f"Collected {len(collected)}/{len(pdb_id_list)} proteins")
     return {"collected": collected, "errors": errors}
 
-
-# ===========================================================================
 # Step 2 – Parse FFX final PDB
-# ===========================================================================
 
 def parse_ffx_pdb(pdb_path: Path) -> pd.DataFrame:
     """Parse ATOM/HETATM records from an FFX-minimised PDB.
@@ -286,10 +229,7 @@ def parse_ffx_pdb(pdb_path: Path) -> pd.DataFrame:
                 continue
     return pd.DataFrame(rows)
 
-
-# ===========================================================================
 # Step 3 – Assign AMOEBA atom types
-# ===========================================================================
 
 def assign_amoeba_types(df: pd.DataFrame) -> pd.DataFrame:
     """Add 'atom_type' column (AMOEBA int) and 'description' column."""
@@ -303,10 +243,7 @@ def assign_amoeba_types(df: pd.DataFrame) -> pd.DataFrame:
     )
     return df
 
-
-# ===========================================================================
 # Step 4 – Read FFX .uind induced-dipole file
-# ===========================================================================
 
 def read_uind(uind_path: Path) -> dict[int, tuple[float, float, float]]:
     """Parse an FFX .uind file.
@@ -332,7 +269,6 @@ def read_uind(uind_path: Path) -> dict[int, tuple[float, float, float]]:
             continue
     return result
 
-
 def attach_uind(df: pd.DataFrame, uind_path: Path | None) -> pd.DataFrame:
     """Attach induced dipole columns to the atom DataFrame."""
     df = df.copy()
@@ -347,10 +283,7 @@ def attach_uind(df: pd.DataFrame, uind_path: Path | None) -> pd.DataFrame:
     df["uz"] = df["atom_number"].map(lambda i: dipoles.get(i, (np.nan, np.nan, np.nan))[2])
     return df
 
-
-# ===========================================================================
 # Step 5 – Read .mpoles permanent-multipole file (from PrintMultipoles.groovy)
-# ===========================================================================
 # File format written by PrintMultipoles.groovy:
 #   {natoms}  {name}
 #   {index}  {atom_name}  {q}  {px} {py} {pz}  {Qxx} {Qxy} {Qxz} {Qyy} {Qyz} {Qzz}
@@ -358,7 +291,6 @@ def attach_uind(df: pd.DataFrame, uind_path: Path | None) -> pd.DataFrame:
 # Units: charge (e), dipole (e·Å), quadrupole (e·Å²) — AMOEBA local frame
 
 MPOLE_COLS = ["q", "px", "py", "pz", "Qxx", "Qxy", "Qxz", "Qyy", "Qyz", "Qzz"]
-
 
 def read_mpoles(mpoles_path: Path) -> dict[int, dict[str, float]]:
     """Parse a .mpoles file produced by PrintMultipoles.groovy.
@@ -380,7 +312,6 @@ def read_mpoles(mpoles_path: Path) -> dict[int, dict[str, float]]:
             continue
     return result
 
-
 def attach_mpoles(df: pd.DataFrame, mpoles_path: Path | None) -> pd.DataFrame:
     """Attach permanent multipole columns to the atom DataFrame (optional)."""
     df = df.copy()
@@ -393,15 +324,11 @@ def attach_mpoles(df: pd.DataFrame, mpoles_path: Path | None) -> pd.DataFrame:
         df[col] = df["atom_number"].map(lambda i, c=col: mpoles.get(i, {}).get(c, np.nan))
     return df
 
-
-# ===========================================================================
 # Step 6 – Local frame transform (CA → C → O defines residue frame)
-# ===========================================================================
 
 def _normalize(v: np.ndarray) -> np.ndarray:
     n = np.linalg.norm(v)
     return v / n if n > 1e-12 else v
-
 
 def _build_local_frame(ca: np.ndarray, c: np.ndarray, o: np.ndarray):
     """Return rotation matrix R and origin (ca).
@@ -416,7 +343,6 @@ def _build_local_frame(ca: np.ndarray, c: np.ndarray, o: np.ndarray):
     y = np.cross(z, x)
     R = np.column_stack([x, y, z])   # 3×3, columns are axes
     return R, ca
-
 
 def compute_local_frame(df: pd.DataFrame) -> pd.DataFrame:
     """Add local-frame coordinate columns (lx, ly, lz) to the atom DataFrame.
@@ -463,10 +389,7 @@ def compute_local_frame(df: pd.DataFrame) -> pd.DataFrame:
     df["lz"] = lz_col
     return df
 
-
-# ===========================================================================
 # Step 7 – Build per-titratable-residue node feature vectors
-# ===========================================================================
 
 # Atom-label map: determines the 'atom_label' column for one-hot later in GNN
 ATOM_LABEL_MAP = {
@@ -475,7 +398,6 @@ ATOM_LABEL_MAP = {
     "S": 6, "P": 7,
 }
 DEFAULT_ATOM_LABEL = 8   # catch-all for heavy atoms not listed above
-
 
 def _atom_label(atom_name: str) -> int:
     stripped = atom_name.strip()
@@ -486,14 +408,12 @@ def _atom_label(atom_name: str) -> int:
         return 5
     return DEFAULT_ATOM_LABEL
 
-
 def _residue_one_hot(res3: str) -> list[float]:
     vec = [0.0] * len(RESIDUE_ORDER)
     idx = RESIDUE_TO_INDEX.get(res3.upper())
     if idx is not None:
         vec[idx] = 1.0
     return vec
-
 
 def build_node_features(
     df: pd.DataFrame,
@@ -580,10 +500,7 @@ def build_node_features(
 
     return results
 
-
-# ===========================================================================
 # Step 8 – Build adjacency matrices (within-radius inter-residue adjacency)
-# ===========================================================================
 
 def build_adjacency_matrix(
     df: pd.DataFrame,
@@ -630,10 +547,7 @@ def build_adjacency_matrix(
 
     return pd.DataFrame(adj, index=res_labels, columns=res_labels)
 
-
-# ===========================================================================
 # Main pipeline – process one protein
-# ===========================================================================
 
 def process_protein(
     pdb_id: str,
@@ -728,10 +642,7 @@ def process_protein(
     logger.info(f"[{pid}] Done.")
     return True
 
-
-# ===========================================================================
 # Main pipeline – process all proteins
-# ===========================================================================
 
 def load_experimental_pka(csv_path: Path = PKAD_CSV) -> pd.DataFrame | None:
     """Load the PKAD experimental pKa CSV.
@@ -756,7 +667,6 @@ def load_experimental_pka(csv_path: Path = PKAD_CSV) -> pd.DataFrame | None:
     df = df.rename(columns={k: v for k, v in _rename.items() if k in df.columns})
     logger.info(f"Loaded {len(df)} experimental pKa entries from {csv_path.name}")
     return df
-
 
 def run_pipeline(
     pdb_ids: list[str] | None = None,
@@ -789,10 +699,7 @@ def run_pipeline(
 
     logger.info(f"Pipeline complete: {ok}/{len(pdb_ids)} successful")
 
-
-# ===========================================================================
 # Pickle dataset builder (feeds Net/)
-# ===========================================================================
 
 def write_datasets(
     radii: list[int] = RADII,
@@ -880,10 +787,7 @@ def write_datasets(
             pickle.dump(data_list, fh)
         logger.info(f"Saved {len(data_list)} graphs → {pkl_path.name}")
 
-
-# ===========================================================================
 # CLI entry point
-# ===========================================================================
 
 if __name__ == "__main__":
     import argparse

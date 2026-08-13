@@ -1,41 +1,4 @@
 #!/usr/bin/env python3
-"""
-12_predict_paper_ffx.py
-
-Prediction and evaluation script for the paper-exact FFX + PKAD-R pipeline.
-
-This is a direct analogue of Graph_pKa/Predict.py adapted for:
-  * Chain-aware filenames  ({PDB}_{chain}_{resseq}.{ResName})
-  * Paper-exact feature layout  (4-class OHE, 9-class atom labels, 26 features)
-  * Models trained by 11_train_paper.py  (or 10_grid_search_paper_ffx.py)
-
-Two operating modes:
-
-  eval mode  (default)
-      Loads the pre-built pickled datasets from Features_Paper/Datasets/,
-      runs every saved fold model, averages predictions across all folds,
-      and reports MAE / RMSE overall and per residue type.
-      Use this mode to evaluate models trained by 11_train_paper.py.
-
-  predict mode  (--predict-mode)
-      Builds fresh PyG Data objects directly from the Features_Paper CSV
-      files.  Useful for proteins not in the training set (new predictions)
-      or to cross-check the pickled datasets.
-
-Outputs to:
-    Graph_pKa/Results/Predictions_Paper_FFX/
-        predictions_dataset_{idx}_per_fold.csv    <- raw fold-by-fold points
-        predictions_dataset_{idx}_averaged.csv    <- fold-averaged predictions
-        summary_metrics.csv                       <- per-dataset MAE / RMSE
-
-Usage (from pKa_GNN/ as CWD):
-    python tinker_pipeline/06_predict.py
-    python tinker_pipeline/06_predict.py --dataset 0       # only radius 7 A
-    python tinker_pipeline/06_predict.py --model-dir Graph_pKa/Results/Training_Paper/models
-    python tinker_pipeline/06_predict.py --predict-mode \\
-        --adj-dir  Graph_pKa/Features_Paper/Adjacency_Matrices/With_Self_Loop \\
-        --node-dir Graph_pKa/Features_Paper/Node_Feature_Vectors
-"""
 
 from __future__ import annotations
 
@@ -64,7 +27,6 @@ RADII                  = [7, 8, 9, 10, 11]
 NUM_ATOM_LABEL_CLASSES = 9   # paper uses 9 classes (no sidechain-S)
 # ─────────────────────────────────────────────────────────────────────────────
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Model -- must match GATModelPaper in 08_train_paper.py exactly
 # ════════════════════════════════════════════════════════════════════════════
@@ -88,7 +50,6 @@ class GATModelPaper(torch.nn.Module):
         x = self.pool(x, data.batch)
         return self.out(x)
 
-
 def _load_state_dict(path: Path, map_location: str = "cpu") -> dict:
     """Load model state dict with compatibility for older PyTorch versions."""
     try:
@@ -96,7 +57,6 @@ def _load_state_dict(path: Path, map_location: str = "cpu") -> dict:
     except TypeError:
         # PyTorch < 2.0 does not have the weights_only kwarg
         return torch.load(path, map_location=map_location)
-
 
 def _infer_arch(state_dict: dict) -> tuple[int, int]:
     """Infer (hidden_channels, heads) from a saved state dict.
@@ -109,7 +69,6 @@ def _infer_arch(state_dict: dict) -> tuple[int, int]:
     heads  = int(att_shape[1])
     hidden = int(att_shape[2])
     return hidden, heads
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Build datasets from CSV (predict mode)
@@ -125,7 +84,6 @@ def _parse_stem(stem: str):
     pdb_id       = id_parts[0]
     chain_id     = id_parts[1] if len(id_parts) > 1 else ""
     return pdb_id, chain_id, resseq, residue_name
-
 
 def build_data_list_from_csv(adj_dir: Path, node_dir: Path, radius: int) -> list:
     """Build a list of PyG Data objects from Features_Paper CSVs.
@@ -200,7 +158,6 @@ def build_data_list_from_csv(adj_dir: Path, node_dir: Path, radius: int) -> list
 
     return data_list
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Inference helpers
 # ════════════════════════════════════════════════════════════════════════════
@@ -245,7 +202,6 @@ def run_inference(
 
     return pd.DataFrame(rows)
 
-
 def _compute_metrics(df: pd.DataFrame) -> dict[str, float]:
     if "True_pKa" not in df.columns or df.empty:
         return {}
@@ -255,7 +211,6 @@ def _compute_metrics(df: pd.DataFrame) -> dict[str, float]:
         "MAE":  float(mean_absolute_error(true, pred)),
         "RMSE": float(np.sqrt(mean_squared_error(true, pred))),
     }
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -432,7 +387,6 @@ def main() -> None:
             summary_df[["dataset_idx", "radius_A", "n_graphs", "n_folds", "MAE", "RMSE"]]
             .to_string(index=False)
         )
-
 
 if __name__ == "__main__":
     main()

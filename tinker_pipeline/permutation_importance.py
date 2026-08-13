@@ -1,22 +1,3 @@
-"""
-permutation_importance.py
-
-Per-feature permutation importance for the best variant from the
-electrostatics sweep. For each feature column we:
-  1. Permute its values across all nodes (in all graphs) using a fixed RNG.
-  2. Re-evaluate each fold's saved model on the perturbed val set.
-  3. Record the mean MAE across folds.
-
-ΔMAE = MAE_perm - MAE_base.  Larger positive ΔMAE  →  feature more important.
-
-Usage:
-    python permutation_importance.py \
-        --variant CoulombEdgeBoth \
-        --seed 42 \
-        --dataset-dir Graph_pKa/Features_FFX138/Datasets_CoulombEdgeBoth_138 \
-        --models-dir Graph_pKa/Net_FFX138_Electro/Training_CoulombEdgeBoth_seed42/models/dataset_2 \
-        --out Graph_pKa/Net_FFX138_Electro/perm_importance_CoulombEdgeBoth.csv
-"""
 from __future__ import annotations
 
 import argparse
@@ -42,7 +23,6 @@ paper_train = importlib.util.module_from_spec(spec)
 sys.modules["paper_train"] = paper_train
 spec.loader.exec_module(paper_train)  # type: ignore[arg-type]
 GATModelPaper = paper_train.GATModelPaper
-
 
 # Feature column names matching the saved CSV order in 02_prepare_features.py.
 # After 9-class atom_label OHE is appended, the full layout (per dataset) is:
@@ -76,7 +56,6 @@ CANDIDATE_FEATURES = {
     "AtomLabel_OHE":              ["__ATOM_LABEL_OHE__"],
 }
 
-
 def get_feature_layout(dataset_dir: Path, ds_idx: int) -> tuple[list, list[str]]:
     """Return (data_list, expected_column_order) for a dataset.
 
@@ -88,7 +67,6 @@ def get_feature_layout(dataset_dir: Path, ds_idx: int) -> tuple[list, list[str]]
     with open(pkl, "rb") as fh:
         data_list = pickle.load(fh)
     return data_list
-
 
 def find_feature_indices(input_dim: int, feat_dir: Path, dataset_dir: Path,
                          ds_idx: int, drop_cols: list[str]) -> dict[str, list[int]]:
@@ -136,7 +114,6 @@ def find_feature_indices(input_dim: int, feat_dir: Path, dataset_dir: Path,
             out[grp] = [name_to_idx[c] for c in cols]
     return out
 
-
 def evaluate(model: torch.nn.Module, loader: DataLoader, perm_idxs: list[int] | None,
              rng: np.random.Generator) -> float:
     """Compute MAE on loader; if perm_idxs is given, permute those columns of x
@@ -158,7 +135,6 @@ def evaluate(model: torch.nn.Module, loader: DataLoader, perm_idxs: list[int] | 
             total_abse += F.l1_loss(out, y, reduction="sum").item()
             n += y.size(0)
     return total_abse / max(n, 1)
-
 
 def main() -> None:
     ap = argparse.ArgumentParser()
@@ -250,7 +226,6 @@ def main() -> None:
     args.out.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(args.out, index=False)
     print(f"\nWrote {args.out}")
-
 
 if __name__ == "__main__":
     main()

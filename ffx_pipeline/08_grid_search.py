@@ -1,48 +1,4 @@
 #!/usr/bin/env python3
-"""
-08_grid_search.py  (FFX pipeline)
-
-Full hyperparameter grid search for GAT on the FFX + titration + PKAD-R dataset.
-This searches over the same hyperparameter space as the paper (04_grid_search.py in
-tinker_pipeline/) but uses features produced by the FFX pipeline:
-
-    05_prepare_features.py  ->  Graph_pKa/Features/
-    06_create_datasets.py   ->  Graph_pKa/Features/Datasets/
-
-Feature differences vs the paper's Tinker pipeline:
-  • atom_label OHE uses num_classes=10  (adds sidechain-S class 9 for CYS)
-  • Includes AMOEBA induced dipoles      (Dipole_X/Y/Z from .uind)
-  • Includes AMOEBA permanent multipoles (Perm_Charge, Perm_Dip*, Perm_Quad*)
-  • input_dim is inferred from the loaded datasets (typically > 26)
-
-Hyperparameter grid (same as paper):
-    heads          : 4, 6, 8
-    hidden_channels: 16, 32, 48, 64
-    batch_size     : 16, 24, 32, 40
-    k_folds        : 10
-    patience       : 20  (applied after epoch 60)
-    learning_rate  : 0.001, 0.006, 0.01, 0.06, 0.1
-    dropout        : 0.2, 0.3, 0.4, 0.5
-    loss           : SmoothL1Loss(β=0.5), L1Loss, MSELoss
-
-Model architecture (identical to paper GAT_1):
-    GATv2Conv(input_dim -> hidden*heads, concat=True, no self-loops)
-    ReLU -> Dropout -> global_mean_pool -> Linear(hidden*heads -> 1)
-
-Outputs to:
-    Graph_pKa/Results/Grid_Search_FFX/
-        grid_search_results.csv      ← all (dataset, hyperparameter combo) rows
-        best_result.csv              ← single best row by val MAE
-        all_best_predictions/        ← per-fold held-out predictions
-
-Run:
-    python ffx_pipeline/08_grid_search.py
-    python ffx_pipeline/08_grid_search.py --dataset 0            # only radius 7 Å
-    python ffx_pipeline/08_grid_search.py --single-core          # disable parallelism
-    python ffx_pipeline/08_grid_search.py \\
-        --dataset-dir Graph_pKa/Features/Datasets \\
-        --results-dir Graph_pKa/Results/Grid_Search_FFX
-"""
 
 from __future__ import annotations
 
@@ -51,7 +7,6 @@ import multiprocessing
 import os
 import pickle
 import random
-from collections import defaultdict
 from itertools import product
 from pathlib import Path
 
@@ -69,7 +24,6 @@ DATASET_DIR = Path("Graph_pKa/Features/Datasets")
 RESULTS_DIR = Path("Graph_pKa/Results/Grid_Search_FFX")
 # ─────────────────────────────────────────────────────────────────────────────
 
-
 def set_seed(seed: int = 42) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -80,9 +34,7 @@ def set_seed(seed: int = 42) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
     torch.set_num_threads(1)
 
-
 set_seed(42)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Data loading
@@ -106,7 +58,6 @@ def load_training_data(dataset_dir: Path, max_index: int = 5):
     input_dim = data_sets[0][0].x.shape[1]
     return data_sets, input_dim
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Model — identical architecture to paper GAT_1
 # ════════════════════════════════════════════════════════════════════════════
@@ -127,7 +78,6 @@ class GATConv(torch.nn.Module):
         x = self.dropout(x)
         x = self.pool(x, data.batch)
         return self.out(x)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Prediction CSV helper
@@ -164,7 +114,6 @@ def save_predictions_to_csv(
 
     df = pd.DataFrame(rows)
     df.to_csv(out_dir / "predictions.csv", index=False)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Training loop (one fold)
@@ -233,7 +182,6 @@ def train_one_fold(
 
     return best_val_mae, train_losses_, val_maes_, best_predictions
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Grid search for one hyperparameter combo × one dataset
 # ════════════════════════════════════════════════════════════════════════════
@@ -290,7 +238,6 @@ def run_one_combo(
         "mean_val_mae":     mean_mae,
         "fold_maes":        fold_maes,
     }
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -373,7 +320,6 @@ def main() -> None:
     print(f"  lr     : {best['lr']}  dropout={best['dropout']}  batch={best['batch_size']}")
     print(f"\nResults  → {args.results_dir / 'grid_search_results.csv'}")
     print(f"Best row → {args.results_dir / 'best_result.csv'}")
-
 
 if __name__ == "__main__":
     main()

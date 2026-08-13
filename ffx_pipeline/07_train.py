@@ -1,33 +1,3 @@
-"""
-07_train.py
-
-Single training run of the GATv2 pKa model on the datasets built by
-06_create_datasets.py.  Uses 10-fold cross-validation, saves the best
-checkpoint per fold, and writes per-residue predictions + summary metrics.
-
-Outputs (inside Graph_pKa/Results/Training/):
-    models/
-        dataset_{r}/
-            fold_{k}.pth           ← best checkpoint for each fold
-    predictions/
-        dataset_{r}_all_folds.csv  ← per-residue predictions (all folds)
-        summary_metrics.csv        ← per-dataset MAE / RMSE
-
-Run:
-    python 07_train.py
-    python 07_train.py --epochs 300 --hidden 64 --heads 8 --lr 0.001
-
-Hyperparameters (defaults tuned for ~255-graph datasets):
-    --hidden     48      hidden channels per head
-    --heads       6      attention heads
-    --lr        0.005    learning rate
-    --dropout   0.3      dropout rate
-    --batch      16      batch size
-    --patience   30      early-stopping patience (min epoch 60)
-    --epochs    500      maximum epochs per fold
-    --folds      10      k-fold CV splits
-    --dataset    all     which pkl index to train on (0-4 or 'all')
-"""
 
 from __future__ import annotations
 
@@ -79,7 +49,6 @@ ABLATION_GROUPS: dict[str, str] = {
 }
 # ─────────────────────────────────────────────────────────────────────────────
 
-
 def _reconstruct_feature_names(feat_dir: Path, radius: int, n_cols: int) -> list[str]:
     """Reproduce the column ordering used by 06_create_datasets.py.
 
@@ -103,7 +72,6 @@ def _reconstruct_feature_names(feat_dir: Path, radius: int, n_cols: int) -> list
             names = names[:n_cols]
     return names
 
-
 def _ablate_columns(data_list, groups: list[str], feat_dir: Path, radius: int) -> list[int]:
     """Zero `x` columns belonging to the requested feature groups.  Returns the
     indices that were zeroed (for logging)."""
@@ -126,7 +94,6 @@ def _ablate_columns(data_list, groups: list[str], feat_dir: Path, radius: int) -
         d.x[:, cols_t] = 0.0
     return zero_cols
 
-
 def set_seed(seed: int = 42) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -136,7 +103,6 @@ def set_seed(seed: int = 42) -> None:
     torch.backends.cudnn.benchmark = False
     os.environ["PYTHONHASHSEED"] = str(seed)
     torch.set_num_threads(1)
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Models — multiple pH-conditioning architectures
@@ -176,7 +142,6 @@ def _normalize_ph(ph: torch.Tensor) -> torch.Tensor:
     out = (ph - _PH_MEAN) / _PH_STD
     return torch.nan_to_num(out, nan=0.0)
 
-
 def _ph_bucket(ph: torch.Tensor, ph_centres: torch.Tensor) -> torch.Tensor:
     """Assign each graph's pH to the closest bucket index in *ph_centres*.
     NaN pHs (rotopt) → bucket 0 (arbitrary; multi_branch is titrate-only anyway).
@@ -184,7 +149,6 @@ def _ph_bucket(ph: torch.Tensor, ph_centres: torch.Tensor) -> torch.Tensor:
     ph = torch.nan_to_num(ph, nan=ph_centres[0].item())
     diffs = (ph[:, None] - ph_centres[None, :]).abs()
     return diffs.argmin(dim=1)
-
 
 class GATModel(torch.nn.Module):
     """Single-branch GATv2 with optional pH conditioning.
@@ -267,7 +231,6 @@ class GATModel(torch.nn.Module):
 
         return self.head(x)        # naive / film
 
-
 class MultiBranchGATModel(torch.nn.Module):
     """Independent GATv2 branch per pH bucket; concatenated pooled embeddings.
 
@@ -315,7 +278,6 @@ class MultiBranchGATModel(torch.nn.Module):
         cat = torch.cat(outs, dim=-1)                        # (B, n_buckets * emb)
         return self.head(cat)
 
-
 def build_model(arch: str, input_dim: int, args) -> torch.nn.Module:
     edge_dim = args.edge_dim if hasattr(args, "edge_dim") else None
     if arch == "multi_branch":
@@ -326,7 +288,6 @@ def build_model(arch: str, input_dim: int, args) -> torch.nn.Module:
     return GATModel(input_dim, args.hidden, args.heads, args.dropout,
                     edge_dim=edge_dim, arch=arch)
 # ─────────────────────────────────────────────────────────────────────────────
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Training helpers
@@ -399,7 +360,6 @@ def train_one_fold(
                 break
 
     return best_preds
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Per-dataset training
@@ -518,7 +478,6 @@ def train_dataset(
         "mean_MAE":    mean_mae,
         "mean_RMSE":   mean_rmse,
     }
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -681,7 +640,6 @@ def main() -> None:
         pd.DataFrame(summary_rows).to_csv(summary_path, index=False)
         print(f"\nSummary metrics → {summary_path}")
         print(pd.DataFrame(summary_rows).to_string(index=False))
-
 
 if __name__ == "__main__":
     main()

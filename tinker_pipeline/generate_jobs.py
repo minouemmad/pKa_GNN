@@ -1,35 +1,9 @@
 #!/usr/bin/env python3
-"""Generate SGE job scripts for every unique protein in the PKAD CSV.
-
-Each generated job script runs:
-  Step 1 – Coarse minimization        (FFX Minimize, RMS=0.8, GK)
-  Step 2 – Start parallel scheduler
-  Step 3 – ManyBody rotamer optimisation
-  Step 4 – Tight final minimization   (FFX Minimize, RMS=0.1, GPU, --saveInduced)
-  Step 5 – Print permanent multipoles (PrintMultipoles.groovy)
-
-Usage
------
-python generate_jobs.py \
-    --csv        1-PKAD-R-2025-09-03.csv \
-    --pdb_dir    /Dedicated/schnieders/maemmad/pKa_GNN/data/fixed_pdbs \
-    --ffx        /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc \
-    --out_dir    /Dedicated/schnieders/maemmad/pKa_GNN/data/sge_jobs \
-    --queue      "MS,UI-GPU" \
-    --ncpus      20
-
-The script infers the .properties file path as:
-    {pdb_dir}/{ID}.properties
-and expects the fixed PDB at:
-    {pdb_dir}/{ID}_fixed.pdb
-"""
 
 from __future__ import annotations
 
 import argparse
-import os
 import sys
-import textwrap
 from pathlib import Path
 
 import pandas as pd
@@ -41,10 +15,7 @@ DEFAULT_OUT    = "/Dedicated/schnieders/maemmad/pKa_GNN/data/sge_jobs"
 DEFAULT_QUEUE  = "MS,UI-GPU"
 DEFAULT_NCPUS  = 20
 
-
-# ---------------------------------------------------------------------------
 # Job template
-# ---------------------------------------------------------------------------
 
 JOB_TEMPLATE = """\
 #!/bin/bash
@@ -129,10 +100,7 @@ echo "=== Step 5: PrintMultipoles ==="
 echo "=== Done: $(date) ==="
 """
 
-
-# ---------------------------------------------------------------------------
 # Helpers
-# ---------------------------------------------------------------------------
 
 def unique_pdb_ids(csv_path: Path) -> list[str]:
     """Return sorted unique uppercase PDB IDs from the PKAD CSV."""
@@ -143,7 +111,6 @@ def unique_pdb_ids(csv_path: Path) -> list[str]:
     if col is None:
         sys.exit(f"ERROR: Cannot find PDB column in {csv_path}")
     return sorted(df[col].str.upper().dropna().unique().tolist())
-
 
 def write_job(
     pid: str,
@@ -173,10 +140,7 @@ def write_job(
     job_path.write_text(body)
     return job_path
 
-
-# ---------------------------------------------------------------------------
 # Main
-# ---------------------------------------------------------------------------
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -223,7 +187,6 @@ def main() -> None:
     submit_script.chmod(0o755)
     print(f"\nSubmission script → {submit_script}")
     print(f"Run on cluster:  cd {out_dir} && bash submit_all.sh")
-
 
 if __name__ == "__main__":
     main()

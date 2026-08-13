@@ -1,55 +1,4 @@
 #!/usr/bin/env python3
-"""
-10_evaluate.py  (FFX pipeline)
-
-Paper-style evaluation of the GAT pK_a model, mirroring:
-
-    Graph-based deep learning models for predicting pKa values of protein
-    ionizable residues via physically inspired ...   (J. Chem. Inf. Model. 2026)
-
-Implements:
-  • Per-residue **ensemble** prediction = mean over the 10 fold checkpoints
-    (and, for titrate mode, over the per-pH replicates).
-  • Overall MAE, RMSE, Pearson R with **bootstrap 95% CIs**.
-  • Quartile **rolling MAE/RMSE** binned by |ΔpKa_exp| where
-        ΔpKa_exp = pKa_exp − reference_pKa(residue)
-    Default reference values from the paper (Asp 3.7, Glu 4.2, His 6.5,
-    Lys 10.4, Cys 8.6, Tyr 10.0).  By default the bin edges are the
-    paper's Figure-10 edges [0.0, 0.2, 0.5, 1.0, +∞] but they can be
-    overridden with --bin-edges.
-  • Per-residue-type breakdown (MAE / RMSE / R / N).
-  • Optional merging of baseline predictions from CSVs supplied via
-    --baseline NAME=path/to/preds.csv ...  (e.g. PROPKA3, DeepKa,
-    pKAI+).  Each baseline CSV must have columns:
-        PDB_ID, Chain_ID, Residue_Number, Residue_Name, Predicted_pKa
-    Rows missing in the baseline are dropped from the *intersection*
-    evaluation (paper Figure 10 reports on the 796 residues present in
-    all methods).  Per-method metrics over their own coverage are also
-    reported.
-
-Run:
-    # Single results dir (uses all dataset_*_all_folds.csv it finds):
-    python ffx_pipeline/10_evaluate.py \\
-        --results-dir Graph_pKa/Results/Train_FFX_rotopt_best
-
-    # Specific predictions file:
-    python ffx_pipeline/10_evaluate.py \\
-        --predictions Graph_pKa/Results/Train_FFX_rotopt_best/predictions/dataset_2_all_folds.csv
-
-    # With baselines:
-    python ffx_pipeline/10_evaluate.py \\
-        --results-dir Graph_pKa/Results/Train_FFX_rotopt_best \\
-        --baseline PROPKA3=baselines/propka3_predictions.csv \\
-        --baseline DeepKa=baselines/deepka_predictions.csv \\
-        --baseline pKAI+=baselines/pkai_predictions.csv \\
-        --intersect-only
-
-Outputs (under <results-dir>/evaluation/ or alongside --predictions):
-    summary_overall.csv         ← method, MAE, RMSE, R, N, with 95% CIs
-    summary_by_residue.csv      ← per-residue-type metrics for every method
-    summary_quartiles.csv       ← Q1..Q4 MAE/RMSE per method (rolling)
-    ensemble_predictions.csv    ← merged per-residue table used for evaluation
-"""
 
 from __future__ import annotations
 
@@ -78,7 +27,6 @@ LONG_TO_CODE: dict[str, str] = {
     "Tyrosine":    "TYR",
 }
 
-
 def to_residue_code(name: str) -> str:
     """Return 3-letter uppercase code for a residue name (long or short)."""
     if pd.isna(name):
@@ -88,7 +36,6 @@ def to_residue_code(name: str) -> str:
         return n.upper()
     return LONG_TO_CODE.get(n, n[:3].upper())
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Metrics
 # ════════════════════════════════════════════════════════════════════════════
@@ -96,17 +43,14 @@ def to_residue_code(name: str) -> str:
 def _mae(y, yhat):
     return float(np.mean(np.abs(np.asarray(y) - np.asarray(yhat))))
 
-
 def _rmse(y, yhat):
     return float(np.sqrt(np.mean((np.asarray(y) - np.asarray(yhat)) ** 2)))
-
 
 def _pearson(y, yhat):
     if len(y) < 2:
         return float("nan")
     r, _ = pearsonr(np.asarray(y), np.asarray(yhat))
     return float(r)
-
 
 def bootstrap_ci(y, yhat, statistic, n_boot: int = 1000,
                  alpha: float = 0.05, seed: int = 42):
@@ -126,7 +70,6 @@ def bootstrap_ci(y, yhat, statistic, n_boot: int = 1000,
     lo, hi = np.nanpercentile(boots, [100 * alpha / 2, 100 * (1 - alpha / 2)])
     return point, float(lo), float(hi)
 
-
 def metrics_with_ci(y, yhat, n_boot: int = 1000, seed: int = 42) -> dict:
     mae,  mae_lo,  mae_hi  = bootstrap_ci(y, yhat, _mae,     n_boot, seed=seed)
     rmse, rmse_lo, rmse_hi = bootstrap_ci(y, yhat, _rmse,    n_boot, seed=seed)
@@ -138,13 +81,11 @@ def metrics_with_ci(y, yhat, n_boot: int = 1000, seed: int = 42) -> dict:
         "Pearson":  r,    "Pearson_lo": r_lo, "Pearson_hi": r_hi,
     }
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # I/O helpers
 # ════════════════════════════════════════════════════════════════════════════
 
 KEY_COLS = ["PDB_ID", "Chain_ID", "Residue_Number", "Residue_Name"]
-
 
 def load_predictions_csv(path: Path) -> pd.DataFrame:
     """Load an `_all_folds.csv` (or any CSV with the standard columns)."""
@@ -157,7 +98,6 @@ def load_predictions_csv(path: Path) -> pd.DataFrame:
     df["Chain_ID"]  = df["Chain_ID"].astype(str)
     df["res_code"]  = df["Residue_Name"].map(to_residue_code)
     return df
-
 
 def aggregate_ensemble(df: pd.DataFrame, label: str = "Ensemble") -> pd.DataFrame:
     """Mean per-residue prediction across folds (and pH replicates).
@@ -173,7 +113,6 @@ def aggregate_ensemble(df: pd.DataFrame, label: str = "Ensemble") -> pd.DataFram
     g["res_code"] = g["Residue_Name"].map(to_residue_code)
     return g
 
-
 def discover_predictions(results_dir: Path) -> list[Path]:
     pred_dir = results_dir / "predictions"
     if not pred_dir.is_dir():
@@ -182,7 +121,6 @@ def discover_predictions(results_dir: Path) -> list[Path]:
     if not files:
         raise FileNotFoundError(f"No dataset_*_all_folds.csv in {pred_dir}")
     return files
-
 
 def load_baseline(path: Path, label: str) -> pd.DataFrame:
     """Load a baseline predictions CSV.  Expected columns:
@@ -208,7 +146,6 @@ def load_baseline(path: Path, label: str) -> pd.DataFrame:
     out = df[KEY_COLS + ["Predicted_pKa"]].rename(columns={"Predicted_pKa": label})
     return out
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Evaluation
 # ════════════════════════════════════════════════════════════════════════════
@@ -225,7 +162,6 @@ def add_delta_and_quartiles(df: pd.DataFrame,
     )
     return df
 
-
 def evaluate_method(df: pd.DataFrame, method: str,
                     n_boot: int, seed: int) -> dict:
     sub = df.dropna(subset=["True_pKa", method])
@@ -233,7 +169,6 @@ def evaluate_method(df: pd.DataFrame, method: str,
         sub["True_pKa"].values, sub[method].values,
         n_boot=n_boot, seed=seed,
     )}
-
 
 def evaluate_by_residue(df: pd.DataFrame, methods: list[str],
                         n_boot: int, seed: int) -> pd.DataFrame:
@@ -249,7 +184,6 @@ def evaluate_by_residue(df: pd.DataFrame, methods: list[str],
                                      n_boot=n_boot, seed=seed)}
             rows.append(row)
     return pd.DataFrame(rows)
-
 
 def evaluate_by_quartile(df: pd.DataFrame, methods: list[str],
                          bin_labels: list[str],
@@ -267,7 +201,6 @@ def evaluate_by_quartile(df: pd.DataFrame, methods: list[str],
             rows.append(row)
     return pd.DataFrame(rows)
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Main
 # ════════════════════════════════════════════════════════════════════════════
@@ -278,7 +211,6 @@ def parse_baseline(arg: str) -> tuple[str, Path]:
             f"--baseline expects NAME=PATH, got: {arg!r}")
     name, path = arg.split("=", 1)
     return name.strip(), Path(path.strip())
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -391,7 +323,6 @@ def main() -> None:
                   "RMSE", "RMSE_lo", "RMSE_hi"]].to_string(index=False))
 
     print(f"\nSaved -> {out_dir}")
-
 
 if __name__ == "__main__":
     main()

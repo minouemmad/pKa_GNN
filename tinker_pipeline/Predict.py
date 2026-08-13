@@ -17,7 +17,6 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 # Global base directory
 BASE_DIR = Path("../Graph_pKa")
 
-
 def main():
     global BASE_DIR
 
@@ -102,7 +101,6 @@ def main():
             pickle.dump(data_list, f)
         print(f"  Saved → {pkl_path.name}")
 
-
 # Define the model class for predictions
 class GATConv(torch.nn.Module):
     def __init__(self, input_dim, hidden_channels, dropout, heads):
@@ -124,13 +122,11 @@ class GATConv(torch.nn.Module):
         x = self.out_layer(x)
         return x
 
-
 def inspect_checkpoint(model_path):
     """Inspect the structure of the checkpoint file."""
     checkpoint = torch.load(model_path, map_location=torch.device("cpu"))
     print(f"Keys in the checkpoint: {list(checkpoint.keys())}")
     return checkpoint
-
 
 def predict_and_save(model, data_list, output_csv):
     """Predict and save results with optional labels."""
@@ -165,7 +161,6 @@ def predict_and_save(model, data_list, output_csv):
 
     return predictions
 
-
 def predict_unlabeled_data(model, data_list, output_csv):
     """Make predictions on feature vectors without experimental pKa labels."""
     device = torch.device("cpu")
@@ -194,7 +189,6 @@ def predict_unlabeled_data(model, data_list, output_csv):
     print(f"Predictions saved to {output_csv}")
 
     return predictions
-
 
 def average_predictions_across_folds(predictions_dir, num_folds=10):
     """Average predictions from all folds for each dataset.
@@ -264,7 +258,6 @@ def average_predictions_across_folds(predictions_dir, num_folds=10):
         if 'True_pKa' in grouped.columns:
             print(f"    - Mean True_pKa: {grouped['True_pKa'].mean():.2f}")
 
-
 def predict_with_all_models(model_dir, data_sets):
     """Predict and save results for all models with optional metrics calculation."""
     global BASE_DIR
@@ -320,7 +313,6 @@ def predict_with_all_models(model_dir, data_sets):
         metrics_csv = os.path.join(output_dir, "model_metrics_all_datasets.csv")
         metrics_df.to_csv(metrics_csv, index=False)
         print(f"Metrics saved to {metrics_csv}")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate pKa dataset PKL files and make predictions")

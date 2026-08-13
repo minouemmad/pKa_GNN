@@ -1,33 +1,4 @@
 #!/usr/bin/env python3
-"""
-run_ablation_sweep.py — Drive 40 training runs that compare the contribution
-of induced dipoles (.uind) and permanent multipoles (.uperm) for both rotopt
-and titrate (FiLM) conditioning, across all five radii.
-
-Conditions per mode:
-    full    — all features (induced dipoles + permanent multipoles)
-    noDip   — Dipole_X/Y/Z zeroed
-    noPerm  — Perm_*           zeroed
-    noElec  — both Dipole_*  + Perm_* zeroed   (geometry/topology baseline)
-
-Source pkl directories (built earlier with ablate_datasets.py):
-    Graph_pKa/Features_{mode}{tag}/Datasets/data_list_{0..4}.pkl
-where tag ∈ {"", "_noDip", "_noPerm", "_noElec"} and full == "".
-
-For each (mode, condition, dataset_idx) the script invokes 07_train.py with
-default hyper-parameters (matching the Sweep2 protocol) and writes results to
-    Graph_pKa/Results/Comparison_2026/{mode}_{condition}/
-
-The script is **idempotent**: a run is skipped if its
-    predictions/dataset_{idx}_all_folds.csv
-already exists.  This lets you Ctrl-C and resume safely.
-
-Usage
------
-    python ffx_pipeline/run_ablation_sweep.py                # run everything
-    python ffx_pipeline/run_ablation_sweep.py --mode rotopt  # one mode only
-    python ffx_pipeline/run_ablation_sweep.py --dry-run      # just print plan
-"""
 from __future__ import annotations
 
 import argparse
@@ -61,18 +32,14 @@ CONDITIONS = {
 DEFAULT_HP = dict(hidden=48, heads=6, lr=0.005, dropout=0.3,
                   batch=16, patience=30, epochs=500, folds=10, seed=42)
 
-
 def _outdir(mode: str, cond: str) -> Path:
     return RESULTS_ROOT / f"{mode}_{cond}"
-
 
 def _dataset_dir(mode: str, cond: str) -> Path:
     return ROOT / "Graph_pKa" / f"Features_{mode}{CONDITIONS[cond]}" / "Datasets"
 
-
 def _is_done(out_dir: Path, idx: int) -> bool:
     return (out_dir / "predictions" / f"dataset_{idx}_all_folds.csv").exists()
-
 
 def build_jobs(modes: list[str], conditions: list[str], indices: list[int]):
     jobs = []
@@ -81,7 +48,6 @@ def build_jobs(modes: list[str], conditions: list[str], indices: list[int]):
             for idx in indices:
                 jobs.append((mode, cond, idx))
     return jobs
-
 
 def run_one(mode: str, cond: str, idx: int, log_dir: Path) -> tuple[bool, float]:
     """Run a single 07_train.py invocation; return (ok, elapsed_sec)."""
@@ -131,7 +97,6 @@ def run_one(mode: str, cond: str, idx: int, log_dir: Path) -> tuple[bool, float]
     print(f"         {status} in {elapsed/60:.1f} min")
     return ok, elapsed
 
-
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -178,7 +143,6 @@ def main():
                      f"{'OK' if ok else 'FAIL'},{elapsed:.1f}\n")
             fh.flush()
         print(f"\nDone. ok={n_ok}  fail={n_fail}  total_time={t_total/3600:.2f} h")
-
 
 if __name__ == "__main__":
     main()

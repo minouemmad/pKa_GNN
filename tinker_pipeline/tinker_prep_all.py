@@ -1,33 +1,3 @@
-"""
-tinker_prep_all.py
-
-Helper called by tinker_prep.job — runs ALL preprocessing steps of the
-paper's Tinker pipeline (Tinker_EM.py steps 1-11) for every protein in
-data/fixed_pdbs/, but SKIPS the final minimize step (handled per-protein
-by tinker_minimize_one.py).
-
-Run from pKa_GNN/ as CWD:
-    python tinker_pipeline/tinker_prep_all.py
-
-Steps executed (with corrected paths for CWD = pKa_GNN/):
-    NOTE: PDBFixer and water removal (paper steps 1-2) are handled upstream
-    by tinker_pipeline/00_fix_structures.py.  This script picks up from
-    the already-fixed PDBs in tinker_pipeline/data/fixed_pdbs/.
-
-    0.  copy fixed PDBs                  → Graph_pKa/Data/2_Cleaned_PDB/
-    1.  convert_pdb_to_xyz_files         → Graph_pKa/Data/2_Cleaned_PDB/*.xyz
-    2.  move_center_of_mass_and_relocate → Graph_pKa/Data/4_Center_Moved_XYZ/
-    3.  write_xyz_coordinate_ranges      → Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv
-    4.  soak_proteins_with_waterbox      → Graph_pKa/Data/5_Dissolved_Proteins/
-    5.  analyze_and_collect_charge       → Graph_pKa/Data/4_Center_Moved_XYZ/charge_info.csv
-    6.  generate_system_solvent_info     → Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv
-    7.  process_solvent_info_and_ohh_ohh
-    8.  offset_charges_in_systems        → Graph_pKa/Data/6_Neutralized_System/
-    9.  filter_copy_and_iterative_neutralization
-
-When done, Graph_pKa/Data/6_Neutralized_System/ will contain
-{PDB_ID}.xyz for each protein, ready for the per-protein minimize jobs.
-"""
 
 from __future__ import annotations
 
@@ -79,7 +49,6 @@ WATERBOX_DIR     = str(PKA_GNN_DIR / "Graph_pKa/Tinker_params/waterbox")
 COORDS_CSV       = str(PKA_GNN_DIR / "Graph_pKa/Data/4_Center_Moved_XYZ/TinkerXYZ_coords.csv")
 SOLVENT_INFO_CSV = str(PKA_GNN_DIR / "Graph_pKa/Data/5_Dissolved_Proteins/System_Solve_Info.csv")
 
-
 def copy_input_pdbs(only_ids=None) -> int:
     """Copy {PDB_ID}_input.pdb (already fixed by 00_fix_structures.py)
     from tinker_pipeline/data/fixed_pdbs/ → Graph_pKa/Data/2_Cleaned_PDB/{PDB_ID}.pdb.
@@ -96,7 +65,6 @@ def copy_input_pdbs(only_ids=None) -> int:
             copied += 1
     print(f"Copied {copied} PDB files to {CLEANED_DIR}")
     return copied
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -215,7 +183,6 @@ def main() -> None:
     n_ready = len(list(Path(NEUTRAL_DIR).glob("*.xyz")))
     print(f"\nDone.  {n_ready} proteins ready for minimization in {NEUTRAL_DIR}/")
     print("Submit per-protein minimize jobs next.")
-
 
 if __name__ == "__main__":
     main()

@@ -1,25 +1,3 @@
-"""
-03_run_ffx_minimize.py
-
-Generate and optionally submit SGE job scripts for:
-  1. Rotamer job  (rot_{pdb_id}.job)
-     Coarse minimize + ManyBody rotamer optimisation.
-     Output: {pdb_stem}.pdb_3
-
-  2. Per-pH titration jobs  ({pdb_id}_titrate_pH{ph}.job)  — one per TITRATION_PHS
-     Copies rotopt output, runs titration ManyBody, then final minimize with
-     --saveInduced.
-     Output: {pdb_dir}/{pdb_id}_pH{ph}.pdb_2.uind / .uperm
-
-Flags:
-  --dry       Generate scripts but do not submit to SGE.
-  --force     Regenerate + resubmit even if outputs already exist.
-              Combined with --dry: regenerates all scripts without submitting.
-  --rotamer   Submit/generate only rotamer jobs (skip titration).
-  --titrate   Submit/generate only titration jobs (skip rotamer).
-  --ph <X>    Submit/generate titration jobs only at pH X (implies --titrate).
-              Multiple --ph flags are supported (e.g. --ph 3.94 --ph 6.45).
-"""
 
 import os
 import sys
@@ -86,7 +64,6 @@ ACTIVE_PHS = [ph for ph in TITRATION_PHS if ph in PH_FILTER] if PH_FILTER else T
 
 LOG_FIELDS = ["pdb_id", "ph", "job_type", "job_script", "job_id", "status", "notes"]
 
-
 # ── Properties file writers ───────────────────────────────────────────────────
 
 _FFX_PROPS_BASE = """\
@@ -113,7 +90,6 @@ solute-dielectric 2.0
 # scf-algorithm SOR -this should only be uncommented if the max scf failure error comes up.
 """
 
-
 def write_properties_for(pdb_stem: str, dest_dir: str) -> tuple:
     """Write {pdb_stem}.properties and titrate.properties in dest_dir."""
     base_content    = _FFX_PROPS_BASE.format(solute_prm=SOLUTE_PRM)
@@ -125,7 +101,6 @@ def write_properties_for(pdb_stem: str, dest_dir: str) -> tuple:
     with open(titrate_path, "w") as f:
         f.write(titrate_content)
     return ffx_path, titrate_path
-
 
 def make_rotamer_job_script(pdb_id: str, pdb_abs: str, ffx_prop: str, restart_path: str) -> str:
     job_name = f"rot_{pdb_id}"
@@ -164,7 +139,6 @@ fi
 
 echo "=== Rotamer job done: $(date) ==="
 """
-
 
 def make_titration_job_script(
     pdb_id: str, pdb_abs: str, pdb_dir: str,
@@ -230,7 +204,6 @@ fi
 echo "=== Titration pH {ph} done: $(date) ==="
 """
 
-
 def get_queued_job_names() -> set:
     """Return the set of job names currently in the SGE queue (any state: running, pending, etc.)."""
     try:
@@ -246,7 +219,6 @@ def get_queued_job_names() -> set:
     except subprocess.TimeoutExpired:
         print("WARNING: qstat timed out — assuming no jobs in queue")
         return set()
-
 
 def submit_job(script_path: str) -> tuple:
     try:
@@ -265,12 +237,10 @@ def submit_job(script_path: str) -> tuple:
     except subprocess.TimeoutExpired:
         return -1, "qsub timed out"
 
-
 def _write_script(path: str, text: str) -> None:
     with open(path, "w") as f:
         f.write(text)
     os.chmod(path, os.stat(path).st_mode | stat.S_IEXEC)
-
 
 def main():
     os.makedirs(JOBS_DIR, exist_ok=True)
@@ -389,7 +359,6 @@ def main():
 
     print(f"\nJob scripts → {JOBS_DIR}/")
     print(f"Log         → {LOG_PATH}")
-
 
 if __name__ == "__main__":
     main()

@@ -1,25 +1,10 @@
-"""Generate the presentation packet: figures + metrics for the GAT pKa project.
-
-Outputs land in `tinker_pipeline/Graph_pKa/Presentation/`.
-
-Covers:
-  1. Rotamer optimization (rotopt) vs. Tinker minimization comparison.
-  2. Per-radius MAE/RMSE comparison.
-  3. Per-residue (ASP/GLU/HIS/LYS/...) MAE breakdown for the rotopt model.
-  4. Feature-engineering summary (electrostatics 6 variants + physedge 4 variants).
-  5. Titration-rotop sneak peek vs. plain rotop on the 49-PDB subset.
-  6. GAT/GATv2 architecture diagram.
-"""
 from __future__ import annotations
 
-import os
-import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 
 ROOT      = Path(__file__).resolve().parents[1]

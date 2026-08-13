@@ -1,19 +1,3 @@
-"""Rebuild the FFX-only figure pack for the GAT pKa project.
-
-Sources used (all FFX rotopt or FFX titrate-rotopt — no Tinker):
-
-  • ffx_pipeline/Graph_pKa/Results/Training_rotopt_naive_full138_allR
-        full 138-PDB rotopt run, predictions for radii 7..11 Å
-  • ffx_pipeline/Graph_pKa/Results/Training_titrate_naive_group-residue
-        full ~198-residue titration run with proper residue-grouped CV
-  • ffx_pipeline/Graph_pKa/Results/Training_titrate_film_group-residue
-        same data, FiLM pH conditioning
-  • tinker_pipeline/Graph_pKa/Net_FFX138_{Electro,PhysEdge}/*.csv
-        electrostatics + physedge sweeps — these are FFX-rotopt-prepped graphs,
-        the directory name is misleading.  All node/edge feats come from FFX.
-
-All outputs land in `Graph_pKa/Presentation_FFX/`.
-"""
 from __future__ import annotations
 
 import warnings
@@ -81,7 +65,6 @@ def per_residue_table(df: pd.DataFrame) -> pd.DataFrame:
                n="size")
           .sort_values("MAE")
     )
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # 1.  GAT architecture diagram
@@ -151,7 +134,6 @@ ax.text(0.1, 0.45,
 plt.savefig(OUT / "01_gat_architecture.png", dpi=170, bbox_inches="tight")
 plt.close()
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # 2.  rotopt full138 — radius sweep (FFX only)
 # ════════════════════════════════════════════════════════════════════════════
@@ -187,7 +169,6 @@ ax.legend()
 plt.tight_layout()
 plt.savefig(OUT / "02_rotopt_radius.png", dpi=170, bbox_inches="tight")
 plt.close()
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # 3.  rotopt — per-residue analysis at r=9 Å
@@ -255,7 +236,6 @@ plt.tight_layout()
 plt.savefig(OUT / "03_rotopt_per_residue.png", dpi=170, bbox_inches="tight")
 plt.close()
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # 4.  rotopt — error vs experimental pKa (calibration)
 # ════════════════════════════════════════════════════════════════════════════
@@ -278,7 +258,6 @@ ax.grid(alpha=0.3)
 plt.tight_layout()
 plt.savefig(OUT / "04_rotopt_residuals.png", dpi=170, bbox_inches="tight")
 plt.close()
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # 5.  Feature-engineering sweep (FFX-rotopt prepped graphs)
@@ -360,7 +339,6 @@ plt.tight_layout()
 plt.savefig(OUT / "05_feature_engineering.png", dpi=170, bbox_inches="tight")
 plt.close()
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # 6.  Permutation importance (FFX-rotopt graphs)
 # ════════════════════════════════════════════════════════════════════════════
@@ -403,7 +381,6 @@ ax.grid(axis="x", alpha=0.3)
 plt.tight_layout()
 plt.savefig(OUT / "06_perm_importance.png", dpi=170, bbox_inches="tight")
 plt.close()
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # 7.  TITRATION — full ~198-residue completed set, residue-grouped CV

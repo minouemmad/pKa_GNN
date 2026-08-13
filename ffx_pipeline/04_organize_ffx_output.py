@@ -1,46 +1,3 @@
-"""
-05_organize_ffx_output.py
-
-Reorganizes the flat data/fixed_pdbs/ directory into per-protein
-subdirectories with a cleaner, stage-labelled naming convention.
-
-Before (flat, mixed):
-    data/fixed_pdbs/
-        1ABC.properties
-        1ABC_fixed.pdb
-        1ABC_fixed_min.pdb
-        1ABC_fixed_min.restart
-        1ABC_fixed_min_2.pdb
-        1ABC_fixed_min_2.pdb_2
-        1ABC_fixed_min_2.uind
-        ...
-
-After (per-protein subdir, clean names):
-    data/fixed_pdbs/
-        1ABC/
-            1ABC.properties          ← original AMOEBA properties
-            1ABC_input.pdb           ← PDBFixer-corrected structure (from 02)
-            1ABC_coarse.pdb          ← after step-1 coarse minimize (RMS 0.8)
-            1ABC_rotamer.pdb         ← after step-3 ManyBody rotamer opt
-            1ABC_final.pdb           ← after step-4 final minimize (RMS 0.1)
-            1ABC_final.uind          ← AMOEBA induced dipoles (step 4)
-            1ABC_final.restart       ← restart checkpoint (if present)
-            [1ABC_min.properties]    ← FFX-generated property overrides kept as-is
-            [1ABC_min_2.properties]
-        ...
-
-Completion status per protein:
-    complete   – has _final.uind  (step 4 finished successfully)
-    partial    – has _coarse.pdb or _rotamer.pdb but no _final.uind
-    not_started – only _input.pdb / .properties present
-
-Run modes:
-    python 05_organize_ffx_output.py           # actually move files
-    python 05_organize_ffx_output.py --dry-run # preview only, no changes
-
-After running this script, update PDB_DIR references in 04_prepare_features.py
-(find_completed_jobs automatically searches per-protein subdirectories).
-"""
 
 from __future__ import annotations
 
@@ -59,7 +16,6 @@ REPORT_CSV = Path("data/organize_report.csv")
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
-
 
 def collect_protein_ids(root: Path) -> list[str]:
     """Collect every PDB ID present in the flat root directory.
@@ -96,7 +52,6 @@ def collect_protein_ids(root: Path) -> list[str]:
 
     return sorted(ids)
 
-
 # Mapping from flat filename → clean filename inside the per-protein subdir.
 # The function returns (source_path, dest_path) or None if the source doesn't exist.
 
@@ -128,14 +83,12 @@ def _plan_for_protein(root: Path, pdb: str) -> dict[str, tuple[Path, Path]]:
     # Fixed (input) structure
     _add("input",           f"{pdb}_fixed.pdb",            f"{pdb}_input.pdb")
 
-    # --- Normal pipeline path (step 3 ManyBody completed) ---
     _add("coarse",          f"{pdb}_fixed_min.pdb",        f"{pdb}_coarse.pdb")
     _add("rotamer",         f"{pdb}_fixed_min_2.pdb",      f"{pdb}_rotamer.pdb")
     _add("final_pdb",       f"{pdb}_fixed_min_2.pdb_2",    f"{pdb}_final.pdb")
     _add("final_uind",      f"{pdb}_fixed_min_2.uind",     f"{pdb}_final.uind")
     _add("final_restart",   f"{pdb}_fixed_min.restart",    f"{pdb}_final.restart")
 
-    # --- Fallback path (step 4 ran directly on step-1 output) ---
     # These appear when ManyBody fails; step 4 consumes *_fixed_min.pdb and
     # produces *_fixed_min.pdb_2 / *_fixed_min.uind instead of the _2 variants.
     if "final_pdb" not in plan:
@@ -151,7 +104,6 @@ def _plan_for_protein(root: Path, pdb: str) -> dict[str, tuple[Path, Path]]:
 
     return plan
 
-
 def _status(plan: dict[str, tuple[Path, Path]]) -> str:
     """Derive completeness category from what files were found."""
     if "final_uind" in plan or "fallback_uind" in plan:
@@ -159,7 +111,6 @@ def _status(plan: dict[str, tuple[Path, Path]]) -> str:
     if "coarse" in plan or "rotamer" in plan or "final_pdb" in plan or "fallback_pdb" in plan:
         return "partial"
     return "not_started"
-
 
 def organize(root: Path, dry_run: bool) -> None:
     if not root.is_dir():
@@ -242,7 +193,6 @@ def organize(root: Path, dry_run: bool) -> None:
             writer.writerows(report_rows)
         log.info(f"  Report written to {REPORT_CSV}")
 
-
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Reorganise data/fixed_pdbs/ into per-protein subdirectories."
@@ -258,7 +208,6 @@ def main() -> None:
     args = parser.parse_args()
 
     organize(Path(args.dir), dry_run=args.dry_run)
-
 
 if __name__ == "__main__":
     main()

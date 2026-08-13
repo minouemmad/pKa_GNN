@@ -1,35 +1,10 @@
 #!/usr/bin/env python3
-"""
-ablate_datasets.py — produce a copy of the rotopt (or any mode) graph
-datasets with one or more feature groups **zeroed out**.
-
-Why?  The grid-search script (08_grid_search.py) doesn't take an --ablate
-flag, but it accepts a --dataset-dir.  By writing a parallel set of
-data_list_*.pkl files with the requested columns zeroed, the same grid
-search runs on baseline-only features without any code changes.
-
-Example: rotopt without induced dipoles (= "baseline" features):
-
-    python ffx_pipeline/ablate_datasets.py \\
-        --src-dir Graph_pKa/Features_rotopt/Datasets \\
-        --dst-dir Graph_pKa/Features_rotopt_noDip/Datasets \\
-        --feat-dir Graph_pKa/Features_rotopt \\
-        --ablate induced_dipoles
-
-Then run the grid search against the new dir:
-
-    python ffx_pipeline/08_grid_search.py \\
-        --dataset-dir Graph_pKa/Features_rotopt_noDip/Datasets \\
-        --results-dir Graph_pKa/Results/Grid_Search_FFX_rotopt_noDip
-"""
 
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import pickle
 import re
-import shutil
 from pathlib import Path
 
 import numpy as np
@@ -55,7 +30,6 @@ ABLATION_GROUPS: dict[str, str] = {
     "atom_label_one_hot": r"^atom_label_oh_\d+$",
 }
 
-
 def reconstruct_feature_names(feat_dir: Path, radius: int, n_cols: int) -> list[str]:
     radius_dir = feat_dir / "Node_Feature_Vectors" / str(radius)
     candidates = sorted(radius_dir.glob("*.csv"))
@@ -73,7 +47,6 @@ def reconstruct_feature_names(feat_dir: Path, radius: int, n_cols: int) -> list[
             names = names[:n_cols]
     return names
 
-
 def ablate_data_list(data_list, names: list[str], groups: list[str]) -> list[int]:
     zero_cols: list[int] = []
     for g in groups:
@@ -89,7 +62,6 @@ def ablate_data_list(data_list, names: list[str], groups: list[str]) -> list[int
     for d in data_list:
         d.x[:, cols_t] = 0.0
     return zero_cols
-
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__,
@@ -137,7 +109,6 @@ def main() -> None:
         print(f"         wrote {dst}")
 
     print("Done.")
-
 
 if __name__ == "__main__":
     main()

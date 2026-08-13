@@ -1,19 +1,3 @@
-"""Per-residue figures using the BEST FEATURE-ENGINEERING VARIANT (InducedDip).
-
-Honest caveat: in the 80-fold Wilcoxon test, InducedDip's gain over the
-Charge baseline is ΔMAE = -0.0041 with p = 0.38 — i.e. NOT significant.
-We rebuild the per-residue figure anyway because the user asked for the
-"best feature set" version, but the numbers are statistically
-indistinguishable from the Charge-baseline plot.
-
-The variant prediction CSVs only store (True_pKa, Predicted_pKa, fold), so
-we recover Residue_Name by reproducing the deterministic 10-fold KFold
-(shuffle=True, random_state=42) used in 05_train.py and indexing into
-Datasets_InducedDip_138/data_list_2.pkl.
-
-Output: Graph_pKa/Presentation_FFX/03b_rotopt_per_residue_InducedDip.png
-        Graph_pKa/Presentation_FFX/02b_radius_note.png  (text-only note)
-"""
 from __future__ import annotations
 
 import pickle
@@ -50,7 +34,6 @@ RES_COLORS = {
     "LYS": "#9467bd", "TYR": "#1f77b4", "CYS": "#8c564b",
 }
 
-
 # ─── reconstruct deterministic fold mapping ──────────────────────────────────
 print("[1] reconstructing KFold(10, shuffle=True, random_state=42) …")
 with open(DS_PKL, "rb") as f:
@@ -77,7 +60,6 @@ for fold, (_, val_idx) in enumerate(kf.split(np.arange(len(data_list))), start=1
     ordered_idx.extend(val_idx.tolist())
     ordered_fold.extend([fold] * len(val_idx))
 print(f"   reconstructed order length = {len(ordered_idx)}")
-
 
 # ─── load InducedDip predictions, average across seeds, attach residue ───────
 print(f"[2] loading {VARIANT} predictions across {len(SEEDS)} seeds …")
@@ -141,7 +123,6 @@ print(f"   baseline rows for {HYBRID_RES}: {len(base_extra)} "
 mean_pred = pd.concat([mean_pred, base_extra], ignore_index=True)
 mean_pred.to_csv(OUT / "InducedDip_per_residue_predictions.csv", index=False)
 
-
 # ─── per-residue table ────────────────────────────────────────────────────────
 def per_residue_table(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
@@ -162,7 +143,6 @@ print(per_res)
 overall_mae  = (mean_pred["Predicted_pKa"] - mean_pred["True_pKa"]).abs().mean()
 overall_rmse = np.sqrt(((mean_pred["Predicted_pKa"] - mean_pred["True_pKa"])**2).mean())
 print(f"\noverall — n={len(mean_pred)}  MAE={overall_mae:.4f}  RMSE={overall_rmse:.4f}")
-
 
 # ─── figure: 3-panel per-residue (matches old 03_rotopt_per_residue layout) ──
 print("\n[4] writing 03b_rotopt_per_residue_InducedDip.png …")
@@ -237,7 +217,6 @@ plt.tight_layout()
 plt.savefig(OUT / "03b_rotopt_per_residue_InducedDip.png",
             dpi=170, bbox_inches="tight")
 plt.close()
-
 
 # ─── note: radius sweep was r=9 only for variants ────────────────────────────
 print("[5] writing radius-sweep note …")

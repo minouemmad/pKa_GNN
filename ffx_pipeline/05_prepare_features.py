@@ -1,46 +1,3 @@
-"""
-04_prepare_features.py
-
-Generates GNN-ready node feature vectors and adjacency matrices from
-FFX-minimized PDB structures and AMOEBA induced-dipole (.uind) files.
-
-This replaces the Tinker-based pipeline (Tinker_EM.py + Tinker_Output_Processing.py)
-and works directly with FFX PDB output from 03_run_ffx_minimize.py.
-
-Inputs (per protein, inside data/fixed_pdbs/{PDB}/):
-    {PDB}_final.pdb   – final FFX geometry (step 4 minimize output).
-    {PDB}_final.uind  – AMOEBA induced dipoles from --saveInduced (step 4).
-    Run 05_organize_ffx_output.py first to create this layout.
-
-Reference data:
-    data/manifest.csv        – PKAD-R residue-level pKa labels built by 01_parse_and_download.py.
-
-Outputs (inside Graph_pKa/Features/):
-    Node_Feature_Vectors/{radius}/{PDB}_{chain}_{resid}.{ResName}.csv
-    Adjacency_Matrices/With_Self_Loop/{PDB}_{chain}_{resid}.{ResName}_adjacency.csv
-
-Pipeline steps (per protein):
-    1.  Parse PDB atom records → DataFrame
-    2.  Parse .uind induced-dipole file → merge with atoms by serial number
-    3.  Classify each atom as backbone (BB) or sidechain (SC) → atom_label (0-9)
-    4.  Compute local backbone frame per residue (CA/C/O) → recalculated x,y,z
-    5.  Compute intra-residue adjacency matrix (distance cut-off)
-    6.  Count backbone-type neighbor atoms within radii 7-11 Å (MDAnalysis)
-    7.  Compute H-bonds (Baker-Hubbard) and per-atom SASA (Shrake-Rupley) via mdtraj
-    8.  After all proteins are processed: global MinMax normalisation of counts
-    9.  One-hot encode residue type (ASP/GLU/HIS/LYS/CYS/TYR)
-   10.  Write per-residue node-feature CSVs and adjacency-matrix CSVs
-
-Atom-label scheme (10 classes, 0-9):
-    0 = backbone N       5 = sidechain C
-    1 = backbone CA      6 = sidechain N
-    2 = backbone C       7 = sidechain H
-    3 = backbone O       8 = sidechain O
-    4 = backbone H       9 = sidechain S
-
-NOTE: The existing create_data.py / Predict.py assume num_classes=9 (labels 0-8).
-      With CYS (sidechain S → label 9), update those scripts to num_classes=10.
-"""
 
 from __future__ import annotations
 
@@ -48,7 +5,6 @@ import argparse
 import contextlib
 import logging
 import os
-import re
 import shutil
 import tempfile
 from collections import defaultdict
@@ -102,7 +58,6 @@ _AA3_TO_1 = {
     "MSE": "M", "SEC": "U", "PYL": "O",
 }
 
-
 def _read_chain_full_sequence(pdb_path: "Path") -> dict[str, list[tuple[int, str]]]:
     """Return ``{chain -> [(resseq, resname_three_upper), ...]}`` listing every
     standard residue in the order it appears in the file (one entry per
@@ -140,7 +95,6 @@ def _read_chain_full_sequence(pdb_path: "Path") -> dict[str, list[tuple[int, str
             out.setdefault(chain, []).append((resseq, resname))
     return out
 
-
 def _read_chain_ionizable_sequence(pdb_path: "Path") -> dict[str, list[tuple[int, str]]]:
     """Subset of ``_read_chain_full_sequence`` keeping only TARGET_RESIDUES.
     Kept for backward compatibility (used by external diagnostics).
@@ -148,7 +102,6 @@ def _read_chain_ionizable_sequence(pdb_path: "Path") -> dict[str, list[tuple[int
     full = _read_chain_full_sequence(pdb_path)
     return {ch: [(s, n) for s, n in seq if n in TARGET_RESIDUES]
             for ch, seq in full.items()}
-
 
 def _needleman_wunsch_residue_map(
     raw_seq: list[tuple[int, str]],
@@ -205,7 +158,6 @@ def _needleman_wunsch_residue_map(
     identity = matches / max(n, m)
     return mapping, identity
 
-
 def _match_chains(
     raw_chains: dict[str, list[tuple[int, str]]],
     fix_chains: dict[str, list[tuple[int, str]]],
@@ -237,7 +189,6 @@ def _match_chains(
         used_fix.add(f_id)
         out[r_id] = (f_id, mp)
     return out
-
 
 def _build_pka_lookup_aligned(
     manifest: "pd.DataFrame",
@@ -437,7 +388,6 @@ ATOM_LABEL_MAP: dict[tuple[str, str], int] = {
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
 log = logging.getLogger(__name__)
 
-
 @contextlib.contextmanager
 def _ensure_pdb_extension(path: str):
     """Yield a path that ends with '.pdb'.
@@ -461,7 +411,6 @@ def _ensure_pdb_extension(path: str):
             os.remove(tmp)
         except OSError:
             pass
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Parsing
@@ -492,7 +441,6 @@ def parse_pdb(path: str) -> pd.DataFrame:
             )
     return pd.DataFrame(rows)
 
-
 def parse_uind(path: str) -> dict[int, tuple[float, float, float]]:
     """Parse an FFX .uind induced-dipole file.
 
@@ -516,7 +464,6 @@ def parse_uind(path: str) -> dict[int, tuple[float, float, float]]:
             except (ValueError, IndexError):
                 continue
     return dipoles
-
 
 def parse_uperm(
     path: str,
@@ -549,7 +496,6 @@ def parse_uperm(
                 continue
     return perms
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Atom classification and labelling
 # ════════════════════════════════════════════════════════════════════════════
@@ -559,7 +505,6 @@ def classify_backbone_sidechain(atom_name: str) -> str:
     if atom_name in BACKBONE_HEAVY or atom_name in BACKBONE_H:
         return "BB"
     return "SC"
-
 
 def assign_atom_label(atom_name: str, bb_sc: str) -> int:
     """Return the 0-9 integer atom label.
@@ -571,7 +516,6 @@ def assign_atom_label(atom_name: str, bb_sc: str) -> int:
     key_char = "CA" if atom_name == "CA" else atom_name[0]
     return ATOM_LABEL_MAP.get((key_char, bb_sc), -1)
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Local backbone frame
 # ════════════════════════════════════════════════════════════════════════════
@@ -579,7 +523,6 @@ def assign_atom_label(atom_name: str, bb_sc: str) -> int:
 def _normalize(v: np.ndarray) -> np.ndarray:
     n = np.linalg.norm(v)
     return v / n if n > 0 else v
-
 
 def build_local_frame(
     ca: np.ndarray, c: np.ndarray, o: np.ndarray
@@ -599,13 +542,11 @@ def build_local_frame(
     R = np.column_stack([x_axis, y_axis, z_axis])
     return R, ca
 
-
 def apply_local_frame(
     xyz: np.ndarray, R: np.ndarray, origin: np.ndarray
 ) -> np.ndarray:
     """Transform global coordinates to the local backbone frame."""
     return R.T @ (xyz - origin)
-
 
 def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
     """Add recalculated_x/y/z columns by transforming each atom into its
@@ -678,7 +619,6 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Neighbourhood atom counts  (MDAnalysis)
 # ════════════════════════════════════════════════════════════════════════════
@@ -738,7 +678,6 @@ def compute_neighbor_counts(pdb_path: str, df: pd.DataFrame) -> pd.DataFrame:
 
     return nbr_df
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # H-bonds and SASA  (mdtraj)
 # ════════════════════════════════════════════════════════════════════════════
@@ -783,7 +722,6 @@ def compute_hbonds_sasa(pdb_path: str, n_atoms: int) -> pd.DataFrame:
             }
         )
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Adjacency matrix
 # ════════════════════════════════════════════════════════════════════════════
@@ -807,7 +745,6 @@ def build_adjacency_matrix(res_df: pd.DataFrame) -> pd.DataFrame:
 
     names = res_df["name"].tolist()
     return pd.DataFrame(adj, index=names, columns=names)
-
 
 def build_edge_features(res_df: pd.DataFrame) -> pd.DataFrame:
     """Build a table of directed edge features for every bond in the residue.
@@ -851,7 +788,6 @@ def build_edge_features(res_df: pd.DataFrame) -> pd.DataFrame:
 
     return pd.DataFrame(rows)
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Protonation-state detection
 # ════════════════════════════════════════════════════════════════════════════
@@ -880,7 +816,6 @@ def detect_protonation(
         out[(chain, int(resseq))] = is_prot
     return out
 
-
 # ════════════════════════════════════════════════════════════════════════════
 # Locate completed FFX jobs (mode-aware)
 # ════════════════════════════════════════════════════════════════════════════
@@ -898,7 +833,6 @@ def _find_pdb_3(folder: Path, base: str) -> Path | None:
         if p.exists():
             return p
     return None
-
 
 def find_completed_jobs(
     pdb_dir: str,
@@ -959,7 +893,6 @@ def find_completed_jobs(
             raise ValueError(f"Unknown mode: {mode!r}")
 
     return jobs
-
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -1215,7 +1148,6 @@ def main() -> None:
     log.info(f"  Edge feature files saved : {n_adj_saved}  → {bond_dir}")
     log.info(f"  Node feature files saved : {n_feat_saved} → {node_dir}")
     log.info(f"  Residues skipped (no pKa in manifest): {n_skipped}")
-
 
 if __name__ == "__main__":
     main()

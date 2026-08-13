@@ -1,18 +1,3 @@
-"""
-aggregate_electrostatics.py
-
-Aggregate the 6-variant x 8-seed electrostatics sweep on the 138-PDB FFX set.
-
-For each (variant, seed, fold) we load the per-fold predictions and compute the
-fold MAE. Because KFold is constructed with random_state=42 hardcoded inside
-05_train.py, fold *assignments* are identical across all (variant, seed) runs
-— so paired statistical tests across folds are valid.
-
-Outputs:
-  - sweep_electrostatics_138_perfold.csv : one row per (variant, seed, fold)
-  - sweep_electrostatics_138_summary.csv : variant-level mean/std + paired
-                                           Wilcoxon p-value vs Charge baseline
-"""
 
 from __future__ import annotations
 
@@ -24,7 +9,6 @@ import pandas as pd
 from scipy.stats import wilcoxon, ttest_rel
 
 VARIANTS = ["Charge", "InducedDip", "PermDip", "BothDip", "CoulombEdge", "CoulombEdgeBoth"]
-
 
 def load_perfold(results_root: Path, variant: str, seed: int, ds_idx: int = 2) -> pd.DataFrame | None:
     p = results_root / f"Training_{variant}_seed{seed}" / "predictions" / f"dataset_{ds_idx}_all_folds.csv"
@@ -41,7 +25,6 @@ def load_perfold(results_root: Path, variant: str, seed: int, ds_idx: int = 2) -
     out.insert(0, "seed", seed)
     out.insert(0, "variant", variant)
     return out
-
 
 def main() -> None:
     ap = argparse.ArgumentParser()
@@ -123,7 +106,6 @@ def main() -> None:
     print(f"Wrote {summary_path}")
     print()
     print(summary.to_string(index=False))
-
 
 if __name__ == "__main__":
     main()
