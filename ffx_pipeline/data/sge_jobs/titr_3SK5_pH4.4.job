@@ -31,7 +31,7 @@ fi
 # Skipped if output already exists (i.e. job restarted mid-Minimize)
 # Uses --eR if a restart file is present from a prior interrupted run
 if [ ! -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3SK5/3SK5_pH4.4.pdb_2" ]; then
-    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 20 -m 22G > scheduler_rotamer.log & sleep 30s
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 40 -m 22G > scheduler_rotamer.log & sleep 30s
     if [ -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3SK5/3SK5_pH4.4.restart" ]; then
         echo "  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3SK5/3SK5_pH4.4.restart — adding --eR"
         /Dedicated/schnieders/rgogal/software/forcefieldx/bin/ffxc ManyBody --tR --pH 4.4 --oT -T --kPH 3.0 --eR "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3SK5/3SK5_pH4.4.restart" "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3SK5/3SK5_pH4.4.pdb" -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/3SK5/titrate.properties

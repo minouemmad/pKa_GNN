@@ -22,12 +22,12 @@ else
 fi
 
 # Step 2: Rotamer optimization — restart via --eR if a restart file is present
-/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 20 -m 22G > scheduler_rotamer.log & sleep 30s
+/Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc Scheduler -p 40 -m 22G > scheduler_rotamer.log & sleep 30s
 if [ -f "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.restart" ]; then
     echo "  Restart file found: /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.restart — adding --eR"
-    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 --eR "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.restart" /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.properties
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=40 -DnumCudaDevices=1 --eR "/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.restart" /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.properties
 else
-    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=20 -DnumCudaDevices=1 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.properties
+    /Dedicated/schnieders/maemmad/forcefieldx/bin/ffxc ManyBody -Dpj.nn=1 -Dpj.nt=40 -DnumCudaDevices=1 /Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.pdb_2 -Dkey=/Dedicated/schnieders/maemmad/pKa_GNN/ffx_pipeline/data/fixed_pdbs/1HV0/1HV0_input.properties
 fi
 
 echo "=== Rotamer job done: $(date) ==="
