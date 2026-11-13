@@ -137,7 +137,12 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
             residue_label = int(np.argmax(ohe_cols, axis=1)[0])
 
         # Build feature matrix: drop pKa & raw atom_label, append one-hot atom_label
-        cols_to_drop  = [c for c in ["Expt. pKa", "atom_label"] if c in nf.columns]
+        # Physics pKa (GenZpKa) is kept as a graph attribute for Δ-learning; the
+        # absolute value is dropped from x (Phys_dpKa, the shift, stays as a feature).
+        pka_phys = float("nan")
+        if "Phys_pKa" in nf.columns and nf["Phys_pKa"].notna().any():
+            pka_phys = float(nf["Phys_pKa"].dropna().iloc[0])
+        cols_to_drop  = [c for c in ["Expt. pKa", "atom_label", "Phys_pKa"] if c in nf.columns]
         atom_labels   = torch.tensor(nf["atom_label"].values, dtype=torch.long)
         atom_label_oh = F.one_hot(atom_labels, num_classes=NUM_ATOM_LABEL_CLASSES).float()
 
@@ -164,6 +169,7 @@ def build_data_list(adj_dir: Path, node_dir: Path, radius: int) -> list[Data]:
         # PyG batches it correctly via DataLoader.
         data.pH = torch.tensor([float(ph) if ph is not None else float("nan")],
                                dtype=torch.float)
+        data.pka_phys = torch.tensor([pka_phys], dtype=torch.float)
 
         data_list.append(data)
 
@@ -201,7 +207,7 @@ def main(feat_dir: Path, out_dir: Path) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Build PyG datasets from 05_prepare_features output")
-    parser.add_argument("--mode", choices=["rotopt", "titrate"], default=None,
+    parser.add_argument("--mode", choices=["rotopt", "titrate", "genz"], default=None,
                         help="If set, derives --feat-dir as Graph_pKa/Features_{mode} and "
                              "--out-dir as Graph_pKa/Features_{mode}/Datasets.")
     parser.add_argument("--feat-dir", type=Path, default=None,

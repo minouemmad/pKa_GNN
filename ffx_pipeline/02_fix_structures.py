@@ -5,8 +5,14 @@ Prepare raw PDB files for FFX/AMOEBA minimization:
   1. Strip NMR ensembles to model 1
   2. Strip hydrogens
   3. Run PDBFixer: remove heterogens/water, replace nonstandard residues,
-     add missing residues/atoms
+     add missing internal residues/atoms (unresolved terminal tails are NOT built)
   4. Write output without CRYST1 record
+  5. Add SSBOND records for SG–SG pairs ≤ 2.5 Å (FFX ignores CONECT)
+
+Usage:
+  python 02_fix_structures.py                    # manifest proteins → data/fixed_pdbs_v2
+  python 02_fix_structures.py --only 135L 4PTI   # subset
+  python 02_fix_structures.py --patch-ssbond --out-dir data/fixed_pdbs  # retrofit old inputs
 """
 
 import os
@@ -29,8 +35,14 @@ except ImportError:
 PIPELINE_ROOT = Path(__file__).resolve().parent
 REPO_ROOT     = PIPELINE_ROOT.parent
 RAW_DIR   = str(REPO_ROOT     / "data/raw_pdbs")
-FIXED_DIR = str(PIPELINE_ROOT / "data/fixed_pdbs")
-LOG_PATH  = str(PIPELINE_ROOT / "data/fix_log.csv")
+MANIFEST  = str(REPO_ROOT     / "data/manifest.csv")
+# v2 = SSBOND records + trimmed termini.  The original data/fixed_pdbs is left
+# untouched so existing FFX results stay reproducible.
+FIXED_DIR = str(PIPELINE_ROOT / "data/fixed_pdbs_v2")
+LOG_PATH  = str(PIPELINE_ROOT / "data/fix_log_v2.csv")
+
+SSBOND_CUTOFF  = 2.5   # Å; S–S bonds are ~2.05 Å, non-bonded SG pairs are > 3.4 Å
+LARGE_GAP_WARN = 10    # log internal gaps longer than this (they are still built)
 
 # Structures too broken to use — add PDB IDs here to skip them
 EXCLUDE = set()  # type: ignore[var-annotated]  # set[str], Python < 3.9 compat
@@ -42,7 +54,7 @@ EXCLUDE = set()  # type: ignore[var-annotated]  # set[str], Python < 3.9 compat
 _RESIDUE_REMAP = {
     "CSR": "CYS",   # S-arsonocysteine → cysteine (SG is real sulfur; arsonate group dropped)
     "M3L": "LYS",   # N6,N6,N6-trimethyllysine → lysine
-    "HSK": "SER",   # homoserine adduct → serine (closest backbone match)
+    "HSK": "HIS",   # hydroxy-histidine (3WU2 D336: full imidazole ring + OM) → histidine
     "MSE": "MET",   # selenomethionine (backup; PDBFixer usually handles this)
     "HSD": "HIS",   # CHARMM protonation variant
     "HSE": "HIS",
@@ -69,6 +81,10 @@ _ATOM_REMAP = {
     ("M3L", "C3"):  None,
     ("M3L", "C3A"): None,
     ("M3L", "C3B"): None,
+    ("M3L", "CM1"): None,   # PDB-standard names of the same three methyls (1PRW)
+    ("M3L", "CM2"): None,
+    ("M3L", "CM3"): None,
+    ("HSK", "OM"):  None,   # ring hydroxyl — no HIS equivalent
 }
 
 # Residue names to remove entirely — PDBFixer has no template and we can't
@@ -237,6 +253,13 @@ def preprocess_residues(pdb_path, out_path):
                 if chain in empty_chains:
                     continue
 
+            # ── Drop TER records of stripped residues ─────────────────────────
+            # A DNA chain that shares its chain ID with waters is not "empty",
+            # so its TER would otherwise survive and precede the first ATOM
+            # (PDBFixer: 'NoneType' object has no attribute '_current_chain').
+            if rec == "TER" and len(line) > 20 and line[17:20].strip() in _RESIDUE_STRIP:
+                continue
+
             if rec in ("ATOM", "HETATM"):
                 resname   = line[17:20].strip()
                 atom_name = line[12:16].strip()
@@ -270,6 +293,142 @@ def preprocess_residues(pdb_path, out_path):
         f.writelines(lines_out)
 
     return sorted(set(remapped)), sorted(set(stripped))
+
+
+def trim_terminal_missing_residues(fixer) -> list:
+    """Remove N-/C-terminal entries from fixer.missingResidues (in place).
+
+    PDBFixer keys missingResidues by (chain_index, insertion_index); an index of
+    0 is before the first resolved residue and len(chain residues) is after the
+    last one.  Returns a list of 'chain:position(n)' strings for logging.
+    """
+    chains = list(fixer.topology.chains())
+    trimmed = []
+    for key in list(fixer.missingResidues.keys()):
+        chain_idx, pos = key
+        n_res = len(list(chains[chain_idx].residues()))
+        if pos == 0 or pos == n_res:
+            trimmed.append(f"{chains[chain_idx].id}:{'N' if pos == 0 else 'C'}"
+                           f"({len(fixer.missingResidues[key])})")
+            del fixer.missingResidues[key]
+    return trimmed
+
+
+def _ssbond_line(serial: int, a: tuple, b: tuple) -> str:
+    """Format an SSBOND record in the exact columns FFX's PDBFilter reads
+    (chain at col 16/30, resSeq 18-21/32-35, iCode 22/36; 1-based)."""
+    (ch1, num1, ic1), (ch2, num2, ic2) = a, b
+    return (f"SSBOND {serial:3d} CYS {ch1:1s} {num1:>4s}{ic1:1s}   "
+            f"CYS {ch2:1s} {num2:>4s}{ic2:1s}\n")
+
+
+def add_ssbond_records(pdb_path: str, cutoff: float = SSBOND_CUTOFF) -> int:
+    """Detect Cys SG–SG pairs within *cutoff* Å and prepend SSBOND records.
+
+    Any existing SSBOND lines are replaced.  Each SG participates in at most one
+    bond (closest partner first).  Returns the number of disulfides written.
+    """
+    with open(pdb_path) as f:
+        lines = f.readlines()
+    sg = []  # [(key, (x,y,z))]
+    for line in lines:
+        if line.startswith(("ATOM", "HETATM")) and line[12:16].strip() == "SG" \
+                and line[17:20] in ("CYS", "CYX", "CYM"):
+            key = (line[21], line[22:26].strip(), line[26])
+            sg.append((key, (float(line[30:38]), float(line[38:46]), float(line[46:54]))))
+    pairs = []
+    for i in range(len(sg)):
+        for j in range(i + 1, len(sg)):
+            d = sum((p - q) ** 2 for p, q in zip(sg[i][1], sg[j][1])) ** 0.5
+            if d <= cutoff:
+                pairs.append((d, i, j))
+    pairs.sort()
+    used, bonds = set(), []
+    for d, i, j in pairs:
+        if i in used or j in used:
+            continue
+        used.update((i, j))
+        bonds.append((sg[i][0], sg[j][0]))
+    body = [l for l in lines if not l.startswith("SSBOND")]
+    first_coord = next((k for k, l in enumerate(body)
+                        if l.startswith(("ATOM", "HETATM", "MODEL"))), 0)
+    ss_lines = [_ssbond_line(n + 1, a, b) for n, (a, b) in enumerate(bonds)]
+    with open(pdb_path, "w") as f:
+        f.writelines(body[:first_coord] + ss_lines + body[first_coord:])
+    return len(bonds)
+
+
+RELAX = False          # set by --relax
+RELAX_K = 10000.0      # kJ/mol/nm^2 on every heavy atom that was in the deposited model
+
+
+def relax_geometry(fixer, known: set):
+    """Restrained Amber14 clean-up of the PDBFixer model (heavy-atom positions returned).
+
+    Why: FFX builds hydrogens from heavy-atom geometry.  Where a side chain is
+    nearly straight (deposited that way, e.g. 1YPI GLU B144, or built by
+    PDBFixer) or atoms overlap (rebuilt loops, 4HHB), FFX puts HB2/HB3 on the
+    same point and the first energy is NaN, or the AMOEBA SCF never converges.
+
+    Atoms in *known* (present in the deposited model) are held by a harmonic
+    restraint (0.3 A costs ~4.5 kJ/mol), atoms PDBFixer built are free.
+    Charges are zeroed: this is a bonded/steric clean-up only.  With vacuum
+    electrostatics left on, charged side chains collapsed onto each other
+    (Lys NZ / Glu OE shifts of 1-3 A in 2OXP), which is exactly the geometry a
+    pKa model must not have altered.
+    Hydrogens are added only for the minimisation and dropped again so FFX
+    still assigns its own.  Returns (positions, max displacement of known atoms in A).
+    """
+    import openmm
+    from openmm import unit
+    from openmm.app import Modeller, ForceField, CutoffNonPeriodic, Simulation
+
+    ff = ForceField("amber14-all.xml")
+    mod = Modeller(fixer.topology, fixer.positions)
+    mod.addHydrogens(ff, pH=7.0)
+    system = ff.createSystem(mod.topology, nonbondedMethod=CutoffNonPeriodic,
+                             nonbondedCutoff=1.2 * unit.nanometer, constraints=None)
+    for f in system.getForces():
+        if isinstance(f, openmm.NonbondedForce):
+            for i in range(f.getNumParticles()):
+                q, sig, eps = f.getParticleParameters(i)
+                f.setParticleParameters(i, 0.0, sig, eps)
+            for i in range(f.getNumExceptions()):
+                a, b, qq, sig, eps = f.getExceptionParameters(i)
+                f.setExceptionParameters(i, a, b, 0.0, sig, eps)
+    rest = openmm.CustomExternalForce("0.5*k*((x-x0)^2+(y-y0)^2+(z-z0)^2)")
+    rest.addGlobalParameter("k", RELAX_K)
+    for q in ("x0", "y0", "z0"):
+        rest.addPerParticleParameter(q)
+    pos = mod.positions.value_in_unit(unit.nanometer)
+    heavy = []
+    for a in mod.topology.atoms():
+        if a.element is not None and a.element.symbol == "H":
+            continue
+        heavy.append(a.index)
+        key = (a.residue.chain.index, a.residue.id, a.residue.insertionCode, a.name)
+        if key in known:
+            rest.addParticle(a.index, list(pos[a.index]))
+    system.addForce(rest)
+    sim = Simulation(mod.topology, system,
+                     openmm.LangevinIntegrator(300, 1.0, 0.001),
+                     openmm.Platform.getPlatformByName("CPU"))
+    sim.context.setPositions(mod.positions)
+    sim.minimizeEnergy(maxIterations=3000)
+    new = sim.context.getState(getPositions=True).getPositions(asNumpy=True).value_in_unit(unit.nanometer)
+
+    ref_atoms = list(fixer.topology.atoms())
+    mod_atoms = list(mod.topology.atoms())
+    if len(heavy) != len(ref_atoms) or any(
+            mod_atoms[i].name != r.name for i, r in zip(heavy, ref_atoms)):
+        raise RuntimeError("relax: heavy-atom order changed")
+    import numpy as np
+    old = np.array(pos)
+    moved = [np.linalg.norm(new[i] - old[i]) for i in heavy
+             if (mod_atoms[i].residue.chain.index, mod_atoms[i].residue.id,
+                 mod_atoms[i].residue.insertionCode, mod_atoms[i].name) in known]
+    out = unit.Quantity([openmm.Vec3(*new[i]) for i in heavy], unit.nanometer)
+    return out, 10.0 * float(max(moved)) if moved else 0.0
 
 
 def fix_one(pdb_id, raw_path, fixed_path):
@@ -334,10 +493,18 @@ def fix_one(pdb_id, raw_path, fixed_path):
         n_missing_res = sum(len(v) for v in fixer.missingResidues.values())
         log["missing_residues_count"] = n_missing_res
 
+        # Drop unresolved N/C-terminal tails: PDBFixer builds them as extended
+        # strands that clash, slow ManyBody, and trigger SCF failures.  Internal
+        # gaps are anchored at both ends and are kept (leaving a chain break
+        # would let FFX bond across the gap).
+        trimmed = trim_terminal_missing_residues(fixer)
+        if trimmed:
+            log["notes"] = (log["notes"] + " trimmed_termini:" + ",".join(trimmed)).strip()
+
         large_gaps = [
             f"chain {k[0]} pos {k[1]} ({len(v)} residues)"
             for k, v in fixer.missingResidues.items()
-            if len(v) > 5
+            if len(v) > LARGE_GAP_WARN
         ]
         log["large_missing_residues"] = "; ".join(large_gaps)
 
@@ -347,7 +514,17 @@ def fix_one(pdb_id, raw_path, fixed_path):
             len(fixer.missingTerminals)
         )
         log["missing_atoms_count"] = n_missing_atoms
+        known = {(a.residue.chain.index, a.residue.id, a.residue.insertionCode, a.name)
+                 for a in fixer.topology.atoms()}
         fixer.addMissingAtoms()
+
+        if RELAX:
+            try:
+                fixer.positions, dmax = relax_geometry(fixer, known)
+                log["notes"] = (log["notes"] + f" relaxed(max_shift={dmax:.2f}A)").strip()
+            except Exception:
+                log["notes"] = (log["notes"] + " relax_failed:"
+                                + traceback.format_exc().splitlines()[-1][:80]).strip()
 
         # Clear periodic box so no CRYST1 record is written
         fixer.topology.setPeriodicBoxVectors(None)
@@ -355,6 +532,11 @@ def fix_one(pdb_id, raw_path, fixed_path):
         with open(fixed_path, "w") as f:
             # keepIds=True preserves original residue numbering from the raw PDB.
             PDBFile.writeFile(fixer.topology, fixer.positions, f, keepIds=True)
+
+        # FFX builds disulfides ONLY from SSBOND records (CONECT is ignored), so
+        # without this every disulfide is broken and both Cys get an HG.
+        n_ss = add_ssbond_records(fixed_path)
+        log["notes"] = (log["notes"] + f" ssbonds:{n_ss}").strip()
 
         log["status"] = "ok"
 
@@ -371,7 +553,32 @@ def fix_one(pdb_id, raw_path, fixed_path):
 
 
 def main():
-    os.makedirs(FIXED_DIR, exist_ok=True)
+    import argparse
+    ap = argparse.ArgumentParser(description="PDBFixer prep for FFX (SSBOND-aware)")
+    ap.add_argument("--out-dir", default=FIXED_DIR)
+    ap.add_argument("--log", default=LOG_PATH)
+    ap.add_argument("--only", nargs="+", default=None, help="Process only these PDB IDs")
+    ap.add_argument("--all-raw", action="store_true",
+                    help="Process every raw PDB, not just those in the manifest")
+    ap.add_argument("--relax", action="store_true",
+                    help="restrained Amber14 geometry clean-up before writing (use for inputs "
+                         "where FFX hydrogen building or the AMOEBA SCF fails at step 0)")
+    ap.add_argument("--force", action="store_true", help="overwrite existing *_input.pdb")
+    ap.add_argument("--patch-ssbond", action="store_true",
+                    help="Only add SSBOND records to existing *_input.pdb files in --out-dir")
+    args = ap.parse_args()
+    fixed_dir = args.out_dir
+    global RELAX
+    RELAX = args.relax
+
+    if args.patch_ssbond:
+        for p in sorted(Path(fixed_dir).glob("*/*_input.pdb")):
+            if args.only and p.parent.name.upper() not in {x.upper() for x in args.only}:
+                continue
+            print(f"  {p.parent.name}: {add_ssbond_records(str(p))} SSBOND records")
+        return
+
+    os.makedirs(fixed_dir, exist_ok=True)
     raw_pdbs = sorted(
         p for p in Path(RAW_DIR).glob("*.pdb")
         if "_tmp" not in p.name.lower()
@@ -381,18 +588,27 @@ def main():
         raise SystemExit(f"No PDB files found in {RAW_DIR}.")
 
     raw_pdbs = [p for p in raw_pdbs if p.stem.upper() not in EXCLUDE]
-    print(f"Fixing {len(raw_pdbs)} structures  (hard-excluded: {sorted(EXCLUDE)})")
+    if not args.all_raw and os.path.exists(MANIFEST):
+        import pandas as pd
+        wanted = set(pd.read_csv(MANIFEST)["pdb_id"].astype(str).str.upper())
+        raw_pdbs = [p for p in raw_pdbs if p.stem.upper() in wanted]
+    if args.only:
+        only = {x.upper() for x in args.only}
+        raw_pdbs = [p for p in raw_pdbs if p.stem.upper() in only]
+    print(f"Fixing {len(raw_pdbs)} structures → {fixed_dir}  (hard-excluded: {sorted(EXCLUDE)})")
 
-    with open(LOG_PATH, "w", newline="") as logf:
+    log_exists = os.path.exists(args.log) and os.path.getsize(args.log) > 0
+    with open(args.log, "a", newline="") as logf:
         writer = csv.DictWriter(logf, fieldnames=LOG_FIELDS)
-        writer.writeheader()
+        if not log_exists:
+            writer.writeheader()
 
         for raw_path in raw_pdbs:
             pdb_id = raw_path.stem.upper()
-            pdb_out_dir = os.path.join(FIXED_DIR, pdb_id)
+            pdb_out_dir = os.path.join(fixed_dir, pdb_id)
             fixed_path = os.path.join(pdb_out_dir, f"{pdb_id}_input.pdb")
 
-            if os.path.exists(fixed_path):
+            if os.path.exists(fixed_path) and not args.force:
                 print(f"  [skip] {pdb_id} already fixed")
                 continue
 
@@ -412,7 +628,7 @@ def main():
                 f"  {log['notes'] or ''}"
             )
 
-    print(f"\nLog → {LOG_PATH}")
+    print(f"\nLog → {args.log}")
     print("Next step: 03_run_ffx_minimize.py")
 
 

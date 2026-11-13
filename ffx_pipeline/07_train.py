@@ -94,6 +94,30 @@ def _ablate_columns(data_list, groups: list[str], feat_dir: Path, radius: int) -
         d.x[:, cols_t] = 0.0
     return zero_cols
 
+
+# FFX model-compound pKa, used as Δ-learning offset when no physics pKa exists.
+_MODEL_PKA = {"Aspartate": 3.94, "Glutamate": 4.4, "Histidine": 6.6, "Lysine": 10.4,
+              "Cysteine": 8.55, "Tyrosine": 10.07}
+
+
+def _set_offsets(data_list: list, delta: bool) -> None:
+    """Attach `offset` to every graph; under --delta subtract it from y."""
+    n_phys = 0
+    for d in data_list:
+        off = 0.0
+        if delta:
+            phys = float(getattr(d, "pka_phys", torch.tensor([float("nan")])))
+            if phys == phys:
+                off, n_phys = phys, n_phys + 1
+            else:
+                off = _MODEL_PKA.get(d.Residue_Name, 0.0)
+            d.y = d.y - off
+        d.offset = torch.tensor([off], dtype=torch.float)
+    if delta:
+        print(f"  [--delta] physics offset for {n_phys}/{len(data_list)} graphs "
+              f"(rest use model-compound pKa)")
+
+
 def set_seed(seed: int = 42) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -293,73 +317,159 @@ def build_model(arch: str, input_dim: int, args) -> torch.nn.Module:
 # Training helpers
 # ════════════════════════════════════════════════════════════════════════════
 
+def _predict(model, loader) -> list[dict]:
+    """Run *model* over *loader*; return one prediction record per graph."""
+    model.eval()
+    recs: list[dict] = []
+    with torch.no_grad():
+        for batch in loader:
+            out = model(batch).view(-1)
+            for i in range(batch.y.size(0)):
+                ph = batch.pH[i].item() if hasattr(batch, "pH") else float("nan")
+                off = batch.offset[i].item() if hasattr(batch, "offset") else 0.0
+                phys = batch.pka_phys[i].item() if hasattr(batch, "pka_phys") else float("nan")
+                recs.append({
+                    "PDB_ID":          batch.PDB_ID[i],
+                    "Chain_ID":        batch.Chain_ID[i],
+                    "Residue_Number":  int(batch.Residue_Number[i]),
+                    "Residue_Name":    batch.Residue_Name[i],
+                    "pH":              ph,
+                    "True_pKa":        batch.y[i].item() + off,   # y is (expt - offset) under --delta
+                    "Predicted_pKa":   out[i].item() + off,
+                    "Physics_pKa":     phys,
+                })
+    return recs
+
+
 def train_one_fold(
     model: GATModel,
     train_loader: DataLoader,
     val_loader: DataLoader,
+    test_loader: DataLoader,
     optimizer: torch.optim.Optimizer,
     loss_fn,
     model_path: Path,
     epochs: int,
     patience: int,
     min_epoch: int = 60,
-) -> list[dict]:
-    """Train with early stopping; return best-epoch val predictions."""
-    best_mae      = float("inf")
-    best_preds: list[dict] = []
-    no_improve    = 0
+) -> tuple[list[dict], int]:
+    """Train with early stopping on an INNER validation split.
+
+    The outer test fold is never used for model selection: it is only scored
+    with the checkpoint that minimised inner-validation MAE.  (Previously the
+    reported fold doubled as the early-stopping set, biasing CV low.)
+    Returns (test_predictions_at_best_val_epoch, best_epoch).
+    """
+    best_mae   = float("inf")
+    best_epoch = 0
+    no_improve = 0
 
     for epoch in range(1, epochs + 1):
-        # ── Train ────────────────────────────────────────────────────────
         model.train()
         total_loss, n_train = 0.0, 0
         for batch in train_loader:
             optimizer.zero_grad()
-            out  = model(batch).squeeze()
-            loss = loss_fn(out, batch.y.squeeze())
+            out  = model(batch).view(-1)
+            loss = loss_fn(out, batch.y.view(-1))
             loss.backward()
             optimizer.step()
             total_loss += loss.item() * batch.y.size(0)
             n_train    += batch.y.size(0)
 
-        # ── Validate ─────────────────────────────────────────────────────
-        model.eval()
-        total_abse, n_val = 0.0, 0
-        epoch_preds: list[dict] = []
-
-        with torch.no_grad():
-            for batch in val_loader:
-                out = model(batch).view(-1)
-                total_abse += F.l1_loss(out, batch.y.view(-1), reduction="sum").item()
-                n_val      += batch.y.size(0)
-
-                for i in range(batch.y.size(0)):
-                    epoch_preds.append({
-                        "PDB_ID":          batch.PDB_ID[i],
-                        "Chain_ID":        batch.Chain_ID[i],
-                        "Residue_Number":  int(batch.Residue_Number[i]),
-                        "Residue_Name":    batch.Residue_Name[i],
-                        "True_pKa":        batch.y[i].item(),
-                        "Predicted_pKa":   out[i].item(),
-                    })
-
-        val_mae = total_abse / n_val
+        val = _predict(model, val_loader)
+        val_mae = float(np.mean([abs(r["Predicted_pKa"] - r["True_pKa"]) for r in val]))
 
         if epoch % 10 == 0:
-            print(f"    epoch {epoch:4d}  train_loss={total_loss/n_train:.4f}  val_MAE={val_mae:.4f}")
+            print(f"    epoch {epoch:4d}  train_loss={total_loss/n_train:.4f}  inner_val_MAE={val_mae:.4f}")
 
         if val_mae < best_mae:
-            best_mae   = val_mae
-            best_preds = epoch_preds.copy()
+            best_mae, best_epoch = val_mae, epoch
             torch.save(model.state_dict(), model_path)
             no_improve = 0
         else:
             no_improve += 1
             if no_improve >= patience and epoch >= min_epoch:
-                print(f"    early stop at epoch {epoch}  (best val_MAE={best_mae:.4f})")
+                print(f"    early stop at epoch {epoch}  (best inner val_MAE={best_mae:.4f} @ {best_epoch})")
                 break
 
-    return best_preds
+    model.load_state_dict(torch.load(model_path))
+    return _predict(model, test_loader), best_epoch
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# Grouping for CV (sequence-cluster aware)
+# ════════════════════════════════════════════════════════════════════════════
+
+def _seq30_clusters(manifest_path: Path) -> dict[str, str]:
+    """Map PDB ID -> sequence-identity(>30%) cluster label from PKAD-R.
+
+    The manifest's `seq_id_30` column names a related entry (e.g. '1EX3.A');
+    links are merged with union-find so transitive homologs share a cluster.
+    PDBs without a link form their own cluster.
+    """
+    man = pd.read_csv(manifest_path)
+    parent: dict[str, str] = {}
+
+    def find(a: str) -> str:
+        parent.setdefault(a, a)
+        while parent[a] != a:
+            parent[a] = parent[parent[a]]
+            a = parent[a]
+        return a
+
+    for pdb, link in zip(man["pdb_id"].astype(str).str.upper(), man["seq_id_30"]):
+        find(pdb)
+        if isinstance(link, str) and link.strip():
+            for tok in re.split(r"[;, ]+", link.strip()):
+                other = tok.split(".")[0].upper()
+                if other:
+                    parent[find(pdb)] = find(other)
+    return {p: find(p) for p in list(parent)}
+
+
+def _make_groups(data_list: list, mode: str, manifest_path: Path) -> list[str]:
+    if mode == "pdb":
+        return [str(d.PDB_ID).upper() for d in data_list]
+    if mode == "residue":
+        return [f"{d.PDB_ID}_{getattr(d, 'Chain_ID', '')}_{d.Residue_Number}" for d in data_list]
+    if mode == "seq30":
+        cl = _seq30_clusters(manifest_path)
+        return [cl.get(str(d.PDB_ID).upper(), str(d.PDB_ID).upper()) for d in data_list]
+    raise ValueError(f"Unknown --group-split: {mode}")
+
+
+def _metrics(df: pd.DataFrame) -> dict:
+    """Pooled metrics for model and residue-type-mean baseline (graph level and
+    per-residue after averaging pH replicates)."""
+    e  = df["Predicted_pKa"] - df["True_pKa"]
+    eb = df["Baseline_pKa"]  - df["True_pKa"]
+    agg = (df.groupby(["PDB_ID", "Chain_ID", "Residue_Number", "Residue_Name"])
+             .agg(t=("True_pKa", "first"), p=("Predicted_pKa", "mean"), b=("Baseline_pKa", "first"))
+             .reset_index())
+    ea, eab = agg["p"] - agg["t"], agg["b"] - agg["t"]
+    return {
+        "n_graphs":           len(df),
+        "n_residues":         len(agg),
+        "n_proteins":         df["PDB_ID"].nunique(),
+        "MAE":                float(e.abs().mean()),
+        "RMSE":               float(np.sqrt((e ** 2).mean())),
+        "residue_MAE":        float(ea.abs().mean()),
+        "residue_RMSE":       float(np.sqrt((ea ** 2).mean())),
+        "baseline_residue_RMSE": float(np.sqrt((eab ** 2).mean())),
+        # Fraction of residue-type-baseline MSE explained (0 = no better than baseline)
+        "skill_vs_baseline":  float(1 - (ea ** 2).sum() / (eab ** 2).sum()),
+        **_physics_metrics(df),
+    }
+
+
+def _physics_metrics(df: pd.DataFrame) -> dict:
+    """RMSE of the raw GenZpKa physics pKa on the same residues (if present)."""
+    if "Physics_pKa" not in df.columns or df["Physics_pKa"].isna().all():
+        return {}
+    r = df.dropna(subset=["Physics_pKa"]).groupby(
+        ["PDB_ID", "Chain_ID", "Residue_Number"]).agg(t=("True_pKa", "first"), p=("Physics_pKa", "first"))
+    return {"physics_n_residues": len(r),
+            "physics_residue_RMSE": float(np.sqrt(((r.p - r.t) ** 2).mean()))}
 
 # ════════════════════════════════════════════════════════════════════════════
 # Per-dataset training
@@ -371,7 +481,7 @@ def train_dataset(
     args: argparse.Namespace,
     results_dir: Path,
 ) -> dict:
-    """10-fold CV on one radius dataset. Returns summary metrics dict."""
+    """Grouped k-fold CV with inner validation on one radius dataset."""
     radius = RADII[dataset_idx]
     print(f"\n{'='*60}")
     print(f"Dataset {dataset_idx} — radius {radius} Å  ({len(data_list)} graphs)")
@@ -388,51 +498,40 @@ def train_dataset(
     pred_dir  = results_dir / "predictions"
     pred_dir.mkdir(parents=True, exist_ok=True)
 
-    kf             = KFold(n_splits=args.folds, shuffle=True, random_state=args.seed)
-    all_preds:  list[dict] = []
-    fold_maes:  list[float] = []
-    fold_rmses: list[float] = []
-
-    # Optional group-aware splitting (keeps all (PDB, residue, *pH) replicates in same fold)
-    group_mode = getattr(args, "group_split", "none")
-    if group_mode and group_mode != "none":
-        if group_mode == "pdb":
-            groups = [str(d.PDB_ID) for d in data_list]
-        elif group_mode == "residue":
-            groups = [f"{d.PDB_ID}_{getattr(d, 'Chain_ID', '')}_{d.Residue_Number}"
-                      for d in data_list]
-        else:
-            raise ValueError(f"Unknown --group-split: {group_mode}")
-        # GroupKFold is deterministic; shuffle group order with --seed so seeds vary the splits.
-        unique_groups = sorted(set(groups))
-        rng = np.random.default_rng(args.seed)
-        rng.shuffle(unique_groups)
-        # Re-index so GroupKFold picks folds in the shuffled order
-        order = {g: i for i, g in enumerate(unique_groups)}
-        shuffled_groups = [order[g] for g in groups]
-        n_groups = len(unique_groups)
-        n_splits = min(args.folds, n_groups)
-        if n_splits < args.folds:
-            print(f"  [--group-split {group_mode}] only {n_groups} groups; "
-                  f"reducing folds {args.folds} -> {n_splits}")
-        gkf = GroupKFold(n_splits=n_splits)
-        split_iter = gkf.split(data_list, groups=shuffled_groups)
-        n_folds_eff = n_splits
-        print(f"  [--group-split {group_mode}] {n_groups} unique groups across "
-              f"{len(data_list)} graphs (seed={args.seed})")
+    group_mode = args.group_split
+    if group_mode == "none":
+        print("  WARNING: --group-split none mixes residues of the same protein (and pH "
+              "replicates) across folds; numbers will be optimistic.")
+        groups = [str(i) for i in range(len(data_list))]
     else:
-        split_iter = kf.split(data_list)
-        n_folds_eff = args.folds
+        groups = _make_groups(data_list, group_mode, args.manifest)
 
-    for fold, (train_idx, val_idx) in enumerate(split_iter, start=1):
-        print(f"\n  Fold {fold}/{n_folds_eff}  (train={len(train_idx)}, val={len(val_idx)})")
-        train_data  = [data_list[i] for i in train_idx]
-        val_data    = [data_list[i] for i in val_idx]
-        train_loader = DataLoader(train_data, batch_size=args.batch, shuffle=True)
-        val_loader   = DataLoader(val_data,   batch_size=args.batch, shuffle=False)
+    unique_groups = sorted(set(groups))
+    rng = np.random.default_rng(args.seed)
+    rng.shuffle(unique_groups)
+    order = {g: i for i, g in enumerate(unique_groups)}
+    gidx  = np.array([order[g] for g in groups])
+    n_splits = min(args.folds, len(unique_groups))
+    print(f"  [--group-split {group_mode}] {len(unique_groups)} groups, {n_splits} folds, "
+          f"inner-val fraction {args.val_frac} (seed={args.seed})")
+
+    all_preds: list[dict] = []
+    for fold, (train_idx, test_idx) in enumerate(
+            GroupKFold(n_splits=n_splits).split(data_list, groups=gidx), start=1):
+        # Inner validation: hold out a random subset of TRAINING groups.
+        tr_groups = np.unique(gidx[train_idx])
+        n_val_g   = max(1, int(round(args.val_frac * len(tr_groups))))
+        val_groups = set(rng.choice(tr_groups, size=n_val_g, replace=False).tolist())
+        inner_val = [i for i in train_idx if gidx[i] in val_groups]
+        inner_tr  = [i for i in train_idx if gidx[i] not in val_groups]
+        print(f"\n  Fold {fold}/{n_splits}  (train={len(inner_tr)}, inner_val={len(inner_val)}, test={len(test_idx)})")
+
+        tr_data = [data_list[i] for i in inner_tr]
+        train_loader = DataLoader(tr_data, batch_size=args.batch, shuffle=True)
+        val_loader   = DataLoader([data_list[i] for i in inner_val], batch_size=args.batch)
+        test_loader  = DataLoader([data_list[i] for i in test_idx],  batch_size=args.batch)
 
         model     = build_model(args.arch, input_dim, args)
-        # Persist edge_dim for build_model on the args namespace
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         if args.loss == "L1":
             loss_fn = torch.nn.L1Loss()
@@ -442,42 +541,44 @@ def train_dataset(
             loss_fn = torch.nn.SmoothL1Loss(beta=0.5)
         model_path = model_dir / f"fold_{fold}.pth"
 
-        fold_preds = train_one_fold(
-            model, train_loader, val_loader,
+        fold_preds, best_epoch = train_one_fold(
+            model, train_loader, val_loader, test_loader,
             optimizer, loss_fn, model_path,
             epochs=args.epochs, patience=args.patience,
         )
 
+        # Residue-type-mean baseline fitted on this fold's training data only.
+        y_abs = [float(d.y) + float(getattr(d, "offset", torch.zeros(1))) for d in tr_data]
+        type_mean = pd.DataFrame({"r": [d.Residue_Name for d in tr_data],
+                                  "y": y_abs}).groupby("r")["y"].mean()
+        glob_mean = float(np.mean(y_abs))
         for p in fold_preds:
             p["fold"] = fold
+            p["best_epoch"] = best_epoch
+            p["Baseline_pKa"] = float(type_mean.get(p["Residue_Name"], glob_mean))
         all_preds.extend(fold_preds)
 
-        true_vals  = [p["True_pKa"]      for p in fold_preds]
-        pred_vals  = [p["Predicted_pKa"] for p in fold_preds]
-        if true_vals:
-            mae  = mean_absolute_error(true_vals, pred_vals)
-            rmse = np.sqrt(mean_squared_error(true_vals, pred_vals))
-            fold_maes.append(mae)
-            fold_rmses.append(rmse)
-            print(f"  Fold {fold} best  MAE={mae:.4f}  RMSE={rmse:.4f}")
+        fm = _metrics(pd.DataFrame(fold_preds))
+        print(f"  Fold {fold} test  residue RMSE={fm['residue_RMSE']:.3f}  "
+              f"(baseline {fm['baseline_residue_RMSE']:.3f})  best_epoch={best_epoch}")
 
-    # Save all-fold predictions
+    pred_df  = pd.DataFrame(all_preds)
     pred_csv = pred_dir / f"dataset_{dataset_idx}_all_folds.csv"
-    pd.DataFrame(all_preds).to_csv(pred_csv, index=False)
+    pred_df.to_csv(pred_csv, index=False)
     print(f"\n  Predictions → {pred_csv}")
 
-    mean_mae  = float(np.mean(fold_maes))  if fold_maes  else float("nan")
-    mean_rmse = float(np.mean(fold_rmses)) if fold_rmses else float("nan")
-    print(f"  CV mean  MAE={mean_mae:.4f}  RMSE={mean_rmse:.4f}")
+    m = _metrics(pred_df)
+    print(f"  Pooled CV: residue RMSE={m['residue_RMSE']:.3f}  MAE={m['residue_MAE']:.3f}  "
+          f"baseline RMSE={m['baseline_residue_RMSE']:.3f}  skill={m['skill_vs_baseline']:.3f}")
+    per_type = pred_df.assign(se=(pred_df.Predicted_pKa - pred_df.True_pKa) ** 2,
+                              seb=(pred_df.Baseline_pKa - pred_df.True_pKa) ** 2) \
+                      .groupby("Residue_Name")[["se", "seb"]].mean().pow(0.5)
+    print("  Per-type RMSE (model / baseline):")
+    for r, row in per_type.iterrows():
+        print(f"    {r:12s} {row.se:.3f} / {row.seb:.3f}")
 
-    return {
-        "dataset_idx": dataset_idx,
-        "radius_A":    radius,
-        "n_graphs":    len(data_list),
-        "input_dim":   input_dim,
-        "mean_MAE":    mean_mae,
-        "mean_RMSE":   mean_rmse,
-    }
+    return {"dataset_idx": dataset_idx, "radius_A": radius, "input_dim": input_dim,
+            "group_split": group_mode, **m}
 
 # ════════════════════════════════════════════════════════════════════════════
 # Main
@@ -506,10 +607,16 @@ def main() -> None:
                         help="Restrict training to a subset of PDB IDs.  Either a comma-separated "
                              "list (e.g. '1A91,1BNZ,...') or a path to a text file with one PDB ID "
                              "per line.  Used for fair head-to-head comparisons (e.g. rotopt vs titrate).")
-    parser.add_argument("--group-split", choices=["none", "pdb", "residue"], default="none",
-                        help="Use GroupKFold with groups by PDB or by (PDB, chain, residue_number). "
-                             "Required for titrate mode to keep all 4 pH replicates of a residue "
-                             "in the same fold and avoid leakage.")
+    parser.add_argument("--group-split", choices=["seq30", "pdb", "residue", "none"], default="seq30",
+                        help="GroupKFold grouping.  seq30 (default) = PKAD-R >30%% sequence-identity "
+                             "clusters, so homologous proteins never straddle train/test; pdb = by "
+                             "protein; residue = keeps pH replicates together only; none = random "
+                             "(leaky, for comparison with old results).")
+    parser.add_argument("--val-frac", type=float, default=0.15,
+                        help="Fraction of training groups held out for early stopping (inner validation).")
+    parser.add_argument("--manifest", type=Path,
+                        default=Path(__file__).resolve().parent.parent / "data" / "manifest.csv",
+                        help="PKAD-R manifest with seq_id_30 cluster links (for --group-split seq30).")
     parser.add_argument("--ablate", nargs="+", default=[],
                         choices=sorted(ABLATION_GROUPS.keys()),
                         help="Zero out one or more feature groups before training "
@@ -519,7 +626,11 @@ def main() -> None:
                         help="Feature directory (Node_Feature_Vectors/<radius>/) used to "
                              "reconstruct column names for --ablate.  Defaults to "
                              "Graph_pKa/Features_{mode}/ when --mode is set.")
-    parser.add_argument("--mode",  choices=["rotopt", "titrate"], default=None,
+    parser.add_argument("--delta", action="store_true",
+                        help="Δ-learning: train on (expt − GenZpKa physics pKa) and add the physics "
+                             "value back at prediction.  Residues without a physics pKa (e.g. TYR, "
+                             "not titrated by FFX) fall back to the FFX model-compound pKa.")
+    parser.add_argument("--mode",  choices=["rotopt", "titrate", "genz"], default=None,
                         help="Selects default dataset dir Graph_pKa/Features_{mode}/Datasets and "
                              "results subdir tag.  If unset uses --dataset-dir directly.")
     parser.add_argument("--dataset-dir", type=Path, default=None,
@@ -555,6 +666,8 @@ def main() -> None:
         if args.mode is not None:
             suffix += f"_{args.mode}"
         suffix += f"_{args.arch}"
+        if args.delta:
+            suffix += "_delta"
         if args.exclude_cys_tyr:
             suffix += "_no_cys_tyr"
         if args.exclude_cys:
@@ -631,6 +744,7 @@ def main() -> None:
             zeroed = _ablate_columns(data_list, args.ablate, feat_dir, RADII[idx])
             print(f"  [--ablate {' '.join(args.ablate)}] zeroed {len(zeroed)} columns: {zeroed}")
 
+        _set_offsets(data_list, args.delta)
         row = train_dataset(idx, data_list, args, results_dir)
         summary_rows.append(row)
 

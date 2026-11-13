@@ -33,9 +33,10 @@ except ImportError:
     )
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-PDB_DIR     = "data/fixed_pdbs"
-RAW_PDB_DIR = "data/raw_pdbs"
-MANIFEST    = "data/manifest.csv"
+_HERE       = Path(__file__).resolve().parent   # FFX outputs: ffx_pipeline/data; labels: repo data/
+PDB_DIR     = str(_HERE / "data/fixed_pdbs")
+RAW_PDB_DIR = str(_HERE.parent / "data/raw_pdbs")
+MANIFEST    = str(_HERE.parent / "data/manifest.csv")
 # Mode-aware feature directory; final value set in main() once --mode is parsed.
 FEAT_DIR_DEFAULT = "Graph_pKa/Features"   # legacy fallback
 
@@ -55,6 +56,8 @@ _AA3_TO_1 = {
     "HID": "H", "HIE": "H", "HIP": "H",
     "ASH": "D", "GLH": "E", "LYN": "K",
     "CYM": "C", "CYX": "C", "TYD": "Y",
+    "LYD": "K", "CYD": "C",   # FFX titration names
+
     "MSE": "M", "SEC": "U", "PYL": "O",
 }
 
@@ -317,23 +320,31 @@ def _build_pka_lookup_aligned(
     )
     return pka_lookup
 
-# Atoms whose presence signals the protonated form of a titratable sidechain.
-# Used to compute the per-residue `is_protonated` scalar feature.  Atom names follow
-# AMOEBA / standard PDB conventions; the function checks ANY of these names.
-_PROTONATION_DETECTOR = {
-    # ASP protonated (ASH) carries an extra H on OD1 or OD2
-    "ASP": ("HD1", "HD2"),
-    # GLU protonated (GLH) carries an extra H on OE1 or OE2
-    "GLU": ("HE1", "HE2"),
-    # HIS doubly protonated (HIP) has both HD1 (on ND1) and HE2 (on NE2)
-    "HIS": ("HD1", "HE2"),   # treated specially below (both required)
-    # LYS NH3+ has three HZ; deprotonated LYN keeps two
-    "LYS": ("HZ3",),
-    # CYS thiol has HG; CYM does not
-    "CYS": ("HG", "HG1"),
-    # TYR phenol has HH; deprotonated TYD does not
-    "TYR": ("HH",),
+# FFX writes the titration state into the residue NAME after ManyBody --tR
+# (verified on 135L: HIE / CYD at pH 8.55).  Map every variant back to its
+# canonical name so the residue is not silently dropped, and keep the FFX
+# name in `resname_ffx` to derive the protonation state.
+# NOTE: in AMOEBA/FFX naming "HIS" is the doubly protonated (HIP) form.
+_TITRATION_TO_CANON = {
+    "ASH": "ASP", "GLH": "GLU",
+    "HID": "HIS", "HIE": "HIS", "HIP": "HIS",
+    "LYD": "LYS", "LYN": "LYS",
+    "CYD": "CYS", "CYM": "CYS", "CYX": "CYS",
+    "TYD": "TYR",
 }
+# FFX TitrationUtils model-compound pKa (lab build); TYR is not titrated by FFX.
+_FFX_MODEL_PKA = {"ASP": 3.94, "GLU": 4.4, "HIS": 6.6, "LYS": 10.4, "CYS": 8.55, "TYR": 10.07}
+_PROTONATED_NAMES   = {"ASH", "GLH", "HIS", "HIP", "LYS", "TYR"}
+_DEPROTONATED_NAMES = {"ASP", "GLU", "HID", "HIE", "LYD", "LYN", "CYD", "CYM", "TYD"}
+
+# FFX globalMultipole component order (MultipoleType t000,t100,t010,t001,
+# t200,t020,t002,t110,t101,t011).  The old XX,XY,YY,... labels were wrong.
+PERM_COLS = [
+    "Perm_Charge",
+    "Perm_DipX", "Perm_DipY", "Perm_DipZ",
+    "Perm_QuadXX", "Perm_QuadYY", "Perm_QuadZZ",
+    "Perm_QuadXY", "Perm_QuadXZ", "Perm_QuadYZ",
+]
 
 # Ordered list for 6-class residue one-hot encoding (matches paper exactly).
 # Atoms from non-target residues (environment) get all-zero encoding.
@@ -434,12 +445,22 @@ def parse_pdb(path: str) -> pd.DataFrame:
                     resname = line[17:20].strip(),
                     chain   = line[21].strip() or "A",
                     resseq  = int(line[22:26]),
+                    icode   = line[26:27].strip(),
                     x       = float(line[30:38]),
                     y       = float(line[38:46]),
                     z       = float(line[46:54]),
                 )
             )
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    if df.empty:
+        return df
+    df["resname_ffx"] = df["resname"]
+    df["resname"] = df["resname"].map(lambda r: _TITRATION_TO_CANON.get(r, r))
+    if (df["icode"] != "").any():
+        n_ic = df.loc[df["icode"] != "", ["chain", "resseq", "icode"]].drop_duplicates().shape[0]
+        log.warning(f"    {Path(path).name}: {n_ic} residues carry insertion codes; "
+                    f"they share (chain, resseq) keys with their neighbours")
+    return df
 
 def parse_uind(path: str) -> dict[int, tuple[float, float, float]]:
     """Parse an FFX .uind induced-dipole file.
@@ -570,6 +591,11 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
         ldx = np.full(len(df), np.nan)
         ldy = np.full(len(df), np.nan)
         ldz = np.full(len(df), np.nan)
+    # Permanent multipoles from .uperm are FFX *global*-frame (pme.globalMultipole),
+    # so the dipole and quadrupole must be rotated too (charge is invariant).
+    has_perm = all(c in df.columns for c in PERM_COLS)
+    if has_perm:
+        perm_local = np.full((len(df), 9), np.nan)   # dip(3) + quad(6) in PERM_COLS order
 
     for (chain, resseq), res_idx in df.groupby(["chain", "resseq"]).groups.items():
         res_rows = df.loc[res_idx]
@@ -605,6 +631,19 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
                     ldx[pos] = d_local[0]
                     ldy[pos] = d_local[1]
                     ldz[pos] = d_local[2]
+            if has_perm:
+                pd_ = np.array([row.Perm_DipX, row.Perm_DipY, row.Perm_DipZ], dtype=float)
+                qxx, qyy, qzz = row.Perm_QuadXX, row.Perm_QuadYY, row.Perm_QuadZZ
+                qxy, qxz, qyz = row.Perm_QuadXY, row.Perm_QuadXZ, row.Perm_QuadYZ
+                Q = np.array([[qxx, qxy, qxz],
+                              [qxy, qyy, qyz],
+                              [qxz, qyz, qzz]], dtype=float)
+                if not (np.any(np.isnan(pd_)) or np.any(np.isnan(Q))):
+                    dl = R.T @ pd_
+                    Ql = R.T @ Q @ R
+                    perm_local[pos] = [dl[0], dl[1], dl[2],
+                                       Ql[0, 0], Ql[1, 1], Ql[2, 2],
+                                       Ql[0, 1], Ql[0, 2], Ql[1, 2]]
 
     df["recalculated_x"] = rx
     df["recalculated_y"] = ry
@@ -616,6 +655,9 @@ def compute_local_frame_coords(df: pd.DataFrame) -> pd.DataFrame:
         df["Dipole_Y"] = ldy
         df["Dipole_Z"] = ldz
         log.debug("  Dipole vectors rotated into local backbone frame.")
+    if has_perm:
+        for k, col in enumerate(PERM_COLS[1:]):
+            df[col] = perm_local[:, k]
 
     return df
 
@@ -641,7 +683,13 @@ def compute_neighbor_counts(pdb_path: str, df: pd.DataFrame) -> pd.DataFrame:
 
     coords  = heavy.positions                      # (N_heavy, 3)
     serials = heavy.indices + 1                    # MDAnalysis uses 0-based index
-    resids  = heavy.resids
+    # Residue identity must include the chain: resids repeat across chains, and
+    # comparing resids alone excluded same-numbered residues on other chains.
+    try:
+        chain_ids = heavy.chainIDs
+    except (AttributeError, mda.exceptions.NoDataError):
+        chain_ids = heavy.segids
+    resids  = np.array([f"{c}|{r}" for c, r in zip(chain_ids, heavy.resids)])
     names   = heavy.names
 
     # Pairwise distance matrix  (N_heavy × N_heavy)
@@ -797,22 +845,24 @@ def detect_protonation(
 ) -> dict[tuple[str, int], int]:
     """Return {(chain, resseq): is_protonated} for every titratable residue.
 
-    Detection is by atom-name presence (AMOEBA-CpHMD writes canonical residue
-    names; protonation state is encoded only by which polar hydrogens exist).
-    HIS is special: requires *both* HD1 and HE2 to be considered fully
-    protonated (HIP); HID/HIE both map to 0.
+    Detection uses the FFX residue name (``resname_ffx``): FFX encodes the
+    titration state in the name (ASH/ASP, GLH/GLU, HIS(=HIP)/HID/HIE, LYS/LYD,
+    CYS/CYD, TYR/TYD).  CYS is decided by HG presence so disulfides map to 0.
     Non-titratable residues are absent from the returned dict.
     """
     out: dict[tuple[str, int], int] = {}
-    for (chain, resseq, resname), grp in df.groupby(["chain", "resseq", "resname"]):
-        if resname not in _PROTONATION_DETECTOR:
-            continue
+    name_col = "resname_ffx" if "resname_ffx" in df.columns else "resname"
+    for (chain, resseq, resname), grp in df.groupby(["chain", "resseq", name_col]):
         atoms_present = set(grp["name"].tolist())
-        detector = _PROTONATION_DETECTOR[resname]
-        if resname == "HIS":
-            is_prot = int(("HD1" in atoms_present) and ("HE2" in atoms_present))
+        if resname in ("CYS", "CYX"):
+            # Free thiol has HG; disulfide-bonded Cys (no HG) counts as deprotonated.
+            is_prot = int("HG" in atoms_present or "HG1" in atoms_present)
+        elif resname in _PROTONATED_NAMES:
+            is_prot = 1
+        elif resname in _DEPROTONATED_NAMES:
+            is_prot = 0
         else:
-            is_prot = int(any(a in atoms_present for a in detector))
+            continue
         out[(chain, int(resseq))] = is_prot
     return out
 
@@ -821,18 +871,28 @@ def detect_protonation(
 # ════════════════════════════════════════════════════════════════════════════
 
 def _find_pdb_3(folder: Path, base: str) -> Path | None:
-    """Find the most-advanced titration PDB for a given base stem.
+    """Find the minimized titration PDB that belongs to `{base}.uind`.
 
-    Looks for `{base}.pdb_3` first (preferred — full pipeline run including
-    final Minimize after titration ManyBody), then falls back to `.pdb_4`
-    (rare; observed when extra rounds were needed) or `.pdb_2` (titration
-    ManyBody only, no final Minimize).
+    The final Minimize writes the next free `.pdb_N` (N >= 3) together with
+    `.uind`/`.uperm`.  Restarted jobs re-ran it, leaving pdb_4..pdb_6 while the
+    .uind was overwritten by the latest run, so preferring pdb_3 paired
+    geometry and dipoles from different runs.  Pick the pdb_N (N >= 3) whose
+    mtime is closest to the .uind mtime; fall back to pdb_2 (ManyBody output,
+    not minimized) only if nothing else exists.
     """
-    for ext in ("pdb_3", "pdb_4", "pdb_2"):
-        p = folder / f"{base}.{ext}"
-        if p.exists():
-            return p
-    return None
+    uind = folder / f"{base}.uind"
+    cands = []
+    for p in folder.glob(f"{base}.pdb_*"):
+        suf = p.name.rsplit("_", 1)[-1]
+        if suf.isdigit() and int(suf) >= 3:
+            cands.append(p)
+    if cands:
+        if uind.exists():
+            t = uind.stat().st_mtime
+            return min(cands, key=lambda p: abs(p.stat().st_mtime - t))
+        return max(cands, key=lambda p: int(p.name.rsplit("_", 1)[-1]))
+    p2 = folder / f"{base}.pdb_2"
+    return p2 if p2.exists() else None
 
 def find_completed_jobs(
     pdb_dir: str,
@@ -889,6 +949,20 @@ def find_completed_jobs(
                     float(ph),
                 ))
 
+        elif mode == "genz":
+            # 03c_genz_pka_jobs.py: final minimise of the reference-pH GenZ structure
+            fin = folder / "final"
+            if not (fin / "DONE").exists():
+                continue
+            uind = fin / f"{pdb_id}_ref.uind"
+            uperm = fin / f"{pdb_id}_ref.uperm"
+            pdbs = sorted(fin.glob(f"{pdb_id}_ref.pdb_*"), key=lambda p: p.stat().st_mtime)
+            if not pdbs or not uind.exists():
+                log.debug(f"  {pdb_id}: genz final outputs missing — skipping")
+                continue
+            jobs.append((pdb_id, str(pdbs[-1]), str(uind),
+                         str(uperm) if uperm.exists() else None, None))
+
         else:
             raise ValueError(f"Unknown mode: {mode!r}")
 
@@ -900,7 +974,10 @@ def find_completed_jobs(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="FFX → GNN feature builder (mode-aware)")
-    parser.add_argument("--mode", choices=["rotopt", "titrate"], default="titrate",
+    parser.add_argument("--genz-csv", default=None,
+                        help="data/genz_pka.csv from 04b_parse_genz.py; adds Phys_* residue "
+                             "features (default: used automatically in --mode genz)")
+    parser.add_argument("--mode", choices=["rotopt", "titrate", "genz"], default="titrate",
                         help="rotopt = single rotamer-optimised structure per PDB; "
                              "titrate = per-pH titration outputs (pdb_3 + .uind + .uperm)")
     parser.add_argument("--phs", type=float, nargs="+", default=DEFAULT_PHS,
@@ -921,6 +998,14 @@ def main() -> None:
     mode  = args.mode
     phs   = list(args.phs) if mode == "titrate" else []
     feat_dir = args.feat_dir or f"Graph_pKa/Features_{mode}"
+    if mode == "genz" and args.pdb_dir == PDB_DIR:
+        args.pdb_dir = str(Path(__file__).resolve().parent / "data/fixed_pdbs_v2")
+    genz_csv = args.genz_csv or (str(Path(__file__).resolve().parent / "data/genz_pka.csv") if mode == "genz" else None)
+    phys = None
+    if genz_csv:
+        phys = pd.read_csv(genz_csv, dtype={"chain": str})
+        phys["f7"] = phys["f_pH7"] if "f_pH7" in phys.columns else np.nan
+        log.info(f"Physics pKa table: {genz_csv} ({len(phys)} residues)")
     node_dir = os.path.join(feat_dir, "Node_Feature_Vectors")
     adj_dir  = os.path.join(feat_dir, "Adjacency_Matrices/With_Self_Loop")
     bond_dir = os.path.join(feat_dir, "Edge_Features")
@@ -974,12 +1059,6 @@ def main() -> None:
         log.info(f"  Matched {n_matched}/{len(df)} atoms to dipole entries")
 
         # 2b. Add permanent multipoles (by serial number) — optional
-        PERM_COLS = [
-            "Perm_Charge",
-            "Perm_DipX", "Perm_DipY", "Perm_DipZ",
-            "Perm_QuadXX", "Perm_QuadXY", "Perm_QuadYY",
-            "Perm_QuadXZ", "Perm_QuadYZ", "Perm_QuadZZ",
-        ]
         if uperm_path is not None:
             perms = parse_uperm(uperm_path)
             for idx, col in enumerate(PERM_COLS):
@@ -1029,6 +1108,20 @@ def main() -> None:
         # 6c. pH column — broadcast scalar to every atom (NaN in rotopt mode)
         df["pH"] = float(ph) if ph is not None else np.nan
 
+        # 6d. GenZpKa physics pKa (residue-level, broadcast to its atoms).
+        #     Stored relative to the FFX model-compound pKa so the scale is ~0.
+        if phys is not None:
+            key = list(zip(df["chain"], df["resseq"].astype(int), df["resname"]))
+            sub = phys[phys.pdb_id == pdb_id.upper()]
+            m = {(c, int(n), r): (p, cen, f7) for c, n, r, p, cen, f7 in
+                 zip(sub.chain, sub.res_id, sub.res_name, sub.pKa_phys, sub.censored, sub.f7)}
+            vals = [m.get(k, (np.nan, np.nan, np.nan)) for k in key]
+            ref = df["resname"].map(_FFX_MODEL_PKA)
+            df["Phys_pKa"]      = [v[0] for v in vals]          # absolute (kept for Δ-learning)
+            df["Phys_dpKa"]     = df["Phys_pKa"] - ref           # shift vs model compound
+            df["Phys_censored"] = [float(v[1]) if v[1] == v[1] else np.nan for v in vals]
+            df["Phys_f_pH7"]    = [v[2] for v in vals]
+
         # 7. Tag protein
         df["pdb_id"] = pdb_id.upper()
         df["_ph"]    = ph         # internal grouping key (None for rotopt)
@@ -1066,12 +1159,6 @@ def main() -> None:
         residue_ohe_cols.append(col)
 
     # ── Generate per-residue outputs ─────────────────────────────────────────
-    PERM_COLS = [
-        "Perm_Charge",
-        "Perm_DipX", "Perm_DipY", "Perm_DipZ",
-        "Perm_QuadXX", "Perm_QuadXY", "Perm_QuadYY",
-        "Perm_QuadXZ", "Perm_QuadYZ", "Perm_QuadZZ",
-    ]
     base_feature_cols = residue_ohe_cols + [
         "atom_label",
         "recalculated_x",
@@ -1086,7 +1173,7 @@ def main() -> None:
         "SASA_Value",
         "is_protonated",
         "pH",
-    ]
+    ] + (["Phys_pKa", "Phys_dpKa", "Phys_censored", "Phys_f_pH7"] if phys is not None else [])
 
     n_adj_saved  = 0
     n_feat_saved = 0

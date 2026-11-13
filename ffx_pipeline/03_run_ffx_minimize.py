@@ -1,3 +1,35 @@
+"""
+03_run_ffx_minimize.py   — SUPERSEDED by 03c_genz_pka_jobs.py (2026-11-11)
+
+Known problems with this generator (kept for reproducing the v1 results):
+  * reads data/fixed_pdbs (v1: no SSBOND records → every disulfide broken)
+  * whole-protein ManyBody rotamer job (the slow step for large proteins)
+  * FFX_MEMORY never set → ffxc ran with its 4G default heap (the "-m 22G"
+    only applies to the background Scheduler) → OOM on 3WU2 etc.
+  * requests ngpus=1 although FFX ran on CPU (no OpenMM platform set)
+  * --kPH 3.0 restrains states toward the model compound; 4-pH grid can't
+    resolve LYS/TYR/CYS
+  * final Minimize not guarded → restarts create extra .pdb_N files
+
+Generate and optionally submit SGE job scripts for:
+  1. Rotamer job  (rot_{pdb_id}.job)
+     Coarse minimize + ManyBody rotamer optimisation.
+     Output: {pdb_stem}.pdb_3
+
+  2. Per-pH titration jobs  ({pdb_id}_titrate_pH{ph}.job)  — one per TITRATION_PHS
+     Copies rotopt output, runs titration ManyBody, then final minimize with
+     --saveInduced.
+     Output: {pdb_dir}/{pdb_id}_pH{ph}.pdb_2.uind / .uperm
+
+Flags:
+  --dry       Generate scripts but do not submit to SGE.
+  --force     Regenerate + resubmit even if outputs already exist.
+              Combined with --dry: regenerates all scripts without submitting.
+  --rotamer   Submit/generate only rotamer jobs (skip titration).
+  --titrate   Submit/generate only titration jobs (skip rotamer).
+  --ph <X>    Submit/generate titration jobs only at pH X (implies --titrate).
+              Multiple --ph flags are supported (e.g. --ph 3.94 --ph 6.45).
+"""
 
 import os
 import sys
