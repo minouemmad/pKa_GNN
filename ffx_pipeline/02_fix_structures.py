@@ -225,6 +225,14 @@ def preprocess_residues(pdb_path, out_path):
     # A chain is truly empty only if it has zero kept atoms
     empty_chains = chain_strip - chain_keep
 
+    # Chains whose IDs differ only by case (3WU2: PSII dimer, chains A-Z and a-z).
+    # FFX matches SSBOND chain IDs case-insensitively, so the "o" disulfide is
+    # also applied to chain "O" (SG bonded twice -> "No AngleType 12 12 12").
+    # The lowercase copy is the second, equivalent half of the assembly; drop it.
+    all_chains = chain_strip | chain_keep
+    case_twins = {c for c in all_chains if c.islower() and c.upper() in all_chains}
+    empty_chains |= case_twins
+
     # ── Pass 2: write filtered file ──────────────────────────────────────────
     remapped  = []
     stripped  = []
@@ -292,6 +300,8 @@ def preprocess_residues(pdb_path, out_path):
     with open(out_path, "w") as f:
         f.writelines(lines_out)
 
+    if case_twins:
+        stripped.append("case-twin chains " + "".join(sorted(case_twins)))
     return sorted(set(remapped)), sorted(set(stripped))
 
 
@@ -322,6 +332,23 @@ def _ssbond_line(serial: int, a: tuple, b: tuple) -> str:
             f"CYS {ch2:1s} {num2:>4s}{ic2:1s}\n")
 
 
+_LABELLED_CYS = None
+
+
+def _labelled_cys(pdb_id: str) -> set:
+    """Residue numbers (as strings) of Cys with an experimental pKa in the manifest."""
+    global _LABELLED_CYS
+    if _LABELLED_CYS is None:
+        _LABELLED_CYS = {}
+        if os.path.exists(MANIFEST):
+            with open(MANIFEST, newline="") as f:
+                for r in csv.DictReader(f):
+                    if r["res_name"].strip().upper() == "CYS":
+                        _LABELLED_CYS.setdefault(r["pdb_id"].strip().upper(), set()).add(
+                            str(r["res_id"]).strip())
+    return _LABELLED_CYS.get(pdb_id.upper(), set())
+
+
 def add_ssbond_records(pdb_path: str, cutoff: float = SSBOND_CUTOFF) -> int:
     """Detect Cys SG–SG pairs within *cutoff* Å and prepend SSBOND records.
 
@@ -343,11 +370,19 @@ def add_ssbond_records(pdb_path: str, cutoff: float = SSBOND_CUTOFF) -> int:
             if d <= cutoff:
                 pairs.append((d, i, j))
     pairs.sort()
+    titrated = _labelled_cys(Path(pdb_path).parent.name)
     used, bonds = set(), []
     for d, i, j in pairs:
         if i in used or j in used:
             continue
         used.update((i, j))
+        # A Cys with a measured pKa was titrated as a free thiol (reduced
+        # thioredoxin/DsbA/glutaredoxin active sites; the crystal is usually the
+        # oxidised form).  Bonding it makes the site non-titratable in FFX and
+        # PROPKA returns its 99.99 sentinel, so leave that pair unbonded - in
+        # every chain copy, since labels are given for one chain only.
+        if sg[i][0][1] in titrated or sg[j][0][1] in titrated:
+            continue
         bonds.append((sg[i][0], sg[j][0]))
     body = [l for l in lines if not l.startswith("SSBOND")]
     first_coord = next((k for k, l in enumerate(body)
